@@ -11,6 +11,17 @@ const MUTED = "#737780";
 const BORDER = "#E4E6EA";
 const SOFT_BG = "#F5F6F8";
 
+const PROFILE_IMAGE_BY_ID = {
+  "kim-yusung": {
+    src: "https://www.eruty.co.kr/images/common/ceo.png",
+    alt: "Yusung Kim",
+  },
+  "park-sangil": {
+    src: "https://www.eruty.co.kr/images/common/coo.png",
+    alt: "Sangil Park",
+  },
+} as const;
+
 // ── 데이터 타입 ───────────────────────────────────────────────────────────────
 
 type CapabilityArea = "global" | "content" | "ai" | "software" | "infra";
@@ -29,13 +40,13 @@ const T = {
     ],
     leadershipLabel: "Leadership",
     leadershipHeadline: "이루티를 이끄는 리더십",
-    photoPlaceholder: "사진 업데이트 예정",
-    namePlaceholderNote: "이름 정보 업데이트 예정",
+    photoPlaceholder: "프로필 이미지 없음",
+    namePlaceholderNote: "",
     responsibilityLabel: "주요 책임",
     introLabel: "소개",
     careerLabel: "주요 경력",
     roleLabel: "이루티에서의 역할",
-    moreLeadershipNote: "추가 리더십 프로필 업데이트 예정",
+    moreLeadershipNote: "ERUTY는 경영, 사업, 연구개발, 엔지니어링 리더십이 함께 실행 중심의 조직을 이끌고 있습니다.",
     capabilitiesLabel: "Capabilities",
     capabilitiesHeadline: "하나의 프로젝트를 완성하는\n다섯 가지 전문 역량",
     responsibilityCol: "주요 책임",
@@ -52,11 +63,11 @@ const T = {
       { key: "software" as const, label: "소프트웨어" },
       { key: "infra" as const, label: "인프라" },
     ],
-    memberNameNote: "이름 업데이트 예정",
-    memberPhotoNote: "사진 예정",
+    memberNameNote: "",
+    memberPhotoNote: "프로필 이미지 없음",
     memberDetailBtn: "상세 보기",
-    moreMembers: "추가 구성원\n업데이트 예정",
-    modalNameNote: "이름 업데이트 예정",
+    moreMembers: "리더십 중심\n구성원 개요",
+    modalNameNote: "",
     modalResponsibility: "담당 업무",
     modalCareer: "주요 경력",
     modalExpertise: "전문 분야",
@@ -86,33 +97,82 @@ const T = {
     } as Record<CapabilityArea, string>,
     leaders: [
       {
-        id: "l1",
-        namePlaceholder: "대표이사",
+        id: "kim-yusung",
+        namePlaceholder: "김유성",
         title: "대표이사 / CEO",
-        responsibility: "글로벌 사업 전략 총괄, 핵심 파트너십 리드",
-        intro: "약력 및 경력 정보는 업데이트 예정입니다. 정보 추가 전까지 이 텍스트를 실제 내용으로 교체해 주세요.",
-        experience: ["경력 정보 입력 예정", "경력 정보 입력 예정", "경력 정보 입력 예정"],
-        erutyRole: "글로벌 비즈니스 전략 수립, 주요 파트너십 계약, 사업 방향 결정",
+        responsibility: "회사 경영, 글로벌 사업 전략, 신규 사업 개발과 주요 파트너십 총괄",
+        intro: "주식회사 이루티의 창업자이자 대표이사로서 회사의 경영, 글로벌 사업 전략, 신규 사업 개발, 주요 국내외 파트너십과 AX 사업을 총괄합니다.",
+        experience: [
+          "2024 창업성장기술개발사업 R&D 사업 수주",
+          "2024 블록체인 기술 사업화 지원 사업 수주",
+          "2024 블록체인 기반 저작권 관리 기술 특허 개발 및 등록",
+          "2023 청년창업사관학교 수료",
+          "2022 예비창업패키지 최우수 수료",
+          "2022~현재 이루티 대표",
+          "2019~2022 메타오션 창업팀 대표",
+        ],
+        erutyRole: "회사의 경영과 사업 방향을 결정하고 글로벌 시장 확장, 주요 파트너십, Hitpick과 이룸터 사업을 총괄합니다.",
       },
       {
-        id: "l2",
-        namePlaceholder: "최고기술책임자",
-        title: "CTO / Chief Technology Officer",
-        responsibility: "AI 기술, 소프트웨어 개발, 기술 인프라 총괄",
-        intro: "약력 및 경력 정보는 업데이트 예정입니다. 정보 추가 전까지 이 텍스트를 실제 내용으로 교체해 주세요.",
-        experience: ["경력 정보 입력 예정", "경력 정보 입력 예정", "경력 정보 입력 예정"],
-        erutyRole: "AI 시스템 설계, 소프트웨어 아키텍처, 기술 파트너십 관리",
+        id: "park-sangil",
+        namePlaceholder: "박상일",
+        title: "부대표 / COO & CBO",
+        responsibility: "기업 운영, 사업 전략, 글로벌 성장과 주요 비즈니스 파트너십 총괄",
+        intro: "금융, 투자, 디지털 사업과 기업 운영 분야의 경험을 바탕으로 이루티의 사업 전략, 기업 운영과 글로벌 성장을 총괄합니다.",
+        experience: [
+          "2025~현재 이루티 부대표",
+          "전 에이트원 부사장",
+          "전 카사코리아 COO",
+          "한국투자공사 KIC 창립 멤버",
+          "현대캐피탈·현대카드 경력",
+          "금융·투자 및 디지털 사업 운영 경험",
+          "연세대학교 졸업",
+          "미국 시라큐스대학교 행정학 석사",
+        ],
+        erutyRole: "회사 운영 체계, 신규 사업과 수익모델, 글로벌 성장 전략과 주요 기업·금융 파트너십을 총괄합니다.",
+      },
+      {
+        id: "lee-kihong",
+        namePlaceholder: "이기홍 박사",
+        title: "기업부설연구소장 / AI·데이터 연구개발 총괄",
+        responsibility: "기업부설연구소 운영과 AI·데이터 연구개발 총괄",
+        intro: "금융시장, 포트폴리오와 리스크 관리, 머신러닝 기반 투자 리서치 분야의 전문가입니다. 금융기관의 자산운용과 대체투자 실무, 금융공학과 퀀트투자 교육 경험을 바탕으로 이루티 기업부설연구소의 AI·데이터 연구개발을 총괄합니다.",
+        experience: [
+          "카네기멜론대학교 석사",
+          "피츠버그대학교 Finance Ph.D",
+          "KAIST 경영대학 겸임교수",
+          "CFA·FRM 보유",
+          "삼성생명 자산운용 및 포트폴리오 운용 경험",
+          "HSBC 금융 업무 경험",
+          "새마을금고중앙회 자산운용 경험",
+          "한국투자공사 금융 및 투자 업무 경험",
+          "국내외 사모펀드·대체투자 관련 실무 경험",
+          "금융공학·머신러닝·퀀트투자 관련 저술 및 번역 경험",
+          "금융 AI 교육 Lead Instructor",
+        ],
+        erutyRole: "기업부설연구소 운영, AI·데이터 연구개발 로드맵, 금융 데이터 분석, 투자 리서치 자동화와 AI 기반 의사결정 지원 기술 연구를 총괄합니다.",
+      },
+      {
+        id: "kim-jinhyuk",
+        namePlaceholder: "김진혁",
+        title: "개발 총괄 이사",
+        responsibility: "AI·소프트웨어 개발 조직과 프로젝트 기술 실행 총괄",
+        intro: "이루티의 개발 총괄 이사로서 AI·소프트웨어 프로젝트의 기술 방향, 개발 조직 운영, 서비스 구현, 프로젝트 일정과 품질 관리를 총괄합니다.",
+        experience: [
+          "공개된 세부 경력 정보는 추후 확정 시 반영 예정",
+          "AI·소프트웨어 프로젝트 기술 실행 총괄",
+          "서비스 아키텍처 및 개발 계획 검토",
+          "프론트엔드·백엔드·인프라 개발 조율",
+          "개발 일정과 품질 관리 및 서비스 운영 총괄",
+        ],
+        erutyRole: "개발 조직 총괄, AI·소프트웨어 프로젝트 기술 방향 수립, 서비스 아키텍처와 개발 계획 검토, 서비스 배포와 운영 관리를 담당합니다.",
       },
     ],
     teamMembers: [
-      { id: "m1", namePlaceholder: "글로벌 BD 담당자", title: "Business Development Manager", area: "global" as CapabilityArea, shortResponsibility: "해외 시장 파트너 발굴 및 계약 관리", fullResponsibility: "아시아·유럽 시장의 신규 파트너 발굴, 배급 계약 협상 및 사후 관리를 담당합니다.", career: ["경력 정보 입력 예정", "경력 정보 입력 예정"], expertise: ["파트너십 협상", "해외 배급", "계약 관리"], projects: ["베트남 OTT 배급 계약", "유럽 IP 라이선싱"] },
-      { id: "m2", namePlaceholder: "전략 기획 담당자", title: "Strategy & Planning", area: "global" as CapabilityArea, shortResponsibility: "시장 분석 및 사업 기회 평가", fullResponsibility: "글로벌 시장 동향과 경쟁 환경을 분석하고 신규 사업 기회를 평가·제안합니다.", career: ["경력 정보 입력 예정", "경력 정보 입력 예정"], expertise: ["시장 분석", "전략 기획", "리서치"], projects: ["중동 시장 조사", "북미 사업 검토"] },
-      { id: "m3", namePlaceholder: "콘텐츠 파트너십 담당자", title: "Content Partnership Manager", area: "content" as CapabilityArea, shortResponsibility: "콘텐츠 IP 거래 및 배급 파트너 관리", fullResponsibility: "한국 콘텐츠 IP 투자·공동제작·배급 파트너십을 발굴하고 계약부터 실행까지 총괄합니다.", career: ["경력 정보 입력 예정", "경력 정보 입력 예정"], expertise: ["IP 거래", "콘텐츠 배급", "공동제작"], projects: ["동남아 콘텐츠 배급", "IP 블록체인 연동"] },
-      { id: "m4", namePlaceholder: "브랜드·커머스 담당자", title: "Brand & Commerce Lead", area: "content" as CapabilityArea, shortResponsibility: "브랜드 협업 및 크리에이터 커머스 기획", fullResponsibility: "글로벌 브랜드와 크리에이터 협업 캠페인을 기획하고 커머스 수익화 구조를 설계합니다.", career: ["경력 정보 입력 예정", "경력 정보 입력 예정"], expertise: ["브랜드 마케팅", "크리에이터 이코노미", "커머스"], projects: ["K-브랜드 글로벌 캠페인", "크리에이터 네트워크 구축"] },
-      { id: "m5", namePlaceholder: "AI 연구 개발자", title: "AI Research Engineer", area: "ai" as CapabilityArea, shortResponsibility: "AI 모델 연구 및 자체 시스템 개발", fullResponsibility: "LLM 기반 AI 에이전트, 감성 분석 시스템, 콘텐츠 추천 알고리즘을 연구하고 개발합니다.", career: ["경력 정보 입력 예정", "경력 정보 입력 예정"], expertise: ["LLM", "NLP", "AI 에이전트", "데이터 파이프라인"], projects: ["AI 감성 분석 시스템", "AX 교육 AI 모듈"] },
-      { id: "m6", namePlaceholder: "데이터 엔지니어", title: "Data Engineer", area: "ai" as CapabilityArea, shortResponsibility: "데이터 파이프라인 설계 및 분석 인프라 운영", fullResponsibility: "파트너 데이터 수집·정제·분석 파이프라인을 설계하고 비즈니스 인텔리전스를 지원합니다.", career: ["경력 정보 입력 예정", "경력 정보 입력 예정"], expertise: ["데이터 파이프라인", "ETL", "BI 대시보드"], projects: ["글로벌 파트너 데이터 분석", "콘텐츠 성과 측정"] },
-      { id: "m7", namePlaceholder: "풀스택 개발자", title: "Full-Stack Engineer", area: "software" as CapabilityArea, shortResponsibility: "비즈니스 플랫폼 및 SaaS 제품 개발", fullResponsibility: "파트너 관리 플랫폼, 콘텐츠 유통 시스템, 내부 운영 도구를 설계하고 개발합니다.", career: ["경력 정보 입력 예정", "경력 정보 입력 예정"], expertise: ["React", "Node.js", "TypeScript", "클라우드 인프라"], projects: ["파트너 포털 개발", "AX 교육 플랫폼"] },
-      { id: "m8", namePlaceholder: "블록체인 개발자", title: "Blockchain Engineer", area: "infra" as CapabilityArea, shortResponsibility: "스마트 계약 및 IP 권리 관리 인프라 개발", fullResponsibility: "콘텐츠 IP의 스마트 계약 기반 권리 등록·관리·거래 인프라를 설계하고 운영합니다.", career: ["경력 정보 입력 예정", "경력 정보 입력 예정"], expertise: ["Solidity", "Web3", "스마트 계약", "NFT 인프라"], projects: ["IP 블록체인 인프라 배포", "온체인 권리 관리"] },
+      { id: "kim-yusung", namePlaceholder: "김유성", title: "대표이사 / CEO", area: "global" as CapabilityArea, shortResponsibility: "회사 경영과 글로벌 사업 전략 총괄", fullResponsibility: "회사의 경영, 글로벌 사업 전략, 신규 사업 개발, 주요 국내외 파트너십과 AX 사업 전반을 총괄합니다.", career: ["2024 창업성장기술개발사업 R&D 사업 수주", "2024 블록체인 기술 사업화 지원 사업 수주", "2024 블록체인 기반 저작권 관리 기술 특허 개발 및 등록", "2023 청년창업사관학교 수료", "2022 예비창업패키지 최우수 수료", "2022~현재 이루티 대표", "2019~2022 메타오션 창업팀 대표"], expertise: ["회사 경영", "글로벌 사업 전략", "신규 사업 개발", "주요 파트너십", "AX 사업"], projects: ["글로벌 시장 확장", "주요 국내외 파트너십", "Hitpick 사업 총괄", "이룸터 사업 총괄"] },
+      { id: "park-sangil", namePlaceholder: "박상일", title: "부대표 / COO & CBO", area: "content" as CapabilityArea, shortResponsibility: "기업 운영과 사업 전략, 글로벌 성장 총괄", fullResponsibility: "기업 운영 체계, 신규 사업과 수익모델, 글로벌 성장 전략, 주요 기업·금융 파트너십을 총괄합니다.", career: ["2025~현재 이루티 부대표", "전 에이트원 부사장", "전 카사코리아 COO", "한국투자공사 KIC 창립 멤버", "현대캐피탈·현대카드 경력", "연세대학교 졸업", "미국 시라큐스대학교 행정학 석사"], expertise: ["기업 운영", "사업 전략", "글로벌 성장", "기업·금융 파트너십", "신규 수익모델"], projects: ["운영 체계 고도화", "신규 사업 모델 기획", "글로벌 성장 전략", "핵심 파트너십 개발"] },
+      { id: "lee-kihong", namePlaceholder: "이기홍 박사", title: "기업부설연구소장 / AI·데이터 연구개발 총괄", area: "ai" as CapabilityArea, shortResponsibility: "기업부설연구소와 AI·데이터 R&D 총괄", fullResponsibility: "기업부설연구소 운영, AI·데이터 연구개발 로드맵, 금융 데이터 분석, 투자 리서치 자동화, AI 기반 의사결정 지원 기술 연구를 총괄합니다.", career: ["카네기멜론대학교 석사", "피츠버그대학교 Finance Ph.D", "KAIST 경영대학 겸임교수", "CFA·FRM 보유", "삼성생명 자산운용 및 포트폴리오 운용 경험", "HSBC 금융 업무 경험", "새마을금고중앙회 자산운용 경험", "한국투자공사 금융 및 투자 업무 경험"], expertise: ["AI·데이터 연구개발", "금융 데이터 분석", "포트폴리오·리스크 관리", "머신러닝 기반 투자 리서치", "금융 AI 교육"], projects: ["기업부설연구소 운영", "AI·데이터 연구개발 로드맵", "투자 리서치 자동화", "AI 기반 의사결정 지원 기술 연구"] },
+      { id: "kim-jinhyuk", namePlaceholder: "김진혁", title: "개발 총괄 이사", area: "software" as CapabilityArea, shortResponsibility: "AI·소프트웨어 프로젝트 기술 실행 총괄", fullResponsibility: "AI·소프트웨어 프로젝트의 기술 방향, 개발 조직 운영, 서비스 구현, 프로젝트 일정과 품질 관리, 서비스 배포와 운영을 총괄합니다.", career: ["공개된 세부 경력 정보는 추후 확정 시 반영 예정", "AI·소프트웨어 프로젝트 기술 실행 총괄", "서비스 아키텍처 및 개발 계획 검토", "프론트엔드·백엔드·인프라 개발 조율"], expertise: ["소프트웨어 개발", "AI·소프트웨어 프로젝트", "서비스 아키텍처", "개발 조직 운영", "프로젝트 일정 및 품질 관리", "서비스 배포와 운영"], projects: ["개발 조직 총괄", "기술 방향 수립", "서비스 아키텍처 검토", "서비스 배포와 운영 관리"] },
     ],
     capabilityGroups: [
       { id: "global", title: "Global Business", titleKo: "글로벌 비즈니스", responsibility: "해외 시장 진출 전략, 파트너십 개발, 배급 계약 실행", capabilities: ["시장 분석 & 기회 평가", "파트너 네트워크 운영", "배급 계약 협상", "IP 라이선싱"], contribution: "프로젝트 초기에 시장과 파트너를 특정하고, 계약과 실행 구조를 정의합니다.", areaKey: "global" as CapabilityArea },
@@ -141,13 +201,13 @@ const T = {
     ],
     leadershipLabel: "Leadership",
     leadershipHeadline: "Leadership Driving ERUTY",
-    photoPlaceholder: "Photo to be updated",
-    namePlaceholderNote: "Name to be updated",
+    photoPlaceholder: "No profile image",
+    namePlaceholderNote: "",
     responsibilityLabel: "Key Responsibilities",
     introLabel: "Introduction",
     careerLabel: "Career History",
     roleLabel: "Role at ERUTY",
-    moreLeadershipNote: "Additional leadership profiles to be updated",
+    moreLeadershipNote: "ERUTY is led by an execution-focused leadership team spanning management, business, R&D, and engineering.",
     capabilitiesLabel: "Capabilities",
     capabilitiesHeadline: "Five Specialized Capabilities\nCompleting One Project",
     responsibilityCol: "Key Responsibilities",
@@ -164,11 +224,11 @@ const T = {
       { key: "software" as const, label: "Software" },
       { key: "infra" as const, label: "Infrastructure" },
     ],
-    memberNameNote: "Name to be updated",
-    memberPhotoNote: "Photo pending",
+    memberNameNote: "",
+    memberPhotoNote: "No profile image",
     memberDetailBtn: "View Details",
-    moreMembers: "More members\nto be updated",
-    modalNameNote: "Name to be updated",
+    moreMembers: "Cross-functional\nleadership overview",
+    modalNameNote: "",
     modalResponsibility: "Responsibilities",
     modalCareer: "Career History",
     modalExpertise: "Expertise",
@@ -198,33 +258,82 @@ const T = {
     } as Record<CapabilityArea, string>,
     leaders: [
       {
-        id: "l1",
-        namePlaceholder: "CEO",
-        title: "CEO / Chief Executive Officer",
-        responsibility: "Global business strategy oversight, key partnership lead",
-        intro: "Background and career information to be updated. Please replace this text with actual content before publishing.",
-        experience: ["Career info to be added", "Career info to be added", "Career info to be added"],
-        erutyRole: "Global business strategy formulation, major partnership contracts, business direction decisions",
+        id: "kim-yusung",
+        namePlaceholder: "Yusung Kim",
+        title: "Founder & CEO",
+        responsibility: "Leads corporate management, global business strategy, new business development, and key partnerships",
+        intro: "Founder and CEO of ERUTY, leading corporate management, global business strategy, new business development, key partnerships, and AX transformation.",
+        experience: [
+          "2024 Awarded a Startup Growth Technology Development R&D project",
+          "2024 Awarded a blockchain technology commercialization support project",
+          "2024 Developed and registered a blockchain-based copyright management technology patent",
+          "2023 Completed the Youth Startup Academy program",
+          "2022 Top completion award, Preliminary Startup Package",
+          "2022–Present CEO, ERUTY",
+          "2019–2022 Team Lead, MetaOcean founding team",
+        ],
+        erutyRole: "Leads ERUTY’s corporate direction, global expansion, key partnerships, and the Hitpick and Erumter businesses.",
       },
       {
-        id: "l2",
-        namePlaceholder: "CTO",
-        title: "CTO / Chief Technology Officer",
-        responsibility: "AI technology, software development, technical infrastructure oversight",
-        intro: "Background and career information to be updated. Please replace this text with actual content before publishing.",
-        experience: ["Career info to be added", "Career info to be added", "Career info to be added"],
-        erutyRole: "AI system design, software architecture, technology partnership management",
+        id: "park-sangil",
+        namePlaceholder: "Sangil Park",
+        title: "Vice President / COO & CBO",
+        responsibility: "Leads corporate operations, business strategy, global growth, and major business partnerships",
+        intro: "Drawing on extensive experience in finance, investment, digital business, and corporate operations, he leads ERUTY’s business strategy, operations, and global growth.",
+        experience: [
+          "2025–Present Vice President, ERUTY",
+          "Former Executive Vice President, EightOne",
+          "Former COO, Casa Korea",
+          "Founding member, Korea Investment Corporation (KIC)",
+          "Experience at Hyundai Capital and Hyundai Card",
+          "Leadership across finance, investment, and digital business operations",
+          "Yonsei University",
+          "M.P.A., Syracuse University",
+        ],
+        erutyRole: "Leads corporate operations, new business models, global growth strategy, and major corporate and financial partnerships.",
+      },
+      {
+        id: "lee-kihong",
+        namePlaceholder: "Ki Hong Lee",
+        title: "Head of R&D Center / AI & Data Research Lead",
+        responsibility: "Leads the corporate R&D center and AI and data research initiatives",
+        intro: "An expert in financial markets, portfolio and risk management, and machine-learning-based investment research. Drawing on experience in institutional asset management, alternative investments, financial engineering, and quantitative finance education, he leads AI and data research at ERUTY’s R&D Center.",
+        experience: [
+          "M.S., Carnegie Mellon University",
+          "Ph.D. in Finance, University of Pittsburgh",
+          "Adjunct Professor, KAIST College of Business",
+          "CFA and FRM holder",
+          "Asset management and portfolio management experience at Samsung Life Insurance",
+          "Financial services experience at HSBC",
+          "Asset management experience at the National Credit Union Federation of Korea",
+          "Finance and investment experience at Korea Investment Corporation",
+          "Hands-on experience in domestic and international private equity and alternative investments",
+          "Authoring and translation experience in financial engineering, machine learning, and quantitative investing",
+          "Lead instructor for financial AI education",
+        ],
+        erutyRole: "Leads ERUTY’s R&D Center, AI and data research roadmap, financial data analysis, investment research automation, and AI-powered decision support research.",
+      },
+      {
+        id: "kim-jinhyuk",
+        namePlaceholder: "Jinhyuk Kim",
+        title: "Director of Engineering",
+        responsibility: "Leads AI and software engineering execution across the organization",
+        intro: "As Director of Engineering at ERUTY, he leads the technical direction of AI and software projects, engineering operations, service delivery, project schedules, and quality management.",
+        experience: [
+          "Detailed public career history is pending confirmation",
+          "Leads technical execution across AI and software projects",
+          "Reviews service architecture and development plans",
+          "Coordinates frontend, backend, and infrastructure development",
+          "Oversees delivery schedules, quality, deployment, and operations",
+        ],
+        erutyRole: "Leads ERUTY’s engineering organization, establishes technical direction for AI and software projects, reviews architecture and development plans, and oversees deployment and operations.",
       },
     ],
     teamMembers: [
-      { id: "m1", namePlaceholder: "Global BD Manager", title: "Business Development Manager", area: "global" as CapabilityArea, shortResponsibility: "Overseas market partner discovery and contract management", fullResponsibility: "Responsible for discovering new partners in Asia and Europe markets, negotiating distribution contracts, and post-contract management.", career: ["Career info to be added", "Career info to be added"], expertise: ["Partnership Negotiation", "Overseas Distribution", "Contract Management"], projects: ["Vietnam OTT Distribution Contract", "European IP Licensing"] },
-      { id: "m2", namePlaceholder: "Strategy Planner", title: "Strategy & Planning", area: "global" as CapabilityArea, shortResponsibility: "Market analysis and business opportunity evaluation", fullResponsibility: "Analyzes global market trends and competitive landscape, evaluating and proposing new business opportunities.", career: ["Career info to be added", "Career info to be added"], expertise: ["Market Analysis", "Strategic Planning", "Research"], projects: ["Middle East Market Research", "North America Business Review"] },
-      { id: "m3", namePlaceholder: "Content Partnership Manager", title: "Content Partnership Manager", area: "content" as CapabilityArea, shortResponsibility: "Content IP deals and distribution partner management", fullResponsibility: "Discovers and oversees Korean content IP investment, co-production, and distribution partnerships from contract through execution.", career: ["Career info to be added", "Career info to be added"], expertise: ["IP Deals", "Content Distribution", "Co-production"], projects: ["Southeast Asia Content Distribution", "IP Blockchain Integration"] },
-      { id: "m4", namePlaceholder: "Brand & Commerce Lead", title: "Brand & Commerce Lead", area: "content" as CapabilityArea, shortResponsibility: "Brand collaboration and creator commerce planning", fullResponsibility: "Plans global brand and creator collaboration campaigns and designs commerce monetization structures.", career: ["Career info to be added", "Career info to be added"], expertise: ["Brand Marketing", "Creator Economy", "Commerce"], projects: ["K-Brand Global Campaign", "Creator Network Building"] },
-      { id: "m5", namePlaceholder: "AI Research Engineer", title: "AI Research Engineer", area: "ai" as CapabilityArea, shortResponsibility: "AI model research and in-house system development", fullResponsibility: "Researches and develops LLM-based AI agents, sentiment analysis systems, and content recommendation algorithms.", career: ["Career info to be added", "Career info to be added"], expertise: ["LLM", "NLP", "AI Agents", "Data Pipelines"], projects: ["AI Sentiment Analysis System", "AX Training AI Module"] },
-      { id: "m6", namePlaceholder: "Data Engineer", title: "Data Engineer", area: "ai" as CapabilityArea, shortResponsibility: "Data pipeline design and analytics infrastructure operations", fullResponsibility: "Designs partner data collection, cleansing, and analysis pipelines, and supports business intelligence.", career: ["Career info to be added", "Career info to be added"], expertise: ["Data Pipelines", "ETL", "BI Dashboards"], projects: ["Global Partner Data Analytics", "Content Performance Measurement"] },
-      { id: "m7", namePlaceholder: "Full-Stack Engineer", title: "Full-Stack Engineer", area: "software" as CapabilityArea, shortResponsibility: "Business platform and SaaS product development", fullResponsibility: "Designs and develops partner management platforms, content distribution systems, and internal operations tools.", career: ["Career info to be added", "Career info to be added"], expertise: ["React", "Node.js", "TypeScript", "Cloud Infrastructure"], projects: ["Partner Portal Development", "AX Training Platform"] },
-      { id: "m8", namePlaceholder: "Blockchain Engineer", title: "Blockchain Engineer", area: "infra" as CapabilityArea, shortResponsibility: "Smart contract and IP rights management infrastructure development", fullResponsibility: "Designs and operates smart contract-based rights registration, management, and transaction infrastructure for content IP.", career: ["Career info to be added", "Career info to be added"], expertise: ["Solidity", "Web3", "Smart Contracts", "NFT Infrastructure"], projects: ["IP Blockchain Infrastructure Deployment", "On-chain Rights Management"] },
+      { id: "kim-yusung", namePlaceholder: "Yusung Kim", title: "Founder & CEO", area: "global" as CapabilityArea, shortResponsibility: "Leads corporate management and global business strategy", fullResponsibility: "Leads corporate management, global business strategy, new business development, key domestic and international partnerships, and AX initiatives across ERUTY.", career: ["2024 Awarded a Startup Growth Technology Development R&D project", "2024 Awarded a blockchain technology commercialization support project", "2024 Developed and registered a blockchain-based copyright management technology patent", "2023 Completed the Youth Startup Academy program", "2022 Top completion award, Preliminary Startup Package", "2022–Present CEO, ERUTY", "2019–2022 Team Lead, MetaOcean founding team"], expertise: ["Corporate Management", "Global Business Strategy", "New Business Development", "Key Partnerships", "AX Business"], projects: ["Global expansion", "Major domestic and international partnerships", "Hitpick business leadership", "Erumter business leadership"] },
+      { id: "park-sangil", namePlaceholder: "Sangil Park", title: "Vice President / COO & CBO", area: "content" as CapabilityArea, shortResponsibility: "Leads operations, business strategy, and global growth", fullResponsibility: "Leads corporate operations, new business and revenue models, global growth strategy, and major corporate and financial partnerships.", career: ["2025–Present Vice President, ERUTY", "Former Executive Vice President, EightOne", "Former COO, Casa Korea", "Founding member, Korea Investment Corporation (KIC)", "Experience at Hyundai Capital and Hyundai Card", "Yonsei University", "M.P.A., Syracuse University"], expertise: ["Corporate Operations", "Business Strategy", "Global Growth", "Corporate and Financial Partnerships", "New Revenue Models"], projects: ["Operating model design", "New business model planning", "Global growth strategy", "Key partnership development"] },
+      { id: "lee-kihong", namePlaceholder: "Ki Hong Lee", title: "Head of R&D Center / AI & Data Research Lead", area: "ai" as CapabilityArea, shortResponsibility: "Leads the R&D center and AI/data research roadmap", fullResponsibility: "Leads ERUTY’s R&D Center, AI and data research roadmap, financial data analysis, investment research automation, and AI-powered decision support research.", career: ["M.S., Carnegie Mellon University", "Ph.D. in Finance, University of Pittsburgh", "Adjunct Professor, KAIST College of Business", "CFA and FRM holder", "Asset management and portfolio management experience at Samsung Life Insurance", "Financial services experience at HSBC", "Asset management experience at the National Credit Union Federation of Korea", "Finance and investment experience at Korea Investment Corporation"], expertise: ["AI and Data R&D", "Financial Data Analysis", "Portfolio and Risk Management", "Machine-Learning Investment Research", "Financial AI Education"], projects: ["R&D Center operations", "AI and data research roadmap", "Investment research automation", "AI-powered decision support research"] },
+      { id: "kim-jinhyuk", namePlaceholder: "Jinhyuk Kim", title: "Director of Engineering", area: "software" as CapabilityArea, shortResponsibility: "Leads technical execution for AI and software projects", fullResponsibility: "Leads the technical direction of AI and software projects, engineering operations, service delivery, project schedules, quality management, deployment, and operations.", career: ["Detailed public career history is pending confirmation", "Leads technical execution across AI and software projects", "Reviews service architecture and development plans", "Coordinates frontend, backend, and infrastructure development"], expertise: ["Software Development", "AI and Software Projects", "Service Architecture", "Engineering Operations", "Project Schedule and Quality Management", "Service Deployment and Operations"], projects: ["Engineering organization leadership", "Technical direction setting", "Architecture and development review", "Service deployment and operations"] },
     ],
     capabilityGroups: [
       { id: "global", title: "Global Business", titleKo: "Global Business", responsibility: "Overseas market entry strategy, partnership development, distribution contract execution", capabilities: ["Market Analysis & Opportunity Evaluation", "Partner Network Operations", "Distribution Contract Negotiation", "IP Licensing"], contribution: "At project initiation, identifies markets and partners, and defines contract and execution structures.", areaKey: "global" as CapabilityArea },
@@ -246,12 +355,26 @@ const T = {
 
 // ── 공통 컴포넌트 ─────────────────────────────────────────────────────────────
 
-function SmallPortrait() {
+function getProfileImage(personId: string) {
+  return PROFILE_IMAGE_BY_ID[personId as keyof typeof PROFILE_IMAGE_BY_ID];
+}
+
+function SmallPortrait({ personId, name }: { personId: string; name: string }) {
+  const profileImage = getProfileImage(personId);
+
   return (
     <div style={{ width: 80, height: 100, background: SOFT_BG, position: "relative", overflow: "hidden", flexShrink: 0 }}>
-      <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
-        <rect x="20%" y="15%" width="60%" height="70%" fill={BORDER} />
-      </svg>
+      {profileImage ? (
+        <img
+          src={profileImage.src}
+          alt={profileImage.alt || name}
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+        />
+      ) : (
+        <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
+          <rect x="20%" y="15%" width="60%" height="70%" fill={BORDER} />
+        </svg>
+      )}
     </div>
   );
 }
@@ -270,7 +393,7 @@ function HeroSection() {
   const { lang } = useLanguage();
   const t = T[lang];
   const capGroups = t.capabilityGroups;
-  const statValues = ["5", `${t.teamMembers.length}+`, "4"];
+  const statValues = ["5", `${t.teamMembers.length}`, "4"];
   return (
     <section style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
       <div className="max-w-[1440px] mx-auto px-8 pt-28 pb-0">
@@ -324,6 +447,7 @@ function LeadershipSection() {
   const leaders = t.leaders;
   const [activeIdx, setActiveIdx] = useState(0);
   const leader = leaders[activeIdx];
+  const leaderImage = getProfileImage(leader.id);
 
   return (
     <section style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
@@ -342,19 +466,29 @@ function LeadershipSection() {
                 {/* 초상 */}
                 <div className="md:col-span-4 bg-gray-50" style={{ minHeight: 260 }}>
                   <div style={{ width: "100%", height: "100%", minHeight: 260, background: SOFT_BG, position: "relative", overflow: "hidden" }}>
-                    <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
-                      <defs>
-                        <pattern id="lp-grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-                          <path d="M 24 0 L 0 0 0 24" fill="none" stroke={BORDER} strokeWidth="0.6" />
-                        </pattern>
-                      </defs>
-                      <rect width="100%" height="100%" fill="url(#lp-grid)" />
-                      <rect x="22%" y="15%" width="56%" height="70%" fill="none" stroke={BORDER} strokeWidth="1" />
-                      <rect x="32%" y="22%" width="36%" height="56%" fill={BORDER} />
-                    </svg>
-                    <div style={{ position: "absolute", bottom: 12, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
-                      <span style={{ fontSize: 10, color: MUTED, fontFamily: "var(--font-mono)", background: "#FFFFFF", padding: "2px 8px" }}>{t.photoPlaceholder}</span>
-                    </div>
+                    {leaderImage ? (
+                      <img
+                        src={leaderImage.src}
+                        alt={leaderImage.alt || leader.namePlaceholder}
+                        style={{ width: "100%", height: "100%", minHeight: 260, objectFit: "cover", display: "block" }}
+                      />
+                    ) : (
+                      <>
+                        <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
+                          <defs>
+                            <pattern id="lp-grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+                              <path d="M 24 0 L 0 0 0 24" fill="none" stroke={BORDER} strokeWidth="0.6" />
+                            </pattern>
+                          </defs>
+                          <rect width="100%" height="100%" fill="url(#lp-grid)" />
+                          <rect x="22%" y="15%" width="56%" height="70%" fill="none" stroke={BORDER} strokeWidth="1" />
+                          <rect x="32%" y="22%" width="36%" height="56%" fill={BORDER} />
+                        </svg>
+                        <div style={{ position: "absolute", bottom: 12, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
+                          <span style={{ fontSize: 10, color: MUTED, fontFamily: "var(--font-mono)", background: "#FFFFFF", padding: "2px 8px" }}>{t.photoPlaceholder}</span>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
                 {/* 텍스트 */}
@@ -362,7 +496,9 @@ function LeadershipSection() {
                   <div>
                     <div className="text-xs mb-1" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}>{leader.title}</div>
                     <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.4rem", color: NEAR_BLACK }}>{leader.namePlaceholder}</div>
-                    <div className="text-xs mt-1" style={{ color: MUTED, fontFamily: "var(--font-mono)", fontStyle: "italic" }}>{t.namePlaceholderNote}</div>
+                    {t.namePlaceholderNote && (
+                      <div className="text-xs mt-1" style={{ color: MUTED, fontFamily: "var(--font-mono)", fontStyle: "italic" }}>{t.namePlaceholderNote}</div>
+                    )}
                   </div>
                   <div>
                     <div className="text-xs mb-1.5" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.responsibilityLabel}</div>
@@ -398,7 +534,7 @@ function LeadershipSection() {
               <button key={l.id} onClick={() => setActiveIdx(i)}
                 className="flex items-center gap-4 p-4 text-left w-full cursor-pointer transition-all"
                 style={{ background: activeIdx === i ? "#FFFFFF" : "transparent", border: `1px solid ${activeIdx === i ? BLUE : "transparent"}`, borderLeft: `3px solid ${activeIdx === i ? BLUE : "transparent"}` }}>
-                <SmallPortrait />
+                <SmallPortrait personId={l.id} name={l.namePlaceholder} />
                 <div className="flex-1 min-w-0">
                   <div className="text-sm truncate" style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: activeIdx === i ? NEAR_BLACK : MUTED }}>{l.namePlaceholder}</div>
                   <div className="text-xs mt-0.5 truncate" style={{ color: activeIdx === i ? BLUE : MUTED, fontFamily: "var(--font-mono)" }}>{l.title}</div>
@@ -479,6 +615,7 @@ function CapabilityGroupsSection() {
 function MemberCard({ member, onClick, lang }: { member: typeof T["ko"]["teamMembers"][0]; onClick: () => void; lang: "ko" | "en" }) {
   const t = T[lang];
   const [hovered, setHovered] = useState(false);
+  const profileImage = getProfileImage(member.id);
   return (
     <button
       onClick={onClick}
@@ -489,24 +626,36 @@ function MemberCard({ member, onClick, lang }: { member: typeof T["ko"]["teamMem
     >
       {/* 사진 */}
       <div style={{ width: "100%", aspectRatio: "4/5", background: SOFT_BG, position: "relative", overflow: "hidden", flexShrink: 0 }}>
-        <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
-          <defs>
-            <pattern id={`mc-${member.id}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M 20 0 L 0 0 0 20" fill="none" stroke={BORDER} strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill={`url(#mc-${member.id})`} />
-          <rect x="25%" y="18%" width="50%" height="65%" fill={BORDER} />
-        </svg>
-        <div style={{ position: "absolute", bottom: 8, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
-          <span style={{ fontSize: 9, color: MUTED, fontFamily: "var(--font-mono)", background: "#FFFFFF", padding: "1px 6px" }}>{t.memberPhotoNote}</span>
-        </div>
+        {profileImage ? (
+          <img
+            src={profileImage.src}
+            alt={profileImage.alt || member.namePlaceholder}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
+        ) : (
+          <>
+            <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
+              <defs>
+                <pattern id={`mc-${member.id}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke={BORDER} strokeWidth="0.5" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill={`url(#mc-${member.id})`} />
+              <rect x="25%" y="18%" width="50%" height="65%" fill={BORDER} />
+            </svg>
+            <div style={{ position: "absolute", bottom: 8, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
+              <span style={{ fontSize: 9, color: MUTED, fontFamily: "var(--font-mono)", background: "#FFFFFF", padding: "1px 6px" }}>{t.memberPhotoNote}</span>
+            </div>
+          </>
+        )}
       </div>
       {/* 텍스트 */}
       <div className="p-4 flex flex-col gap-2">
         <div>
           <div className="text-xs" style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: NEAR_BLACK }}>{member.namePlaceholder}</div>
-          <div className="text-xs mt-0.5" style={{ color: MUTED, fontFamily: "var(--font-mono)", fontStyle: "italic" }}>{t.memberNameNote}</div>
+          {t.memberNameNote && (
+            <div className="text-xs mt-0.5" style={{ color: MUTED, fontFamily: "var(--font-mono)", fontStyle: "italic" }}>{t.memberNameNote}</div>
+          )}
         </div>
         <AreaTag area={member.area} lang={lang} />
         <div className="text-xs" style={{ color: MUTED, lineHeight: 1.5 }}>{member.shortResponsibility}</div>
@@ -575,10 +724,12 @@ function TeamDirectorySection() {
               onClick={(e) => e.stopPropagation()}>
               {/* 모달 헤더 */}
               <div className="flex items-start gap-5 p-7" style={{ borderBottom: `1px solid ${BORDER}` }}>
-                <SmallPortrait />
+                <SmallPortrait personId={selected.id} name={selected.namePlaceholder} />
                 <div className="flex-1 min-w-0">
                   <div className="text-lg mb-0.5" style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: NEAR_BLACK }}>{selected.namePlaceholder}</div>
-                  <div className="text-xs mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)", fontStyle: "italic" }}>{t.modalNameNote}</div>
+                  {t.modalNameNote && (
+                    <div className="text-xs mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)", fontStyle: "italic" }}>{t.modalNameNote}</div>
+                  )}
                   <div className="text-xs mb-3" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}>{selected.title}</div>
                   <AreaTag area={selected.area} lang={lang} />
                 </div>
