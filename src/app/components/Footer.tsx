@@ -43,10 +43,11 @@ const T = {
     contact: "연락처",
     email: "이메일",
     hq: "본사",
-    hqVal: "대한민국 서울",
-    globalNetwork: "글로벌 네트워크",
+    hqVal: "부산광역시 남구 문현금융로 40, 21층 6호",
+    branch: "서울지사",
+    branchVal: "서울특별시 영등포구 의사당대로 83, 오투타워 6층 서울핀테크랩",
     startProject: "프로젝트 시작",
-    copyright: "© 2025 이루티 주식회사. All rights reserved.",
+    copyright: "© 2026 주식회사 이루티. All rights reserved.",
     privacy: "개인정보처리방침",
     terms: "이용약관",
     cookies: "쿠키 설정",
@@ -89,10 +90,11 @@ const T = {
     contact: "Contact",
     email: "Email",
     hq: "Headquarters",
-    hqVal: "Seoul, South Korea",
-    globalNetwork: "Global Network",
+    hqVal: "21F, Suite 6, 40 Munhyeongeumyung-ro, Nam-gu, Busan, Republic of Korea",
+    branch: "Seoul Office",
+    branchVal: "6F, O2 Tower, 83 Uisadang-daero, Yeongdeungpo-gu, Seoul\nSeoul Fintech Lab",
     startProject: "Start a Project",
-    copyright: "© 2025 ERUTY Co., Ltd. All rights reserved.",
+    copyright: "© 2026 ERUTY Co., Ltd. All rights reserved.",
     privacy: "Privacy Policy",
     terms: "Terms of Service",
     cookies: "Cookie Settings",
@@ -174,11 +176,11 @@ export function Footer() {
               </div>
               <div>
                 <div className="text-xs mb-0.5" style={{ color: "rgba(255,255,255,0.2)", fontFamily: "var(--font-mono)" }}>{t.hq}</div>
-                <span>{t.hqVal}</span>
+                <span style={{ whiteSpace: "pre-line" }}>{t.hqVal}</span>
               </div>
               <div>
-                <div className="text-xs mb-0.5" style={{ color: "rgba(255,255,255,0.2)", fontFamily: "var(--font-mono)" }}>{t.globalNetwork}</div>
-                <span>SG · VN · JP · TW · DE · AE · US</span>
+                <div className="text-xs mb-0.5" style={{ color: "rgba(255,255,255,0.2)", fontFamily: "var(--font-mono)" }}>{t.branch}</div>
+                <span style={{ whiteSpace: "pre-line" }}>{t.branchVal}</span>
               </div>
             </div>
             <Link

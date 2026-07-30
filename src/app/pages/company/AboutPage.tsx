@@ -67,13 +67,14 @@ const T = {
     profileLabel: "Company Profile",
     profileFields: [
       { label: "법인명", value: "주식회사 이루티" },
-      { label: "대표자", value: "—" },
-      { label: "설립연도", value: "—" },
-      { label: "본사", value: "대한민국 서울" },
-      { label: "주요 사업", value: "글로벌 콘텐츠 비즈니스, AX 전환" },
-      { label: "기업부설연구소", value: "이루티 AI 연구소" },
-      { label: "벤처기업 인증", value: "—" },
-      { label: "연락처", value: "contact@eruty.com" },
+      { label: "대표이사", value: "김유성" },
+      { label: "설립일", value: "2022년 9월 22일" },
+      { label: "본사", value: "부산광역시 남구 문현금융로 40, 21층 6호" },
+      { label: "서울지사", value: "서울특별시 영등포구 의사당대로 83, 오투타워 6층 서울핀테크랩" },
+      { label: "주요 제품", value: "AX 기반 글로벌 확장 솔루션" },
+      { label: "기업 인증", value: "벤처기업 인증 · 기업부설연구소" },
+      { label: "특허", value: "등록 2건 · 출원 1건" },
+      { label: "대표전화", value: "070-4242-8559" },
     ],
     profilePending: "정보 업데이트 예정",
     ctaHeadline: "새로운 사업의 가능성을\n이루티와 함께 발견하세요.",
@@ -133,13 +134,14 @@ const T = {
     profileLabel: "Company Profile",
     profileFields: [
       { label: "Legal Name", value: "ERUTY Co., Ltd." },
-      { label: "CEO", value: "—" },
-      { label: "Founded", value: "—" },
-      { label: "Headquarters", value: "Seoul, South Korea" },
-      { label: "Core Business", value: "Global Content Business, AX Transformation" },
-      { label: "Corporate Lab", value: "ERUTY AI Research Lab" },
-      { label: "Venture Certification", value: "—" },
-      { label: "Contact", value: "contact@eruty.com" },
+      { label: "CEO", value: "Yusung Kim" },
+      { label: "Founded", value: "September 22, 2022" },
+      { label: "Headquarters", value: "21F, Suite 6, 40 Munhyeongeumyung-ro, Nam-gu, Busan, Republic of Korea" },
+      { label: "Seoul Office", value: "6F, O2 Tower, 83 Uisadang-daero, Yeongdeungpo-gu, Seoul, Republic of Korea\nSeoul Fintech Lab" },
+      { label: "Main Product", value: "AX-based Global Expansion Solution" },
+      { label: "Corporate Credentials", value: "Venture Company Certified · Corporate R&D Center" },
+      { label: "Patents", value: "2 Registered · 1 Application" },
+      { label: "Telephone", value: "+82-70-4242-8559" },
     ],
     profilePending: "To be updated",
     ctaHeadline: "Discover the Possibilities\nof a New Business with ERUTY.",
@@ -541,7 +543,7 @@ function ProfileSection() {
           {t.profileFields.map((f) => (
             <div key={f.label} className="flex items-baseline gap-6 px-6 py-5" style={{ background: "#FFFFFF" }}>
               <div className="w-32 flex-shrink-0 text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{f.label}</div>
-              <div className="text-sm" style={{ color: f.value === "—" ? "#C0C3C9" : NEAR_BLACK, fontFamily: "var(--font-body)", fontStyle: f.value === "—" ? "italic" : "normal" }}>
+              <div className="text-sm" style={{ color: f.value === "—" ? "#C0C3C9" : NEAR_BLACK, fontFamily: "var(--font-body)", fontStyle: f.value === "—" ? "italic" : "normal", whiteSpace: "pre-line" }}>
                 {f.value === "—" ? t.profilePending : f.value}
               </div>
             </div>
