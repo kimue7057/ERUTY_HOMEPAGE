@@ -172,7 +172,7 @@ export function Footer() {
             <div className="flex flex-col gap-3 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
               <div>
                 <div className="text-xs mb-0.5" style={{ color: "rgba(255,255,255,0.2)", fontFamily: "var(--font-mono)" }}>{t.email}</div>
-                <a href="mailto:contact@eruty.com" className="hover:text-white transition-colors">contact@eruty.com</a>
+                <a href="mailto:contact@eruty.co.kr" className="hover:text-white transition-colors">contact@eruty.co.kr</a>
               </div>
               <div>
                 <div className="text-xs mb-0.5" style={{ color: "rgba(255,255,255,0.2)", fontFamily: "var(--font-mono)" }}>{t.hq}</div>

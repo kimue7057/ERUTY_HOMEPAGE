@@ -638,7 +638,7 @@ export function StartProjectPage() {
                       >
                         {t.emailLabel}
                       </div>
-                      <span>contact@eruty.com</span>
+                      <span>contact@eruty.co.kr</span>
                     </div>
                     <div>
                       <div

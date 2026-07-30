@@ -726,7 +726,7 @@ function PartnerEcosystemSection() {
         </div>
 
         <p className="mt-8 text-sm" style={{ color: MUTED }}>
-          {t.partnerNote}<a href="mailto:contact@eruty.com" style={{ color: BLUE }}>contact@eruty.com</a>{t.partnerNoteEnd}
+          {t.partnerNote}<a href="mailto:contact@eruty.co.kr" style={{ color: BLUE }}>contact@eruty.co.kr</a>{t.partnerNoteEnd}
         </p>
       </div>
     </section>
