@@ -20,7 +20,7 @@ const MUTED = "#6E7481";
 const BORDER = "#E4E6EA";
 const SOFT_BG = "#F6F8FC";
 const CARD_BG = "#FCFCFE";
-const JOURNEY_SCROLL_GAP = 20;
+const JOURNEY_SCROLL_GAP = 24;
 
 type IdentityItem = {
   icon: LucideIcon;
@@ -74,86 +74,67 @@ const IDENTITY_ITEMS: IdentityItem[] = [
     icon: ScrollText,
     label: { ko: "지식재산", en: "Intellectual Property" },
     value: {
-      ko: "특허 등록 2건 · 출원 1건",
-      en: "2 Patents Registered · 1 Application",
+      ko: "특허 등록 2건\n출원 1건",
+      en: "2 Patents Registered\n1 Application",
     },
   },
 ];
 
 const JOURNEY_ENTRIES: JourneyEntry[] = [
   {
-    year: "2021",
+    year: "2026",
     caption: {
-      ko: "공개 현장 이미지가 없어 아카이브 비주얼로 구성했습니다.",
-      en: "Built with an archive visual because no public event image is available.",
-    },
-    items: {
-      ko: ["생애 최초 청년 창업 지원 사업 선정"],
-      en: ["Selected for the First Youth Startup Support Program"],
-    },
-    media: {
-      type: "placeholder",
-      variant: "origin",
-      alt: {
-        ko: "2021 창업 지원 기록을 상징하는 추상 아카이브 비주얼",
-        en: "Abstract archive visual representing the 2021 startup support record",
-      },
-    },
-  },
-  {
-    year: "2022",
-    caption: {
-      ko: "공개 현장 이미지가 없어 설립 시기의 아카이브 비주얼로 구성했습니다.",
-      en: "Built with an archive visual for the incorporation period because no public image is available.",
+      ko: "2026년 7월 독일 GITEX AI Europe 2026 참가 공개 사진입니다.",
+      en: "Public image from ERUTY's participation at GITEX AI Europe 2026 in Germany.",
     },
     items: {
       ko: [
-        "주식회사 이루티 법인 설립 및 사업자 등록",
-        "창업진흥원 예비창업패키지 선정 및 최우수 수료",
-        "부산시 기술 창업 인큐베이팅 지원 사업 선정",
+        "CES 2026 참가 및 히트픽(HITPICK) 소개",
+        "콘텐츠 통합 플랫폼 히트픽(HITPICK) 정식 출시",
+        "독일 GITEX AI Europe 2026 참가",
       ],
       en: [
-        "ERUTY Co., Ltd. incorporated and business registration completed",
-        "Selected for the Preliminary Startup Package and completed with top honors",
-        "Selected for the Busan technology startup incubating support program",
-      ],
-    },
-    media: {
-      type: "placeholder",
-      variant: "foundation",
-      alt: {
-        ko: "2022 설립 시기를 상징하는 추상 아카이브 비주얼",
-        en: "Abstract archive visual symbolizing the 2022 incorporation period",
-      },
-    },
-  },
-  {
-    year: "2023",
-    caption: {
-      ko: "벤처기업 인증서와 연구 기반 확립을 보여주는 공개 문서 이미지입니다.",
-      en: "Public certification imagery reflecting venture status and ERUTY's R&D foundation.",
-    },
-    items: {
-      ko: [
-        "청년창업사관학교 수료",
-        "벤처기업 인증",
-        "기업부설연구소 설립",
-      ],
-      en: [
-        "Completed Youth Startup Academy",
-        "Certified as a venture company",
-        "Established the corporate research center",
+        "Participated in CES 2026 and introduced HITPICK",
+        "Officially launched the integrated content platform HITPICK",
+        "Participated in GITEX AI Europe 2026 in Germany",
       ],
     },
     media: {
       type: "image",
-      src: "/images/company/about/journey-2023-venture.png",
+      src: "/images/company/about/journey-2026-gitex.png",
       alt: {
-        ko: "2023 벤처기업 확인서 이미지",
-        en: "2023 venture enterprise certificate",
+        ko: "독일 GITEX AI Europe 2026 현장 ERUTY 부스 사진",
+        en: "ERUTY booth at GITEX AI Europe 2026 in Germany",
       },
-      fit: "contain",
-      background: "linear-gradient(180deg, #F9FBFE 0%, #EEF3FA 100%)",
+      fit: "cover",
+    },
+  },
+  {
+    year: "2025",
+    caption: {
+      ko: "베트남 InnoEX 2025 현장 공개 사진입니다.",
+      en: "Public on-site image from ERUTY's participation at InnoEX 2025 in Vietnam.",
+    },
+    items: {
+      ko: [
+        "생성형 AI 기반 개인 맞춤형 콘텐츠 자동 생성 모델 구축",
+        "산학연 Collabo R&D 협약",
+        "베트남 InnoEX 2025 전시회 참가",
+      ],
+      en: [
+        "Built a generative AI-based personalized content auto-generation model",
+        "Signed an industry-academia-research Collabo R&D agreement",
+        "Participated in the InnoEX 2025 exhibition in Vietnam",
+      ],
+    },
+    media: {
+      type: "image",
+      src: "/images/company/about/journey-2025-vietnam.png",
+      alt: {
+        ko: "베트남 InnoEX 2025 현장 단체 사진",
+        en: "Group photo from InnoEX 2025 in Vietnam",
+      },
+      fit: "cover",
     },
   },
   {
@@ -186,59 +167,78 @@ const JOURNEY_ENTRIES: JourneyEntry[] = [
     },
   },
   {
-    year: "2025",
+    year: "2023",
     caption: {
-      ko: "베트남 InnoEX 2025 현장 공개 사진입니다.",
-      en: "Public on-site image from ERUTY's participation at InnoEX 2025 in Vietnam.",
+      ko: "벤처기업 인증서와 연구 기반 확립을 보여주는 공개 문서 이미지입니다.",
+      en: "Public certification imagery reflecting venture status and ERUTY's R&D foundation.",
     },
     items: {
       ko: [
-        "생성형 AI 기반 개인 맞춤형 콘텐츠 자동 생성 모델 구축",
-        "산학연 Collabo R&D 협약",
-        "베트남 InnoEX 2025 전시회 참가",
+        "청년창업사관학교 수료",
+        "벤처기업 인증",
+        "기업부설연구소 설립",
       ],
       en: [
-        "Built a generative AI-based personalized content auto-generation model",
-        "Signed an industry-academia-research Collabo R&D agreement",
-        "Participated in the InnoEX 2025 exhibition in Vietnam",
+        "Completed Youth Startup Academy",
+        "Certified as a venture company",
+        "Established the corporate research center",
       ],
     },
     media: {
       type: "image",
-      src: "/images/company/about/journey-2025-vietnam.png",
+      src: "/images/company/about/journey-2023-venture.png",
       alt: {
-        ko: "베트남 InnoEX 2025 현장 단체 사진",
-        en: "Group photo from InnoEX 2025 in Vietnam",
+        ko: "2023 벤처기업 확인서 이미지",
+        en: "2023 venture enterprise certificate",
       },
-      fit: "cover",
+      fit: "contain",
+      background: "linear-gradient(180deg, #F9FBFE 0%, #EEF3FA 100%)",
     },
   },
   {
-    year: "2026",
+    year: "2022",
     caption: {
-      ko: "2026년 7월 독일 GITEX AI Europe 2026 참가 공개 사진입니다.",
-      en: "Public image from ERUTY's participation at GITEX AI Europe 2026 in Germany.",
+      ko: "공개 현장 이미지가 없어 설립 시기의 아카이브 비주얼로 구성했습니다.",
+      en: "Built with an archive visual for the incorporation period because no public image is available.",
     },
     items: {
       ko: [
-        "CES 2026 참가 및 히트픽(HITPICK) 소개",
-        "콘텐츠 통합 플랫폼 히트픽(HITPICK) 정식 출시",
-        "독일 GITEX AI Europe 2026 참가",
+        "주식회사 이루티 법인 설립 및 사업자 등록",
+        "창업진흥원 예비창업패키지 선정 및 최우수 수료",
+        "부산시 기술 창업 인큐베이팅 지원 사업 선정",
       ],
       en: [
-        "Participated in CES 2026 and introduced HITPICK",
-        "Officially launched the integrated content platform HITPICK",
-        "Participated in GITEX AI Europe 2026 in Germany",
+        "ERUTY Co., Ltd. incorporated and business registration completed",
+        "Selected for the Preliminary Startup Package and completed with top honors",
+        "Selected for the Busan technology startup incubating support program",
       ],
     },
     media: {
-      type: "image",
-      src: "/images/company/about/journey-2026-gitex.png",
+      type: "placeholder",
+      variant: "foundation",
       alt: {
-        ko: "독일 GITEX AI Europe 2026 현장 ERUTY 부스 사진",
-        en: "ERUTY booth at GITEX AI Europe 2026 in Germany",
+        ko: "2022 설립 시기를 상징하는 추상 아카이브 비주얼",
+        en: "Abstract archive visual symbolizing the 2022 incorporation period",
       },
-      fit: "cover",
+    },
+  },
+  {
+    year: "2021",
+    caption: {
+      ko: "공개 현장 이미지가 없어 아카이브 비주얼로 구성했습니다.",
+      en: "Built with an archive visual because no public event image is available.",
+    },
+    items: {
+      ko: ["생애 최초 청년 창업 지원 사업 선정"],
+      en: ["Selected for the First Youth Startup Support Program"],
+    },
+    media: {
+      type: "placeholder",
+      variant: "origin",
+      alt: {
+        ko: "2021 창업 지원 기록을 상징하는 추상 아카이브 비주얼",
+        en: "Abstract archive visual representing the 2021 startup support record",
+      },
     },
   },
 ];
@@ -262,10 +262,10 @@ const COPY = {
     beginningCaption: "공식 회사소개 페이지에 공개된 이미지",
     journeyLabel: "OUR JOURNEY",
     journeyHeadline: "우리의 발자취",
-    journeyInstruction: "좌우로 스크롤하여 ERUTY의 주요 여정을 확인해 보세요.",
-    journeyRegionLabel: "ERUTY 주요 연혁 가로 스크롤 영역",
-    journeyPrev: "이전 연혁 카드 보기",
-    journeyNext: "다음 연혁 카드 보기",
+    journeyInstruction: "최근 기록부터 ERUTY의 주요 여정을 확인해 보세요.",
+    journeyRegionLabel: "ERUTY 최신순 연혁 가로 스크롤 영역",
+    journeyPrev: "더 최근 연혁 보기",
+    journeyNext: "더 이전 연혁 보기",
     journeyTail: "이루티의 여정은 지금도 계속되고 있습니다.",
     ctaHeadline: "다음 글로벌 성장을 함께 실행합니다",
     ctaPrimary: "협력 문의하기",
@@ -289,10 +289,10 @@ const COPY = {
     beginningCaption: "Public image currently used on the official company page",
     journeyLabel: "OUR JOURNEY",
     journeyHeadline: "Our journey",
-    journeyInstruction: "Scroll horizontally to explore ERUTY's key milestones.",
-    journeyRegionLabel: "ERUTY journey horizontal archive",
-    journeyPrev: "Scroll to the previous journey card",
-    journeyNext: "Scroll to the next journey card",
+    journeyInstruction: "Explore ERUTY's journey, starting with our latest milestones.",
+    journeyRegionLabel: "ERUTY latest-first journey archive",
+    journeyPrev: "View more recent milestones",
+    journeyNext: "View older milestones",
     journeyTail: "ERUTY's journey is still in motion.",
     ctaHeadline: "We execute the next stage of global growth together",
     ctaPrimary: "Partnership Inquiry",
@@ -354,28 +354,33 @@ function HeroSection() {
     >
       <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
         <div className="relative pb-16 pt-16 md:pb-20 md:pt-20 lg:min-h-[32rem] lg:pb-24 lg:pt-24">
-          <div className="relative z-10 max-w-[41rem]">
+          <div className="relative z-10 max-w-[48rem]">
             <Eyebrow>{copy.heroLabel}</Eyebrow>
             <h1
               className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
               style={{
                 color: NEAR_BLACK,
-                fontSize: "clamp(3.2rem, 6vw, 5.35rem)",
-                lineHeight: 1.02,
-                letterSpacing: "-0.055em",
+                fontSize: "clamp(2.95rem, 5vw, 4.75rem)",
+                lineHeight: 1.06,
+                letterSpacing: "-0.043em",
               }}
             >
               {renderMultilineText(copy.heroHeadline)}
             </h1>
             <p
-              className={`mt-8 max-w-[34rem] text-[1rem] leading-[1.9] text-[#4E5561] ${lang === "ko" ? "eruty-keep-all" : ""}`}
-              style={{ whiteSpace: "pre-line" }}
+              className={`mt-8 max-w-[36rem] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              style={{
+                color: "#4E5561",
+                whiteSpace: "pre-line",
+                fontSize: "clamp(0.97rem, 1.1vw, 1.08rem)",
+                lineHeight: 1.82,
+              }}
             >
               {copy.heroDescription}
             </p>
           </div>
 
-          <div className="mt-10 lg:absolute lg:right-[-3rem] lg:top-2 lg:mt-0 lg:h-[27.75rem] lg:w-[58%] xl:right-[-4rem]">
+          <div className="mt-10 lg:absolute lg:right-[-3.75rem] lg:top-2 lg:mt-0 lg:h-[27.75rem] lg:w-[56%] xl:right-[-4.25rem] xl:w-[57%]">
             <div className="relative h-[18.75rem] overflow-hidden rounded-[2rem] sm:h-[23rem] lg:h-full lg:rounded-none">
               <picture>
                 <source
@@ -385,11 +390,11 @@ function HeroSection() {
                 <img
                   src="/images/company/about/hero-approved-visual.webp"
                   alt={copy.heroAlt}
-                  className="h-full w-full select-none object-cover object-[78%_56%]"
+                  className="h-full w-full select-none object-cover object-[79%_56%]"
                   draggable={false}
                 />
               </picture>
-              <div className="absolute inset-y-0 left-0 w-[44%] bg-gradient-to-r from-white via-white/90 to-white/0 lg:w-[36%]" />
+              <div className="absolute inset-y-0 left-0 w-[46%] bg-gradient-to-r from-white via-white/90 to-white/0 lg:w-[35%]" />
               <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/80 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/45 to-transparent" />
             </div>
@@ -415,16 +420,16 @@ function IdentitySection() {
             boxShadow: "0 22px 52px rgba(12, 29, 63, 0.08)",
           }}
         >
-          <div className="grid gap-8 px-6 py-7 md:px-8 md:py-8 lg:grid-cols-[minmax(280px,360px)_1fr] lg:items-center lg:px-10">
-            <div className="max-w-[22rem]">
+          <div className="grid gap-8 px-6 py-7 md:px-8 md:py-8 lg:grid-cols-[minmax(252px,320px)_1fr] lg:items-center lg:gap-10 lg:px-10">
+            <div className="max-w-[20rem]">
               <Eyebrow>{copy.identityLabel}</Eyebrow>
               <h2
                 className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
                 style={{
                   color: NEAR_BLACK,
-                  fontSize: "clamp(2rem, 3.1vw, 2.8rem)",
-                  lineHeight: 1.12,
-                  letterSpacing: "-0.045em",
+                  fontSize: "clamp(1.9rem, 2.7vw, 2.5rem)",
+                  lineHeight: 1.14,
+                  letterSpacing: "-0.04em",
                 }}
               >
                 {renderMultilineText(copy.identityHeadline)}
@@ -432,7 +437,7 @@ function IdentitySection() {
             </div>
 
             <div
-              className="grid grid-cols-2 gap-x-5 gap-y-5 sm:grid-cols-3 lg:grid-cols-5 lg:gap-0 lg:divide-x"
+              className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:grid-cols-5 lg:gap-0 lg:divide-x"
               style={{ borderColor: BORDER }}
             >
               {IDENTITY_ITEMS.map((item) => {
@@ -441,30 +446,38 @@ function IdentitySection() {
                 return (
                   <div
                     key={item.label.en}
-                    className="flex min-h-[6.7rem] flex-col justify-center px-0 py-4 sm:px-4 sm:py-5 lg:px-5"
+                    className="flex min-h-[7rem] flex-col justify-center px-0 py-3 sm:px-4 sm:py-4 lg:px-6 lg:py-5"
                   >
-                    <div className="mb-3 flex items-center gap-3">
+                    <div className="mb-3 flex items-center">
                       <span
-                        className="flex h-9 w-9 items-center justify-center rounded-full"
+                        className="flex h-10 w-10 items-center justify-center rounded-full"
                         style={{
                           background: "rgba(55,55,242,0.08)",
                           color: BLUE,
                         }}
                       >
-                        <Icon size={16} strokeWidth={1.9} />
+                        <Icon size={18} strokeWidth={1.9} />
                       </span>
                     </div>
                     <div
-                      className="text-[0.72rem] uppercase tracking-[0.12em]"
-                      style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                      className="text-[0.78rem] uppercase"
+                      style={{
+                        color: MUTED,
+                        fontFamily: "var(--font-mono)",
+                        letterSpacing: "0.08em",
+                      }}
                     >
                       {item.label[lang]}
                     </div>
                     <div
-                      className={`mt-2 text-[1.12rem] font-[700] leading-[1.5] tracking-[-0.02em] ${lang === "ko" ? "eruty-keep-all" : ""}`}
-                      style={{ color: BLUE }}
+                      className={`${lang === "ko" ? "eruty-keep-all" : ""} mt-2 font-[700] tracking-[-0.02em]`}
+                      style={{
+                        color: BLUE,
+                        fontSize: "clamp(1rem, 1.1vw, 1.08rem)",
+                        lineHeight: 1.45,
+                      }}
                     >
-                      {item.value[lang]}
+                      {renderMultilineText(item.value[lang])}
                     </div>
                   </div>
                 );
@@ -482,25 +495,30 @@ function BeginningSection() {
   const copy = COPY[lang];
 
   return (
-    <section className="border-b py-24 md:py-28" style={{ borderColor: BORDER, background: "#FFFFFF" }}>
+    <section className="border-b py-20 md:py-24" style={{ borderColor: BORDER, background: "#FFFFFF" }}>
       <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.03fr)_minmax(0,0.97fr)] lg:gap-16">
           <div className="max-w-[35rem]">
             <Eyebrow>{copy.beginningLabel}</Eyebrow>
             <h2
               className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
               style={{
                 color: NEAR_BLACK,
-                fontSize: "clamp(2.3rem, 4vw, 3.45rem)",
-                lineHeight: 1.1,
+                fontSize: "clamp(2.25rem, 3.9vw, 3.35rem)",
+                lineHeight: 1.12,
                 letterSpacing: "-0.045em",
               }}
             >
               {renderMultilineText(copy.beginningHeadline)}
             </h2>
             <p
-              className={`mt-8 max-w-[31rem] text-[1rem] leading-[1.92] ${lang === "ko" ? "eruty-keep-all" : ""}`}
-              style={{ color: BODY_TEXT, whiteSpace: "pre-line" }}
+              className={`mt-8 max-w-[32rem] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              style={{
+                color: BODY_TEXT,
+                whiteSpace: "pre-line",
+                fontSize: "clamp(0.96rem, 1.08vw, 1.04rem)",
+                lineHeight: 1.86,
+              }}
             >
               {copy.beginningDescription}
             </p>
@@ -524,8 +542,13 @@ function BeginningSection() {
               </div>
             </figure>
             <p
-              className="mt-3 text-[0.78rem]"
-              style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+              className="mt-3"
+              style={{
+                color: MUTED,
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.8rem",
+                lineHeight: 1.55,
+              }}
             >
               {copy.beginningCaption}
             </p>
@@ -602,16 +625,16 @@ function JourneyCard({ entry, lang }: { entry: JourneyEntry; lang: Lang }) {
   return (
     <article
       data-journey-card
-      className="shrink-0 snap-start overflow-hidden rounded-[1.65rem] border bg-white"
+      className="flex shrink-0 snap-start flex-col overflow-hidden rounded-[1.75rem] border bg-white"
       style={{
-        width: "min(86vw, 17.75rem)",
+        width: "min(86vw, 20.75rem)",
         borderColor: BORDER,
-        boxShadow: "0 12px 30px rgba(16, 31, 68, 0.04)",
+        boxShadow: "0 14px 34px rgba(16, 31, 68, 0.05)",
       }}
     >
       <div
         className="overflow-hidden border-b"
-        style={{ borderColor: BORDER, aspectRatio: "1.1 / 1" }}
+        style={{ borderColor: BORDER, aspectRatio: "16 / 9" }}
       >
         {media.type === "image" ? (
           <div
@@ -622,7 +645,7 @@ function JourneyCard({ entry, lang }: { entry: JourneyEntry; lang: Lang }) {
               src={media.src}
               alt={media.alt[lang]}
               className={`h-full w-full ${
-                media.fit === "cover" ? "object-cover object-center" : "object-contain p-5"
+                media.fit === "cover" ? "object-cover object-center" : "object-contain px-5 py-4"
               }`}
               draggable={false}
             />
@@ -632,25 +655,40 @@ function JourneyCard({ entry, lang }: { entry: JourneyEntry; lang: Lang }) {
         )}
       </div>
 
-      <div className="px-5 pb-6 pt-5 sm:px-6">
+      <div className="flex flex-1 flex-col px-6 pb-7 pt-6">
         <div
-          className="text-[1.9rem] font-[800] leading-none tracking-[-0.05em]"
-          style={{ color: BLUE }}
+          data-journey-year
+          className="font-[800] leading-none tracking-[-0.05em]"
+          style={{
+            color: BLUE,
+            fontSize: "clamp(1.8rem, 2.2vw, 2.125rem)",
+          }}
         >
           {entry.year}
         </div>
-        <p className="mt-3 text-[0.76rem] leading-[1.65]" style={{ color: MUTED }}>
+        <p
+          className={`${lang === "ko" ? "eruty-keep-all" : ""} mt-3`}
+          style={{
+            color: MUTED,
+            fontSize: "clamp(0.82rem, 0.95vw, 0.875rem)",
+            lineHeight: 1.68,
+          }}
+        >
           {entry.caption[lang]}
         </p>
-        <ul className="mt-4 space-y-3">
+        <ul className="mt-4 flex-1 space-y-3">
           {entry.items[lang].map((item) => (
             <li
               key={item}
-              className={`flex gap-3 text-[0.92rem] leading-[1.72] ${lang === "ko" ? "eruty-keep-all" : ""}`}
-              style={{ color: BODY_TEXT }}
+              className={`flex gap-3 ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              style={{
+                color: BODY_TEXT,
+                fontSize: "clamp(0.94rem, 1.05vw, 1rem)",
+                lineHeight: 1.72,
+              }}
             >
               <span
-                className="mt-[0.62rem] h-[5px] w-[5px] rounded-full"
+                className="mt-[0.72rem] h-[5px] w-[5px] rounded-full"
                 style={{ background: BLUE }}
               />
               <span>{item}</span>
@@ -721,7 +759,7 @@ function JourneySection() {
     }
 
     const firstCard = scroller.querySelector<HTMLElement>("[data-journey-card]");
-    const cardWidth = firstCard?.getBoundingClientRect().width ?? 302;
+    const cardWidth = firstCard?.getBoundingClientRect().width ?? 352;
 
     scroller.scrollBy({
       left: direction * (cardWidth + JOURNEY_SCROLL_GAP),
@@ -802,14 +840,14 @@ function JourneySection() {
   return (
     <section className="overflow-hidden border-b py-24 md:py-28" style={{ borderColor: BORDER, background: SOFT_BG }}>
       <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-[32rem]">
+        <div className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-[34rem]">
             <Eyebrow>{copy.journeyLabel}</Eyebrow>
             <h2
               className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
               style={{
                 color: NEAR_BLACK,
-                fontSize: "clamp(2.2rem, 3.9vw, 3.25rem)",
+                fontSize: "clamp(2.75rem, 4vw, 3.25rem)",
                 lineHeight: 1.08,
                 letterSpacing: "-0.045em",
               }}
@@ -818,59 +856,67 @@ function JourneySection() {
             </h2>
           </div>
 
-          <div className="max-w-[25rem] lg:text-right">
+          <div className="max-w-[26rem] lg:text-right">
             <p
-              className={`text-[0.98rem] leading-[1.8] ${lang === "ko" ? "eruty-keep-all" : ""}`}
-              style={{ color: BODY_TEXT }}
+              className={`${lang === "ko" ? "eruty-keep-all" : ""}`}
+              style={{
+                color: BODY_TEXT,
+                fontSize: "clamp(0.94rem, 1vw, 1rem)",
+                lineHeight: 1.72,
+              }}
             >
               {copy.journeyInstruction}
             </p>
-            <div className="mt-5 flex items-center gap-3 lg:justify-end">
+            <div className="mt-5 flex items-center gap-4 lg:justify-end">
               <button
                 type="button"
+                data-journey-prev
                 onClick={() => scrollByCard(-1)}
                 disabled={!canScrollPrev}
                 aria-label={copy.journeyPrev}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors disabled:cursor-not-allowed"
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full border transition-colors disabled:cursor-not-allowed"
                 style={{
-                  borderColor: canScrollPrev ? "rgba(24,25,27,0.12)" : "rgba(24,25,27,0.06)",
-                  color: canScrollPrev ? NEAR_BLACK : "rgba(24,25,27,0.28)",
+                  borderColor: canScrollPrev ? "rgba(24,25,27,0.14)" : "rgba(24,25,27,0.09)",
+                  color: canScrollPrev ? NEAR_BLACK : "rgba(24,25,27,0.38)",
                   background: "#FFFFFF",
                 }}
               >
-                <ArrowLeft size={18} />
+                <ArrowLeft size={19} />
               </button>
               <button
                 type="button"
+                data-journey-next
                 onClick={() => scrollByCard(1)}
                 disabled={!canScrollNext}
                 aria-label={copy.journeyNext}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors disabled:cursor-not-allowed"
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full border transition-colors disabled:cursor-not-allowed"
                 style={{
-                  borderColor: canScrollNext ? "rgba(24,25,27,0.12)" : "rgba(24,25,27,0.06)",
-                  color: canScrollNext ? NEAR_BLACK : "rgba(24,25,27,0.28)",
+                  borderColor: canScrollNext ? "rgba(24,25,27,0.14)" : "rgba(24,25,27,0.09)",
+                  color: canScrollNext ? NEAR_BLACK : "rgba(24,25,27,0.38)",
                   background: "#FFFFFF",
                 }}
               >
-                <ArrowRight size={18} />
+                <ArrowRight size={19} />
               </button>
             </div>
           </div>
         </div>
 
-        <div className="mt-12">
+        <div className="mt-11">
           <div
             ref={scrollerRef}
+            data-journey-scroller
             role="region"
             aria-label={copy.journeyRegionLabel}
             tabIndex={0}
-            className={`eruty-horizontal-scroll flex gap-5 overflow-x-auto overflow-y-hidden pb-4 pt-1 ${
+            className={`eruty-horizontal-scroll flex overflow-x-auto overflow-y-hidden pb-5 pt-1 ${
               isDragging ? "cursor-grabbing" : "cursor-grab"
             }`}
             style={{
+              gap: `${JOURNEY_SCROLL_GAP}px`,
               scrollSnapType: "x mandatory",
               scrollPaddingLeft: "0px",
-              paddingRight: "max(1.5rem, 4vw)",
+              paddingRight: "max(2rem, 4vw)",
             }}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
@@ -891,10 +937,12 @@ function JourneySection() {
         </div>
 
         <div
-          className="relative mt-6 h-[2px] w-full overflow-hidden rounded-full"
+          data-journey-progress-track
+          className="relative mt-7 h-[2px] w-full overflow-hidden rounded-full"
           style={{ background: "rgba(24,25,27,0.10)" }}
         >
           <div
+            data-journey-progress-thumb
             className="absolute left-0 top-0 h-full rounded-full"
             style={{
               width: `${thumbWidth * 100}%`,
@@ -940,32 +988,32 @@ function CtaSection() {
           <div className="absolute right-[30%] top-[40%] h-px w-[11%] rotate-[14deg] bg-white/14" />
           <div className="absolute right-[22%] top-[49%] h-px w-[10%] -rotate-[20deg] bg-white/12" />
 
-          <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-[40rem]">
+          <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-[36rem]">
               <h2
                 className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
                 style={{
                   color: "#FFFFFF",
-                  fontSize: "clamp(2.25rem, 3.8vw, 3.4rem)",
-                  lineHeight: 1.12,
-                  letterSpacing: "-0.045em",
+                  fontSize: "clamp(2.1rem, 3.4vw, 3.05rem)",
+                  lineHeight: 1.14,
+                  letterSpacing: "-0.042em",
                 }}
               >
                 {copy.ctaHeadline}
               </h2>
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
               <Link
                 to={buildStartProjectHref("general", "partnership")}
-                className="inline-flex min-h-[52px] items-center justify-center rounded-full px-7 text-sm font-medium transition-colors"
+                className="inline-flex min-h-[50px] items-center justify-center rounded-full px-7 text-[0.9rem] font-medium transition-colors"
                 style={{ background: BLUE, color: "#FFFFFF" }}
               >
                 {copy.ctaPrimary}
               </Link>
               <Link
                 to={buildStartProjectHref("general", "general-inquiry")}
-                className="inline-flex min-h-[52px] items-center justify-center rounded-full border px-7 text-sm font-medium transition-colors"
+                className="inline-flex min-h-[50px] items-center justify-center rounded-full border px-7 text-[0.9rem] font-medium transition-colors"
                 style={{ borderColor: "rgba(255,255,255,0.28)", color: "#FFFFFF" }}
               >
                 {copy.ctaSecondary}
@@ -979,6 +1027,19 @@ function CtaSection() {
 }
 
 export function AboutPage() {
+  useEffect(() => {
+    const previousHtmlOverflowX = document.documentElement.style.overflowX;
+    const previousBodyOverflowX = document.body.style.overflowX;
+
+    document.documentElement.style.overflowX = "clip";
+    document.body.style.overflowX = "clip";
+
+    return () => {
+      document.documentElement.style.overflowX = previousHtmlOverflowX;
+      document.body.style.overflowX = previousBodyOverflowX;
+    };
+  }, []);
+
   return (
     <div className="overflow-hidden bg-white pt-16">
       <HeroSection />
