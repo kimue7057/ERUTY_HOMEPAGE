@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../../context/LanguageContext";
+import { COMPANY_METRICS } from "../../data/companyMetrics";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -350,8 +351,17 @@ const partnershipTypes: PartnershipType[] = [
 function HeroSection() {
   const { lang } = useLanguage();
   const t = T[lang];
-  const activeCount = markets.filter((m) => m.status === "Active").length;
-  const statsValues = [`${markets.length}`, `${activeCount}`, "4"];
+  const stats = lang === "ko"
+    ? [
+        { label: "네트워크 시장", value: `${markets.length}` },
+        { label: "글로벌 권역", value: `${new Set(markets.map((market) => market.region)).size}` },
+        { label: COMPANY_METRICS.globalPartners.labelKo, value: COMPANY_METRICS.globalPartners.value },
+      ]
+    : [
+        { label: "Network Markets", value: `${markets.length}` },
+        { label: "Global Regions", value: `${new Set(markets.map((market) => market.region)).size}` },
+        { label: COMPANY_METRICS.globalPartners.labelEn, value: COMPANY_METRICS.globalPartners.value },
+      ];
   return (
     <section style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
       <div className="max-w-[1440px] mx-auto px-8 pt-28 pb-20">
@@ -367,16 +377,16 @@ function HeroSection() {
             </h1>
           </div>
           <div className="lg:col-span-6 flex flex-col justify-end gap-8">
-            <p style={{ fontSize: "1rem", lineHeight: 1.85, color: BODY_TEXT, maxWidth: 440 }}>
+            <p style={{ fontSize: "1.04rem", lineHeight: 1.78, color: BODY_TEXT, maxWidth: 440 }}>
               {t.heroDesc.split("\n").map((line, i, arr) => (
                 <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
               ))}
             </p>
             <div className="flex flex-wrap gap-6">
-              {t.heroStats.map((s, i) => (
-                <div key={s.label}>
-                  <div className="text-2xl mb-1" style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: NEAR_BLACK }}>{statsValues[i]}</div>
-                  <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{s.label}</div>
+              {stats.map((stat) => (
+                <div key={stat.label}>
+                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: NEAR_BLACK, fontSize: "clamp(2rem, 2.8vw, 2.35rem)", lineHeight: 1.1, marginBottom: 4 }}>{stat.value}</div>
+                  <div style={{ color: MUTED, fontFamily: "var(--font-mono)", fontSize: "0.82rem", lineHeight: 1.45 }}>{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -495,7 +505,7 @@ function MarketPanel({ market }: { market: Market }) {
       <div className="flex items-start justify-between mb-6">
         <div>
           <div className="text-2xl mb-1">{market.flag}</div>
-          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.4rem", color: NEAR_BLACK }}>{market.name[lang]}</div>
+          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.55rem", color: NEAR_BLACK, lineHeight: 1.25 }}>{market.name[lang]}</div>
         </div>
         <span className="text-xs px-2 py-1 mt-1" style={{ border: `1px solid ${statusColor[market.status]}40`, color: statusColor[market.status], fontFamily: "var(--font-mono)" }}>
           {t.statusLabels[market.status]}
@@ -506,9 +516,9 @@ function MarketPanel({ market }: { market: Market }) {
         {sections.map((section) => (
           <div key={section.label}>
             <div className="text-xs mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)", letterSpacing: "0.06em" }}>{section.label}</div>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1.5">
               {section.items.map((item) => (
-                <div key={item} className="flex items-start gap-2 text-sm" style={{ color: BODY_TEXT, lineHeight: 1.5 }}>
+                <div key={item} className="flex items-start gap-2" style={{ color: BODY_TEXT, fontSize: "0.96rem", lineHeight: 1.68 }}>
                   <div className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0" style={{ background: BLUE }} />
                   {item}
                 </div>
@@ -518,13 +528,8 @@ function MarketPanel({ market }: { market: Market }) {
         ))}
       </div>
 
-      <div className="pt-5 flex items-center justify-between" style={{ borderTop: `1px solid ${BORDER}`, marginTop: 16 }}>
-        <span className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.lastUpdatePrefix}{market.lastUpdate[lang]}</span>
-        <a aria-disabled="true" onClick={(e: React.MouseEvent) => e.preventDefault()} className="flex items-center gap-1 text-xs transition-colors" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.7"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}>
-          {t.relatedCasesLink} <ArrowUpRight size={11} />
-        </a>
+      <div className="pt-5" style={{ borderTop: `1px solid ${BORDER}`, marginTop: 16 }}>
+        <span style={{ color: MUTED, fontFamily: "var(--font-mono)", fontSize: "0.8rem", lineHeight: 1.45 }}>{t.lastUpdatePrefix}{market.lastUpdate[lang]}</span>
       </div>
     </motion.div>
   );
@@ -653,7 +658,7 @@ function RegionalActivitySection() {
                 <div className="col-span-12 md:col-span-3 flex items-center gap-3">
                   <span style={{ fontSize: "1.25rem" }}>{m.flag}</span>
                   <div>
-                    <div className="text-sm" style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: NEAR_BLACK }}>{m.name[lang]}</div>
+                    <div className="text-base" style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: NEAR_BLACK, lineHeight: 1.35 }}>{m.name[lang]}</div>
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <div className="w-1.5 h-1.5 rounded-full" style={{ background: statusColor[m.status] }} />
                       <span className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.statusLabels[m.status]}</span>
@@ -662,16 +667,14 @@ function RegionalActivitySection() {
                 </div>
                 <div className="col-span-12 md:col-span-4">
                   <div className="text-xs mb-1" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.businessAreaLabel}</div>
-                  <div className="text-sm" style={{ color: BODY_TEXT }}>{m.focus[lang].join(" · ")}</div>
+                  <div className="text-sm" style={{ color: BODY_TEXT, fontSize: "0.96rem", lineHeight: 1.7 }}>{m.focus[lang].join(" · ")}</div>
                 </div>
                 <div className="col-span-12 md:col-span-3">
                   <div className="text-xs mb-1" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.recentActivityLabel}</div>
-                  <div className="text-sm" style={{ color: BODY_TEXT }}>{m.activities[lang][0]}</div>
+                  <div className="text-sm" style={{ color: BODY_TEXT, fontSize: "0.96rem", lineHeight: 1.7 }}>{m.activities[lang][0]}</div>
                 </div>
                 <div className="col-span-12 md:col-span-2 flex justify-end">
-                  <a aria-disabled="true" onClick={(e: React.MouseEvent) => e.preventDefault()} className="flex items-center gap-1 text-xs" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}>
-                    {t.detailLink} <ArrowUpRight size={11} />
-                  </a>
+                  <span style={{ color: MUTED, fontFamily: "var(--font-mono)", fontSize: "0.8rem", lineHeight: 1.45 }}>{t.lastUpdatePrefix}{m.lastUpdate[lang]}</span>
                 </div>
               </div>
             ))}
@@ -684,23 +687,12 @@ function RegionalActivitySection() {
 
 // ── 섹션 4: 파트너 에코시스템 ────────────────────────────────────────────────
 
-function LogoPlaceholder({ name }: { name: string }) {
-  return (
-    <div className="flex flex-col items-center gap-2 p-4 group cursor-pointer transition-all"
-      style={{ border: `1px dashed ${BORDER}` }}
-      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = BLUE; }}
-      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = BORDER; }}>
-      <div className="w-12 h-12 flex items-center justify-center" style={{ background: SOFT_BG }}>
-        <span className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>LOGO</span>
-      </div>
-      <span className="text-xs text-center" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{name}</span>
-    </div>
-  );
-}
-
 function PartnerEcosystemSection() {
   const { lang } = useLanguage();
   const t = T[lang];
+  const emptyState = lang === "ko"
+    ? "공개 가능한 파트너 정보를 정리하고 있습니다."
+    : "Public partner information is being prepared.";
   return (
     <section className="py-20" style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
       <div className="max-w-[1440px] mx-auto px-8">
@@ -713,13 +705,8 @@ function PartnerEcosystemSection() {
           {partnerCategories.map((cat) => (
             <div key={cat.label[lang]}>
               <div className="text-xs mb-4 pb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)", borderBottom: `1px solid ${BORDER}` }}>{cat.label[lang]}</div>
-              <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-8 gap-2">
-                {cat.placeholders.map((name) => (
-                  <LogoPlaceholder key={name} name={name} />
-                ))}
-                <div className="flex items-center justify-center p-4" style={{ border: `1px dashed ${BORDER}` }}>
-                  <span className="text-xs text-center" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.partnerInquiry}</span>
-                </div>
+              <div className="p-6" style={{ border: `1px solid ${BORDER}`, borderRadius: 4, background: "#FFFFFF" }}>
+                <p style={{ color: BODY_TEXT, fontSize: "0.96rem", lineHeight: 1.7 }}>{emptyState}</p>
               </div>
             </div>
           ))}
@@ -795,14 +782,12 @@ function GlobalActivitiesSection() {
                 <div className="col-span-8 md:col-span-2">
                   <span className="text-xs px-2 py-0.5" style={{ border: `1px solid ${BORDER}`, color: MUTED, fontFamily: "var(--font-mono)" }}>{a.type[lang]}</span>
                 </div>
-                <div className="col-span-12 md:col-span-7">
-                  <div className="text-sm mb-1" style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: NEAR_BLACK }}>{a.title[lang]}</div>
-                  <div className="text-xs" style={{ color: MUTED, lineHeight: 1.6 }}>{a.desc[lang]}</div>
+                <div className="col-span-12 md:col-span-8">
+                  <div className="mb-2" style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: NEAR_BLACK, fontSize: "1rem", lineHeight: 1.45 }}>{a.title[lang]}</div>
+                  <div style={{ color: BODY_TEXT, fontSize: "0.94rem", lineHeight: 1.7 }}>{a.desc[lang]}</div>
                 </div>
                 <div className="col-span-12 md:col-span-1 flex md:justify-end">
-                  <a aria-disabled="true" onClick={(e: React.MouseEvent) => e.preventDefault()} className="text-xs flex items-center gap-0.5" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}>
-                    {t.viewLink} <ArrowUpRight size={11} />
-                  </a>
+                  <span style={{ color: MUTED, fontFamily: "var(--font-mono)", fontSize: "0.8rem", lineHeight: 1.45 }}>{a.country[lang]}</span>
                 </div>
               </div>
             ))}

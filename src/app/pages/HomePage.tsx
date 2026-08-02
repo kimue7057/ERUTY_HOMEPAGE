@@ -4,6 +4,7 @@ import { ArrowUpRight, Pause, Play, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../context/LanguageContext";
 import heroVideo from "../../assets/video/eruty-hero.mp4";
+import { COMPANY_METRICS } from "../data/companyMetrics";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -41,10 +42,10 @@ const T = {
       { country: "미국", flag: "🇺🇸", desc: "커머스 & 수익화" },
     ],
     metrics: [
-      { value: "00+", label: "글로벌 파트너" },
-      { value: "00+", label: "크리에이터 네트워크" },
-      { value: "00", label: "진출 시장" },
-      { value: "00", label: "기술 & IP 자산" },
+      { value: "20+", label: "글로벌 파트너" },
+      { value: "100+", label: "크리에이터 네트워크" },
+      { value: "2건", label: "등록 특허" },
+      { value: "1건", label: "특허 출원" },
     ],
     business: {
       eyebrow: "사업 분야",
@@ -83,7 +84,7 @@ const T = {
         ai: {
           title: "콘텐츠와 시장을 대규모로 분석하는 인텔리전스.",
           items: [
-            { label: "글로벌 시장 신호", value: "20개국 이상 모니터링" },
+            { label: "글로벌 시장 신호", value: "국가별 시장 동향 모니터링" },
             { label: "콘텐츠 분석", value: "장르, 톤, 적합도 평가" },
             { label: "오디언스 인텔리전스", value: "크로스 플랫폼 세분화" },
             { label: "브랜드 적합도", value: "AI 기반 매칭 스코어" },
@@ -95,20 +96,20 @@ const T = {
         automation: {
           title: "반복 업무를 대체하는 AI 에이전트 시스템.",
           items: [
-            { label: "데이터 수집", value: "12개 실시간 소스" },
-            { label: "AI 처리", value: "평균 0.3초 추론" },
-            { label: "문서 자동 생성", value: "하루 48건 자동 보고" },
-            { label: "보고서 자동화", value: "정기 배송 설정" },
-            { label: "자동화 업무 단계", value: "7단계 이상 처리" },
-            { label: "절감 시간", value: "월 320시간" },
+            { label: "데이터 수집", value: "실시간 업무 데이터 연동" },
+            { label: "AI 처리", value: "분석과 초안 생성" },
+            { label: "문서 자동 생성", value: "보고서와 문서 초안 자동화" },
+            { label: "보고서 자동화", value: "정기 보고 흐름 설계" },
+            { label: "자동화 업무 단계", value: "단계별 워크플로 연결" },
+            { label: "운영 효율화", value: "반복 업무 부담 경감" },
           ],
           pipeline: ["트리거", "에이전트 처리", "도구 실행", "검증", "결과 전달"],
         },
         blockchain: {
           title: "IP, 계약, 수익에 대한 불변의 기록.",
           items: [
-            { label: "IP 등록소", value: "340개 이상 자산 등록" },
-            { label: "스마트 계약", value: "28건 활성 라이선스" },
+            { label: "IP 등록소", value: "권리 자산 등록 체계" },
+            { label: "스마트 계약", value: "라이선스 계약 자동화" },
             { label: "권리 관리", value: "역할 기반 접근 제어" },
             { label: "수익 분배", value: "자동 정산" },
             { label: "정산 주기", value: "월별 자동화" },
@@ -198,10 +199,10 @@ const T = {
       { country: "United States", flag: "🇺🇸", desc: "Commerce & Monetization" },
     ],
     metrics: [
-      { value: "00+", label: "Global Partners" },
-      { value: "00+", label: "Creator Network" },
-      { value: "00", label: "Markets Entered" },
-      { value: "00", label: "Tech & IP Assets" },
+      { value: "20+", label: "Global Partners" },
+      { value: "100+", label: "Creator Network" },
+      { value: "2", label: "Registered Patents" },
+      { value: "1", label: "Patent Application" },
     ],
     business: {
       eyebrow: "Business Areas",
@@ -240,7 +241,7 @@ const T = {
         ai: {
           title: "Intelligence that analyzes content and markets at scale.",
           items: [
-            { label: "Global Market Signals", value: "20+ Countries Monitored" },
+            { label: "Global Market Signals", value: "Country-level market monitoring" },
             { label: "Content Analysis", value: "Genre, Tone, Fit Scoring" },
             { label: "Audience Intelligence", value: "Cross-Platform Segmentation" },
             { label: "Brand Fit", value: "AI-Powered Match Score" },
@@ -252,20 +253,20 @@ const T = {
         automation: {
           title: "AI agent systems that replace repetitive operations.",
           items: [
-            { label: "Data Sources", value: "12 Real-Time Feeds" },
-            { label: "AI Processing", value: "Avg. 0.3s Inference" },
-            { label: "Auto Document Gen", value: "48 Reports/Day Auto" },
-            { label: "Report Automation", value: "Scheduled Delivery" },
-            { label: "Automation Steps", value: "7+ Stages Handled" },
-            { label: "Time Saved", value: "320 hrs/Month" },
+            { label: "Data Sources", value: "Real-time workflow data connections" },
+            { label: "AI Processing", value: "Analysis and draft generation" },
+            { label: "Auto Document Gen", value: "Automated report and document drafting" },
+            { label: "Report Automation", value: "Scheduled reporting workflows" },
+            { label: "Automation Steps", value: "Multi-step workflow orchestration" },
+            { label: "Operational Efficiency", value: "Reduced repetitive work burden" },
           ],
           pipeline: ["Trigger", "Agent Processing", "Tool Execution", "Validation", "Result Delivery"],
         },
         blockchain: {
           title: "Immutable records for IP, contracts, and revenue.",
           items: [
-            { label: "IP Registry", value: "340+ Assets Registered" },
-            { label: "Smart Contracts", value: "28 Active Licenses" },
+            { label: "IP Registry", value: "Rights asset registration system" },
+            { label: "Smart Contracts", value: "Automated license execution" },
             { label: "Rights Management", value: "Role-Based Access Control" },
             { label: "Revenue Distribution", value: "Automated Settlement" },
             { label: "Settlement Cycle", value: "Monthly Automation" },
@@ -333,15 +334,6 @@ const T = {
 
 /* ─── Category dot color map ──────────────────────────────────── */
 
-const categoryDot: Record<string, string> = {
-  파트너십: BLUE, Partnership: BLUE,
-  기술: "#8B5CF6", Technology: "#8B5CF6",
-  인사이트: "#F59E0B", Insight: "#F59E0B",
-  프로그램: "#22C55E", Program: "#22C55E",
-  프로젝트: "#EC4899", Project: "#EC4899",
-  이벤트: MUTED, Event: MUTED,
-};
-
 /* ─── Reusable Eyebrow ─────────────────────────────────────────── */
 
 function Eyebrow({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
@@ -374,7 +366,7 @@ function HeroSection() {
     <section className="pt-[76px]" style={{ background: "#FFFFFF" }}>
       <div className="mx-auto px-8" style={{ maxWidth: 1280 }}>
         <div className="mt-7 mb-8 relative overflow-hidden" style={{ borderRadius: 6, background: "#111" }}>
-          <div style={{ paddingBottom: "36.4%" }} />
+          <div style={{ paddingBottom: "43.7%" }} />
           <video
             ref={videoRef}
             src={heroVideo}
@@ -391,7 +383,7 @@ function HeroSection() {
           />
           <div
             className="absolute bottom-4 left-5"
-            style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", fontSize: "0.6rem" }}
+            style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", fontSize: "0.7rem" }}
           >
             {t.videoLabel}
           </div>
@@ -464,6 +456,19 @@ function HeroSection() {
 function StatementSection() {
   const { lang } = useLanguage();
   const t = T[lang];
+  const metrics = lang === "ko"
+    ? [
+        { value: COMPANY_METRICS.globalPartners.value, label: COMPANY_METRICS.globalPartners.labelKo },
+        { value: COMPANY_METRICS.creatorNetwork.value, label: COMPANY_METRICS.creatorNetwork.labelKo },
+        { value: `${COMPANY_METRICS.registeredPatents.value}건`, label: COMPANY_METRICS.registeredPatents.labelKo },
+        { value: `${COMPANY_METRICS.patentApplications.value}건`, label: COMPANY_METRICS.patentApplications.labelKo },
+      ]
+    : [
+        { value: COMPANY_METRICS.globalPartners.value, label: COMPANY_METRICS.globalPartners.labelEn },
+        { value: COMPANY_METRICS.creatorNetwork.value, label: COMPANY_METRICS.creatorNetwork.labelEn },
+        { value: COMPANY_METRICS.registeredPatents.value, label: COMPANY_METRICS.registeredPatents.labelEn },
+        { value: COMPANY_METRICS.patentApplications.value, label: COMPANY_METRICS.patentApplications.labelEn },
+      ];
 
   return (
     <section style={{ background: "#FFFFFF" }}>
@@ -512,7 +517,7 @@ function StatementSection() {
           </div>
 
           <div className="grid grid-cols-2">
-            {t.metrics.map((m, i) => (
+            {metrics.map((m, i) => (
               <div
                 key={m.label}
                 className="p-6"
@@ -521,10 +526,19 @@ function StatementSection() {
                   borderBottom: i < 2 ? `1px solid ${BORDER}` : "none",
                 }}
               >
-                <div className="text-2xl mb-1" style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: NEAR_BLACK }}>
+                <div
+                  className="mb-2"
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 800,
+                    color: NEAR_BLACK,
+                    fontSize: "clamp(2rem, 3vw, 2.45rem)",
+                    lineHeight: 1.1,
+                  }}
+                >
                   {m.value}
                 </div>
-                <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{m.label}</div>
+                <div style={{ color: MUTED, fontFamily: "var(--font-mono)", fontSize: "0.82rem", lineHeight: 1.5 }}>{m.label}</div>
               </div>
             ))}
           </div>
@@ -564,10 +578,10 @@ function BusinessFields() {
             <div className="inline-block text-xs mb-6 px-2.5 py-1 tracking-widest" style={{ color: BLUE, border: `1px solid rgba(55,55,242,0.35)`, fontFamily: "var(--font-mono)", borderRadius: 3, alignSelf: "flex-start" }}>
               {t.panelA.badge}
             </div>
-            <h3 className="mb-5" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.3rem, 2vw, 1.85rem)", color: "#FFFFFF", lineHeight: 1.3, whiteSpace: "pre-line" }}>
+            <h3 className="mb-5" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.45rem, 2vw, 1.95rem)", color: "#FFFFFF", lineHeight: 1.35, whiteSpace: "pre-line" }}>
               {t.panelA.headline}
             </h3>
-            <p className="mb-8" style={{ fontSize: "0.9rem", lineHeight: 1.85, color: "rgba(255,255,255,0.55)", maxWidth: 360, whiteSpace: "pre-line" }}>
+            <p className="mb-8" style={{ fontSize: "clamp(0.96rem, 1.2vw, 1rem)", lineHeight: 1.78, color: "rgba(255,255,255,0.76)", maxWidth: 360, whiteSpace: "pre-line" }}>
               {t.panelA.desc}
             </p>
             <div className="flex flex-wrap gap-2 mb-8">
@@ -604,10 +618,10 @@ function BusinessFields() {
             <div className="inline-block text-xs mb-6 px-2.5 py-1 tracking-widest" style={{ color: BLUE, border: `1px solid rgba(55,55,242,0.25)`, fontFamily: "var(--font-mono)", borderRadius: 3, alignSelf: "flex-start" }}>
               {t.panelB.badge}
             </div>
-            <h3 className="mb-5" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.3rem, 2vw, 1.85rem)", color: NEAR_BLACK, lineHeight: 1.3, whiteSpace: "pre-line" }}>
+            <h3 className="mb-5" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.45rem, 2vw, 1.95rem)", color: NEAR_BLACK, lineHeight: 1.35, whiteSpace: "pre-line" }}>
               {t.panelB.headline}
             </h3>
-            <p className="mb-8" style={{ fontSize: "0.9rem", lineHeight: 1.85, color: BODY_TEXT, maxWidth: 360, whiteSpace: "pre-line" }}>
+            <p className="mb-8" style={{ fontSize: "clamp(0.96rem, 1.2vw, 1rem)", lineHeight: 1.78, color: BODY_TEXT, maxWidth: 360, whiteSpace: "pre-line" }}>
               {t.panelB.desc}
             </p>
             <div className="flex flex-wrap gap-2 mb-8">
@@ -663,7 +677,7 @@ function TechnologySection() {
             </h2>
           </div>
           <div className="flex items-end">
-            <p style={{ fontSize: "0.95rem", lineHeight: 1.85, color: "rgba(255,255,255,0.45)", whiteSpace: "pre-line" }}>
+            <p style={{ fontSize: "clamp(1rem, 1.25vw, 1.04rem)", lineHeight: 1.75, color: "rgba(255,255,255,0.7)", whiteSpace: "pre-line" }}>
               {t.desc}
             </p>
           </div>
@@ -698,12 +712,12 @@ function TechnologySection() {
           >
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               <div className="lg:col-span-2 p-8" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 4 }}>
-                <div className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.5)" }}>{data.title}</div>
+                <div className="mb-6" style={{ color: "rgba(255,255,255,0.74)", fontSize: "1rem", lineHeight: 1.6 }}>{data.title}</div>
                 <div className="flex flex-col">
                   {data.items.map((item, i) => (
                     <div key={i} className="flex items-center justify-between py-3.5" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-                      <span className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>{item.label}</span>
-                      <span className="text-sm" style={{ fontFamily: "var(--font-mono)", color: "#FFFFFF" }}>{item.value}</span>
+                      <span style={{ color: "rgba(255,255,255,0.68)", fontSize: "0.96rem", lineHeight: 1.6 }}>{item.label}</span>
+                      <span style={{ fontFamily: "var(--font-mono)", color: "#FFFFFF", fontSize: "0.96rem", lineHeight: 1.6, textAlign: "right" }}>{item.value}</span>
                     </div>
                   ))}
                 </div>
@@ -717,9 +731,9 @@ function TechnologySection() {
                       <div className="w-5 h-5 flex items-center justify-center text-xs flex-shrink-0" style={{ background: i === 0 ? BLUE : "rgba(255,255,255,0.06)", color: i === 0 ? "#FFF" : "rgba(255,255,255,0.3)", fontFamily: "var(--font-mono)", borderRadius: 2 }}>
                         {i + 1}
                       </div>
-                      <div className="flex-1 px-3 py-2 text-xs" style={{ background: i === 0 ? "rgba(55,55,242,0.15)" : "rgba(255,255,255,0.04)", border: `1px solid ${i === 0 ? "rgba(55,55,242,0.4)" : "rgba(255,255,255,0.06)"}`, color: i === 0 ? "#FFFFFF" : "rgba(255,255,255,0.4)", fontFamily: "var(--font-mono)", borderRadius: 3 }}>
-                        {step}
-                      </div>
+                        <div className="flex-1 px-3 py-2" style={{ background: i === 0 ? "rgba(55,55,242,0.15)" : "rgba(255,255,255,0.04)", border: `1px solid ${i === 0 ? "rgba(55,55,242,0.4)" : "rgba(255,255,255,0.06)"}`, color: i === 0 ? "#FFFFFF" : "rgba(255,255,255,0.6)", fontFamily: "var(--font-mono)", borderRadius: 3, fontSize: "0.8rem", lineHeight: 1.55 }}>
+                          {step}
+                        </div>
                     </div>
                   ))}
                 </div>
@@ -829,6 +843,9 @@ function GlobalWork() {
 function LatestResources() {
   const { lang } = useLanguage();
   const t = T[lang].resources;
+  const emptyState = lang === "ko"
+    ? "공개 가능한 자료를 정리하고 있습니다."
+    : "Public materials are being prepared.";
 
   return (
     <section style={{ background: SOFT_BG }}>
@@ -851,67 +868,13 @@ function LatestResources() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
-          <Link to="/resources" className="group lg:col-span-7 p-8 block transition-colors" style={{ background: "#FFFFFF", border: `1px solid ${BORDER}`, borderRadius: 4 }}>
-            <div className="flex items-center gap-2 mb-5">
-              <div className="w-1.5 h-1.5 rounded-full" style={{ background: categoryDot[t.featured.category] || BLUE }} />
-              <span className="text-xs" style={{ color: categoryDot[t.featured.category] || BLUE, fontFamily: "var(--font-mono)" }}>{t.featured.category}</span>
-              <span className="text-xs" style={{ color: BORDER }}>·</span>
-              <span className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.featured.date}</span>
-            </div>
-            <h3 className="mb-4" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.4rem", color: NEAR_BLACK, lineHeight: 1.4 }}>
-              {t.featured.title}
-            </h3>
-            <p className="mb-6 text-sm" style={{ color: BODY_TEXT, lineHeight: 1.8 }}>{t.featured.desc}</p>
-            <div className="flex items-center justify-between">
-              <span className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.featured.region}</span>
-              <span className="flex items-center gap-1 text-xs" style={{ color: BLUE }}>{t.readMore} <ArrowUpRight size={12} /></span>
-            </div>
-          </Link>
-
-          <div className="lg:col-span-5 flex flex-col gap-4">
-            {t.sideItems.map((item) => (
-              <Link
-                key={item.title}
-                to="/resources"
-                className="group flex flex-col justify-between p-6 transition-colors"
-                style={{ background: "#FFFFFF", border: `1px solid ${BORDER}`, borderRadius: 4, flex: 1 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.borderColor = BLUE + "50")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.borderColor = BORDER)}
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: categoryDot[item.category] || MUTED }} />
-                  <span className="text-xs" style={{ color: categoryDot[item.category] || MUTED, fontFamily: "var(--font-mono)" }}>{item.category}</span>
-                  <span className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)", marginLeft: "auto" }}>{item.date}</span>
-                </div>
-                <div className="text-sm font-medium leading-snug mb-3" style={{ color: NEAR_BLACK }}>{item.title}</div>
-                <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{item.region}</div>
-              </Link>
-            ))}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div className="lg:col-span-12 p-10" style={{ background: "#FFFFFF", border: `1px solid ${BORDER}`, borderRadius: 4 }}>
+            <div className="text-xs mb-4" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.eyebrow}</div>
+            <p style={{ color: BODY_TEXT, fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(1.05rem, 1.8vw, 1.25rem)", lineHeight: 1.7 }}>
+              {emptyState}
+            </p>
           </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px" style={{ background: BORDER, borderRadius: 4, overflow: "hidden" }}>
-          {t.additionalItems.map((item) => (
-            <Link
-              key={item.title}
-              to="/resources"
-              className="group p-6 block transition-colors"
-              style={{ background: "#FFFFFF" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = SOFT_BG)}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "#FFFFFF")}
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-1.5 h-1.5 rounded-full" style={{ background: categoryDot[item.category] || MUTED }} />
-                <span className="text-xs" style={{ color: categoryDot[item.category] || MUTED, fontFamily: "var(--font-mono)" }}>{item.category}</span>
-              </div>
-              <div className="text-sm leading-snug mb-3" style={{ color: NEAR_BLACK, fontWeight: 500 }}>{item.title}</div>
-              <div className="flex items-center justify-between">
-                <span className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{item.date} · {item.region}</span>
-                <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: BLUE }} />
-              </div>
-            </Link>
-          ))}
         </div>
       </div>
     </section>

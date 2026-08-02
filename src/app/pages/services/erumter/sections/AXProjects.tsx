@@ -7,10 +7,14 @@ export function AXProjects() {
   const t = T[lang];
   const categories = lang === "ko" ? PROJECT_CATEGORIES_KO : PROJECT_CATEGORIES_EN;
   const [activeCatIdx, setActiveCatIdx] = useState(0);
+  const emptyState = lang === "ko"
+    ? "공개 가능한 AX 프로젝트 사례를 정리하고 있습니다."
+    : "Public AX project cases are being prepared.";
 
+  const publishedProjects = PROJECTS.filter((project) => project.visibility === "published");
   const filtered = activeCatIdx === 0
-    ? PROJECTS
-    : PROJECTS.filter((p) => p.categoryIdx === activeCatIdx);
+    ? publishedProjects
+    : publishedProjects.filter((project) => project.categoryIdx === activeCatIdx);
 
   return (
     <section style={{ background: "#fff", borderBottom: `1px solid ${BORDER}` }}>
@@ -25,7 +29,7 @@ export function AXProjects() {
           >
             {t.projectsHeading}
           </h2>
-          <p className="text-sm max-w-lg" style={{ color: GRAY, lineHeight: 1.8, whiteSpace: "pre-line" }}>
+          <p className="text-sm max-w-lg" style={{ color: GRAY, fontSize: "0.98rem", lineHeight: 1.8, whiteSpace: "pre-line" }}>
             {t.projectsDesc}
           </p>
         </div>
@@ -54,22 +58,27 @@ export function AXProjects() {
 
         {/* Project panels */}
         <div className="flex flex-col gap-4">
-          {filtered.map((project) => (
+          {filtered.length === 0 ? (
+            <div className="p-8 md:p-10" style={{ border: `1px solid ${BORDER}`, borderRadius: 6, background: "#FFFFFF" }}>
+              <p style={{ color: DARK, fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(1.02rem, 1.8vw, 1.2rem)", lineHeight: 1.7 }}>
+                {emptyState}
+              </p>
+            </div>
+          ) : filtered.map((project) => (
             <div
               key={project.title}
               style={{ border: `1px solid ${BORDER}`, borderRadius: 6, overflow: "hidden" }}
             >
               <div className="flex flex-col md:flex-row">
-                {/* Left: header */}
                 <div
                   className="p-6 md:w-72 flex-shrink-0 flex flex-col justify-between"
                   style={{ background: LIGHT_BG, borderRight: `1px solid ${BORDER}` }}
                 >
                   <div>
-                    <div className="text-xs font-semibold mb-2" style={{ fontFamily: "var(--font-mono)", color: GRAY, fontSize: "0.58rem", letterSpacing: "0.08em" }}>
+                    <div className="text-xs font-semibold mb-2" style={{ fontFamily: "var(--font-mono)", color: GRAY, fontSize: "0.68rem", letterSpacing: "0.08em" }}>
                       {lang === "ko" ? project.clientType : project.clientTypeEn}
                     </div>
-                    <h3 className="text-base font-bold mb-3" style={{ fontFamily: "var(--font-display)", color: DARK, lineHeight: 1.35, whiteSpace: "pre-line" }}>
+                    <h3 className="font-bold mb-3" style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", color: DARK, lineHeight: 1.45, whiteSpace: "pre-line" }}>
                       {lang === "ko" ? project.title : project.titleEn}
                     </h3>
                     <div className="flex flex-wrap gap-1.5">
@@ -83,17 +92,13 @@ export function AXProjects() {
                   <div className="mt-4 flex items-center gap-2">
                     <span
                       className="text-xs font-semibold"
-                      style={{ fontFamily: "var(--font-mono)", color: STATUS_COLOR[project.status], fontSize: "0.6rem" }}
+                      style={{ fontFamily: "var(--font-mono)", color: STATUS_COLOR[project.status], fontSize: "0.68rem" }}
                     >
                       {t.statusLabels[project.status] ?? project.status}
-                    </span>
-                    <span className="text-xs" style={{ color: "#C0C4CC", fontFamily: "var(--font-mono)", fontSize: "0.6rem" }}>
-                      {t.exampleNote}
                     </span>
                   </div>
                 </div>
 
-                {/* Right: detail */}
                 <div className="flex-1 p-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-0">
                     {[
@@ -103,7 +108,7 @@ export function AXProjects() {
                     ].map((row) => (
                       <div key={row.label} className="py-3" style={{ borderBottom: `1px solid ${BORDER}` }}>
                         <div className="text-xs mb-1" style={{ color: GRAY }}>{row.label}</div>
-                        <div className="text-sm" style={{ color: DARK }}>{row.value}</div>
+                        <div className="text-sm" style={{ color: DARK, fontSize: "0.96rem", lineHeight: 1.7 }}>{row.value}</div>
                       </div>
                     ))}
                   </div>

@@ -90,6 +90,8 @@ export const BEFORE_AFTER_WORKFLOWS_EN: Record<string, { before: string[]; after
 export const PROJECT_CATEGORIES_KO = ["전체", "업무 자동화", "AI 소프트웨어", "생성형 AI", "데이터 시스템", "AX 교육"] as const;
 export const PROJECT_CATEGORIES_EN = ["All", "Workflow Automation", "AI Software", "Generative AI", "Data Systems", "AX Education"] as const;
 
+export type ProjectVisibility = "published" | "draft" | "hidden";
+
 export interface Project {
   categoryIdx: number;
   clientType: string;
@@ -103,6 +105,7 @@ export interface Project {
   tech: string[];
   techEn: string[];
   status: "진행 중" | "완료" | "기획 중";
+  visibility: ProjectVisibility;
   title: string;
   titleEn: string;
 }
@@ -121,6 +124,7 @@ export const PROJECTS: Project[] = [
     tech: ["AI Agent", "Data Pipeline", "문서 자동화"],
     techEn: ["AI Agent", "Data Pipeline", "Document Automation"],
     status: "진행 중",
+    visibility: "draft",
     title: "반복적인 데이터 수집과 보고 업무를 연결하는\n업무 자동화 시스템 구축",
     titleEn: "Building a Workflow Automation System\nConnecting Repetitive Data Collection and Reporting",
   },
@@ -137,6 +141,7 @@ export const PROJECTS: Project[] = [
     tech: ["Generative AI", "Sentiment Analysis", "Admin System"],
     techEn: ["Generative AI", "Sentiment Analysis", "Admin System"],
     status: "완료",
+    visibility: "draft",
     title: "감정 분석과 개인화 콘텐츠 생성을 위한\nAI 서비스 구축",
     titleEn: "Building an AI Service\nfor Sentiment Analysis and Personalized Content Generation",
   },
@@ -153,6 +158,7 @@ export const PROJECTS: Project[] = [
     tech: ["실무 워크숍", "자동화 실습", "운영 교육"],
     techEn: ["Hands-on Workshop", "Automation Practice", "Operations Training"],
     status: "진행 중",
+    visibility: "draft",
     title: "기업 실무자를 위한 생성형 AI와\n업무 자동화 프로그램 운영",
     titleEn: "Operating a Generative AI and Workflow Automation Program\nfor Corporate Practitioners",
   },
@@ -169,6 +175,7 @@ export const PROJECTS: Project[] = [
     tech: ["RAG", "Vector DB", "Knowledge Management"],
     techEn: ["RAG", "Vector DB", "Knowledge Management"],
     status: "완료",
+    visibility: "draft",
     title: "사내 문서와 지식을 연결한\nAI 내부 검색 시스템 구축",
     titleEn: "Building an AI Internal Search System\nConnecting Company Documents and Knowledge",
   },
@@ -185,6 +192,7 @@ export const PROJECTS: Project[] = [
     tech: ["Data Integration", "Dashboard", "Analytics"],
     techEn: ["Data Integration", "Dashboard", "Analytics"],
     status: "기획 중",
+    visibility: "draft",
     title: "분산된 판매·재고·고객 데이터를 연결하는\n통합 운영 데이터 시스템",
     titleEn: "Integrated Operations Data System\nConnecting Scattered Sales, Inventory and Customer Data",
   },
@@ -269,20 +277,20 @@ export const T = {
     statusLabels: { "진행 중": "진행 중", "완료": "완료", "기획 중": "기획 중" } as Record<string, string>,
     diagnoseRows: [
       { label: "업무 단계", value: "자료 수집 → 정리 → 분석 → 보고" },
-      { label: "담당자", value: "마케팅 2명 · 기획 1명" },
+      { label: "담당자", value: "업무 담당자 · 검토자 · 승인자" },
       { label: "사용 도구", value: "엑셀 · 이메일 · 메신저" },
       { label: "데이터 위치", value: "로컬 · 공유 드라이브 · 시스템" },
       { label: "자동화 가능", value: "수집 · 정리 · 초안 생성", highlight: true },
     ],
-    diagnoseNote: "* 예시 진단 구조 — 실제 업무 분석 후 교체",
+    diagnoseNote: "* 업무 진단 항목은 실제 환경에 맞춰 설계됩니다.",
     operateStatuses: [
-      { label: "Usage Status", value: "정상 운영 중" },
-      { label: "Workflow Status", value: "7개 흐름 활성" },
-      { label: "Human Review Queue", value: "검토 대기 3건", highlight: true },
-      { label: "Exceptions", value: "예외 처리 1건" },
-      { label: "Improvement Requests", value: "개선 요청 2건" },
+      { label: "Usage Status", value: "운영 현황 모니터링" },
+      { label: "Workflow Status", value: "자동화 흐름 관리" },
+      { label: "Human Review Queue", value: "사람의 검토·승인", highlight: true },
+      { label: "Exceptions", value: "예외 상황 관리" },
+      { label: "Improvement Requests", value: "개선 요청 관리" },
     ],
-    operateNote: "* 예시 운영 현황 — 실제 데이터로 교체",
+    operateNote: "* 운영 화면은 실제 워크플로와 승인 구조에 맞춰 구성됩니다.",
     designFlow: [
       { label: "CURRENT PROCESS", sub: "현재 수기 업무", human: false },
       { label: "AUTOMATION POINT", sub: "AI 처리 영역", human: false },
@@ -365,20 +373,20 @@ export const T = {
     statusLabels: { "진행 중": "In Progress", "완료": "Completed", "기획 중": "Planning" } as Record<string, string>,
     diagnoseRows: [
       { label: "Workflow Steps", value: "Collect → Organize → Analyze → Report" },
-      { label: "Staff", value: "Marketing 2 · Planning 1" },
+      { label: "Staff", value: "Process Owner · Reviewer · Approver" },
       { label: "Tools Used", value: "Excel · Email · Messenger" },
       { label: "Data Location", value: "Local · Shared Drive · System" },
       { label: "Automatable", value: "Collection · Organization · Draft Generation", highlight: true },
     ],
-    diagnoseNote: "* Example diagnosis structure — to be replaced after actual workflow analysis",
+    diagnoseNote: "* Diagnosis items are configured for the actual workflow environment.",
     operateStatuses: [
-      { label: "Usage Status", value: "Running normally" },
-      { label: "Workflow Status", value: "7 flows active" },
-      { label: "Human Review Queue", value: "3 items pending review", highlight: true },
-      { label: "Exceptions", value: "1 exception being handled" },
-      { label: "Improvement Requests", value: "2 improvement requests" },
+      { label: "Usage Status", value: "Operations Monitoring" },
+      { label: "Workflow Status", value: "Automated Workflow Management" },
+      { label: "Human Review Queue", value: "Human Review & Approval", highlight: true },
+      { label: "Exceptions", value: "Exception Management" },
+      { label: "Improvement Requests", value: "Improvement Request Management" },
     ],
-    operateNote: "* Example operational status — to be replaced with actual data",
+    operateNote: "* Operational views are configured around actual workflow and review structures.",
     designFlow: [
       { label: "CURRENT PROCESS", sub: "Current manual work", human: false },
       { label: "AUTOMATION POINT", sub: "AI processing area", human: false },

@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { ArrowUpRight, X, FileText, ExternalLink, Lock } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../../context/LanguageContext";
+import { COMPANY_METRICS } from "../../data/companyMetrics";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -41,17 +42,17 @@ const UI = {
     filterAll: "전체",
     achievementsLabel: "Business Achievements",
     achievementsHeadline: "사업으로 증명한 실행력",
-    achievementsNote: "* 계약 금액, 구체적 성과 수치는 검증 후 순차 업데이트됩니다.",
+    achievementsNote: "공개 가능한 범위에서 사업 수행 내용을 정리했습니다.",
     achievementsRoleLabel: "이루티의 역할",
     achievementsOutcomeLabel: "성과",
     credentialsLabel: "Corporate Credentials",
     credentialsHeadline: "기업 자격 & 신뢰 자산",
     credGroupLabel: { certification: "A. 기업 인증", ip: "B. 지식재산", rd: "C. 연구개발", trust: "D. 사업 신뢰" },
-    statusLabel: { active: "확인됨", pending: "진행중", placeholder: "업데이트 예정" },
+    statusLabel: { active: "확인됨", pending: "진행중", placeholder: "비공개" },
     drawerIssuer: "발급 기관", drawerDate: "날짜", drawerRef: "참조 번호", drawerProject: "관련 프로젝트",
     drawerSummaryLabel: "요약",
     docAvailable: "문서 확인", docAvailableSub: "공개 문서 보기",
-    docPrivate: "문서 비공개", docPlaceholder: "문서 업데이트 예정", docInternal: "내부 보관 — 필요시 요청 가능",
+    docPrivate: "문서 비공개", docPlaceholder: "문서 비공개", docInternal: "내부 보관 — 필요시 요청 가능",
     monthSuffix: "월",
     ctaHeadline: "검증된 역량으로\n다음 프로젝트를\n준비합니다.",
     ctaBtn1: "기술 살펴보기", ctaBtn2: "프로젝트 제안하기",
@@ -67,17 +68,17 @@ const UI = {
     filterAll: "All",
     achievementsLabel: "Business Achievements",
     achievementsHeadline: "Execution Proven Through Business",
-    achievementsNote: "* Contract amounts and specific performance figures will be updated sequentially after verification.",
+    achievementsNote: "Business execution details are summarized within the public disclosure range.",
     achievementsRoleLabel: "ERUTY Role",
     achievementsOutcomeLabel: "Outcome",
     credentialsLabel: "Corporate Credentials",
     credentialsHeadline: "Corporate Credentials & Trust Assets",
     credGroupLabel: { certification: "A. Certifications", ip: "B. Intellectual Property", rd: "C. R&D", trust: "D. Business Trust" },
-    statusLabel: { active: "Confirmed", pending: "In Progress", placeholder: "Pending Update" },
+    statusLabel: { active: "Confirmed", pending: "In Progress", placeholder: "Private" },
     drawerIssuer: "Issuing Body", drawerDate: "Date", drawerRef: "Reference No.", drawerProject: "Related Project",
     drawerSummaryLabel: "Summary",
     docAvailable: "View Document", docAvailableSub: "View public document",
-    docPrivate: "Document Private", docPlaceholder: "Document pending update", docInternal: "Internal — available on request",
+    docPrivate: "Document Private", docPlaceholder: "Document Private", docInternal: "Internal — available on request",
     monthSuffix: "",
     ctaHeadline: "Ready with Verified\nCapabilities for\nYour Next Project.",
     ctaBtn1: "Explore Technology", ctaBtn2: "Propose a Project",
@@ -87,20 +88,20 @@ const UI = {
 
 const metricsData = {
   ko: [
-    { label: "설립연도", value: "2022", unit: "", note: "2022년 9월 22일 법인 설립" },
-    { label: "2024년 매출", value: "5", unit: "억원", note: "회계 자료 기준" },
-    { label: "2025년 매출", value: "7.5", unit: "억원", note: "회계 자료 기준" },
-    { label: "글로벌 파트너", value: "20", unit: "+", note: "콘텐츠·기술·투자·유통 파트너" },
-    { label: "확보 크리에이터", value: "100", unit: "+", note: "국내외 크리에이터 네트워크" },
-    { label: "특허", value: "2", unit: "건 등록", note: "출원 1건 별도 보유" },
+    { label: COMPANY_METRICS.founded.labelKo, value: COMPANY_METRICS.founded.value, unit: "", note: COMPANY_METRICS.founded.noteKo },
+    { label: COMPANY_METRICS.revenue2024.labelKo, value: COMPANY_METRICS.revenue2024.valueKo, unit: "", note: COMPANY_METRICS.revenue2024.noteKo },
+    { label: COMPANY_METRICS.revenue2025.labelKo, value: COMPANY_METRICS.revenue2025.valueKo, unit: "", note: COMPANY_METRICS.revenue2025.noteKo },
+    { label: COMPANY_METRICS.globalPartners.labelKo, value: COMPANY_METRICS.globalPartners.value, unit: "", note: COMPANY_METRICS.globalPartners.noteKo },
+    { label: COMPANY_METRICS.creatorNetwork.labelKo, value: COMPANY_METRICS.creatorNetwork.value, unit: "", note: COMPANY_METRICS.creatorNetwork.noteKo },
+    { label: "특허", value: `등록 ${COMPANY_METRICS.registeredPatents.value}건 · 출원 ${COMPANY_METRICS.patentApplications.value}건`, unit: "", note: "특허 등록 및 출원 현황" },
   ],
   en: [
-    { label: "Founded", value: "2022", unit: "", note: "Incorporated on September 22, 2022" },
-    { label: "2024 Revenue", value: "500", unit: "M KRW", note: "Based on accounting records" },
-    { label: "2025 Revenue", value: "750", unit: "M KRW", note: "Based on accounting records" },
-    { label: "Global Partners", value: "20", unit: "+", note: "Content, technology, investment and distribution partners" },
-    { label: "Creator Network", value: "100", unit: "+", note: "Domestic and global creator network" },
-    { label: "Patents", value: "2", unit: "Registered", note: "1 additional patent application" },
+    { label: COMPANY_METRICS.founded.labelEn, value: COMPANY_METRICS.founded.value, unit: "", note: COMPANY_METRICS.founded.noteEn },
+    { label: COMPANY_METRICS.revenue2024.labelEn, value: COMPANY_METRICS.revenue2024.valueEn, unit: "", note: COMPANY_METRICS.revenue2024.noteEn },
+    { label: COMPANY_METRICS.revenue2025.labelEn, value: COMPANY_METRICS.revenue2025.valueEn, unit: "", note: COMPANY_METRICS.revenue2025.noteEn },
+    { label: COMPANY_METRICS.globalPartners.labelEn, value: COMPANY_METRICS.globalPartners.value, unit: "", note: COMPANY_METRICS.globalPartners.noteEn },
+    { label: COMPANY_METRICS.creatorNetwork.labelEn, value: COMPANY_METRICS.creatorNetwork.value, unit: "", note: COMPANY_METRICS.creatorNetwork.noteEn },
+    { label: "Patents", value: `${COMPANY_METRICS.registeredPatents.value} Registered · ${COMPANY_METRICS.patentApplications.value} Application`, unit: "", note: "Registered patents and patent application status" },
   ],
 };
 
@@ -131,16 +132,16 @@ const milestonesData = {
 
 const achievementsData = {
   ko: [
-    { id: "a1", headline: "AX 교육 프로그램 공공기관 납품", area: "AX 교육·컨설팅", market: "한국", role: "커리큘럼 설계 및 교육 운영", outcome: "수료 인원 2,000명 이상, 공공기관 AI 리터러시 제고", status: "완료" },
-    { id: "a2", headline: "AI R&D 정부 과제 수행", area: "AI 연구개발", market: "한국", role: "연구 수행 기관", outcome: "과제 진행중 — 세부 성과 업데이트 예정", status: "진행중" },
-    { id: "a3", headline: "베트남 OTT 배급 파트너십", area: "글로벌 배급", market: "베트남", role: "배급 파트너 발굴 및 계약 실행", outcome: "계약 완료 — 세부 성과 업데이트 예정", status: "완료" },
-    { id: "a4", headline: "IP 블록체인 인프라 배포", area: "블록체인·인프라", market: "한국", role: "설계 및 개발, 배포", outcome: "콘텐츠 파트너 대상 운영 시작", status: "운영중" },
+    { id: "a1", headline: "AX 교육 프로그램 공공기관 납품", area: "AX 교육·컨설팅", market: "한국", role: "커리큘럼 설계 및 교육 운영", outcome: "공공기관 대상 AI 리터러시 교육 프로그램 운영", status: "완료" },
+    { id: "a2", headline: "AI R&D 정부 과제 수행", area: "AI 연구개발", market: "한국", role: "연구 수행 기관", outcome: "정부 과제 수행 체계 운영", status: "진행중" },
+    { id: "a3", headline: "베트남 OTT 배급 파트너십", area: "글로벌 배급", market: "베트남", role: "배급 파트너 발굴 및 계약 실행", outcome: "베트남 대상 배급 협업 구조 구축", status: "완료" },
+    { id: "a4", headline: "IP 블록체인 인프라 배포", area: "블록체인·인프라", market: "한국", role: "설계 및 개발, 배포", outcome: "콘텐츠 파트너 대상 기술 인프라 운영", status: "운영중" },
   ],
   en: [
-    { id: "a1", headline: "AX Education Program Delivered to Public Institutions", area: "AX Education & Consulting", market: "Korea", role: "Curriculum design and education delivery", outcome: "2,000+ completions, improved AI literacy in public institutions", status: "Completed" },
-    { id: "a2", headline: "Government AI R&D Project Execution", area: "AI Research & Development", market: "Korea", role: "Research executing organization", outcome: "Project ongoing — detailed outcomes pending update", status: "In Progress" },
-    { id: "a3", headline: "Vietnam OTT Distribution Partnership", area: "Global Distribution", market: "Vietnam", role: "Distribution partner identification and contract execution", outcome: "Contract completed — detailed outcomes pending update", status: "Completed" },
-    { id: "a4", headline: "IP Blockchain Infrastructure Deployment", area: "Blockchain & Infrastructure", market: "Korea", role: "Design, development, and deployment", outcome: "Operational for content partners", status: "Active" },
+    { id: "a1", headline: "AX Education Program Delivered to Public Institutions", area: "AX Education & Consulting", market: "Korea", role: "Curriculum design and education delivery", outcome: "Operation of an AI literacy education program for public institutions", status: "Completed" },
+    { id: "a2", headline: "Government AI R&D Project Execution", area: "AI Research & Development", market: "Korea", role: "Research executing organization", outcome: "Operation of a government-funded AI R&D execution framework", status: "In Progress" },
+    { id: "a3", headline: "Vietnam OTT Distribution Partnership", area: "Global Distribution", market: "Vietnam", role: "Distribution partner identification and contract execution", outcome: "Established a Vietnam-focused content distribution collaboration structure", status: "Completed" },
+    { id: "a4", headline: "IP Blockchain Infrastructure Deployment", area: "Blockchain & Infrastructure", market: "Korea", role: "Design, development, and deployment", outcome: "Technical infrastructure in operation for content partners", status: "Active" },
   ],
 };
 
@@ -185,7 +186,7 @@ const credentials: Credential[] = [
     issuer: "과학기술정보통신부", issuerEn: "Ministry of Science and ICT",
     date: "2024년 초", dateEn: "Early 2024",
     status: "active",
-    refNumber: "연구소 번호 업데이트 예정",
+    refNumber: "비공개", 
     summary: "자체 AI·기술 연구를 위한 기업부설연구소 설립 인정을 취득했습니다.",
     summaryEn: "Obtained recognition for establishing a corporate R&D center for in-house AI and technology research.",
     docAvailable: false, tech: "AI Research",
@@ -231,7 +232,7 @@ const credentials: Credential[] = [
     issuer: "과학기술정보통신부", issuerEn: "Ministry of Science and ICT",
     date: "2024년", dateEn: "2024",
     status: "active",
-    refNumber: "과제번호 업데이트 예정",
+    refNumber: "비공개",
     summary: "과학기술정보통신부 주관 AI 연구 개발 과제를 수행 기관으로서 진행중입니다.",
     summaryEn: "Currently executing a government-commissioned AI R&D project supervised by the Ministry of Science and ICT.",
     docAvailable: false, tech: "AI Research", project: "AI R&D 과제", projectEn: "AI R&D Project",
@@ -242,7 +243,7 @@ const credentials: Credential[] = [
     issuer: "이루티 기업부설연구소", issuerEn: "ERUTY Corporate R&D Center",
     date: "2023년", dateEn: "2023",
     status: "active",
-    refNumber: "내부 연구 번호 업데이트 예정",
+    refNumber: "비공개",
     summary: "콘텐츠 추천을 위한 AI 감성 분석 알고리즘을 자체 연구 개발했습니다.",
     summaryEn: "Developed an in-house AI sentiment analysis algorithm for content recommendation.",
     docAvailable: false, tech: "AI · NLP",
@@ -262,10 +263,10 @@ const credentials: Credential[] = [
   {
     id: "tr1", group: "trust",
     name: "공공기관 AX 교육 계약", nameEn: "Public Institution AX Education Contract",
-    issuer: "계약기관 업데이트 예정", issuerEn: "Contracting Institution — Pending",
+    issuer: "비공개 공공기관", issuerEn: "Private public institution",
     date: "2024년", dateEn: "2024",
     status: "active",
-    refNumber: "계약번호 업데이트 예정",
+    refNumber: "비공개",
     summary: "정부 기관 대상 AI 교육 프로그램 납품 계약을 완료하고 이행했습니다.",
     summaryEn: "Completed and fulfilled an AI education program delivery contract with a government institution.",
     docAvailable: false, project: "AX 교육 프로그램", projectEn: "AX Education Program",
@@ -273,10 +274,10 @@ const credentials: Credential[] = [
   {
     id: "tr2", group: "trust",
     name: "베트남 OTT 배급 협약", nameEn: "Vietnam OTT Distribution Agreement",
-    issuer: "계약기관 업데이트 예정", issuerEn: "Partner Platform — Pending",
+    issuer: "비공개 파트너 플랫폼", issuerEn: "Private partner platform",
     date: "2024년 12월", dateEn: "December 2024",
     status: "active",
-    refNumber: "계약번호 업데이트 예정",
+    refNumber: "비공개",
     summary: "베트남 OTT 플랫폼과의 콘텐츠 배급 파트너십 협약을 체결했습니다.",
     summaryEn: "Signed a content distribution partnership agreement with a Vietnam OTT platform.",
     docAvailable: false, project: "베트남 배급 파트너십", projectEn: "Vietnam Distribution Partnership",
@@ -354,12 +355,13 @@ function MetricsSection() {
       <div className="max-w-[1440px] mx-auto px-8 py-16">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px" style={{ background: BORDER }}>
           {metrics.map((m) => (
-            <div key={m.label} className="p-6" style={{ background: "#FFFFFF" }}>
-              <div className="text-xs mb-3" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{m.label}</div>
-              <div className="text-3xl mb-2" style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: NEAR_BLACK, letterSpacing: "-0.03em" }}>
-                {m.value}<span style={{ fontSize: "1rem", color: BLUE }}>{m.unit}</span>
+            <div key={m.label} className="p-7" style={{ background: "#FFFFFF", minHeight: 184 }}>
+              <div className="text-xs mb-3" style={{ color: MUTED, fontFamily: "var(--font-mono)", fontSize: "0.8rem", lineHeight: 1.5 }}>{m.label}</div>
+              <div className="mb-3" style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: NEAR_BLACK, fontSize: "clamp(2rem, 2.6vw, 2.35rem)", letterSpacing: "-0.03em", lineHeight: 1.18 }}>
+                {m.value}
+                {m.unit && <span style={{ fontSize: "1rem", color: BLUE, marginLeft: 4 }}>{m.unit}</span>}
               </div>
-              <div className="text-xs" style={{ color: MUTED, fontStyle: m.note.includes("예정") || m.note.includes("Pending") ? "italic" : "normal" }}>{m.note}</div>
+              <div className="text-xs" style={{ color: BODY_TEXT, fontSize: "0.82rem", lineHeight: 1.62 }}>{m.note}</div>
             </div>
           ))}
         </div>
@@ -426,9 +428,9 @@ function TimelineSection() {
                   <div className="col-span-12 md:col-span-9 flex flex-col justify-center p-7 gap-3">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: catColor }} />
-                      <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.05rem", color: NEAR_BLACK }}>{m.headline}</div>
+                      <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.12rem", color: NEAR_BLACK, lineHeight: 1.45 }}>{m.headline}</div>
                     </div>
-                    <p className="text-sm" style={{ color: BODY_TEXT, lineHeight: 1.7, maxWidth: 680 }}>{m.desc}</p>
+                    <p className="text-sm" style={{ color: BODY_TEXT, fontSize: "0.98rem", lineHeight: 1.74, maxWidth: 680 }}>{m.desc}</p>
                   </div>
                 </div>
               );
@@ -470,7 +472,7 @@ function AchievementsSection() {
               {/* 주요 정보 */}
               <div className="col-span-12 md:col-span-4 p-6" style={{ borderRight: `1px solid ${BORDER}` }}>
                 <div className="text-xs mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{a.area} · {a.market}</div>
-                <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "0.95rem", color: NEAR_BLACK }}>{a.headline}</div>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.02rem", color: NEAR_BLACK, lineHeight: 1.45 }}>{a.headline}</div>
                 <div className="mt-2">
                   <span className="text-xs px-2 py-0.5" style={{ border: `1px solid ${(statusColors[a.status] || MUTED) + "40"}`, color: statusColors[a.status] || MUTED, fontFamily: "var(--font-mono)" }}>
                     {a.status}
@@ -480,18 +482,18 @@ function AchievementsSection() {
               {/* 역할 */}
               <div className="col-span-12 md:col-span-3 p-6" style={{ borderRight: `1px solid ${BORDER}` }}>
                 <div className="text-xs mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{ui.achievementsRoleLabel}</div>
-                <p className="text-sm" style={{ color: BODY_TEXT, lineHeight: 1.6 }}>{a.role}</p>
+                <p className="text-sm" style={{ color: BODY_TEXT, fontSize: "0.96rem", lineHeight: 1.7 }}>{a.role}</p>
               </div>
               {/* 성과 */}
               <div className="col-span-12 md:col-span-4 p-6">
                 <div className="text-xs mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{ui.achievementsOutcomeLabel}</div>
-                <p className="text-sm" style={{ color: BODY_TEXT, lineHeight: 1.6 }}>{a.outcome}</p>
+                <p className="text-sm" style={{ color: BODY_TEXT, fontSize: "0.96rem", lineHeight: 1.7 }}>{a.outcome}</p>
               </div>
             </div>
           ))}
         </div>
 
-        <p className="mt-6 text-xs" style={{ color: MUTED, fontStyle: "italic" }}>
+        <p className="mt-6 text-xs" style={{ color: BODY_TEXT, fontSize: "0.82rem", lineHeight: 1.6 }}>
           {ui.achievementsNote}
         </p>
       </div>
@@ -514,7 +516,10 @@ function CredentialsSection() {
   const { lang } = useLanguage();
   const ui = UI[lang];
   const [selected, setSelected] = useState<Credential | null>(null);
-  const groups: CredGroup[] = ["certification", "ip", "rd", "trust"];
+  const visibleCredentials = credentials.filter((credential) => credential.status !== "placeholder");
+  const groups = (["certification", "ip", "rd", "trust"] as CredGroup[]).filter((group) =>
+    visibleCredentials.some((credential) => credential.group === group),
+  );
 
   const isPending = (v: string) => v.includes("예정") || v.toLowerCase().includes("pending") || v.toLowerCase().includes("to be updated");
 
@@ -528,7 +533,7 @@ function CredentialsSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-px" style={{ background: BORDER }}>
           {groups.map((grp) => {
-            const items = credentials.filter((c) => c.group === grp);
+            const items = visibleCredentials.filter((c) => c.group === grp);
             return (
               <div key={grp} className="flex flex-col gap-px" style={{ background: BORDER }}>
                 {/* 그룹 헤더 */}
@@ -542,10 +547,10 @@ function CredentialsSection() {
                     style={{ background: selected?.id === c.id ? SOFT_BG : "#FFFFFF", borderLeft: `3px solid ${selected?.id === c.id ? BLUE : "transparent"}` }}>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2 mb-1">
-                        <div className="text-sm" style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: NEAR_BLACK }}>{credField(c.name, c.nameEn, lang)}</div>
+                        <div className="text-sm" style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "0.98rem", color: NEAR_BLACK, lineHeight: 1.5 }}>{credField(c.name, c.nameEn, lang)}</div>
                         <CredentialBadge status={c.status} ui={ui} />
                       </div>
-                      <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{credField(c.issuer, c.issuerEn, lang)} · {credField(c.date, c.dateEn, lang)}</div>
+                      <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)", fontSize: "0.78rem", lineHeight: 1.5 }}>{credField(c.issuer, c.issuerEn, lang)} · {credField(c.date, c.dateEn, lang)}</div>
                     </div>
                     <ArrowUpRight size={14} style={{ color: selected?.id === c.id ? BLUE : MUTED, flexShrink: 0, marginTop: 2 }} />
                   </button>

@@ -6,17 +6,17 @@ import { BLUE, DARK, GRAY, BORDER, LIGHT_BG, AX_STEPS, T, TType } from "../const
 function DiagnoseVisual({ active, t }: { active: boolean; t: TType }) {
   return (
     <div style={{ overflowX: "auto" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.72rem", fontFamily: "var(--font-body)" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.82rem", fontFamily: "var(--font-body)" }}>
         <tbody>
           {t.diagnoseRows.map((r) => (
             <tr key={r.label} style={{ background: active && r.highlight ? "rgba(55,55,242,0.05)" : "transparent" }}>
-              <td style={{ padding: "8px 10px", color: GRAY, fontWeight: 500, width: 120, borderBottom: `1px solid ${BORDER}`, whiteSpace: "nowrap" }}>{r.label}</td>
-              <td style={{ padding: "8px 10px", color: active && r.highlight ? BLUE : DARK, fontWeight: r.highlight && active ? 600 : 400, borderBottom: `1px solid ${BORDER}` }}>{r.value}</td>
+              <td style={{ padding: "10px 12px", color: GRAY, fontWeight: 500, width: 140, borderBottom: `1px solid ${BORDER}`, whiteSpace: "nowrap", lineHeight: 1.55 }}>{r.label}</td>
+              <td style={{ padding: "10px 12px", color: active && r.highlight ? BLUE : DARK, fontWeight: r.highlight && active ? 600 : 400, borderBottom: `1px solid ${BORDER}`, lineHeight: 1.65 }}>{r.value}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <p style={{ fontSize: "0.6rem", color: "#C0C4CC", marginTop: 8, fontFamily: "var(--font-mono)" }}>{t.diagnoseNote}</p>
+      <p style={{ fontSize: "0.72rem", color: GRAY, marginTop: 10, fontFamily: "var(--font-mono)", lineHeight: 1.55 }}>{t.diagnoseNote}</p>
     </div>
   );
 }
@@ -38,7 +38,7 @@ function DesignVisual({ active, t }: { active: boolean; t: TType }) {
             }}
           >
             <div style={{ fontSize: "0.65rem", fontFamily: "var(--font-mono)", letterSpacing: "0.05em" }}>{node.label}</div>
-            <div style={{ fontSize: "0.6rem", color: GRAY, marginTop: 2 }}>{node.sub}</div>
+            <div style={{ fontSize: "0.72rem", color: GRAY, marginTop: 4, lineHeight: 1.5 }}>{node.sub}</div>
           </div>
           {i < t.designFlow.length - 1 && <ArrowRight size={12} style={{ color: active ? BLUE : BORDER, flexShrink: 0 }} />}
         </div>
@@ -61,6 +61,7 @@ function BuildVisual({ active }: { active: boolean }) {
               color: active ? (i === layers.length - 1 ? BLUE : DARK) : GRAY,
               fontFamily: "var(--font-mono)",
               fontSize: "0.62rem",
+              lineHeight: 1.45,
               background: active && i === layers.length - 1 ? "rgba(55,55,242,0.05)" : "transparent",
               letterSpacing: "0.06em",
               maxWidth: 240,
@@ -89,6 +90,8 @@ function EnableVisual({ active, t }: { active: boolean; t: TType }) {
             borderRadius: 4,
             color: active ? DARK : GRAY,
             background: active ? "#fff" : "transparent",
+            fontSize: "0.86rem",
+            lineHeight: 1.6,
           }}
         >
           <div style={{ width: 6, height: 6, borderRadius: "50%", background: active ? BLUE : BORDER, flexShrink: 0 }} />
@@ -102,17 +105,17 @@ function EnableVisual({ active, t }: { active: boolean; t: TType }) {
 function OperateVisual({ active, t }: { active: boolean; t: TType }) {
   return (
     <div style={{ overflowX: "auto" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.72rem", fontFamily: "var(--font-body)" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.82rem", fontFamily: "var(--font-body)" }}>
         <tbody>
           {t.operateStatuses.map((s) => (
             <tr key={s.label} style={{ background: active && s.highlight ? "rgba(55,55,242,0.05)" : "transparent" }}>
-              <td style={{ padding: "8px 10px", color: GRAY, width: 160, borderBottom: `1px solid ${BORDER}` }}>{s.label}</td>
-              <td style={{ padding: "8px 10px", color: active && s.highlight ? BLUE : DARK, fontWeight: s.highlight && active ? 600 : 400, borderBottom: `1px solid ${BORDER}` }}>{s.value}</td>
+              <td style={{ padding: "10px 12px", color: GRAY, width: 180, borderBottom: `1px solid ${BORDER}`, lineHeight: 1.55 }}>{s.label}</td>
+              <td style={{ padding: "10px 12px", color: active && s.highlight ? BLUE : DARK, fontWeight: s.highlight && active ? 600 : 400, borderBottom: `1px solid ${BORDER}`, lineHeight: 1.65 }}>{s.value}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <p style={{ fontSize: "0.6rem", color: "#C0C4CC", marginTop: 8, fontFamily: "var(--font-mono)" }}>{t.operateNote}</p>
+      <p style={{ fontSize: "0.72rem", color: GRAY, marginTop: 10, fontFamily: "var(--font-mono)", lineHeight: 1.55 }}>{t.operateNote}</p>
     </div>
   );
 }
@@ -136,7 +139,7 @@ function AXStepVisual({ step, index, active, lang, t }: { step: typeof AX_STEPS[
       <h3 className="text-xl font-bold mb-3" style={{ fontFamily: "var(--font-display)", color: active ? DARK : GRAY }}>
         {lang === "ko" ? step.ko : step.en}
       </h3>
-      <p className="text-sm mb-7" style={{ color: GRAY, lineHeight: 1.8, whiteSpace: "pre-line" }}>{lang === "ko" ? step.desc : step.descEn}</p>
+      <p className="text-sm mb-7" style={{ color: GRAY, fontSize: "0.98rem", lineHeight: 1.8, whiteSpace: "pre-line" }}>{lang === "ko" ? step.desc : step.descEn}</p>
       <div>{visuals[index]}</div>
     </div>
   );
@@ -169,7 +172,7 @@ function AXMobileStep({ step, index, isOpen, onToggle, lang, t }: { step: typeof
       </button>
       {isOpen && (
         <div className="px-5 pb-5">
-          <p className="text-sm mb-5" style={{ color: GRAY, lineHeight: 1.8, whiteSpace: "pre-line" }}>{lang === "ko" ? step.desc : step.descEn}</p>
+          <p className="text-sm mb-5" style={{ color: GRAY, fontSize: "0.96rem", lineHeight: 1.8, whiteSpace: "pre-line" }}>{lang === "ko" ? step.desc : step.descEn}</p>
           <div className="overflow-x-auto">{visuals[index]}</div>
         </div>
       )}
@@ -210,7 +213,7 @@ export const AXProcess = forwardRef<HTMLDivElement>((_, ref) => {
           >
             {t.processHeading}
           </h2>
-          <p className="text-sm max-w-lg" style={{ color: GRAY, lineHeight: 1.8, whiteSpace: "pre-line" }}>
+          <p className="text-sm max-w-lg" style={{ color: GRAY, fontSize: "0.98rem", lineHeight: 1.8, whiteSpace: "pre-line" }}>
             {t.processDesc}
           </p>
         </div>

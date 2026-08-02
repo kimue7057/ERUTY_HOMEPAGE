@@ -1,7 +1,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --font-size: 16px;
+  --font-size: 17px;
   --font-display: 'Pretendard Variable', 'Pretendard', system-ui, sans-serif;
   --font-body: 'Pretendard Variable', 'Pretendard', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -131,6 +131,8 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -186,5 +188,17 @@
     font-size: var(--text-base);
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
+  }
+}
+
+@layer utilities {
+  .text-xs {
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+
+  .text-sm {
+    font-size: 0.9375rem;
+    line-height: 1.55;
   }
 }
