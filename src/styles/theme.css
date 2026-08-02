@@ -201,4 +201,22 @@
     font-size: 0.9375rem;
     line-height: 1.55;
   }
+
+  .eruty-horizontal-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .eruty-horizontal-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .eruty-activity-chip {
+    scroll-snap-align: start;
+  }
+
+  .eruty-keep-all {
+    word-break: keep-all;
+    overflow-wrap: normal;
+  }
 }
