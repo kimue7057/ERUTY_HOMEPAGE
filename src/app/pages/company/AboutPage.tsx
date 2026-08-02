@@ -345,6 +345,7 @@ function HeroSection() {
 
   return (
     <section
+      data-about-hero
       className="relative overflow-hidden border-b"
       style={{
         borderColor: BORDER,
@@ -410,7 +411,7 @@ function IdentitySection() {
   const copy = COPY[lang];
 
   return (
-    <section className="relative z-20 -mt-12 md:-mt-16 lg:-mt-24">
+    <section data-about-identity className="relative z-20 -mt-12 md:-mt-16 lg:-mt-24">
       <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
         <div
           className="overflow-hidden rounded-[2rem] border"
@@ -495,7 +496,11 @@ function BeginningSection() {
   const copy = COPY[lang];
 
   return (
-    <section className="border-b py-20 md:py-24" style={{ borderColor: BORDER, background: "#FFFFFF" }}>
+    <section
+      data-about-beginning
+      className="border-b py-20 md:py-24"
+      style={{ borderColor: BORDER, background: "#FFFFFF" }}
+    >
       <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.03fr)_minmax(0,0.97fr)] lg:gap-16">
           <div className="max-w-[35rem]">
@@ -838,7 +843,11 @@ function JourneySection() {
   const thumbTranslate = progress * (1 - thumbWidth);
 
   return (
-    <section className="overflow-hidden border-b py-24 md:py-28" style={{ borderColor: BORDER, background: SOFT_BG }}>
+    <section
+      data-about-journey
+      className="overflow-hidden border-b py-24 md:py-28"
+      style={{ borderColor: BORDER, background: SOFT_BG }}
+    >
       <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
         <div className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-[34rem]">
@@ -969,7 +978,7 @@ function CtaSection() {
   const copy = COPY[lang];
 
   return (
-    <section className="pb-0 pt-0" style={{ background: "#FFFFFF" }}>
+    <section data-about-cta className="pb-0 pt-0" style={{ background: "#FFFFFF" }}>
       <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
         <div
           className="relative overflow-hidden rounded-[2rem] px-8 py-12 md:px-10 md:py-14 lg:px-14 lg:py-16"

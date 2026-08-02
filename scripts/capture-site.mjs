@@ -5,7 +5,8 @@ import path from "node:path";
 import process from "node:process";
 import { chromium } from "playwright";
 
-const BASE_URL = "https://erutyhomepage.vercel.app";
+const DEFAULT_BASE_URL = "https://erutyhomepage.vercel.app";
+const BASE_URL = process.env.CAPTURE_BASE_URL ?? DEFAULT_BASE_URL;
 const OUTPUT_DIR = path.resolve("screenshots");
 const NAVIGATION_TIMEOUT_MS = 60_000;
 const POST_LOAD_WAIT_MS = 2_000;
@@ -58,6 +59,15 @@ function normalizePath(filePath) {
   return filePath.split(path.sep).join("/");
 }
 
+function buildScreenshotPaths(viewportName, filename) {
+  const relativePath = normalizePath(path.join(viewportName, filename));
+
+  return {
+    relativePath,
+    absolutePath: path.join(OUTPUT_DIR, viewportName, filename),
+  };
+}
+
 function toErrorMessage(error) {
   if (error instanceof Error) {
     return error.stack ?? error.message;
@@ -72,15 +82,177 @@ async function prepareOutputDirectory() {
   await mkdir(path.join(OUTPUT_DIR, "mobile"), { recursive: true });
 }
 
+async function captureLocatorScreenshot(page, viewport, options) {
+  const { selector, filename, label } = options;
+  const { relativePath, absolutePath } = buildScreenshotPaths(
+    viewport.name,
+    filename,
+  );
+  const result = {
+    label,
+    selector,
+    screenshotFilename: relativePath,
+    success: false,
+    captureError: null,
+  };
+
+  try {
+    const locator = page.locator(selector).first();
+    await locator.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(250);
+    await locator.screenshot({ path: absolutePath });
+    result.success = true;
+  } catch (error) {
+    result.captureError = toErrorMessage(error);
+  }
+
+  return result;
+}
+
+async function capturePreparedPageScreenshot(page, viewport, options) {
+  const { filename, label, prepare } = options;
+  const { relativePath, absolutePath } = buildScreenshotPaths(
+    viewport.name,
+    filename,
+  );
+  const result = {
+    label,
+    screenshotFilename: relativePath,
+    success: false,
+    captureError: null,
+  };
+
+  try {
+    if (prepare) {
+      await prepare();
+    }
+
+    await page.waitForTimeout(250);
+    await page.screenshot({ path: absolutePath });
+    result.success = true;
+  } catch (error) {
+    result.captureError = toErrorMessage(error);
+  }
+
+  return result;
+}
+
+async function scrollJourneyByCards(page, steps) {
+  await page.locator("[data-about-journey]").scrollIntoViewIfNeeded();
+
+  await page.evaluate((cardSteps) => {
+    const scroller = document.querySelector("[data-journey-scroller]");
+    const firstCard = scroller?.querySelector("[data-journey-card]");
+
+    if (!(scroller instanceof HTMLElement) || !(firstCard instanceof HTMLElement)) {
+      return;
+    }
+
+    const styles = window.getComputedStyle(scroller);
+    const gap = Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
+    const distance = (firstCard.getBoundingClientRect().width + gap) * cardSteps;
+
+    scroller.scrollLeft = distance;
+    scroller.dispatchEvent(new Event("scroll"));
+  }, steps);
+
+  await page.waitForTimeout(350);
+}
+
+async function captureAboutPageDetails(page, viewport) {
+  const captures = [];
+
+  captures.push(
+    await captureLocatorScreenshot(page, viewport, {
+      selector: "[data-about-hero]",
+      filename: "company-about-hero.png",
+      label: "Company About Hero",
+    }),
+  );
+
+  captures.push(
+    await captureLocatorScreenshot(page, viewport, {
+      selector: "[data-about-identity]",
+      filename: "company-about-identity.png",
+      label: "Company About Identity",
+    }),
+  );
+
+  captures.push(
+    await captureLocatorScreenshot(page, viewport, {
+      selector: "[data-about-beginning]",
+      filename: "company-about-beginning.png",
+      label: "Company About Beginning",
+    }),
+  );
+
+  captures.push(
+    await captureLocatorScreenshot(page, viewport, {
+      selector: "[data-about-journey]",
+      filename: "company-about-journey-start.png",
+      label: "Company About Journey Start",
+    }),
+  );
+
+  await scrollJourneyByCards(page, viewport.name === "desktop" ? 2 : 1);
+
+  captures.push(
+    await captureLocatorScreenshot(page, viewport, {
+      selector: "[data-about-journey]",
+      filename:
+        viewport.name === "desktop"
+          ? "company-about-journey-mid.png"
+          : "company-about-journey-after.png",
+      label:
+        viewport.name === "desktop"
+          ? "Company About Journey Mid"
+          : "Company About Journey After Swipe",
+    }),
+  );
+
+  if (viewport.name === "desktop") {
+    captures.push(
+      await capturePreparedPageScreenshot(page, viewport, {
+        filename: "company-about-cta-footer.png",
+        label: "Company About CTA and Footer",
+        prepare: async () => {
+          await page.evaluate(() => {
+            const cta = document.querySelector("[data-about-cta]");
+            const footer = document.querySelector("footer");
+
+            if (!(cta instanceof HTMLElement) || !(footer instanceof HTMLElement)) {
+              return;
+            }
+
+            const footerRect = footer.getBoundingClientRect();
+            const scrollY = window.scrollY;
+            const footerTop = footerRect.top + scrollY;
+            const maxScrollTop = Math.max(
+              0,
+              document.documentElement.scrollHeight - window.innerHeight,
+            );
+            const targetTop = Math.min(
+              maxScrollTop,
+              Math.max(0, Math.round(footerTop - window.innerHeight * 0.42)),
+            );
+
+            window.scrollTo({ top: targetTop, behavior: "auto" });
+          });
+        },
+      }),
+    );
+  }
+
+  return captures;
+}
+
 async function captureRoute(context, viewport, routeConfig) {
   const page = await context.newPage();
   const consoleErrors = [];
   const pageErrors = [];
   const targetUrl = buildUrl(routeConfig.route);
-  const screenshotRelativePath = normalizePath(
-    path.join(viewport.name, routeConfig.filename),
-  );
-  const screenshotPath = path.join(OUTPUT_DIR, viewport.name, routeConfig.filename);
+  const { relativePath: screenshotRelativePath, absolutePath: screenshotPath } =
+    buildScreenshotPaths(viewport.name, routeConfig.filename);
 
   page.on("console", (message) => {
     if (message.type() === "error") {
@@ -108,6 +280,7 @@ async function captureRoute(context, viewport, routeConfig) {
     viewportWidth: viewport.width,
     documentHeight: null,
     screenshotFilename: screenshotRelativePath,
+    detailCaptures: [],
     success: false,
     captureError: null,
   };
@@ -141,6 +314,10 @@ async function captureRoute(context, viewport, routeConfig) {
       path: screenshotPath,
       fullPage: true,
     });
+
+    if (routeConfig.route === "/company/about") {
+      result.detailCaptures = await captureAboutPageDetails(page, viewport);
+    }
 
     result.success = true;
   } catch (error) {
@@ -194,9 +371,13 @@ async function main() {
   );
 
   const failedCaptures = report.results.filter((entry) => !entry.success);
-  if (failedCaptures.length > 0) {
+  const failedDetailCaptures = report.results.flatMap((entry) =>
+    (entry.detailCaptures ?? []).filter((detail) => !detail.success),
+  );
+
+  if (failedCaptures.length > 0 || failedDetailCaptures.length > 0) {
     console.warn(
-      `Completed with ${failedCaptures.length} failed capture(s). See screenshots/report.json for details.`,
+      `Completed with ${failedCaptures.length} failed page capture(s) and ${failedDetailCaptures.length} failed detail capture(s). See screenshots/report.json for details.`,
     );
   } else {
     console.log("Completed all screenshot captures successfully.");
