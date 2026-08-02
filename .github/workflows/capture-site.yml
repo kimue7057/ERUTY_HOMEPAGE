@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - fix/about-page-readability-pass-1
 
 permissions:
   contents: read
@@ -30,7 +31,28 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
+      - name: Build site
+        run: npm run build
+
+      - name: Start local preview server
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/eruty-preview.log 2>&1 &
+
+      - name: Wait for local preview
+        run: |
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173 > /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Local preview did not start in time."
+          cat /tmp/eruty-preview.log || true
+          exit 1
+
       - name: Capture deployed site screenshots
+        env:
+          CAPTURE_BASE_URL: http://127.0.0.1:4173
         run: npm run capture:site
 
       - name: Upload screenshots artifact
