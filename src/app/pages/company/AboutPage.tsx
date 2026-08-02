@@ -1,313 +1,474 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
-import { motion } from "motion/react";
-import { useLanguage } from "../../context/LanguageContext";
+import type { LucideIcon } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  FlaskConical,
+  MapPin,
+  ScrollText,
+} from "lucide-react";
+import { buildStartProjectHref } from "../../data/inquiryOptions";
+import { type Lang, useLanguage } from "../../context/LanguageContext";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
 const BODY_TEXT = "#333438";
-const MUTED = "#737780";
+const MUTED = "#6E7481";
 const BORDER = "#E4E6EA";
-const SOFT_BG = "#F5F6F8";
+const SOFT_BG = "#F6F8FC";
+const CARD_BG = "#FCFCFE";
+const JOURNEY_SCROLL_GAP = 20;
 
-// ── 번역 ──────────────────────────────────────────────────────────────────────
-
-const T = {
-  ko: {
-    heroLabel: "About ERUTY",
-    heroHeadline: "가능성을 연결해,\n글로벌 비즈니스를\n만듭니다.",
-    heroDesc: "이루티는 콘텐츠와 기술, 글로벌 네트워크를 연결해\n새로운 사업을 설계하고 실행합니다.",
-    heroVisualLabel: "글로벌 사업의 설계와 실행",
-    heroVisualItems: [
-      { label: "콘텐츠 & IP", sub: "Content Business" },
-      { label: "AI & 데이터", sub: "Intelligence" },
-      { label: "글로벌 파트너", sub: "20+ Countries" },
-      { label: "자동화 시스템", sub: "AX Transformation" },
-      { label: "브랜드 협업", sub: "Commerce" },
-      { label: "기술 인프라", sub: "Engineering" },
-    ],
-    connectionLabel: "What We Connect",
-    connectionHeadline: "서로 다른 가능성을\n하나의 사업으로\n연결합니다.",
-    inputs: ["콘텐츠와 IP", "시장과 오디언스 데이터", "AI·소프트웨어 기술", "국내외 파트너", "브랜드와 유통 채널"],
-    outputLabel: "Output",
-    outputTitle: "글로벌 사업의\n설계와 실행",
-    outputItems: ["콘텐츠 IP 사업화", "AI 전환 실행", "파트너 네트워크 운영"],
-    businessLabel: "두 개의 사업 영역",
-    businessHeadline: "두 개의 사업,\n하나의 글로벌 비전",
-    businessALabel: "A — 글로벌 콘텐츠 사업",
-    businessAHeadline: "콘텐츠와 IP를\n글로벌 비즈니스로 전환합니다.",
-    businessADesc: "콘텐츠의 가능성을 분석하고 투자·제작·배급·라이선싱·브랜드 협업을 통해 실제 사업으로 연결합니다.",
-    contentServices: ["투자·공동제작", "글로벌 배급", "IP 거래·라이선싱", "광고·브랜드 협업", "커머스·수익화"],
-    businessBLabel: "B — AX 전환",
-    businessBHeadline: "기업의 업무와 서비스를\n지능형 시스템으로 전환합니다.",
-    businessBDesc: "업무를 분석하고 AI 교육·소프트웨어 개발·자동화 시스템을 통해 실제 운영 가능한 AX 환경을 구축합니다.",
-    axServices: ["AX 실무교육", "AI 소프트웨어 개발", "업무 자동화", "AI 에이전트·워크플로", "맞춤형 프로그램"],
-    serviceLink: "서비스 상세 보기",
-    howLabel: "How We Work",
-    howHeadline: "아이디어에서 실행까지",
-    steps: [
-      { n: "01", title: "기회 발굴", desc: "시장 신호와 파트너 네트워크를 통해 사업 기회를 식별합니다." },
-      { n: "02", title: "시장과 데이터 분석", desc: "AI 분석 도구로 수요, 경쟁, 파트너 적합도를 정량화합니다." },
-      { n: "03", title: "사업 또는 시스템 설계", desc: "검증된 프레임워크로 비즈니스 구조 또는 AX 청사진을 설계합니다." },
-      { n: "04", title: "파트너 연결과 개발", desc: "투자자, 배급사, 기술 파트너와 협력해 실행 기반을 구축합니다." },
-      { n: "05", title: "실행과 운영", desc: "계약 완료 후 사업 운영, 캠페인 실행, 시스템 배포를 담당합니다." },
-      { n: "06", title: "성과 분석과 확장", desc: "데이터 기반으로 결과를 측정하고 다음 시장으로 확장합니다." },
-    ],
-    techLabel: "Technology Foundation",
-    techHeadline: "실제 사업을\n움직이는 기술",
-    techDesc: "AI·데이터·블록체인·소프트웨어 기술을\n사업 판단과 실제 운영 시스템에 적용합니다.",
-    techItems: [
-      { label: "AI & Data", title: "콘텐츠와 시장을 분석하는 지능", desc: "오디언스 행동, 시장 트렌드, 콘텐츠 신호를 분석해 사업 판단의 정확도를 높입니다.", accent: BLUE },
-      { label: "Automation", title: "반복 업무를 처리하는 시스템", desc: "AI 에이전트와 워크플로우 자동화로 운영 비용을 낮추고 실행 속도를 높입니다.", accent: "#8B5CF6" },
-      { label: "Blockchain & Rights", title: "IP와 수익을 보호하는 인프라", desc: "콘텐츠 권리의 등록·라이선싱·정산을 스마트 계약 기반으로 자동화합니다.", accent: "#F59E0B" },
-      { label: "Software Engineering", title: "사업을 실행하는 제품 기술", desc: "플랫폼, SaaS, 어드민 시스템 등 비즈니스 운영에 필요한 소프트웨어를 직접 개발합니다.", accent: "#22C55E" },
-    ],
-    techMoreLabel: "기술 더 보기",
-    profileLabel: "Company Profile",
-    profileFields: [
-      { label: "법인명", value: "주식회사 이루티" },
-      { label: "대표이사", value: "김유성" },
-      { label: "설립일", value: "2022년 9월 22일" },
-      { label: "본사", value: "부산광역시 남구 문현금융로 40, 21층 6호" },
-      { label: "서울지사", value: "서울특별시 영등포구 의사당대로 83, 오투타워 6층 서울핀테크랩" },
-      { label: "주요 제품", value: "AX 기반 글로벌 확장 솔루션" },
-      { label: "기업 인증", value: "벤처기업 인증 · 기업부설연구소" },
-      { label: "특허", value: "등록 2건 · 출원 1건" },
-      { label: "대표전화", value: "070-4242-8559" },
-    ],
-    profilePending: "정보 업데이트 예정",
-    ctaHeadline: "새로운 사업의 가능성을\n이루티와 함께 발견하세요.",
-    ctaServices: "서비스 살펴보기",
-    ctaProject: "프로젝트 제안하기",
-  },
-  en: {
-    heroLabel: "About ERUTY",
-    heroHeadline: "Connecting Possibilities,\nBuilding Global\nBusiness.",
-    heroDesc: "ERUTY connects content, technology, and global networks\nto design and execute new businesses.",
-    heroVisualLabel: "Design & Execution of Global Business",
-    heroVisualItems: [
-      { label: "Content & IP", sub: "Content Business" },
-      { label: "AI & Data", sub: "Intelligence" },
-      { label: "Global Partners", sub: "20+ Countries" },
-      { label: "Automation Systems", sub: "AX Transformation" },
-      { label: "Brand Collaboration", sub: "Commerce" },
-      { label: "Tech Infrastructure", sub: "Engineering" },
-    ],
-    connectionLabel: "What We Connect",
-    connectionHeadline: "Connecting Different Possibilities\ninto a Single Business.",
-    inputs: ["Content & IP", "Market & Audience Data", "AI · Software Technology", "Domestic & Global Partners", "Brands & Distribution Channels"],
-    outputLabel: "Output",
-    outputTitle: "Design & Execution\nof Global Business",
-    outputItems: ["Content IP Business", "AI Transformation", "Partner Network Operations"],
-    businessLabel: "Two Business Areas",
-    businessHeadline: "Two Businesses,\nOne Global Vision",
-    businessALabel: "A — Global Content Business",
-    businessAHeadline: "Turning Content & IP\ninto Global Business.",
-    businessADesc: "We analyze content potential and connect it to real business through investment, production, distribution, licensing, and brand collaboration.",
-    contentServices: ["Investment · Co-production", "Global Distribution", "IP Licensing", "Ad · Brand Collaboration", "Commerce · Monetization"],
-    businessBLabel: "B — AX Transformation",
-    businessBHeadline: "Transforming Business Operations\ninto Intelligent Systems.",
-    businessBDesc: "We analyze workflows and build operational AX environments through AI training, software development, and automation systems.",
-    axServices: ["AX Practical Training", "AI Software Development", "Workflow Automation", "AI Agents · Workflows", "Custom Programs"],
-    serviceLink: "View Service Details",
-    howLabel: "How We Work",
-    howHeadline: "From Idea to Execution",
-    steps: [
-      { n: "01", title: "Opportunity Discovery", desc: "We identify business opportunities through market signals and partner networks." },
-      { n: "02", title: "Market & Data Analysis", desc: "We quantify demand, competition, and partner fit using AI analysis tools." },
-      { n: "03", title: "Business or System Design", desc: "We design business structures or AX blueprints using proven frameworks." },
-      { n: "04", title: "Partner Connection & Development", desc: "We build execution foundations by collaborating with investors, distributors, and tech partners." },
-      { n: "05", title: "Execution & Operations", desc: "After contracts close, we handle business operations, campaign execution, and system deployment." },
-      { n: "06", title: "Performance Analysis & Scaling", desc: "We measure results with data and scale into the next market." },
-    ],
-    techLabel: "Technology Foundation",
-    techHeadline: "The Technology\nDriving Real Business",
-    techDesc: "We apply AI, data, blockchain, and software technology\nto business decisions and operational systems.",
-    techItems: [
-      { label: "AI & Data", title: "Intelligence for Analyzing Content & Markets", desc: "We analyze audience behavior, market trends, and content signals to improve the accuracy of business decisions.", accent: BLUE },
-      { label: "Automation", title: "Systems That Handle Repetitive Tasks", desc: "AI agents and workflow automation reduce operating costs and increase execution speed.", accent: "#8B5CF6" },
-      { label: "Blockchain & Rights", title: "Infrastructure Protecting IP & Revenue", desc: "We automate content rights registration, licensing, and settlement via smart contracts.", accent: "#F59E0B" },
-      { label: "Software Engineering", title: "Product Technology Executing Business", desc: "We build the software needed to run businesses — platforms, SaaS, admin systems, and more.", accent: "#22C55E" },
-    ],
-    techMoreLabel: "Explore Technology",
-    profileLabel: "Company Profile",
-    profileFields: [
-      { label: "Legal Name", value: "ERUTY Co., Ltd." },
-      { label: "CEO", value: "Yusung Kim" },
-      { label: "Founded", value: "September 22, 2022" },
-      { label: "Headquarters", value: "21F, Suite 6, 40 Munhyeongeumyung-ro, Nam-gu, Busan, Republic of Korea" },
-      { label: "Seoul Office", value: "6F, O2 Tower, 83 Uisadang-daero, Yeongdeungpo-gu, Seoul, Republic of Korea\nSeoul Fintech Lab" },
-      { label: "Main Product", value: "AX-based Global Expansion Solution" },
-      { label: "Corporate Credentials", value: "Venture Company Certified · Corporate R&D Center" },
-      { label: "Patents", value: "2 Registered · 1 Application" },
-      { label: "Telephone", value: "+82-70-4242-8559" },
-    ],
-    profilePending: "To be updated",
-    ctaHeadline: "Discover the Possibilities\nof a New Business with ERUTY.",
-    ctaServices: "Explore Services",
-    ctaProject: "Propose a Project",
-  },
+type IdentityItem = {
+  icon: LucideIcon;
+  label: Record<Lang, string>;
+  value: Record<Lang, string>;
 };
 
-// ── 섹션 1: 히어로 ────────────────────────────────────────────────────────────
+type JourneyMedia =
+  | {
+      type: "image";
+      src: string;
+      alt: Record<Lang, string>;
+      fit: "cover" | "contain";
+      background?: string;
+    }
+  | {
+      type: "placeholder";
+      variant: "origin" | "foundation";
+      alt: Record<Lang, string>;
+    };
 
-function HeroSection() {
-  const { lang } = useLanguage();
-  const t = T[lang];
-  return (
-    <section style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8 pt-28 pb-0">
-        {/* 레이블 */}
-        <div className="inline-block text-xs mb-16 px-3 py-1.5 tracking-widest uppercase" style={{ color: BLUE, border: `1px solid rgba(55,55,242,0.25)`, fontFamily: "var(--font-mono)" }}>
-          {t.heroLabel}
-        </div>
+type JourneyEntry = {
+  year: string;
+  caption: Record<Lang, string>;
+  items: Record<Lang, string[]>;
+  media: JourneyMedia;
+};
 
-        {/* 헤드라인 + 설명 2열 */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-20">
-          <div className="lg:col-span-7">
-            <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.8rem, 5.5vw, 5rem)", lineHeight: 1.04, letterSpacing: "-0.03em", color: NEAR_BLACK }}>
-              {t.heroHeadline.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </h1>
-          </div>
-          <div className="lg:col-span-5 flex flex-col justify-end">
-            <p style={{ fontSize: "1.05rem", lineHeight: 1.85, color: BODY_TEXT, maxWidth: 400 }}>
-              {t.heroDesc.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </p>
-          </div>
-        </div>
+const IDENTITY_ITEMS: IdentityItem[] = [
+  {
+    icon: Building2,
+    label: { ko: "설립연도", en: "Founded" },
+    value: { ko: "2022", en: "2022" },
+  },
+  {
+    icon: MapPin,
+    label: { ko: "거점", en: "Bases" },
+    value: { ko: "부산 · 서울", en: "Busan · Seoul" },
+  },
+  {
+    icon: BadgeCheck,
+    label: { ko: "기업인증", en: "Certification" },
+    value: { ko: "벤처기업", en: "Venture Company" },
+  },
+  {
+    icon: FlaskConical,
+    label: { ko: "연구기반", en: "R&D Base" },
+    value: { ko: "기업부설연구소", en: "Corporate R&D Center" },
+  },
+  {
+    icon: ScrollText,
+    label: { ko: "지식재산", en: "Intellectual Property" },
+    value: {
+      ko: "특허 등록 2건 · 출원 1건",
+      en: "2 Patents Registered · 1 Application",
+    },
+  },
+];
 
-        {/* 하단 추상 비즈니스 비주얼 */}
-        <HeroVisual />
-      </div>
-    </section>
-  );
+const JOURNEY_ENTRIES: JourneyEntry[] = [
+  {
+    year: "2021",
+    caption: {
+      ko: "공개 현장 이미지가 없어 아카이브 비주얼로 구성했습니다.",
+      en: "Built with an archive visual because no public event image is available.",
+    },
+    items: {
+      ko: ["생애 최초 청년 창업 지원 사업 선정"],
+      en: ["Selected for the First Youth Startup Support Program"],
+    },
+    media: {
+      type: "placeholder",
+      variant: "origin",
+      alt: {
+        ko: "2021 창업 지원 기록을 상징하는 추상 아카이브 비주얼",
+        en: "Abstract archive visual representing the 2021 startup support record",
+      },
+    },
+  },
+  {
+    year: "2022",
+    caption: {
+      ko: "공개 현장 이미지가 없어 설립 시기의 아카이브 비주얼로 구성했습니다.",
+      en: "Built with an archive visual for the incorporation period because no public image is available.",
+    },
+    items: {
+      ko: [
+        "주식회사 이루티 법인 설립 및 사업자 등록",
+        "창업진흥원 예비창업패키지 선정 및 최우수 수료",
+        "부산시 기술 창업 인큐베이팅 지원 사업 선정",
+      ],
+      en: [
+        "ERUTY Co., Ltd. incorporated and business registration completed",
+        "Selected for the Preliminary Startup Package and completed with top honors",
+        "Selected for the Busan technology startup incubating support program",
+      ],
+    },
+    media: {
+      type: "placeholder",
+      variant: "foundation",
+      alt: {
+        ko: "2022 설립 시기를 상징하는 추상 아카이브 비주얼",
+        en: "Abstract archive visual symbolizing the 2022 incorporation period",
+      },
+    },
+  },
+  {
+    year: "2023",
+    caption: {
+      ko: "벤처기업 인증서와 연구 기반 확립을 보여주는 공개 문서 이미지입니다.",
+      en: "Public certification imagery reflecting venture status and ERUTY's R&D foundation.",
+    },
+    items: {
+      ko: [
+        "청년창업사관학교 수료",
+        "벤처기업 인증",
+        "기업부설연구소 설립",
+      ],
+      en: [
+        "Completed Youth Startup Academy",
+        "Certified as a venture company",
+        "Established the corporate research center",
+      ],
+    },
+    media: {
+      type: "image",
+      src: "/images/company/about/journey-2023-venture.png",
+      alt: {
+        ko: "2023 벤처기업 확인서 이미지",
+        en: "2023 venture enterprise certificate",
+      },
+      fit: "contain",
+      background: "linear-gradient(180deg, #F9FBFE 0%, #EEF3FA 100%)",
+    },
+  },
+  {
+    year: "2024",
+    caption: {
+      ko: "2024년 2월 등록 특허 증서를 대표 이미지로 사용했습니다.",
+      en: "Uses the February 2024 registered patent certificate as the representative image.",
+    },
+    items: {
+      ko: [
+        "블록체인 기반 저작권 관리 기술 특허 1건 등록",
+        "블록체인 기반 콘텐츠 저작권 관리 솔루션 정식 런칭",
+        "창업성장기술개발 사업(디딤돌 R&D) 협약",
+      ],
+      en: [
+        "Registered a patent for blockchain-based copyright management technology",
+        "Officially launched the blockchain-based content copyright management solution",
+        "Signed the Startup Growth Technology Development Program agreement",
+      ],
+    },
+    media: {
+      type: "image",
+      src: "/images/company/about/journey-2024-patent-02.png",
+      alt: {
+        ko: "2024년 등록 특허 증서 이미지",
+        en: "Patent certificate registered in 2024",
+      },
+      fit: "contain",
+      background: "linear-gradient(180deg, #FAFBFD 0%, #EEF2F8 100%)",
+    },
+  },
+  {
+    year: "2025",
+    caption: {
+      ko: "베트남 InnoEX 2025 현장 공개 사진입니다.",
+      en: "Public on-site image from ERUTY's participation at InnoEX 2025 in Vietnam.",
+    },
+    items: {
+      ko: [
+        "생성형 AI 기반 개인 맞춤형 콘텐츠 자동 생성 모델 구축",
+        "산학연 Collabo R&D 협약",
+        "베트남 InnoEX 2025 전시회 참가",
+      ],
+      en: [
+        "Built a generative AI-based personalized content auto-generation model",
+        "Signed an industry-academia-research Collabo R&D agreement",
+        "Participated in the InnoEX 2025 exhibition in Vietnam",
+      ],
+    },
+    media: {
+      type: "image",
+      src: "/images/company/about/journey-2025-vietnam.png",
+      alt: {
+        ko: "베트남 InnoEX 2025 현장 단체 사진",
+        en: "Group photo from InnoEX 2025 in Vietnam",
+      },
+      fit: "cover",
+    },
+  },
+  {
+    year: "2026",
+    caption: {
+      ko: "2026년 7월 독일 GITEX AI Europe 2026 참가 공개 사진입니다.",
+      en: "Public image from ERUTY's participation at GITEX AI Europe 2026 in Germany.",
+    },
+    items: {
+      ko: [
+        "CES 2026 참가 및 히트픽(HITPICK) 소개",
+        "콘텐츠 통합 플랫폼 히트픽(HITPICK) 정식 출시",
+        "독일 GITEX AI Europe 2026 참가",
+      ],
+      en: [
+        "Participated in CES 2026 and introduced HITPICK",
+        "Officially launched the integrated content platform HITPICK",
+        "Participated in GITEX AI Europe 2026 in Germany",
+      ],
+    },
+    media: {
+      type: "image",
+      src: "/images/company/about/journey-2026-gitex.png",
+      alt: {
+        ko: "독일 GITEX AI Europe 2026 현장 ERUTY 부스 사진",
+        en: "ERUTY booth at GITEX AI Europe 2026 in Germany",
+      },
+      fit: "cover",
+    },
+  },
+];
+
+const COPY = {
+  ko: {
+    heroLabel: "ABOUT ERUTY",
+    heroHeadline: "가능성을 발견하고,\n글로벌 성장으로 실행합니다",
+    heroDescription:
+      "이루티는 데이터와 기술, 글로벌 네트워크를 바탕으로\n기업과 브랜드, 서비스의 가능성을 새로운 시장의 성장으로 연결합니다.",
+    heroAlt:
+      "글로벌 도시 스카이라인과 네트워크로 연결된 지구를 보여주는 승인 시안 기반 비주얼",
+    identityLabel: "COMPANY IDENTITY",
+    identityHeadline: "이루티는 가능성을\n성장으로 연결하는\n회사입니다",
+    beginningLabel: "OUR BEGINNING",
+    beginningHeadline:
+      "좋은 가능성이 있어도,\n실행으로 연결되지 않으면\n성장할 수 없습니다.",
+    beginningDescription:
+      "우리는 시장과 기술, 사람과 실행이 서로 분리되어 있는 현실을 보았습니다.\n좋은 아이디어와 기술, 상품과 서비스가 사라지지 않고\n실제 사업과 성장으로 이어지도록 연결하는 회사를 만들고자\n이루티를 시작했습니다.",
+    beginningAlt: "공식 회사소개 페이지에 공개된 야간 빌딩 이미지",
+    beginningCaption: "공식 회사소개 페이지에 공개된 이미지",
+    journeyLabel: "OUR JOURNEY",
+    journeyHeadline: "우리의 발자취",
+    journeyInstruction: "좌우로 스크롤하여 ERUTY의 주요 여정을 확인해 보세요.",
+    journeyRegionLabel: "ERUTY 주요 연혁 가로 스크롤 영역",
+    journeyPrev: "이전 연혁 카드 보기",
+    journeyNext: "다음 연혁 카드 보기",
+    journeyTail: "이루티의 여정은 지금도 계속되고 있습니다.",
+    ctaHeadline: "다음 글로벌 성장을 함께 실행합니다",
+    ctaPrimary: "협력 문의하기",
+    ctaSecondary: "프로젝트 시작하기",
+  },
+  en: {
+    heroLabel: "ABOUT ERUTY",
+    heroHeadline: "We discover potential,\nand execute global growth",
+    heroDescription:
+      "Powered by data, technology, and a global network,\nERUTY connects the potential of companies, brands, and services\nto growth in new markets.",
+    heroAlt:
+      "Approved visual showing a skyline and a globe connected by refined network lines",
+    identityLabel: "COMPANY IDENTITY",
+    identityHeadline: "ERUTY connects\npossibility\nto growth",
+    beginningLabel: "OUR BEGINNING",
+    beginningHeadline:
+      "Potential cannot grow\nunless it is connected\nto execution.",
+    beginningDescription:
+      "We saw a reality where markets and technology,\npeople and execution remained disconnected.\nWe started ERUTY so that strong ideas, technology,\nproducts, and services continue into real business and growth.",
+    beginningAlt: "Nighttime office building image used on ERUTY's official company page",
+    beginningCaption: "Public image currently used on the official company page",
+    journeyLabel: "OUR JOURNEY",
+    journeyHeadline: "Our journey",
+    journeyInstruction: "Scroll horizontally to explore ERUTY's key milestones.",
+    journeyRegionLabel: "ERUTY journey horizontal archive",
+    journeyPrev: "Scroll to the previous journey card",
+    journeyNext: "Scroll to the next journey card",
+    journeyTail: "ERUTY's journey is still in motion.",
+    ctaHeadline: "We execute the next stage of global growth together",
+    ctaPrimary: "Partnership Inquiry",
+    ctaSecondary: "Start a Project",
+  },
+} as const;
+
+function renderMultilineText(text: string) {
+  return text.split("\n").map((line, index, lines) => (
+    <span key={`${line}-${index}`}>
+      {line}
+      {index < lines.length - 1 ? <br /> : null}
+    </span>
+  ));
 }
 
-function HeroVisual() {
-  const { lang } = useLanguage();
-  const t = T[lang];
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    updatePreference();
+    mediaQuery.addEventListener("change", updatePreference);
+
+    return () => mediaQuery.removeEventListener("change", updatePreference);
+  }, []);
+
+  return prefersReducedMotion;
+}
+
+function Eyebrow({ children, accent = true }: { children: string; accent?: boolean }) {
   return (
-    <div className="w-full overflow-hidden" style={{ borderTop: `1px solid ${BORDER}` }}>
-      <div className="grid grid-cols-3 md:grid-cols-6" style={{ borderBottom: `1px solid ${BORDER}` }}>
-        {t.heroVisualItems.map((item, i) => (
-          <div
-            key={item.label}
-            className="p-6 flex flex-col justify-between"
-            style={{
-              borderRight: i < 5 ? `1px solid ${BORDER}` : "none",
-              minHeight: 120,
-            }}
-          >
-            <div className="w-1.5 h-1.5 rounded-full mb-8" style={{ background: i % 2 === 0 ? BLUE : BORDER }} />
-            <div>
-              <div className="text-xs mb-0.5" style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: NEAR_BLACK }}>{item.label}</div>
-              <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{item.sub}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="flex items-center justify-center py-5" style={{ background: NEAR_BLACK }}>
-        <div className="flex items-center gap-3">
-          <div className="w-1.5 h-1.5 rounded-full" style={{ background: BLUE }} />
-          <span className="text-xs tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-mono)" }}>
-            {t.heroVisualLabel}
-          </span>
-          <div className="w-1.5 h-1.5 rounded-full" style={{ background: BLUE }} />
-        </div>
-      </div>
+    <div
+      className="mb-4 text-[0.78rem] font-semibold uppercase tracking-[0.24em]"
+      style={{
+        color: accent ? BLUE : MUTED,
+        fontFamily: "var(--font-mono)",
+      }}
+    >
+      {children}
     </div>
   );
 }
 
-// ── 섹션 2: 연결 다이어그램 ───────────────────────────────────────────────────
-
-function ConnectionSection() {
+function HeroSection() {
   const { lang } = useLanguage();
-  const t = T[lang];
+  const copy = COPY[lang];
+
   return (
-    <section className="py-28" style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
-          {/* 왼쪽 타이틀 */}
-          <div className="lg:col-span-4">
-            <div className="text-xs tracking-widest uppercase mb-8" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.connectionLabel}</div>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.8rem, 3vw, 2.8rem)", lineHeight: 1.12, color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
-              {t.connectionHeadline.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </h2>
+    <section
+      className="relative overflow-hidden border-b"
+      style={{
+        borderColor: BORDER,
+        background:
+          "radial-gradient(circle at 70% 12%, rgba(55,55,242,0.09), transparent 26%), linear-gradient(180deg, #FFFFFF 0%, #FBFCFF 100%)",
+      }}
+    >
+      <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
+        <div className="relative pb-16 pt-16 md:pb-20 md:pt-20 lg:min-h-[32rem] lg:pb-24 lg:pt-24">
+          <div className="relative z-10 max-w-[41rem]">
+            <Eyebrow>{copy.heroLabel}</Eyebrow>
+            <h1
+              className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              style={{
+                color: NEAR_BLACK,
+                fontSize: "clamp(3.2rem, 6vw, 5.35rem)",
+                lineHeight: 1.02,
+                letterSpacing: "-0.055em",
+              }}
+            >
+              {renderMultilineText(copy.heroHeadline)}
+            </h1>
+            <p
+              className={`mt-8 max-w-[34rem] text-[1rem] leading-[1.9] text-[#4E5561] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              style={{ whiteSpace: "pre-line" }}
+            >
+              {copy.heroDescription}
+            </p>
           </div>
 
-          {/* 오른쪽 다이어그램 */}
-          <div className="lg:col-span-8">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-0 items-center">
-              {/* 인풋 노드들 */}
-              <div className="md:col-span-5 flex flex-col gap-3">
-                {t.inputs.map((inp, i) => (
-                  <motion.div
-                    key={inp}
-                    initial={{ opacity: 0, x: -12 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.07, duration: 0.35 }}
-                    className="flex items-center gap-3 px-4 py-3"
-                    style={{ border: `1px solid ${BORDER}`, background: "#FFFFFF" }}
+          <div className="mt-10 lg:absolute lg:right-[-3rem] lg:top-2 lg:mt-0 lg:h-[27.75rem] lg:w-[58%] xl:right-[-4rem]">
+            <div className="relative h-[18.75rem] overflow-hidden rounded-[2rem] sm:h-[23rem] lg:h-full lg:rounded-none">
+              <picture>
+                <source
+                  media="(max-width: 767px)"
+                  srcSet="/images/company/about/hero-approved-visual-mobile.webp"
+                />
+                <img
+                  src="/images/company/about/hero-approved-visual.webp"
+                  alt={copy.heroAlt}
+                  className="h-full w-full select-none object-cover object-[78%_56%]"
+                  draggable={false}
+                />
+              </picture>
+              <div className="absolute inset-y-0 left-0 w-[44%] bg-gradient-to-r from-white via-white/90 to-white/0 lg:w-[36%]" />
+              <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/80 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/45 to-transparent" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function IdentitySection() {
+  const { lang } = useLanguage();
+  const copy = COPY[lang];
+
+  return (
+    <section className="relative z-20 -mt-12 md:-mt-16 lg:-mt-24">
+      <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
+        <div
+          className="overflow-hidden rounded-[2rem] border"
+          style={{
+            borderColor: BORDER,
+            background: CARD_BG,
+            boxShadow: "0 22px 52px rgba(12, 29, 63, 0.08)",
+          }}
+        >
+          <div className="grid gap-8 px-6 py-7 md:px-8 md:py-8 lg:grid-cols-[minmax(280px,360px)_1fr] lg:items-center lg:px-10">
+            <div className="max-w-[22rem]">
+              <Eyebrow>{copy.identityLabel}</Eyebrow>
+              <h2
+                className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+                style={{
+                  color: NEAR_BLACK,
+                  fontSize: "clamp(2rem, 3.1vw, 2.8rem)",
+                  lineHeight: 1.12,
+                  letterSpacing: "-0.045em",
+                }}
+              >
+                {renderMultilineText(copy.identityHeadline)}
+              </h2>
+            </div>
+
+            <div
+              className="grid grid-cols-2 gap-x-5 gap-y-5 sm:grid-cols-3 lg:grid-cols-5 lg:gap-0 lg:divide-x"
+              style={{ borderColor: BORDER }}
+            >
+              {IDENTITY_ITEMS.map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <div
+                    key={item.label.en}
+                    className="flex min-h-[6.7rem] flex-col justify-center px-0 py-4 sm:px-4 sm:py-5 lg:px-5"
                   >
-                    <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: BLUE }} />
-                    <span className="text-sm" style={{ color: BODY_TEXT, fontFamily: "var(--font-body)" }}>{inp}</span>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* 연결선 */}
-              <div className="md:col-span-2 flex items-center justify-center py-4 md:py-0">
-                <div className="flex flex-col items-center gap-1 md:block">
-                  <div className="hidden md:block w-full">
-                    <svg width="100%" height="200" viewBox="0 0 60 200" preserveAspectRatio="none">
-                      {[20, 55, 100, 145, 180].map((y) => (
-                        <g key={y}>
-                          <line x1="0" y1={y} x2="44" y2="100" stroke={BLUE} strokeWidth="0.8" strokeOpacity="0.4" />
-                          <circle cx="0" cy={y} r="2.5" fill={BLUE} fillOpacity="0.5" />
-                        </g>
-                      ))}
-                      <circle cx="50" cy="100" r="5" fill={BLUE} />
-                      <line x1="55" y1="100" x2="60" y2="100" stroke={BLUE} strokeWidth="1.5" />
-                    </svg>
+                    <div className="mb-3 flex items-center gap-3">
+                      <span
+                        className="flex h-9 w-9 items-center justify-center rounded-full"
+                        style={{
+                          background: "rgba(55,55,242,0.08)",
+                          color: BLUE,
+                        }}
+                      >
+                        <Icon size={16} strokeWidth={1.9} />
+                      </span>
+                    </div>
+                    <div
+                      className="text-[0.72rem] uppercase tracking-[0.12em]"
+                      style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                    >
+                      {item.label[lang]}
+                    </div>
+                    <div
+                      className={`mt-2 text-[1.12rem] font-[700] leading-[1.5] tracking-[-0.02em] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+                      style={{ color: BLUE }}
+                    >
+                      {item.value[lang]}
+                    </div>
                   </div>
-                  <ArrowRight size={18} className="md:hidden" style={{ color: BLUE }} />
-                </div>
-              </div>
-
-              {/* 아웃풋 */}
-              <motion.div
-                className="md:col-span-5"
-                initial={{ opacity: 0, x: 12 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4, duration: 0.4 }}
-              >
-                <div className="p-6 flex flex-col gap-3" style={{ background: NEAR_BLACK }}>
-                  <div className="text-xs tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.35)", fontFamily: "var(--font-mono)" }}>{t.outputLabel}</div>
-                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.1rem", color: "#FFFFFF", lineHeight: 1.3 }}>
-                    {t.outputTitle.split("\n").map((line, i, arr) => (
-                      <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-                    ))}
-                  </div>
-                  <div className="pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-                    {t.outputItems.map((item) => (
-                      <div key={item} className="flex items-center gap-2 mb-1.5">
-                        <div className="w-1 h-1 rounded-full" style={{ background: BLUE }} />
-                        <span className="text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -316,106 +477,58 @@ function ConnectionSection() {
   );
 }
 
-// ── 섹션 3: 두 개의 사업 ─────────────────────────────────────────────────────
-
-function BusinessSection() {
+function BeginningSection() {
   const { lang } = useLanguage();
-  const t = T[lang];
+  const copy = COPY[lang];
+
   return (
-    <section style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8 py-20">
-        <div className="text-xs tracking-widest uppercase mb-4" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.businessLabel}</div>
-        <h2 className="mb-16" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.8rem, 3vw, 2.8rem)", lineHeight: 1.12, color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
-          {t.businessHeadline.split("\n").map((line, i, arr) => (
-            <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-          ))}
-        </h2>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-px" style={{ background: BORDER }}>
-          {/* A: 글로벌 콘텐츠 사업 */}
-          <div className="p-10 flex flex-col" style={{ background: "#FFFFFF" }}>
-            <div className="flex items-start justify-between mb-8">
-              <div>
-                <div className="text-xs mb-3" style={{ color: BLUE, fontFamily: "var(--font-mono)", letterSpacing: "0.08em" }}>{t.businessALabel}</div>
-                <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>by Hitpick</div>
-              </div>
-              <div className="w-8 h-8 flex items-center justify-center" style={{ background: BLUE }}>
-                <span style={{ color: "#FFFFFF", fontSize: "0.75rem", fontFamily: "var(--font-mono)", fontWeight: 600 }}>A</span>
-              </div>
-            </div>
-
-            <h3 className="mb-5" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)", color: NEAR_BLACK, lineHeight: 1.2 }}>
-              {t.businessAHeadline.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </h3>
-
-            <p className="mb-8 flex-1" style={{ color: BODY_TEXT, lineHeight: 1.8, fontSize: "0.9375rem", maxWidth: 440 }}>
-              {t.businessADesc}
+    <section className="border-b py-24 md:py-28" style={{ borderColor: BORDER, background: "#FFFFFF" }}>
+      <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
+          <div className="max-w-[35rem]">
+            <Eyebrow>{copy.beginningLabel}</Eyebrow>
+            <h2
+              className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              style={{
+                color: NEAR_BLACK,
+                fontSize: "clamp(2.3rem, 4vw, 3.45rem)",
+                lineHeight: 1.1,
+                letterSpacing: "-0.045em",
+              }}
+            >
+              {renderMultilineText(copy.beginningHeadline)}
+            </h2>
+            <p
+              className={`mt-8 max-w-[31rem] text-[1rem] leading-[1.92] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              style={{ color: BODY_TEXT, whiteSpace: "pre-line" }}
+            >
+              {copy.beginningDescription}
             </p>
-
-            <div className="flex flex-wrap gap-2 mb-10">
-              {t.contentServices.map((s) => (
-                <span key={s} className="text-xs px-3 py-1.5" style={{ border: `1px solid ${BORDER}`, color: BODY_TEXT, fontFamily: "var(--font-mono)" }}>
-                  {s}
-                </span>
-              ))}
-            </div>
-
-            <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 24 }}>
-              <Link
-                to="/services"
-                className="inline-flex items-center gap-2 text-sm transition-colors"
-                style={{ color: NEAR_BLACK, fontFamily: "var(--font-body)", fontWeight: 500 }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = BLUE; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = NEAR_BLACK; }}
-              >
-                {t.serviceLink} <ArrowUpRight size={14} />
-              </Link>
-            </div>
           </div>
 
-          {/* B: AX 전환 */}
-          <div className="p-10 flex flex-col" style={{ background: NEAR_BLACK }}>
-            <div className="flex items-start justify-between mb-8">
-              <div>
-                <div className="text-xs mb-3" style={{ color: BLUE, fontFamily: "var(--font-mono)", letterSpacing: "0.08em" }}>{t.businessBLabel}</div>
-                <div className="text-xs" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-mono)" }}>by 이룸터</div>
+          <div className="lg:justify-self-end">
+            <figure
+              className="overflow-hidden rounded-[1.9rem] border"
+              style={{
+                borderColor: BORDER,
+                background: "#F4F7FC",
+                boxShadow: "0 14px 40px rgba(16, 31, 68, 0.05)",
+              }}
+            >
+              <div style={{ aspectRatio: "1.42 / 1" }}>
+                <img
+                  src="/images/company/about/beginning-company-bg.png"
+                  alt={copy.beginningAlt}
+                  className="h-full w-full object-cover object-center"
+                />
               </div>
-              <div className="w-8 h-8 flex items-center justify-center" style={{ border: "1px solid rgba(255,255,255,0.2)" }}>
-                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.75rem", fontFamily: "var(--font-mono)", fontWeight: 600 }}>B</span>
-              </div>
-            </div>
-
-            <h3 className="mb-5" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)", color: "#FFFFFF", lineHeight: 1.2 }}>
-              {t.businessBHeadline.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </h3>
-
-            <p className="mb-8 flex-1" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.8, fontSize: "0.9375rem", maxWidth: 440 }}>
-              {t.businessBDesc}
+            </figure>
+            <p
+              className="mt-3 text-[0.78rem]"
+              style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+            >
+              {copy.beginningCaption}
             </p>
-
-            <div className="flex flex-wrap gap-2 mb-10">
-              {t.axServices.map((s) => (
-                <span key={s} className="text-xs px-3 py-1.5" style={{ border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.55)", fontFamily: "var(--font-mono)" }}>
-                  {s}
-                </span>
-              ))}
-            </div>
-
-            <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: 24 }}>
-              <Link
-                to="/services"
-                className="inline-flex items-center gap-2 text-sm transition-colors"
-                style={{ color: "rgba(255,255,255,0.6)", fontFamily: "var(--font-body)", fontWeight: 500 }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#FFFFFF"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.6)"; }}
-              >
-                {t.serviceLink} <ArrowUpRight size={14} />
-              </Link>
-            </div>
           </div>
         </div>
       </div>
@@ -423,172 +536,441 @@ function BusinessSection() {
   );
 }
 
-// ── 섹션 4: 일하는 방식 ──────────────────────────────────────────────────────
+function ArchivePlaceholder({
+  variant,
+  alt,
+}: {
+  variant: "origin" | "foundation";
+  alt: string;
+}) {
+  if (variant === "origin") {
+    return (
+      <div
+        role="img"
+        aria-label={alt}
+        className="relative h-full w-full overflow-hidden"
+        style={{
+          background:
+            "radial-gradient(circle at 78% 18%, rgba(55,55,242,0.16), transparent 26%), linear-gradient(180deg, #F7FBFF 0%, #EAF1FB 100%)",
+        }}
+      >
+        <div className="absolute left-0 right-0 top-[24%] h-px bg-[rgba(55,55,242,0.14)]" />
+        <div className="absolute left-0 right-0 top-[44%] h-px bg-[rgba(55,55,242,0.10)]" />
+        <div className="absolute left-0 right-0 top-[64%] h-px bg-[rgba(55,55,242,0.08)]" />
+        <div className="absolute left-[10%] top-[18%] h-2 w-2 rounded-full bg-[rgba(55,55,242,0.68)]" />
+        <div className="absolute left-[32%] top-[42%] h-2.5 w-2.5 rounded-full bg-[rgba(55,55,242,0.58)]" />
+        <div className="absolute left-[64%] top-[32%] h-2 w-2 rounded-full bg-[rgba(55,55,242,0.5)]" />
+        <div className="absolute left-[75%] top-[58%] h-3 w-3 rounded-full bg-[rgba(55,55,242,0.34)]" />
+        <div className="absolute left-[10%] top-[18%] h-px w-[22%] rotate-[18deg] bg-[rgba(55,55,242,0.22)]" />
+        <div className="absolute left-[32%] top-[42%] h-px w-[25%] -rotate-[15deg] bg-[rgba(55,55,242,0.18)]" />
+        <div className="absolute left-[52%] top-[38%] h-px w-[26%] rotate-[28deg] bg-[rgba(55,55,242,0.18)]" />
+        <div className="absolute bottom-0 left-0 right-0 h-[48%] bg-gradient-to-t from-white/80 to-transparent" />
+      </div>
+    );
+  }
 
-function HowSection() {
+  return (
+    <div
+      role="img"
+      aria-label={alt}
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        background:
+          "radial-gradient(circle at 72% 20%, rgba(55,55,242,0.12), transparent 24%), linear-gradient(180deg, #FAFCFF 0%, #ECF3FB 100%)",
+      }}
+    >
+      <div className="absolute inset-y-0 right-[10%] flex items-end gap-3 pb-[10%]">
+        <div className="h-[46%] w-10 rounded-t-[10px] bg-[#DDE7F8]" />
+        <div className="h-[62%] w-12 rounded-t-[10px] bg-[#C9D9F4]" />
+        <div className="h-[78%] w-14 rounded-t-[12px] bg-[#B6CCF1]" />
+      </div>
+      <div
+        className="absolute bottom-[16%] left-[8%] h-[38%] w-[44%] rounded-[18px] border bg-white/62"
+        style={{ borderColor: "rgba(55,55,242,0.10)" }}
+      />
+      <div className="absolute bottom-[41%] left-[14%] h-px w-[20%] bg-[rgba(55,55,242,0.20)]" />
+      <div className="absolute bottom-[33%] left-[14%] h-px w-[24%] bg-[rgba(55,55,242,0.12)]" />
+      <div className="absolute bottom-[25%] left-[14%] h-px w-[18%] bg-[rgba(55,55,242,0.12)]" />
+      <div className="absolute inset-x-0 bottom-0 h-[34%] bg-gradient-to-t from-white/72 to-transparent" />
+    </div>
+  );
+}
+
+function JourneyCard({ entry, lang }: { entry: JourneyEntry; lang: Lang }) {
+  const media = entry.media;
+
+  return (
+    <article
+      data-journey-card
+      className="shrink-0 snap-start overflow-hidden rounded-[1.65rem] border bg-white"
+      style={{
+        width: "min(86vw, 17.75rem)",
+        borderColor: BORDER,
+        boxShadow: "0 12px 30px rgba(16, 31, 68, 0.04)",
+      }}
+    >
+      <div
+        className="overflow-hidden border-b"
+        style={{ borderColor: BORDER, aspectRatio: "1.1 / 1" }}
+      >
+        {media.type === "image" ? (
+          <div
+            className="h-full w-full"
+            style={{ background: media.background ?? "#EFF4FB" }}
+          >
+            <img
+              src={media.src}
+              alt={media.alt[lang]}
+              className={`h-full w-full ${
+                media.fit === "cover" ? "object-cover object-center" : "object-contain p-5"
+              }`}
+              draggable={false}
+            />
+          </div>
+        ) : (
+          <ArchivePlaceholder variant={media.variant} alt={media.alt[lang]} />
+        )}
+      </div>
+
+      <div className="px-5 pb-6 pt-5 sm:px-6">
+        <div
+          className="text-[1.9rem] font-[800] leading-none tracking-[-0.05em]"
+          style={{ color: BLUE }}
+        >
+          {entry.year}
+        </div>
+        <p className="mt-3 text-[0.76rem] leading-[1.65]" style={{ color: MUTED }}>
+          {entry.caption[lang]}
+        </p>
+        <ul className="mt-4 space-y-3">
+          {entry.items[lang].map((item) => (
+            <li
+              key={item}
+              className={`flex gap-3 text-[0.92rem] leading-[1.72] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              style={{ color: BODY_TEXT }}
+            >
+              <span
+                className="mt-[0.62rem] h-[5px] w-[5px] rounded-full"
+                style={{ background: BLUE }}
+              />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  );
+}
+
+function JourneySection() {
   const { lang } = useLanguage();
-  const t = T[lang];
-  const steps = t.steps;
-  const [active, setActive] = useState(0);
+  const copy = COPY[lang];
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const pointerStateRef = useRef<{
+    pointerId: number;
+    startX: number;
+    scrollLeft: number;
+  } | null>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const [isDragging, setIsDragging] = useState(false);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [thumbWidth, setThumbWidth] = useState(0.22);
 
   useEffect(() => {
-    const timer = setInterval(() => setActive((p) => (p + 1) % steps.length), 2200);
-    return () => clearInterval(timer);
-  }, [steps.length]);
+    const scroller = scrollerRef.current;
+    if (!scroller) {
+      return undefined;
+    }
+
+    const updateScrollState = () => {
+      const maxScroll = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+      const nextProgress = maxScroll === 0 ? 0 : scroller.scrollLeft / maxScroll;
+      const nextThumbWidth = Math.min(1, scroller.clientWidth / Math.max(scroller.scrollWidth, 1));
+
+      setCanScrollPrev(scroller.scrollLeft > 4);
+      setCanScrollNext(scroller.scrollLeft < maxScroll - 4);
+      setProgress(Math.min(1, Math.max(0, nextProgress)));
+      setThumbWidth(Math.max(0.14, nextThumbWidth));
+    };
+
+    updateScrollState();
+
+    scroller.addEventListener("scroll", updateScrollState, { passive: true });
+
+    let resizeObserver: ResizeObserver | undefined;
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(updateScrollState);
+      resizeObserver.observe(scroller);
+    }
+
+    window.addEventListener("resize", updateScrollState);
+
+    return () => {
+      scroller.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+      resizeObserver?.disconnect();
+    };
+  }, []);
+
+  function scrollByCard(direction: -1 | 1) {
+    const scroller = scrollerRef.current;
+    if (!scroller) {
+      return;
+    }
+
+    const firstCard = scroller.querySelector<HTMLElement>("[data-journey-card]");
+    const cardWidth = firstCard?.getBoundingClientRect().width ?? 302;
+
+    scroller.scrollBy({
+      left: direction * (cardWidth + JOURNEY_SCROLL_GAP),
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
+  }
+
+  function handlePointerDown(event: React.PointerEvent<HTMLDivElement>) {
+    const scroller = scrollerRef.current;
+    if (!scroller || event.pointerType === "touch") {
+      return;
+    }
+
+    pointerStateRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      scrollLeft: scroller.scrollLeft,
+    };
+
+    scroller.setPointerCapture(event.pointerId);
+    setIsDragging(true);
+  }
+
+  function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    const scroller = scrollerRef.current;
+    const pointerState = pointerStateRef.current;
+
+    if (!scroller || !pointerState) {
+      return;
+    }
+
+    const deltaX = event.clientX - pointerState.startX;
+    scroller.scrollLeft = pointerState.scrollLeft - deltaX;
+  }
+
+  function handlePointerEnd(event: React.PointerEvent<HTMLDivElement>) {
+    const scroller = scrollerRef.current;
+    if (scroller?.hasPointerCapture(event.pointerId)) {
+      scroller.releasePointerCapture(event.pointerId);
+    }
+
+    pointerStateRef.current = null;
+    setIsDragging(false);
+  }
+
+  function handleWheel(event: React.WheelEvent<HTMLDivElement>) {
+    const scroller = scrollerRef.current;
+    if (!scroller) {
+      return;
+    }
+
+    if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) {
+      return;
+    }
+
+    if (scroller.scrollWidth <= scroller.clientWidth + 1) {
+      return;
+    }
+
+    event.preventDefault();
+    scroller.scrollLeft += event.deltaY;
+  }
+
+  function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      scrollByCard(-1);
+    }
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      scrollByCard(1);
+    }
+  }
+
+  const thumbTranslate = progress * (1 - thumbWidth);
 
   return (
-    <section className="py-28" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8">
-        <div className="text-xs tracking-widest uppercase mb-4" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.howLabel}</div>
-        <h2 className="mb-16" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.8rem, 3vw, 2.8rem)", lineHeight: 1.12, color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
-          {t.howHeadline}
-        </h2>
-
-        {/* 데스크탑: 가로 시퀀스 */}
-        <div className="hidden md:grid gap-px" style={{ gridTemplateColumns: `repeat(${steps.length}, 1fr)`, background: BORDER }}>
-          {steps.map((s, i) => (
-            <div
-              key={s.n}
-              className="p-6 cursor-pointer transition-colors duration-200"
-              style={{ background: active === i ? "#FFFFFF" : SOFT_BG }}
-              onMouseEnter={() => setActive(i)}
+    <section className="overflow-hidden border-b py-24 md:py-28" style={{ borderColor: BORDER, background: SOFT_BG }}>
+      <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-[32rem]">
+            <Eyebrow>{copy.journeyLabel}</Eyebrow>
+            <h2
+              className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              style={{
+                color: NEAR_BLACK,
+                fontSize: "clamp(2.2rem, 3.9vw, 3.25rem)",
+                lineHeight: 1.08,
+                letterSpacing: "-0.045em",
+              }}
             >
-              <div className="text-xs mb-4" style={{ color: active === i ? BLUE : MUTED, fontFamily: "var(--font-mono)", fontWeight: active === i ? 600 : 400 }}>{s.n}</div>
-              <div className="text-sm mb-3" style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: active === i ? NEAR_BLACK : MUTED, lineHeight: 1.3 }}>{s.title}</div>
-              <div className="text-xs" style={{ color: active === i ? BODY_TEXT : "transparent", lineHeight: 1.65, transition: "color 0.2s" }}>{s.desc}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* 모바일: 세로 */}
-        <div className="md:hidden flex flex-col gap-px" style={{ background: BORDER }}>
-          {steps.map((s) => (
-            <div key={s.n} className="p-6" style={{ background: "#FFFFFF" }}>
-              <div className="flex items-start gap-4">
-                <span className="text-xs mt-0.5" style={{ color: BLUE, fontFamily: "var(--font-mono)", fontWeight: 600, flexShrink: 0 }}>{s.n}</span>
-                <div>
-                  <div className="text-sm mb-2" style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: NEAR_BLACK }}>{s.title}</div>
-                  <div className="text-xs" style={{ color: MUTED, lineHeight: 1.65 }}>{s.desc}</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ── 섹션 5: 기술 기반 ────────────────────────────────────────────────────────
-
-function TechSection() {
-  const { lang } = useLanguage();
-  const t = T[lang];
-  return (
-    <section style={{ background: NEAR_BLACK, borderBottom: `1px solid rgba(255,255,255,0.06)` }}>
-      <div className="max-w-[1440px] mx-auto px-8 py-28">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
-          <div className="lg:col-span-5">
-            <div className="text-xs tracking-widest uppercase mb-6" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-mono)" }}>{t.techLabel}</div>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.8rem, 3vw, 2.8rem)", lineHeight: 1.12, color: "#FFFFFF", letterSpacing: "-0.02em" }}>
-              {t.techHeadline.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
+              {copy.journeyHeadline}
             </h2>
           </div>
-          <div className="lg:col-span-7 flex items-end">
-            <p style={{ fontSize: "1rem", lineHeight: 1.8, color: "rgba(255,255,255,0.5)", maxWidth: 460 }}>
-              {t.techDesc.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
+
+          <div className="max-w-[25rem] lg:text-right">
+            <p
+              className={`text-[0.98rem] leading-[1.8] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              style={{ color: BODY_TEXT }}
+            >
+              {copy.journeyInstruction}
             </p>
+            <div className="mt-5 flex items-center gap-3 lg:justify-end">
+              <button
+                type="button"
+                onClick={() => scrollByCard(-1)}
+                disabled={!canScrollPrev}
+                aria-label={copy.journeyPrev}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors disabled:cursor-not-allowed"
+                style={{
+                  borderColor: canScrollPrev ? "rgba(24,25,27,0.12)" : "rgba(24,25,27,0.06)",
+                  color: canScrollPrev ? NEAR_BLACK : "rgba(24,25,27,0.28)",
+                  background: "#FFFFFF",
+                }}
+              >
+                <ArrowLeft size={18} />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollByCard(1)}
+                disabled={!canScrollNext}
+                aria-label={copy.journeyNext}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors disabled:cursor-not-allowed"
+                style={{
+                  borderColor: canScrollNext ? "rgba(24,25,27,0.12)" : "rgba(24,25,27,0.06)",
+                  color: canScrollNext ? NEAR_BLACK : "rgba(24,25,27,0.28)",
+                  background: "#FFFFFF",
+                }}
+              >
+                <ArrowRight size={18} />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px" style={{ background: "rgba(255,255,255,0.06)" }}>
-          {t.techItems.map((item) => (
-            <Link
-              key={item.label}
-              to="/technology"
-              className="group p-8 block transition-colors duration-200"
-              style={{ background: NEAR_BLACK }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#222326"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = NEAR_BLACK; }}
-            >
-              <div className="w-8 h-0.5 mb-8" style={{ background: item.accent }} />
-              <div className="text-xs mb-4" style={{ color: item.accent, fontFamily: "var(--font-mono)" }}>{item.label}</div>
-              <div className="text-sm mb-3" style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: "#FFFFFF", lineHeight: 1.3 }}>{item.title}</div>
-              <div className="text-xs mb-8" style={{ color: "rgba(255,255,255,0.4)", lineHeight: 1.7 }}>{item.desc}</div>
-              <div className="flex items-center gap-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: item.accent }}>
-                {t.techMoreLabel} <ArrowUpRight size={12} />
-              </div>
-            </Link>
-          ))}
+        <div className="mt-12">
+          <div
+            ref={scrollerRef}
+            role="region"
+            aria-label={copy.journeyRegionLabel}
+            tabIndex={0}
+            className={`eruty-horizontal-scroll flex gap-5 overflow-x-auto overflow-y-hidden pb-4 pt-1 ${
+              isDragging ? "cursor-grabbing" : "cursor-grab"
+            }`}
+            style={{
+              scrollSnapType: "x mandatory",
+              scrollPaddingLeft: "0px",
+              paddingRight: "max(1.5rem, 4vw)",
+            }}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerEnd}
+            onPointerCancel={handlePointerEnd}
+            onPointerLeave={(event) => {
+              if (pointerStateRef.current) {
+                handlePointerEnd(event);
+              }
+            }}
+            onWheel={handleWheel}
+            onKeyDown={handleKeyDown}
+          >
+            {JOURNEY_ENTRIES.map((entry) => (
+              <JourneyCard key={entry.year} entry={entry} lang={lang} />
+            ))}
+          </div>
         </div>
+
+        <div
+          className="relative mt-6 h-[2px] w-full overflow-hidden rounded-full"
+          style={{ background: "rgba(24,25,27,0.10)" }}
+        >
+          <div
+            className="absolute left-0 top-0 h-full rounded-full"
+            style={{
+              width: `${thumbWidth * 100}%`,
+              transform: `translateX(${thumbTranslate * 100}%)`,
+              background: BLUE,
+              transition: prefersReducedMotion ? "none" : "transform 180ms ease-out",
+            }}
+          />
+        </div>
+
+        <p
+          className={`mt-8 text-center text-[1rem] font-medium ${lang === "ko" ? "eruty-keep-all" : ""}`}
+          style={{ color: BODY_TEXT }}
+        >
+          <span style={{ color: BLUE }}>{copy.journeyTail}</span>
+        </p>
       </div>
     </section>
   );
 }
-
-// ── 섹션 6: 회사 정보 ────────────────────────────────────────────────────────
-
-function ProfileSection() {
-  const { lang } = useLanguage();
-  const t = T[lang];
-  return (
-    <section className="py-24" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8">
-        <div className="text-xs tracking-widest uppercase mb-10" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.profileLabel}</div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px" style={{ background: BORDER }}>
-          {t.profileFields.map((f) => (
-            <div key={f.label} className="flex items-baseline gap-6 px-6 py-5" style={{ background: "#FFFFFF" }}>
-              <div className="w-32 flex-shrink-0 text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{f.label}</div>
-              <div className="text-sm" style={{ color: f.value === "—" ? "#C0C3C9" : NEAR_BLACK, fontFamily: "var(--font-body)", fontStyle: f.value === "—" ? "italic" : "normal", whiteSpace: "pre-line" }}>
-                {f.value === "—" ? t.profilePending : f.value}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ── 최종 CTA ─────────────────────────────────────────────────────────────────
 
 function CtaSection() {
   const { lang } = useLanguage();
-  const t = T[lang];
+  const copy = COPY[lang];
+
   return (
-    <section className="py-28" style={{ background: "#FFFFFF" }}>
-      <div className="max-w-[1440px] mx-auto px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-          <div className="lg:col-span-7">
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.08, color: NEAR_BLACK, letterSpacing: "-0.025em" }}>
-              {t.ctaHeadline.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </h2>
-          </div>
-          <div className="lg:col-span-5 flex flex-col sm:flex-row gap-3 lg:justify-end lg:pb-1">
-            <Link
-              to="/services"
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm transition-all"
-              style={{ border: `1px solid ${BORDER}`, color: NEAR_BLACK, fontFamily: "var(--font-body)", fontWeight: 500 }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = NEAR_BLACK; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = BORDER; }}
-            >
-              {t.ctaServices}
-            </Link>
-            <Link
-              to="/start-a-project"
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm transition-all"
-              style={{ background: NEAR_BLACK, color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500 }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = BLUE; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = NEAR_BLACK; }}
-            >
-              {t.ctaProject} <ArrowUpRight size={14} />
-            </Link>
+    <section className="pb-0 pt-0" style={{ background: "#FFFFFF" }}>
+      <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
+        <div
+          className="relative overflow-hidden rounded-[2rem] px-8 py-12 md:px-10 md:py-14 lg:px-14 lg:py-16"
+          style={{
+            background:
+              "radial-gradient(circle at 82% 26%, rgba(82,130,255,0.22), transparent 24%), linear-gradient(135deg, #07162E 0%, #081A37 52%, #091327 100%)",
+          }}
+        >
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0))]" />
+          <div className="absolute -right-24 bottom-[-42%] h-[26rem] w-[44rem] rounded-[50%] border border-white/10" />
+          <div className="absolute -right-8 bottom-[-36%] h-[22rem] w-[38rem] rounded-[50%] border border-white/10" />
+          <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/18 to-transparent" />
+          <div className="absolute right-[12%] top-[26%] h-2 w-2 rounded-full bg-white/55" />
+          <div className="absolute right-[19%] top-[36%] h-[6px] w-[6px] rounded-full bg-[#96C4FF]/70" />
+          <div className="absolute right-[24%] top-[49%] h-2 w-2 rounded-full bg-white/45" />
+          <div className="absolute right-[30%] top-[40%] h-px w-[11%] rotate-[14deg] bg-white/14" />
+          <div className="absolute right-[22%] top-[49%] h-px w-[10%] -rotate-[20deg] bg-white/12" />
+
+          <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-[40rem]">
+              <h2
+                className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+                style={{
+                  color: "#FFFFFF",
+                  fontSize: "clamp(2.25rem, 3.8vw, 3.4rem)",
+                  lineHeight: 1.12,
+                  letterSpacing: "-0.045em",
+                }}
+              >
+                {copy.ctaHeadline}
+              </h2>
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link
+                to={buildStartProjectHref("general", "partnership")}
+                className="inline-flex min-h-[52px] items-center justify-center rounded-full px-7 text-sm font-medium transition-colors"
+                style={{ background: BLUE, color: "#FFFFFF" }}
+              >
+                {copy.ctaPrimary}
+              </Link>
+              <Link
+                to={buildStartProjectHref("general", "general-inquiry")}
+                className="inline-flex min-h-[52px] items-center justify-center rounded-full border px-7 text-sm font-medium transition-colors"
+                style={{ borderColor: "rgba(255,255,255,0.28)", color: "#FFFFFF" }}
+              >
+                {copy.ctaSecondary}
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -596,17 +978,13 @@ function CtaSection() {
   );
 }
 
-// ── 페이지 조합 ───────────────────────────────────────────────────────────────
-
 export function AboutPage() {
   return (
-    <div className="pt-16" style={{ background: "#FFFFFF" }}>
+    <div className="overflow-hidden bg-white pt-16">
       <HeroSection />
-      <ConnectionSection />
-      <BusinessSection />
-      <HowSection />
-      <TechSection />
-      <ProfileSection />
+      <IdentitySection />
+      <BeginningSection />
+      <JourneySection />
       <CtaSection />
     </div>
   );
