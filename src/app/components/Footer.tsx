@@ -13,7 +13,7 @@ const T = {
         { label: "이루티 소개", to: "/company/about" },
         { label: "글로벌 네트워크", to: "/company/global-network" },
         { label: "팀 & 리더십", to: "/company/team" },
-        { label: "성장과 신뢰", to: "/company/growth" },
+        { label: "프로젝트", to: "/company/growth" },
         { label: "채용", to: "/company/careers" },
       ],
       "서비스": [
@@ -33,7 +33,7 @@ const T = {
       ],
       "리소스": [
         { label: "사례 연구", to: "/resources" },
-        { label: "프로젝트", to: "/resources" },
+        { label: "프로젝트 & 기회", to: "/resources" },
         { label: "인사이트 & 리포트", to: "/resources" },
         { label: "프로그램 & 이벤트", to: "/resources" },
         { label: "뉴스룸", to: "/resources" },
@@ -60,7 +60,7 @@ const T = {
         { label: "About ERUTY", to: "/company/about" },
         { label: "Global Network", to: "/company/global-network" },
         { label: "Team & Leadership", to: "/company/team" },
-        { label: "Growth & Trust", to: "/company/growth" },
+        { label: "Projects", to: "/company/growth" },
         { label: "Careers", to: "/company/careers" },
       ],
       "Services": [
@@ -80,7 +80,7 @@ const T = {
       ],
       "Resources": [
         { label: "Case Studies", to: "/resources" },
-        { label: "Projects", to: "/resources" },
+        { label: "Projects & Opportunities", to: "/resources" },
         { label: "Insights & Reports", to: "/resources" },
         { label: "Programs & Events", to: "/resources" },
         { label: "Newsroom", to: "/resources" },

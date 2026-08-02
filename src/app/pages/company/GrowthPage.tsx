@@ -1,700 +1,1759 @@
-import { useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router";
-import { ArrowUpRight, X, FileText, ExternalLink, Lock } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
-import { useLanguage } from "../../context/LanguageContext";
-import { COMPANY_METRICS } from "../../data/companyMetrics";
+import { ArrowRight, ArrowUpRight, X } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { type Lang, useLanguage } from "../../context/LanguageContext";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
-const BODY_TEXT = "#333438";
-const MUTED = "#737780";
+const BODY_TEXT = "#333842";
+const MUTED = "#6E7481";
 const BORDER = "#E4E6EA";
-const SOFT_BG = "#F5F6F8";
+const SOFT_BG = "#F5F7FB";
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-// ── 카테고리 색상 ─────────────────────────────────────────────────────────────
+type ProjectCategory =
+  | "global-business"
+  | "ai-ax"
+  | "blockchain"
+  | "product-rd"
+  | "education";
 
-const categoryColor: Record<string, string> = {
-  Company: NEAR_BLACK,
-  Technology: BLUE,
-  Business: "#16A34A",
-  Global: "#D97706",
-  Partnership: "#7C3AED",
-  "R&D": "#0891B2",
-};
-const categoryLabel: Record<string, { ko: string; en: string }> = {
-  Company: { ko: "회사", en: "Company" },
-  Technology: { ko: "기술", en: "Technology" },
-  Business: { ko: "사업", en: "Business" },
-  Global: { ko: "글로벌", en: "Global" },
-  Partnership: { ko: "파트너십", en: "Partnership" },
-  "R&D": { ko: "연구개발", en: "R&D" },
+type ProjectVisibility = "published" | "draft" | "hidden";
+
+type LocalizedText = {
+  ko: string;
+  en: string;
 };
 
-const UI = {
+type Project = {
+  id: string;
+  featured?: boolean;
+  visibility: ProjectVisibility;
+  year?: string;
+  categories: ProjectCategory[];
+  title: LocalizedText;
+  summary: LocalizedText;
+  role?: LocalizedText;
+  scope?: LocalizedText[];
+  outcome?: LocalizedText;
+  status?: LocalizedText;
+  market?: LocalizedText;
+  image?: string;
+  imageAlt?: LocalizedText;
+  visualType?: "image" | "interface" | "abstract";
+  visualIsConcept?: boolean;
+};
+
+type ProjectFilter = "all" | ProjectCategory;
+
+const PAGE_COPY = {
   ko: {
-    heroBadge: "Growth & Credentials",
-    heroHeadline: "실행의 기록이,\n다음 성장의\n기반이 됩니다.",
-    heroDesc: "이루티는 사업 성과와 기술 자산,\n글로벌 협력 경험을 바탕으로 성장하고 있습니다.",
-    metricsNote: "회사 제공자료 및 회계 자료 기준",
-    timelineLabel: "Growth Timeline",
-    timelineHeadline: "이루티의 성장 기록",
+    heroEyebrow: "PROJECTS",
+    heroHeadline: "실행으로 만든 프로젝트",
+    heroDescription:
+      "글로벌 사업 확장부터 AX·AI 시스템 구축까지, 이루티가 직접 수행한 프로젝트를 소개합니다.",
+    featuredEyebrow: "FEATURED PROJECT",
+    featuredButton: "프로젝트 보기",
     filterAll: "전체",
-    achievementsLabel: "Business Achievements",
-    achievementsHeadline: "사업으로 증명한 실행력",
-    achievementsNote: "공개 가능한 범위에서 사업 수행 내용을 정리했습니다.",
-    achievementsRoleLabel: "이루티의 역할",
-    achievementsOutcomeLabel: "성과",
-    credentialsLabel: "Corporate Credentials",
-    credentialsHeadline: "기업 자격 & 신뢰 자산",
-    credGroupLabel: { certification: "A. 기업 인증", ip: "B. 지식재산", rd: "C. 연구개발", trust: "D. 사업 신뢰" },
-    statusLabel: { active: "확인됨", pending: "진행중", placeholder: "비공개" },
-    drawerIssuer: "발급 기관", drawerDate: "날짜", drawerRef: "참조 번호", drawerProject: "관련 프로젝트",
-    drawerSummaryLabel: "요약",
-    docAvailable: "문서 확인", docAvailableSub: "공개 문서 보기",
-    docPrivate: "문서 비공개", docPlaceholder: "문서 비공개", docInternal: "내부 보관 — 필요시 요청 가능",
-    monthSuffix: "월",
-    ctaHeadline: "검증된 역량으로\n다음 프로젝트를\n준비합니다.",
-    ctaBtn1: "기술 살펴보기", ctaBtn2: "프로젝트 제안하기",
-    relatedDoc: "관련 자료",
+    filterLabel: "PROJECT CATEGORY",
+    gridEmpty: "선택한 카테고리에 해당하는 공개 프로젝트를 준비 중입니다.",
+    viewDetails: "상세 보기",
+    closeDrawer: "프로젝트 상세 닫기",
+    yearLabel: "연도",
+    marketLabel: "시장 또는 대상",
+    overviewLabel: "프로젝트 개요",
+    roleLabel: "이루티의 역할",
+    scopeLabel: "주요 수행 범위",
+    outcomeLabel: "공개 가능한 결과",
+    statusLabel: "상태",
+    relatedVisualLabel: "관련 비주얼",
+    ctaEyebrow: "START A PROJECT",
+    ctaHeadline: "다음 프로젝트를 함께 준비해보세요",
+    ctaDescription:
+      "새로운 아이디어를 실제 사업과 시스템으로 만들 실행 파트너가 필요하신가요?",
+    ctaButton: "프로젝트 문의하기",
   },
   en: {
-    heroBadge: "Growth & Credentials",
-    heroHeadline: "A Record of Execution\nBuilds the Foundation\nfor Next Growth.",
-    heroDesc: "ERUTY grows on the basis of business results,\ntechnology assets, and global collaboration experience.",
-    metricsNote: "Based on company-provided information and accounting records",
-    timelineLabel: "Growth Timeline",
-    timelineHeadline: "ERUTY Growth Record",
+    heroEyebrow: "PROJECTS",
+    heroHeadline: "Projects Built Through Execution",
+    heroDescription:
+      "Explore global business, AX, AI, and technology projects delivered by ERUTY.",
+    featuredEyebrow: "FEATURED PROJECT",
+    featuredButton: "View Project",
     filterAll: "All",
-    achievementsLabel: "Business Achievements",
-    achievementsHeadline: "Execution Proven Through Business",
-    achievementsNote: "Business execution details are summarized within the public disclosure range.",
-    achievementsRoleLabel: "ERUTY Role",
-    achievementsOutcomeLabel: "Outcome",
-    credentialsLabel: "Corporate Credentials",
-    credentialsHeadline: "Corporate Credentials & Trust Assets",
-    credGroupLabel: { certification: "A. Certifications", ip: "B. Intellectual Property", rd: "C. R&D", trust: "D. Business Trust" },
-    statusLabel: { active: "Confirmed", pending: "In Progress", placeholder: "Private" },
-    drawerIssuer: "Issuing Body", drawerDate: "Date", drawerRef: "Reference No.", drawerProject: "Related Project",
-    drawerSummaryLabel: "Summary",
-    docAvailable: "View Document", docAvailableSub: "View public document",
-    docPrivate: "Document Private", docPlaceholder: "Document Private", docInternal: "Internal — available on request",
-    monthSuffix: "",
-    ctaHeadline: "Ready with Verified\nCapabilities for\nYour Next Project.",
-    ctaBtn1: "Explore Technology", ctaBtn2: "Propose a Project",
-    relatedDoc: "Related Document",
+    filterLabel: "PROJECT CATEGORY",
+    gridEmpty: "Public projects for this category are being prepared.",
+    viewDetails: "View Details",
+    closeDrawer: "Close project details",
+    yearLabel: "Year",
+    marketLabel: "Market or Audience",
+    overviewLabel: "Project Overview",
+    roleLabel: "ERUTY Role",
+    scopeLabel: "Scope",
+    outcomeLabel: "Public Outcome",
+    statusLabel: "Status",
+    relatedVisualLabel: "Related Visual",
+    ctaEyebrow: "START A PROJECT",
+    ctaHeadline: "Let's Build the Next Project Together",
+    ctaDescription:
+      "Looking for an execution partner to turn a new idea into a real business or system?",
+    ctaButton: "Start a Project",
   },
+} as const;
+
+const CATEGORY_LABELS: Record<ProjectCategory, LocalizedText> = {
+  "global-business": { ko: "글로벌 사업", en: "Global Business" },
+  "ai-ax": { ko: "AI & AX", en: "AI & AX" },
+  blockchain: { ko: "블록체인", en: "Blockchain" },
+  "product-rd": { ko: "제품·R&D", en: "Product & R&D" },
+  education: { ko: "교육사업", en: "Education" },
 };
 
-const metricsData = {
-  ko: [
-    { label: COMPANY_METRICS.founded.labelKo, value: COMPANY_METRICS.founded.value, unit: "", note: COMPANY_METRICS.founded.noteKo },
-    { label: COMPANY_METRICS.revenue2024.labelKo, value: COMPANY_METRICS.revenue2024.valueKo, unit: "", note: COMPANY_METRICS.revenue2024.noteKo },
-    { label: COMPANY_METRICS.revenue2025.labelKo, value: COMPANY_METRICS.revenue2025.valueKo, unit: "", note: COMPANY_METRICS.revenue2025.noteKo },
-    { label: COMPANY_METRICS.globalPartners.labelKo, value: COMPANY_METRICS.globalPartners.value, unit: "", note: COMPANY_METRICS.globalPartners.noteKo },
-    { label: COMPANY_METRICS.creatorNetwork.labelKo, value: COMPANY_METRICS.creatorNetwork.value, unit: "", note: COMPANY_METRICS.creatorNetwork.noteKo },
-    { label: "특허", value: `등록 ${COMPANY_METRICS.registeredPatents.value}건 · 출원 ${COMPANY_METRICS.patentApplications.value}건`, unit: "", note: "특허 등록 및 출원 현황" },
-  ],
-  en: [
-    { label: COMPANY_METRICS.founded.labelEn, value: COMPANY_METRICS.founded.value, unit: "", note: COMPANY_METRICS.founded.noteEn },
-    { label: COMPANY_METRICS.revenue2024.labelEn, value: COMPANY_METRICS.revenue2024.valueEn, unit: "", note: COMPANY_METRICS.revenue2024.noteEn },
-    { label: COMPANY_METRICS.revenue2025.labelEn, value: COMPANY_METRICS.revenue2025.valueEn, unit: "", note: COMPANY_METRICS.revenue2025.noteEn },
-    { label: COMPANY_METRICS.globalPartners.labelEn, value: COMPANY_METRICS.globalPartners.value, unit: "", note: COMPANY_METRICS.globalPartners.noteEn },
-    { label: COMPANY_METRICS.creatorNetwork.labelEn, value: COMPANY_METRICS.creatorNetwork.value, unit: "", note: COMPANY_METRICS.creatorNetwork.noteEn },
-    { label: "Patents", value: `${COMPANY_METRICS.registeredPatents.value} Registered · ${COMPANY_METRICS.patentApplications.value} Application`, unit: "", note: "Registered patents and patent application status" },
-  ],
-};
+const FILTERS: ProjectFilter[] = [
+  "all",
+  "global-business",
+  "ai-ax",
+  "blockchain",
+  "product-rd",
+  "education",
+];
 
-const milestonesData = {
-  ko: [
-    { id: "m1", year: "2024", month: "12", category: "Business", headline: "베트남 OTT 플랫폼 배급 파트너십 계약", desc: "한국 콘텐츠의 베트남 배급을 위한 파트너십 계약을 완료했습니다. 구체적인 계약 내용은 협의 후 공개 예정입니다." },
-    { id: "m2", year: "2024", month: "11", category: "R&D", headline: "AI R&D 정부 과제 개시", desc: "과학기술정보통신부 주관 AI 연구 개발 과제가 공식 수행 기관으로 선정되어 과제가 개시되었습니다." },
-    { id: "m3", year: "2024", month: "09", category: "Technology", headline: "IP 블록체인 권리 관리 인프라 배포", desc: "콘텐츠 파트너를 위한 스마트 계약 기반 IP 권리 관리 인프라를 배포 완료했습니다." },
-    { id: "m4", year: "2024", month: "08", category: "Business", headline: "AX 교육 프로그램 공공기관 납품", desc: "정부 기관 대상 AI 리터러시 교육 프로그램 공급 계약을 체결하고 수료 인원 2,000명 이상을 달성했습니다." },
-    { id: "m5", year: "2024", month: "05", category: "Global", headline: "싱가포르 거점 파트너십 구축", desc: "동남아시아 사업 허브로서 싱가포르 현지 파트너 네트워크를 공식 구축했습니다." },
-    { id: "m6", year: "2024", month: "03", category: "Company", headline: "기업부설연구소 설립 인정", desc: "과학기술정보통신부로부터 기업부설연구소 설립 인정을 받아 공식 R&D 기관으로 등록되었습니다." },
-    { id: "m7", year: "2023", month: "12", category: "Technology", headline: "AI 감성 분석 시스템 자체 개발 완료", desc: "콘텐츠 추천을 위한 AI 기반 감성 분석 시스템을 독자 개발했습니다." },
-    { id: "m8", year: "2023", month: "06", category: "Partnership", headline: "글로벌 파트너 네트워크 1차 구성", desc: "아시아, 유럽, 중동 등 15개국 이상 파트너 네트워크 1차 구성을 완료했습니다." },
-    { id: "m9", year: "2022", month: "09", category: "Company", headline: "주식회사 이루티 법인 설립", desc: "2022년 9월 22일 주식회사 이루티를 설립했습니다." },
-  ],
-  en: [
-    { id: "m1", year: "2024", month: "12", category: "Business", headline: "Vietnam OTT Platform Distribution Partnership Signed", desc: "Completed a partnership agreement for distributing Korean content in Vietnam. Specific contract details will be disclosed after further discussion." },
-    { id: "m2", year: "2024", month: "11", category: "R&D", headline: "Government AI R&D Project Commenced", desc: "Selected as an official executing organization for an AI R&D project under the Ministry of Science and ICT." },
-    { id: "m3", year: "2024", month: "09", category: "Technology", headline: "IP Blockchain Rights Management Infrastructure Deployed", desc: "Completed deployment of smart contract-based IP rights management infrastructure for content partners." },
-    { id: "m4", year: "2024", month: "08", category: "Business", headline: "AX Education Program Delivered to Public Institutions", desc: "Signed supply contract for AI literacy education program for government agencies, reaching 2,000+ completions." },
-    { id: "m5", year: "2024", month: "05", category: "Global", headline: "Singapore Base Partnership Established", desc: "Officially established a local partner network in Singapore as a Southeast Asia business hub." },
-    { id: "m6", year: "2024", month: "03", category: "Company", headline: "In-House Research Institute Recognition Granted", desc: "Recognized by the Ministry of Science and ICT as an official R&D institution." },
-    { id: "m7", year: "2023", month: "12", category: "Technology", headline: "Proprietary AI Sentiment Analysis System Completed", desc: "Independently developed an AI-based sentiment analysis system for content recommendations." },
-    { id: "m8", year: "2023", month: "06", category: "Partnership", headline: "Global Partner Network Phase 1 Established", desc: "Completed phase 1 of partner network spanning 15+ countries across Asia, Europe, and the Middle East." },
-    { id: "m9", year: "2022", month: "09", category: "Company", headline: "ERUTY Co., Ltd. Incorporated", desc: "ERUTY Co., Ltd. was incorporated on September 22, 2022." },
-  ],
-};
-
-const achievementsData = {
-  ko: [
-    { id: "a1", headline: "AX 교육 프로그램 공공기관 납품", area: "AX 교육·컨설팅", market: "한국", role: "커리큘럼 설계 및 교육 운영", outcome: "공공기관 대상 AI 리터러시 교육 프로그램 운영", status: "완료" },
-    { id: "a2", headline: "AI R&D 정부 과제 수행", area: "AI 연구개발", market: "한국", role: "연구 수행 기관", outcome: "정부 과제 수행 체계 운영", status: "진행중" },
-    { id: "a3", headline: "베트남 OTT 배급 파트너십", area: "글로벌 배급", market: "베트남", role: "배급 파트너 발굴 및 계약 실행", outcome: "베트남 대상 배급 협업 구조 구축", status: "완료" },
-    { id: "a4", headline: "IP 블록체인 인프라 배포", area: "블록체인·인프라", market: "한국", role: "설계 및 개발, 배포", outcome: "콘텐츠 파트너 대상 기술 인프라 운영", status: "운영중" },
-  ],
-  en: [
-    { id: "a1", headline: "AX Education Program Delivered to Public Institutions", area: "AX Education & Consulting", market: "Korea", role: "Curriculum design and education delivery", outcome: "Operation of an AI literacy education program for public institutions", status: "Completed" },
-    { id: "a2", headline: "Government AI R&D Project Execution", area: "AI Research & Development", market: "Korea", role: "Research executing organization", outcome: "Operation of a government-funded AI R&D execution framework", status: "In Progress" },
-    { id: "a3", headline: "Vietnam OTT Distribution Partnership", area: "Global Distribution", market: "Vietnam", role: "Distribution partner identification and contract execution", outcome: "Established a Vietnam-focused content distribution collaboration structure", status: "Completed" },
-    { id: "a4", headline: "IP Blockchain Infrastructure Deployment", area: "Blockchain & Infrastructure", market: "Korea", role: "Design, development, and deployment", outcome: "Technical infrastructure in operation for content partners", status: "Active" },
-  ],
-};
-
-// ── 데이터 (bilingual versions defined above in UI/metricsData/milestonesData/achievementsData)
-
-
-type CredGroup = "certification" | "ip" | "rd" | "trust";
-
-interface Credential {
-  id: string;
-  name: string; nameEn?: string;
-  issuer: string; issuerEn?: string;
-  date: string; dateEn?: string;
-  status: "active" | "pending" | "placeholder";
-  refNumber: string;
-  summary: string; summaryEn?: string;
-  docAvailable: boolean;
-  group: CredGroup;
-  tech?: string;
-  project?: string; projectEn?: string;
-}
-
-function credField(ko: string, en: string | undefined, lang: string) {
-  return lang === "en" && en ? en : ko;
-}
-
-const credentials: Credential[] = [
+const PROJECTS: Project[] = [
   {
-    id: "c1", group: "certification",
-    name: "벤처기업 확인", nameEn: "Venture Company Certification",
-    issuer: "중소벤처기업부", issuerEn: "Ministry of SMEs and Startups",
-    date: "정보 업데이트 예정", dateEn: "Pending Update",
-    status: "placeholder",
-    refNumber: "등록번호 업데이트 예정",
-    summary: "중소벤처기업부로부터 벤처기업으로 확인된 인증입니다.",
-    summaryEn: "Certification as a venture company issued by the Ministry of SMEs and Startups.",
-    docAvailable: false,
+    id: "emotion-personalization",
+    featured: true,
+    visibility: "published",
+    categories: ["ai-ax", "product-rd"],
+    title: {
+      ko: "AI 기반 감성 분석 및 개인화 콘텐츠 시스템",
+      en: "AI-Based Emotion Analysis & Personalized Content System",
+    },
+    summary: {
+      ko: "사용자의 감정과 행동 데이터를 분석해 개인 맞춤형 콘텐츠를 제공하는 AI 기반 시스템을 설계·개발했습니다.",
+      en: "An AI-based system designed to analyze user emotion and behavior data and deliver personalized content experiences.",
+    },
+    role: {
+      ko: "감정 분석 로직, 개인화 콘텐츠 흐름, 운영 구조를 포함한 서비스 시스템을 설계·개발했습니다.",
+      en: "ERUTY designed and developed the service system covering emotion analysis logic, personalization flow, and operational structure.",
+    },
+    scope: [
+      {
+        ko: "감정 및 행동 데이터 구조 설계",
+        en: "Emotion and behavior data structure design",
+      },
+      {
+        ko: "개인화 콘텐츠 추천 흐름 기획",
+        en: "Personalized content recommendation flow planning",
+      },
+      {
+        ko: "운영을 위한 분석·관리 인터페이스 구성",
+        en: "Analysis and management interface configuration for operations",
+      },
+    ],
+    outcome: {
+      ko: "개인화 콘텐츠 제공을 위한 AI 시스템 구조를 공개 가능한 범위에서 정리했습니다.",
+      en: "A public-facing overview of the AI system structure for personalized content delivery was prepared.",
+    },
+    status: {
+      ko: "설계·개발 프로젝트",
+      en: "Design and Development Project",
+    },
+    market: {
+      ko: "디지털 콘텐츠 서비스",
+      en: "Digital Content Services",
+    },
+    visualType: "interface",
+    visualIsConcept: true,
   },
   {
-    id: "c2", group: "certification",
-    name: "기업부설연구소 설립 인정", nameEn: "Corporate R&D Center Establishment",
-    issuer: "과학기술정보통신부", issuerEn: "Ministry of Science and ICT",
-    date: "2024년 초", dateEn: "Early 2024",
-    status: "active",
-    refNumber: "비공개", 
-    summary: "자체 AI·기술 연구를 위한 기업부설연구소 설립 인정을 취득했습니다.",
-    summaryEn: "Obtained recognition for establishing a corporate R&D center for in-house AI and technology research.",
-    docAvailable: false, tech: "AI Research",
+    id: "content-profitability",
+    visibility: "published",
+    categories: ["ai-ax", "product-rd"],
+    title: {
+      ko: "AI 콘텐츠 수익성 분석 시스템",
+      en: "AI Content Performance & Profitability Analysis",
+    },
+    summary: {
+      ko: "콘텐츠와 시장 데이터를 분석해 사업성과 수익 가능성 판단을 지원하는 AI 분석 시스템입니다.",
+      en: "An AI analysis system supporting content performance and profitability assessment through market and content data.",
+    },
+    role: {
+      ko: "콘텐츠 사업성 검토를 위한 분석 구조와 운영 화면 구성을 설계했습니다.",
+      en: "ERUTY designed the analysis structure and operational screens for content business assessment.",
+    },
+    scope: [
+      {
+        ko: "콘텐츠·시장 데이터 분석 흐름 설계",
+        en: "Content and market data analysis flow design",
+      },
+      {
+        ko: "수익성 판단을 위한 검토 인터페이스 구성",
+        en: "Review interface configuration for profitability assessment",
+      },
+      {
+        ko: "사업 의사결정을 위한 분석 리포트 구조 정리",
+        en: "Analysis report structure for business decision-making",
+      },
+    ],
+    outcome: {
+      ko: "콘텐츠 기획과 사업성 검토에 활용할 수 있는 분석 환경을 구성했습니다.",
+      en: "An analysis environment for content planning and business feasibility review was established.",
+    },
+    status: {
+      ko: "제품·R&D 프로젝트",
+      en: "Product and R&D Project",
+    },
+    market: {
+      ko: "콘텐츠·시장 데이터 분석",
+      en: "Content and Market Data Analysis",
+    },
+    visualType: "interface",
+    visualIsConcept: true,
   },
   {
-    id: "c3", group: "certification",
-    name: "추가 인증", nameEn: "Additional Certification",
-    issuer: "업데이트 예정", issuerEn: "Pending Update",
-    date: "업데이트 예정", dateEn: "Pending Update",
-    status: "placeholder",
-    refNumber: "업데이트 예정",
-    summary: "추가 인증 정보는 취득 후 업데이트될 예정입니다.",
-    summaryEn: "Additional certification information will be updated after acquisition.",
-    docAvailable: false,
-  },
-
-  {
-    id: "ip1", group: "ip",
-    name: "등록 특허 2건", nameEn: "2 Registered Patents",
-    issuer: "특허청", issuerEn: "Korean Intellectual Property Office",
-    date: "등록 완료", dateEn: "Registered",
-    status: "active",
-    refNumber: "세부 번호 비공개",
-    summary: "AI 및 사업화 기술 관련 등록 특허 2건을 보유하고 있습니다.",
-    summaryEn: "ERUTY holds two registered patents related to AI and commercialization technologies.",
-    docAvailable: false,
-  },
-  {
-    id: "ip2", group: "ip",
-    name: "출원 특허 1건", nameEn: "1 Patent Application",
-    issuer: "특허청", issuerEn: "Korean Intellectual Property Office",
-    date: "출원 진행중", dateEn: "Application in progress",
-    status: "pending",
-    refNumber: "세부 번호 비공개",
-    summary: "AI 및 사업화 기술 관련 특허 1건을 출원 진행중입니다.",
-    summaryEn: "ERUTY currently has one patent application in progress related to AI and commercialization technologies.",
-    docAvailable: false,
-  },
-
-  {
-    id: "rd1", group: "rd",
-    name: "AI R&D 정부 과제", nameEn: "Government AI R&D Project",
-    issuer: "과학기술정보통신부", issuerEn: "Ministry of Science and ICT",
-    date: "2024년", dateEn: "2024",
-    status: "active",
-    refNumber: "비공개",
-    summary: "과학기술정보통신부 주관 AI 연구 개발 과제를 수행 기관으로서 진행중입니다.",
-    summaryEn: "Currently executing a government-commissioned AI R&D project supervised by the Ministry of Science and ICT.",
-    docAvailable: false, tech: "AI Research", project: "AI R&D 과제", projectEn: "AI R&D Project",
-  },
-  {
-    id: "rd2", group: "rd",
-    name: "자체 AI 감성 분석 연구", nameEn: "In-house AI Sentiment Analysis Research",
-    issuer: "이루티 기업부설연구소", issuerEn: "ERUTY Corporate R&D Center",
-    date: "2023년", dateEn: "2023",
-    status: "active",
-    refNumber: "비공개",
-    summary: "콘텐츠 추천을 위한 AI 감성 분석 알고리즘을 자체 연구 개발했습니다.",
-    summaryEn: "Developed an in-house AI sentiment analysis algorithm for content recommendation.",
-    docAvailable: false, tech: "AI · NLP",
+    id: "blockchain-rights",
+    visibility: "published",
+    categories: ["blockchain", "product-rd"],
+    title: {
+      ko: "블록체인 기반 저작권 관리·거래 시스템",
+      en: "Blockchain-Based Rights Management & Transaction System",
+    },
+    summary: {
+      ko: "콘텐츠 권리, 계약과 거래 이력을 관리할 수 있도록 설계한 블록체인 기반 시스템입니다.",
+      en: "A blockchain-based system designed to manage content rights, contracts, and transaction records.",
+    },
+    role: {
+      ko: "권리 구조 모델링, 거래 기록 흐름 설계, 시스템 화면 구성을 담당했습니다.",
+      en: "ERUTY handled rights structure modeling, transaction flow design, and system interface planning.",
+    },
+    scope: [
+      {
+        ko: "권리 등록 및 관리 구조 설계",
+        en: "Rights registration and management structure design",
+      },
+      {
+        ko: "계약·거래 이력 추적 흐름 구성",
+        en: "Contract and transaction history tracking flow",
+      },
+      {
+        ko: "블록체인 기반 기록 관리 인터페이스 설계",
+        en: "Blockchain-based record management interface design",
+      },
+    ],
+    outcome: {
+      ko: "콘텐츠 권리와 계약 이력을 체계적으로 관리할 수 있는 시스템 구조를 정리했습니다.",
+      en: "A structured system for managing content rights and contract histories was defined.",
+    },
+    status: {
+      ko: "제품·R&D 프로젝트",
+      en: "Product and R&D Project",
+    },
+    market: {
+      ko: "콘텐츠 권리·계약 관리",
+      en: "Content Rights and Contract Management",
+    },
+    visualType: "abstract",
+    visualIsConcept: true,
   },
   {
-    id: "rd3", group: "rd",
-    name: "산학 협력 (업데이트 예정)", nameEn: "Industry-Academia Collaboration (Pending)",
-    issuer: "협력 기관 업데이트 예정", issuerEn: "Partner Institution — Pending",
-    date: "업데이트 예정", dateEn: "Pending Update",
-    status: "placeholder",
-    refNumber: "업데이트 예정",
-    summary: "산학 협력 및 연구 기관 협력 정보는 협약 체결 후 업데이트될 예정입니다.",
-    summaryEn: "Industry-academia and research institution collaboration details will be updated after agreement signing.",
-    docAvailable: false,
+    id: "vietnam-market-development",
+    visibility: "published",
+    categories: ["global-business"],
+    title: {
+      ko: "베트남 시장 사업개발 및 파트너 연결",
+      en: "Vietnam Market Development & Partner Network",
+    },
+    summary: {
+      ko: "베트남 현지 파트너 네트워크를 기반으로 콘텐츠와 비즈니스 협업 구조를 검토하고 연결한 프로젝트입니다.",
+      en: "A market development project connecting content and business opportunities through a local partner network in Vietnam.",
+    },
+    role: {
+      ko: "현지 파트너 검토, 사업 기회 정리, 협업 구조 연결을 수행했습니다.",
+      en: "ERUTY reviewed local partners, mapped business opportunities, and connected collaboration structures.",
+    },
+    scope: [
+      {
+        ko: "베트남 현지 파트너 네트워크 검토",
+        en: "Review of local partner networks in Vietnam",
+      },
+      {
+        ko: "콘텐츠·사업 협업 기회 정리",
+        en: "Organization of content and business collaboration opportunities",
+      },
+      {
+        ko: "현장 기반 파트너 연결 및 실행 준비",
+        en: "On-site partner connection and execution preparation",
+      },
+    ],
+    outcome: {
+      ko: "베트남 현지 네트워크를 바탕으로 협업 검토와 연결을 지원했습니다.",
+      en: "ERUTY supported collaboration review and partner connection through its local Vietnam network.",
+    },
+    status: {
+      ko: "글로벌 사업 프로젝트",
+      en: "Global Business Project",
+    },
+    market: {
+      ko: "베트남 시장",
+      en: "Vietnam Market",
+    },
+    image: "/images/company/about/journey-2025-vietnam.png",
+    imageAlt: {
+      ko: "베트남 현장 공개 이미지",
+      en: "Public on-site image from Vietnam",
+    },
+    visualType: "image",
   },
-
   {
-    id: "tr1", group: "trust",
-    name: "공공기관 AX 교육 계약", nameEn: "Public Institution AX Education Contract",
-    issuer: "비공개 공공기관", issuerEn: "Private public institution",
-    date: "2024년", dateEn: "2024",
-    status: "active",
-    refNumber: "비공개",
-    summary: "정부 기관 대상 AI 교육 프로그램 납품 계약을 완료하고 이행했습니다.",
-    summaryEn: "Completed and fulfilled an AI education program delivery contract with a government institution.",
-    docAvailable: false, project: "AX 교육 프로그램", projectEn: "AX Education Program",
-  },
-  {
-    id: "tr2", group: "trust",
-    name: "베트남 OTT 배급 협약", nameEn: "Vietnam OTT Distribution Agreement",
-    issuer: "비공개 파트너 플랫폼", issuerEn: "Private partner platform",
-    date: "2024년 12월", dateEn: "December 2024",
-    status: "active",
-    refNumber: "비공개",
-    summary: "베트남 OTT 플랫폼과의 콘텐츠 배급 파트너십 협약을 체결했습니다.",
-    summaryEn: "Signed a content distribution partnership agreement with a Vietnam OTT platform.",
-    docAvailable: false, project: "베트남 배급 파트너십", projectEn: "Vietnam Distribution Partnership",
-  },
-  {
-    id: "tr3", group: "trust",
-    name: "추가 수행 실적 (업데이트 예정)", nameEn: "Additional Track Record (Pending)",
-    issuer: "업데이트 예정", issuerEn: "Pending Update",
-    date: "업데이트 예정", dateEn: "Pending Update",
-    status: "placeholder",
-    refNumber: "업데이트 예정",
-    summary: "추가 계약 및 수행 실적 정보는 확인 후 업데이트될 예정입니다.",
-    summaryEn: "Additional contract and performance record information will be updated after verification.",
-    docAvailable: false,
+    id: "public-ax-education",
+    visibility: "published",
+    categories: ["education", "ai-ax"],
+    title: {
+      ko: "공공기관 대상 AX 교육 프로그램",
+      en: "AX Education Program for Public Institutions",
+    },
+    summary: {
+      ko: "공공기관의 AI 활용 역량 강화를 위한 교육 과정과 운영 프로그램을 설계·수행했습니다.",
+      en: "An education program designed and delivered to strengthen practical AI capabilities in public institutions.",
+    },
+    role: {
+      ko: "교육 과정 설계, 운영 구조 기획, 현장 실행 체계를 구성했습니다.",
+      en: "ERUTY designed the curriculum, planned the operating model, and built the execution framework for delivery.",
+    },
+    scope: [
+      {
+        ko: "공공기관 대상 AX 교육 과정 설계",
+        en: "AX curriculum design for public institutions",
+      },
+      {
+        ko: "실습 중심 프로그램 운영 구조 정리",
+        en: "Practice-oriented program operations framework",
+      },
+      {
+        ko: "교육 운영을 위한 관리 화면 및 자료 구성",
+        en: "Management views and supporting materials for delivery",
+      },
+    ],
+    outcome: {
+      ko: "공공기관 실무 환경에 맞춘 AX 교육 프로그램을 공개 가능한 범위에서 정리했습니다.",
+      en: "A public-facing overview of an AX education program tailored to public-sector practice was prepared.",
+    },
+    status: {
+      ko: "교육사업 프로젝트",
+      en: "Education Project",
+    },
+    market: {
+      ko: "공공기관",
+      en: "Public Institutions",
+    },
+    visualType: "interface",
+    visualIsConcept: true,
   },
 ];
 
-const statusColor: Record<Credential["status"], string> = {
-  active: "#16A34A",
-  pending: "#D97706",
-  placeholder: MUTED,
-};
+const PUBLISHED_PROJECTS = PROJECTS.filter(
+  (project) => project.visibility === "published",
+);
+const FEATURED_PROJECT =
+  PUBLISHED_PROJECTS.find((project) => project.featured) ?? PUBLISHED_PROJECTS[0];
+const GRID_PROJECTS = PUBLISHED_PROJECTS.filter(
+  (project) => project.id !== FEATURED_PROJECT.id,
+);
 
-// ── 섹션 1: 히어로 ────────────────────────────────────────────────────────────
+function getLocalizedText(text: LocalizedText, lang: Lang) {
+  return text[lang];
+}
 
-function HeroSection() {
-  const { lang } = useLanguage();
-  const ui = UI[lang];
-  return (
-    <section style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8 pt-28 pb-0">
-        <div className="inline-block text-xs mb-14 px-3 py-1.5 tracking-widest uppercase" style={{ color: BLUE, border: `1px solid rgba(55,55,242,0.25)`, fontFamily: "var(--font-mono)" }}>
-          {ui.heroBadge}
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 mb-16">
-          <div className="lg:col-span-7">
-            <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.6rem, 5vw, 4.5rem)", lineHeight: 1.04, letterSpacing: "-0.03em", color: NEAR_BLACK, whiteSpace: "pre-line" }}>
-              {ui.heroHeadline}
-            </h1>
-          </div>
-          <div className="lg:col-span-5 flex flex-col justify-end gap-6">
-            <p style={{ fontSize: "1rem", lineHeight: 1.85, color: BODY_TEXT, maxWidth: 400, whiteSpace: "pre-line" }}>
-              {ui.heroDesc}
-            </p>
-          </div>
-        </div>
+function getFocusableElements(container: HTMLElement | null) {
+  if (!container) {
+    return [] as HTMLElement[];
+  }
 
-        {/* 연도 진행 그래픽 */}
-        <div className="flex items-end gap-px" style={{ background: BORDER }}>
-          {["2023", "2024", "2025", "2026+"].map((y, i) => {
-            const heights = [48, 80, 64, 40];
-            const isCurrent = i === 1;
-            return (
-              <div key={y} className="flex-1 flex flex-col justify-end items-center gap-2 px-3 pb-4"
-                style={{ background: isCurrent ? NEAR_BLACK : "#FFFFFF", paddingTop: 12 }}>
-                <div style={{ width: "60%", height: heights[i], background: isCurrent ? BLUE : BORDER }} />
-                <div className="text-xs" style={{ color: isCurrent ? "#FFFFFF" : MUTED, fontFamily: "var(--font-mono)", fontWeight: isCurrent ? 600 : 400 }}>{y}</div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
   );
 }
 
-// ── 섹션 2: 핵심 지표 ────────────────────────────────────────────────────────
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-function MetricsSection() {
-  const { lang } = useLanguage();
-  const ui = UI[lang];
-  const metrics = metricsData[lang];
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    updatePreference();
+    mediaQuery.addEventListener("change", updatePreference);
+
+    return () => mediaQuery.removeEventListener("change", updatePreference);
+  }, []);
+
+  return prefersReducedMotion;
+}
+
+function getRevealProps(prefersReducedMotion: boolean) {
+  if (prefersReducedMotion) {
+    return {};
+  }
+
+  return {
+    initial: { opacity: 0, y: 18 },
+    animate: { opacity: 1, y: 0 },
+    transition: {
+      duration: 0.42,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  };
+}
+
+function Eyebrow({ children }: { children: string }) {
   return (
-    <section style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8 py-16">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px" style={{ background: BORDER }}>
-          {metrics.map((m) => (
-            <div key={m.label} className="p-7" style={{ background: "#FFFFFF", minHeight: 184 }}>
-              <div className="text-xs mb-3" style={{ color: MUTED, fontFamily: "var(--font-mono)", fontSize: "0.8rem", lineHeight: 1.5 }}>{m.label}</div>
-              <div className="mb-3" style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: NEAR_BLACK, fontSize: "clamp(2rem, 2.6vw, 2.35rem)", letterSpacing: "-0.03em", lineHeight: 1.18 }}>
-                {m.value}
-                {m.unit && <span style={{ fontSize: "1rem", color: BLUE, marginLeft: 4 }}>{m.unit}</span>}
-              </div>
-              <div className="text-xs" style={{ color: BODY_TEXT, fontSize: "0.82rem", lineHeight: 1.62 }}>{m.note}</div>
-            </div>
-          ))}
-        </div>
-        <p className="mt-4 text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>
-          {ui.metricsNote}
-        </p>
-      </div>
-    </section>
+    <div
+      className="mb-4 text-[0.78rem] font-semibold uppercase tracking-[0.24em]"
+      style={{ color: BLUE, fontFamily: "var(--font-mono)" }}
+    >
+      {children}
+    </div>
   );
 }
 
-// ── 섹션 3: 성장 타임라인 ────────────────────────────────────────────────────
-
-function TimelineSection() {
-  const { lang } = useLanguage();
-  const ui = UI[lang];
-  const milestones = milestonesData[lang];
-  const [filterCat, setFilterCat] = useState<string>("all");
-  const allCategories = ["all", ...Array.from(new Set(milestones.map((m) => m.category)))];
-  const visible = filterCat === "all" ? milestones : milestones.filter((m) => m.category === filterCat);
-
+function ConceptPill() {
   return (
-    <section style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8 py-20">
-        <div className="text-xs tracking-widest uppercase mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{ui.timelineLabel}</div>
-        <h2 className="mb-10" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
-          {ui.timelineHeadline}
-        </h2>
-
-        <div className="flex flex-wrap gap-2 mb-10">
-          {allCategories.map((cat) => (
-            <button key={cat} onClick={() => setFilterCat(cat)}
-              className="px-3 py-1.5 text-xs transition-all cursor-pointer"
-              style={{
-                background: filterCat === cat ? (categoryColor[cat] || NEAR_BLACK) : "transparent",
-                color: filterCat === cat ? "#FFFFFF" : MUTED,
-                border: `1px solid ${filterCat === cat ? (categoryColor[cat] || NEAR_BLACK) : BORDER}`,
-                fontFamily: "var(--font-body)",
-              }}>
-              {cat === "all" ? ui.filterAll : (categoryLabel[cat]?.[lang] ?? cat)}
-            </button>
-          ))}
-        </div>
-
-        <AnimatePresence mode="wait">
-          <motion.div key={filterCat + lang} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}
-            className="flex flex-col gap-px" style={{ background: BORDER }}>
-            {visible.map((m, i) => {
-              const isEven = i % 2 === 0;
-              const catColor = categoryColor[m.category] || NEAR_BLACK;
-              return (
-                <div key={m.id} className="grid grid-cols-12" style={{ background: "#FFFFFF", minHeight: 120 }}>
-                  <div className={`col-span-12 md:col-span-2 flex flex-col justify-center p-6 ${isEven ? "" : "md:order-last"}`}
-                    style={{ background: isEven ? NEAR_BLACK : SOFT_BG, borderRight: isEven ? "none" : `1px solid ${BORDER}` }}>
-                    <div className="text-2xl" style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: isEven ? "#FFFFFF" : NEAR_BLACK }}>{m.year}</div>
-                    {m.month && <div className="text-xs mt-1" style={{ color: isEven ? "rgba(255,255,255,0.45)" : MUTED, fontFamily: "var(--font-mono)" }}>{m.month}{ui.monthSuffix}</div>}
-                  </div>
-                  <div className={`col-span-12 md:col-span-1 flex items-center justify-center p-4 ${isEven ? "" : "md:order-first"}`}
-                    style={{ borderRight: `1px solid ${BORDER}` }}>
-                    <div className="text-xs" style={{ color: catColor, fontFamily: "var(--font-mono)", fontWeight: 600, writingMode: "vertical-rl", transform: "rotate(180deg)", whiteSpace: "nowrap" }}>
-                      {categoryLabel[m.category]?.[lang] ?? m.category}
-                    </div>
-                  </div>
-                  <div className="col-span-12 md:col-span-9 flex flex-col justify-center p-7 gap-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: catColor }} />
-                      <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.12rem", color: NEAR_BLACK, lineHeight: 1.45 }}>{m.headline}</div>
-                    </div>
-                    <p className="text-sm" style={{ color: BODY_TEXT, fontSize: "0.98rem", lineHeight: 1.74, maxWidth: 680 }}>{m.desc}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </section>
+    <div
+      className="absolute right-4 top-4 rounded-full px-3 py-1 text-[0.66rem] font-semibold uppercase tracking-[0.18em]"
+      style={{
+        background: "rgba(255,255,255,0.12)",
+        color: "#FFFFFF",
+        fontFamily: "var(--font-mono)",
+        backdropFilter: "blur(10px)",
+      }}
+    >
+      CONCEPT VISUAL
+    </div>
   );
 }
 
-// ── 섹션 4: 사업 성과 ────────────────────────────────────────────────────────
-
-const achievementStatusColors = {
-  ko: { "완료": "#16A34A", "진행중": "#D97706", "운영중": BLUE } as Record<string, string>,
-  en: { "Completed": "#16A34A", "In Progress": "#D97706", "Active": BLUE } as Record<string, string>,
-};
-
-function AchievementsSection() {
-  const { lang } = useLanguage();
-  const ui = UI[lang];
-  const achievements = achievementsData[lang];
-  const statusColors = achievementStatusColors[lang];
+function CategoryTag({
+  category,
+  lang,
+  dark = false,
+}: {
+  category: ProjectCategory;
+  lang: Lang;
+  dark?: boolean;
+}) {
   return (
-    <section style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8 py-20">
-        <div className="text-xs tracking-widest uppercase mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{ui.achievementsLabel}</div>
-        <h2 className="mb-12" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
-          {ui.achievementsHeadline}
-        </h2>
-
-        <div className="flex flex-col gap-px" style={{ background: BORDER }}>
-          {achievements.map((a) => (
-            <div key={a.id} className="grid grid-cols-12 gap-0" style={{ background: "#FFFFFF" }}>
-              {/* 상태 표시 */}
-              <div className="col-span-12 md:col-span-1 flex items-center justify-center p-5" style={{ borderRight: `1px solid ${BORDER}` }}>
-                <div className="w-2 h-2 rounded-full" style={{ background: statusColors[a.status] || MUTED }} />
-              </div>
-              {/* 주요 정보 */}
-              <div className="col-span-12 md:col-span-4 p-6" style={{ borderRight: `1px solid ${BORDER}` }}>
-                <div className="text-xs mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{a.area} · {a.market}</div>
-                <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.02rem", color: NEAR_BLACK, lineHeight: 1.45 }}>{a.headline}</div>
-                <div className="mt-2">
-                  <span className="text-xs px-2 py-0.5" style={{ border: `1px solid ${(statusColors[a.status] || MUTED) + "40"}`, color: statusColors[a.status] || MUTED, fontFamily: "var(--font-mono)" }}>
-                    {a.status}
-                  </span>
-                </div>
-              </div>
-              {/* 역할 */}
-              <div className="col-span-12 md:col-span-3 p-6" style={{ borderRight: `1px solid ${BORDER}` }}>
-                <div className="text-xs mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{ui.achievementsRoleLabel}</div>
-                <p className="text-sm" style={{ color: BODY_TEXT, fontSize: "0.96rem", lineHeight: 1.7 }}>{a.role}</p>
-              </div>
-              {/* 성과 */}
-              <div className="col-span-12 md:col-span-4 p-6">
-                <div className="text-xs mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{ui.achievementsOutcomeLabel}</div>
-                <p className="text-sm" style={{ color: BODY_TEXT, fontSize: "0.96rem", lineHeight: 1.7 }}>{a.outcome}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <p className="mt-6 text-xs" style={{ color: BODY_TEXT, fontSize: "0.82rem", lineHeight: 1.6 }}>
-          {ui.achievementsNote}
-        </p>
-      </div>
-    </section>
-  );
-}
-
-// ── 섹션 5 & 6: 기업 자격 + 상세 드로어 ─────────────────────────────────────
-
-function CredentialBadge({ status, ui }: { status: Credential["status"]; ui: typeof UI["ko"] }) {
-  const color = statusColor[status];
-  return (
-    <span className="text-xs px-2 py-0.5" style={{ border: `1px solid ${color}40`, color, fontFamily: "var(--font-mono)" }}>
-      {ui.statusLabel[status]}
+    <span
+      className="inline-flex items-center rounded-full px-3 py-[7px] text-[0.76rem] font-medium"
+      style={{
+        background: dark ? "rgba(255,255,255,0.12)" : "rgba(55,55,242,0.08)",
+        color: dark ? "#FFFFFF" : NEAR_BLACK,
+      }}
+    >
+      {getLocalizedText(CATEGORY_LABELS[category], lang)}
     </span>
   );
 }
 
-function CredentialsSection() {
-  const { lang } = useLanguage();
-  const ui = UI[lang];
-  const [selected, setSelected] = useState<Credential | null>(null);
-  const visibleCredentials = credentials.filter((credential) => credential.status !== "placeholder");
-  const groups = (["certification", "ip", "rd", "trust"] as CredGroup[]).filter((group) =>
-    visibleCredentials.some((credential) => credential.group === group),
+function HeroPattern() {
+  return (
+    <div className="pointer-events-none absolute right-[-9%] top-[-2rem] hidden h-[24rem] w-[60%] lg:block">
+      <div
+        className="absolute inset-0 opacity-70"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(55,55,242,0.16) 1px, transparent 1.2px)",
+          backgroundSize: "14px 14px",
+          WebkitMaskImage:
+            "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.95) 24%, rgba(0,0,0,0.86) 76%, transparent 100%)",
+          maskImage:
+            "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.95) 24%, rgba(0,0,0,0.86) 76%, transparent 100%)",
+        }}
+      />
+      <svg
+        viewBox="0 0 760 360"
+        className="absolute inset-0 h-full w-full"
+        fill="none"
+        aria-hidden="true"
+      >
+        {[0, 24, 48, 72, 96, 120].map((offset) => (
+          <path
+            key={offset}
+            d={`M8 ${78 + offset} C 128 ${12 + offset} 248 ${12 + offset} 370 ${
+              78 + offset
+            } S 622 ${144 + offset} 752 ${78 + offset}`}
+            stroke="rgba(55,55,242,0.18)"
+            strokeWidth="1.35"
+          />
+        ))}
+      </svg>
+    </div>
   );
+}
 
-  const isPending = (v: string) => v.includes("예정") || v.toLowerCase().includes("pending") || v.toLowerCase().includes("to be updated");
+function HeroSection({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
+  const { lang } = useLanguage();
+  const copy = PAGE_COPY[lang];
 
   return (
-    <section style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
-      <div className="max-w-[1440px] mx-auto px-8 py-20">
-        <div className="text-xs tracking-widest uppercase mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{ui.credentialsLabel}</div>
-        <h2 className="mb-12" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
-          {ui.credentialsHeadline}
-        </h2>
+    <motion.section
+      data-growth-hero
+      className="relative overflow-hidden border-b bg-white"
+      style={{ borderColor: BORDER }}
+      {...getRevealProps(prefersReducedMotion)}
+    >
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
+        <div className="relative py-16 md:py-20 lg:py-24">
+          <div className="relative z-10 max-w-[38rem]">
+            <Eyebrow>{copy.heroEyebrow}</Eyebrow>
+            <h1
+              className={`font-[800] tracking-[-0.045em] ${
+                lang === "ko" ? "eruty-keep-all" : ""
+              }`}
+              style={{
+                color: NEAR_BLACK,
+                fontSize: "clamp(2.75rem, 5vw, 4.5rem)",
+                lineHeight: 1.06,
+              }}
+            >
+              {copy.heroHeadline}
+            </h1>
+            <p
+              className={`mt-7 max-w-[35rem] ${
+                lang === "ko" ? "eruty-keep-all" : ""
+              }`}
+              style={{
+                color: BODY_TEXT,
+                fontSize: "clamp(0.96875rem, 1.08vw, 1.0625rem)",
+                lineHeight: 1.82,
+              }}
+            >
+              {copy.heroDescription}
+            </p>
+          </div>
+          <HeroPattern />
+        </div>
+      </div>
+    </motion.section>
+  );
+}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-px" style={{ background: BORDER }}>
-          {groups.map((grp) => {
-            const items = visibleCredentials.filter((c) => c.group === grp);
-            return (
-              <div key={grp} className="flex flex-col gap-px" style={{ background: BORDER }}>
-                {/* 그룹 헤더 */}
-                <div className="p-5" style={{ background: SOFT_BG }}>
-                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "0.9rem", color: NEAR_BLACK }}>{ui.credGroupLabel[grp]}</div>
-                </div>
-                {/* 항목들 */}
-                {items.map((c) => (
-                  <button key={c.id} onClick={() => setSelected(selected?.id === c.id ? null : c)}
-                    className="flex items-start gap-4 p-5 text-left w-full cursor-pointer transition-all"
-                    style={{ background: selected?.id === c.id ? SOFT_BG : "#FFFFFF", borderLeft: `3px solid ${selected?.id === c.id ? BLUE : "transparent"}` }}>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-2 mb-1">
-                        <div className="text-sm" style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "0.98rem", color: NEAR_BLACK, lineHeight: 1.5 }}>{credField(c.name, c.nameEn, lang)}</div>
-                        <CredentialBadge status={c.status} ui={ui} />
-                      </div>
-                      <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)", fontSize: "0.78rem", lineHeight: 1.5 }}>{credField(c.issuer, c.issuerEn, lang)} · {credField(c.date, c.dateEn, lang)}</div>
-                    </div>
-                    <ArrowUpRight size={14} style={{ color: selected?.id === c.id ? BLUE : MUTED, flexShrink: 0, marginTop: 2 }} />
-                  </button>
+function InterfaceShell({
+  children,
+  featured = false,
+  dark = true,
+}: {
+  children: ReactNode;
+  featured?: boolean;
+  dark?: boolean;
+}) {
+  return (
+    <div
+      className={`relative h-full w-full overflow-hidden rounded-[1rem] border ${
+        featured ? "p-4 md:p-5" : "p-3.5"
+      }`}
+      style={{
+        borderColor: dark ? "rgba(255,255,255,0.08)" : "rgba(55,55,242,0.08)",
+        background: dark
+          ? "linear-gradient(180deg, rgba(12,19,33,0.98) 0%, rgba(10,15,26,1) 100%)"
+          : "linear-gradient(180deg, #FCFDFF 0%, #F1F5FB 100%)",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function EmotionConceptVisual({ featured = false }: { featured?: boolean }) {
+  return (
+    <InterfaceShell featured={featured}>
+      <ConceptPill />
+      <div className="grid h-full gap-3 md:grid-cols-[118px_1fr]">
+        <div className="flex flex-col gap-2">
+          <div
+            className="h-10 rounded-[0.8rem]"
+            style={{ background: "rgba(255,255,255,0.08)" }}
+          />
+          <div
+            className="h-10 rounded-[0.8rem]"
+            style={{ background: "rgba(255,255,255,0.06)" }}
+          />
+          <div
+            className="h-10 rounded-[0.8rem]"
+            style={{ background: "rgba(255,255,255,0.06)" }}
+          />
+          <div
+            className="mt-2 flex-1 rounded-[1rem]"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)",
+            }}
+          />
+        </div>
+
+        <div className="flex h-full flex-col gap-3">
+          <div className="grid gap-3 sm:grid-cols-3">
+            {[
+              "rgba(55,55,242,0.28)",
+              "rgba(116,155,255,0.18)",
+              "rgba(255,255,255,0.08)",
+            ].map((background, index) => (
+              <div
+                key={`${background}-${index}`}
+                className="h-16 rounded-[0.9rem]"
+                style={{ background }}
+              />
+            ))}
+          </div>
+
+          <div
+            className="relative flex-1 overflow-hidden rounded-[1rem] border"
+            style={{
+              borderColor: "rgba(255,255,255,0.08)",
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%)",
+            }}
+          >
+            <svg
+              viewBox="0 0 560 240"
+              className="absolute inset-0 h-full w-full"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M18 162 C 82 102 128 86 182 120 S 292 198 350 152 S 470 76 540 118"
+                stroke="rgba(119,212,255,0.88)"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+              <path
+                d="M18 182 C 96 132 142 138 198 168 S 314 204 378 178 S 486 126 540 148"
+                stroke="rgba(55,55,242,0.88)"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+              />
+              <path
+                d="M18 138 C 88 126 132 82 196 98 S 312 170 384 130 S 488 68 540 92"
+                stroke="rgba(255,255,255,0.34)"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+            <div className="absolute inset-x-5 bottom-4 grid grid-cols-3 gap-2">
+              {["48%", "58%", "42%"].map((height, index) => (
+                <div
+                  key={`${height}-${index}`}
+                  className="rounded-[0.85rem]"
+                  style={{
+                    height,
+                    background:
+                      "linear-gradient(180deg, rgba(55,55,242,0.22) 0%, rgba(55,55,242,0.08) 100%)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </InterfaceShell>
+  );
+}
+
+function AnalysisConceptVisual() {
+  return (
+    <InterfaceShell>
+      <ConceptPill />
+      <div className="grid h-full gap-3">
+        <div className="grid grid-cols-[1.2fr_0.8fr] gap-3">
+          <div
+            className="rounded-[0.95rem] border p-3"
+            style={{
+              borderColor: "rgba(255,255,255,0.07)",
+              background: "rgba(255,255,255,0.04)",
+            }}
+          >
+            <div className="flex h-[7.5rem] items-end gap-2">
+              {["38%", "62%", "44%", "72%", "56%", "82%"].map((height, index) => (
+                <div
+                  key={`${height}-${index}`}
+                  className="flex-1 rounded-t-[0.6rem]"
+                  style={{
+                    height,
+                    background:
+                      index % 2 === 0
+                        ? "rgba(55,55,242,0.9)"
+                        : "rgba(107,188,255,0.82)",
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div
+            className="flex items-center justify-center rounded-[0.95rem] border"
+            style={{
+              borderColor: "rgba(255,255,255,0.07)",
+              background: "rgba(255,255,255,0.04)",
+            }}
+          >
+            <div
+              className="h-24 w-24 rounded-full"
+              style={{
+                background:
+                  "conic-gradient(from 160deg, rgba(55,55,242,1), rgba(119,212,255,0.92), rgba(55,55,242,0.18), rgba(55,55,242,1))",
+                padding: 10,
+              }}
+            >
+              <div className="h-full w-full rounded-full bg-[#091221]" />
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="rounded-[0.95rem] border p-4"
+          style={{
+            borderColor: "rgba(255,255,255,0.07)",
+            background: "rgba(255,255,255,0.04)",
+          }}
+        >
+          <svg viewBox="0 0 420 120" className="h-full w-full" fill="none" aria-hidden="true">
+            <path
+              d="M10 82 C 48 70 72 34 118 42 S 194 104 240 84 S 330 24 410 40"
+              stroke="rgba(55,55,242,0.92)"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+            />
+            <path
+              d="M10 96 C 62 78 86 72 132 88 S 212 108 258 94 S 332 52 410 68"
+              stroke="rgba(119,212,255,0.88)"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+            />
+            <path
+              d="M10 62 C 52 56 92 18 136 26 S 206 88 258 64 S 340 18 410 22"
+              stroke="rgba(255,255,255,0.28)"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+        </div>
+      </div>
+    </InterfaceShell>
+  );
+}
+
+function BlockchainConceptVisual() {
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden rounded-[1rem]"
+      style={{
+        background:
+          "radial-gradient(circle at 50% 26%, rgba(95,168,255,0.22), transparent 28%), linear-gradient(180deg, #081427 0%, #09101D 100%)",
+      }}
+    >
+      <ConceptPill />
+      <svg
+        viewBox="0 0 600 360"
+        className="absolute inset-0 h-full w-full"
+        fill="none"
+        aria-hidden="true"
+      >
+        {[
+          [180, 92],
+          [424, 86],
+          [138, 252],
+          [458, 248],
+          [300, 54],
+          [304, 298],
+        ].map(([x, y], index) => (
+          <g key={`${x}-${y}-${index}`}>
+            <line
+              x1="300"
+              y1="176"
+              x2={x}
+              y2={y}
+              stroke="rgba(85,155,255,0.24)"
+              strokeWidth="2"
+            />
+            <rect
+              x={x - 34}
+              y={y - 34}
+              width="68"
+              height="68"
+              rx="12"
+              fill="rgba(55,55,242,0.16)"
+              stroke="rgba(119,212,255,0.34)"
+            />
+            <rect
+              x={x - 16}
+              y={y - 18}
+              width="32"
+              height="36"
+              rx="6"
+              fill="rgba(119,212,255,0.20)"
+            />
+          </g>
+        ))}
+      </svg>
+      <div
+        className="absolute left-1/2 top-1/2 h-[126px] w-[126px] -translate-x-1/2 -translate-y-1/2 rounded-[1.4rem] border"
+        style={{
+          borderColor: "rgba(119,212,255,0.45)",
+          background:
+            "linear-gradient(180deg, rgba(55,55,242,0.42) 0%, rgba(55,55,242,0.18) 100%)",
+          boxShadow: "0 16px 44px rgba(11, 35, 88, 0.32)",
+        }}
+      >
+        <div
+          className="absolute inset-x-[34px] top-[28px] h-[24px] rounded-t-full border"
+          style={{ borderColor: "rgba(255,255,255,0.72)" }}
+        />
+        <div
+          className="absolute left-[26px] right-[26px] top-[44px] bottom-[26px] rounded-[1rem]"
+          style={{ background: "rgba(255,255,255,0.12)" }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function EducationConceptVisual() {
+  return (
+    <InterfaceShell dark={false}>
+      <ConceptPill />
+      <div className="grid h-full gap-3 md:grid-cols-[108px_1fr]">
+        <div
+          className="rounded-[0.95rem] border p-3"
+          style={{
+            borderColor: "rgba(55,55,242,0.08)",
+            background: "rgba(255,255,255,0.72)",
+          }}
+        >
+          <div className="flex flex-col gap-2">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <div
+                key={`side-${index}`}
+                className="h-9 rounded-[0.8rem]"
+                style={{
+                  background:
+                    index === 0
+                      ? "rgba(55,55,242,0.12)"
+                      : "rgba(24,25,27,0.05)",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="grid gap-3">
+          <div
+            className="relative overflow-hidden rounded-[0.95rem] border"
+            style={{
+              borderColor: "rgba(55,55,242,0.08)",
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.88) 0%, rgba(243,247,252,0.92) 100%)",
+            }}
+          >
+            <div className="grid h-full gap-3 p-3 sm:grid-cols-[1.25fr_0.75fr]">
+              <div
+                className="flex items-center justify-center rounded-[0.85rem]"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(55,55,242,0.16) 0%, rgba(119,212,255,0.18) 100%)",
+                }}
+              >
+                <div
+                  className="h-16 w-16 rounded-full"
+                  style={{ background: "rgba(55,55,242,0.22)" }}
+                />
+              </div>
+              <div className="grid gap-2">
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <div
+                    key={`course-${index}`}
+                    className="rounded-[0.8rem]"
+                    style={{
+                      height: index === 0 ? 44 : 38,
+                      background:
+                        index === 0
+                          ? "rgba(55,55,242,0.12)"
+                          : "rgba(24,25,27,0.05)",
+                    }}
+                  />
                 ))}
               </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div
+                key={`module-${index}`}
+                className="rounded-[0.95rem] border p-3"
+                style={{
+                  borderColor: "rgba(55,55,242,0.08)",
+                  background: "rgba(255,255,255,0.8)",
+                }}
+              >
+                <div
+                  className="h-10 rounded-[0.75rem]"
+                  style={{
+                    background:
+                      index === 1
+                        ? "rgba(119,212,255,0.16)"
+                        : "rgba(55,55,242,0.10)",
+                  }}
+                />
+                <div
+                  className="mt-3 h-2.5 rounded-full"
+                  style={{ background: "rgba(24,25,27,0.08)" }}
+                />
+                <div
+                  className="mt-2 h-2.5 w-[72%] rounded-full"
+                  style={{ background: "rgba(24,25,27,0.08)" }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </InterfaceShell>
+  );
+}
+
+function ProjectVisual({
+  project,
+  featured = false,
+}: {
+  project: Project;
+  featured?: boolean;
+}) {
+  const { lang } = useLanguage();
+
+  if (project.image && project.imageAlt) {
+    return (
+      <div className="relative h-full w-full overflow-hidden rounded-[1rem] bg-[#EDF2FA]">
+        <img
+          src={project.image}
+          alt={getLocalizedText(project.imageAlt, lang)}
+          className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.015]"
+          draggable={false}
+        />
+      </div>
+    );
+  }
+
+  if (project.id === "emotion-personalization") {
+    return <EmotionConceptVisual featured={featured} />;
+  }
+
+  if (project.id === "content-profitability") {
+    return <AnalysisConceptVisual />;
+  }
+
+  if (project.id === "blockchain-rights") {
+    return <BlockchainConceptVisual />;
+  }
+
+  return <EducationConceptVisual />;
+}
+
+function FeaturedProjectSection({
+  project,
+  onOpen,
+  prefersReducedMotion,
+}: {
+  project: Project;
+  onOpen: (project: Project, trigger: HTMLElement | null) => void;
+  prefersReducedMotion: boolean;
+}) {
+  const { lang } = useLanguage();
+  const copy = PAGE_COPY[lang];
+
+  return (
+    <motion.section
+      data-growth-featured
+      className="border-b bg-white py-10 md:py-12"
+      style={{ borderColor: BORDER }}
+      {...getRevealProps(prefersReducedMotion)}
+    >
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
+        <div className="mb-6">
+          <Eyebrow>{copy.featuredEyebrow}</Eyebrow>
+        </div>
+
+        <div
+          className="grid min-h-[420px] overflow-hidden rounded-[1rem] border lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]"
+          style={{
+            borderColor: "rgba(9,17,31,0.08)",
+            background:
+              "linear-gradient(135deg, #081323 0%, #07111E 48%, #0C1626 100%)",
+            boxShadow: "0 22px 60px rgba(12, 24, 43, 0.12)",
+          }}
+        >
+          <div className="flex flex-col justify-between p-7 md:p-9 lg:p-10">
+            <div>
+              <div className="flex flex-wrap gap-2">
+                {project.categories.map((category) => (
+                  <CategoryTag
+                    key={category}
+                    category={category}
+                    lang={lang}
+                    dark
+                  />
+                ))}
+                {project.year ? (
+                  <span
+                    className="inline-flex items-center rounded-full px-3 py-[7px] text-[0.76rem]"
+                    style={{
+                      background: "rgba(255,255,255,0.08)",
+                      color: "rgba(255,255,255,0.92)",
+                      fontFamily: "var(--font-mono)",
+                    }}
+                  >
+                    {project.year}
+                  </span>
+                ) : null}
+              </div>
+
+              <h2
+                className={`mt-7 max-w-[24rem] font-[800] tracking-[-0.042em] text-white ${
+                  lang === "ko" ? "eruty-keep-all" : ""
+                }`}
+                style={{
+                  fontSize: "clamp(2rem, 3.2vw, 2.9rem)",
+                  lineHeight: 1.12,
+                }}
+              >
+                {getLocalizedText(project.title, lang)}
+              </h2>
+
+              <p
+                className={`mt-5 max-w-[25rem] ${
+                  lang === "ko" ? "eruty-keep-all" : ""
+                }`}
+                style={{
+                  color: "rgba(255,255,255,0.76)",
+                  fontSize: "clamp(0.96875rem, 1.04vw, 1.03125rem)",
+                  lineHeight: 1.8,
+                }}
+              >
+                {getLocalizedText(project.summary, lang)}
+              </p>
+            </div>
+
+            <div className="mt-8">
+              <button
+                type="button"
+                onClick={(event) => onOpen(project, event.currentTarget)}
+                className="inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#081323]"
+                style={{
+                  borderColor: "rgba(255,255,255,0.18)",
+                  color: "#FFFFFF",
+                }}
+              >
+                {copy.featuredButton}
+                <ArrowRight size={15} />
+              </button>
+            </div>
+          </div>
+
+          <div className="min-h-[280px] border-t p-4 md:p-5 lg:min-h-full lg:border-l lg:border-t-0 lg:p-6">
+            <div
+              className="h-full rounded-[1rem]"
+              style={{ borderColor: "rgba(255,255,255,0.08)" }}
+            >
+              <ProjectVisual project={project} featured />
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+function FilterSection({
+  activeFilter,
+  onChange,
+  prefersReducedMotion,
+}: {
+  activeFilter: ProjectFilter;
+  onChange: (filter: ProjectFilter) => void;
+  prefersReducedMotion: boolean;
+}) {
+  const { lang } = useLanguage();
+  const copy = PAGE_COPY[lang];
+
+  return (
+    <motion.section
+      className="bg-white py-8"
+      {...getRevealProps(prefersReducedMotion)}
+    >
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
+        <div className="mb-4 text-[0.78rem] font-semibold uppercase tracking-[0.24em]" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>
+          {copy.filterLabel}
+        </div>
+        <div className="flex flex-wrap gap-2 md:gap-3">
+          {FILTERS.map((filter) => {
+            const isActive = activeFilter === filter;
+            const label =
+              filter === "all"
+                ? copy.filterAll
+                : getLocalizedText(CATEGORY_LABELS[filter], lang);
+
+            return (
+              <button
+                key={filter}
+                type="button"
+                onClick={() => onChange(filter)}
+                aria-pressed={isActive}
+                className="rounded-full px-4 py-[11px] text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3737F2] focus-visible:ring-offset-2"
+                style={{
+                  background: isActive ? BLUE : "#FFFFFF",
+                  color: isActive ? "#FFFFFF" : NEAR_BLACK,
+                  border: `1px solid ${isActive ? BLUE : BORDER}`,
+                }}
+              >
+                {label}
+              </button>
             );
           })}
         </div>
       </div>
-
-      {/* 드로어 */}
-      <AnimatePresence>
-        {selected && (
-          <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40" style={{ background: "rgba(24,25,27,0.45)" }}
-              onClick={() => setSelected(null)} />
-            <motion.div
-              initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
-              transition={{ type: "tween", duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed top-0 right-0 bottom-0 z-50 flex flex-col"
-              style={{ width: "min(480px, 100vw)", background: "#FFFFFF", boxShadow: "-4px 0 24px rgba(0,0,0,0.08)" }}>
-              {/* 드로어 헤더 */}
-              <div className="flex items-start justify-between p-6" style={{ borderBottom: `1px solid ${BORDER}` }}>
-                <div className="flex-1 min-w-0">
-                  <div className="text-xs mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{ui.credGroupLabel[selected.group]}</div>
-                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.1rem", color: NEAR_BLACK }}>{credField(selected.name, selected.nameEn, lang)}</div>
-                </div>
-                <button onClick={() => setSelected(null)} className="p-1 flex-shrink-0 cursor-pointer" style={{ color: MUTED }}>
-                  <X size={18} />
-                </button>
-              </div>
-
-              {/* 드로어 바디 */}
-              <div className="flex-1 overflow-auto p-6 flex flex-col gap-6">
-                {/* 상태 행 */}
-                <div className="flex flex-wrap gap-3">
-                  <CredentialBadge status={selected.status} ui={ui} />
-                  {selected.tech && (
-                    <span className="text-xs px-2 py-0.5" style={{ border: `1px solid ${BORDER}`, color: MUTED, fontFamily: "var(--font-mono)" }}>{selected.tech}</span>
-                  )}
-                </div>
-
-                {/* 메타 정보 */}
-                <div className="flex flex-col gap-px" style={{ background: BORDER }}>
-                  {[
-                    { label: ui.drawerIssuer, value: credField(selected.issuer, selected.issuerEn, lang) },
-                    { label: ui.drawerDate, value: credField(selected.date, selected.dateEn, lang) },
-                    { label: ui.drawerRef, value: selected.refNumber },
-                    ...(selected.project ? [{ label: ui.drawerProject, value: credField(selected.project, selected.projectEn, lang) }] : []),
-                  ].map((row) => (
-                    <div key={row.label} className="grid grid-cols-5 p-3" style={{ background: "#FFFFFF" }}>
-                      <div className="col-span-2 text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{row.label}</div>
-                      <div className="col-span-3 text-xs" style={{ color: isPending(row.value) ? MUTED : BODY_TEXT, fontStyle: isPending(row.value) ? "italic" : "normal" }}>{row.value}</div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* 요약 */}
-                <div>
-                  <div className="text-xs mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{ui.drawerSummaryLabel}</div>
-                  <p className="text-sm" style={{ color: BODY_TEXT, lineHeight: 1.75 }}>{credField(selected.summary, selected.summaryEn, lang)}</p>
-                </div>
-
-                {/* 문서 */}
-                <div style={{ border: `1px solid ${BORDER}`, padding: 20 }}>
-                  {selected.docAvailable ? (
-                    // TODO: Replace with real document URL when credential docs are hosted
-                    <div className="flex items-center gap-3" style={{ cursor: "not-allowed", opacity: 0.7 }}>
-                      <FileText size={18} style={{ color: BLUE }} />
-                      <div>
-                        <div className="text-sm" style={{ color: NEAR_BLACK, fontFamily: "var(--font-display)", fontWeight: 600 }}>{ui.docAvailable}</div>
-                        <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{ui.docAvailableSub}</div>
-                      </div>
-                      <ExternalLink size={14} style={{ color: BLUE, marginLeft: "auto" }} />
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-3">
-                      <Lock size={18} style={{ color: MUTED }} />
-                      <div>
-                        <div className="text-sm" style={{ color: MUTED, fontFamily: "var(--font-display)", fontWeight: 600 }}>{ui.docPrivate}</div>
-                        <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>
-                          {selected.status === "placeholder" ? ui.docPlaceholder : ui.docInternal}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </section>
+    </motion.section>
   );
 }
 
-// ── 최종 CTA ─────────────────────────────────────────────────────────────────
-
-function CtaSection() {
+function ProjectCard({
+  project,
+  onOpen,
+  prefersReducedMotion,
+}: {
+  project: Project;
+  onOpen: (project: Project, trigger: HTMLElement | null) => void;
+  prefersReducedMotion: boolean;
+}) {
   const { lang } = useLanguage();
-  const ui = UI[lang];
+  const copy = PAGE_COPY[lang];
+
   return (
-    <section className="py-28" style={{ background: NEAR_BLACK }}>
-      <div className="max-w-[1440px] mx-auto px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-          <div className="lg:col-span-7">
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.08, color: "#FFFFFF", letterSpacing: "-0.025em", whiteSpace: "pre-line" }}>
-              {ui.ctaHeadline}
-            </h2>
+    <motion.button
+      layout
+      type="button"
+      onClick={(event) => onOpen(project, event.currentTarget)}
+      className="group flex h-full w-full flex-col overflow-hidden rounded-[1rem] border bg-white text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3737F2] focus-visible:ring-offset-2"
+      style={{
+        borderColor: BORDER,
+        boxShadow: "0 16px 36px rgba(16, 31, 68, 0.06)",
+      }}
+      whileHover={prefersReducedMotion ? undefined : { y: -3 }}
+      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div
+        className="overflow-hidden border-b"
+        style={{ borderColor: BORDER, aspectRatio: "16 / 10" }}
+      >
+        <ProjectVisual project={project} />
+      </div>
+
+      <div className="flex flex-1 flex-col p-5 md:p-6">
+        <div className="flex flex-wrap gap-2">
+          {project.categories.slice(0, 2).map((category) => (
+            <CategoryTag key={category} category={category} lang={lang} />
+          ))}
+        </div>
+
+        <h3
+          className={`mt-4 font-[800] tracking-[-0.03em] ${
+            lang === "ko" ? "eruty-keep-all" : ""
+          }`}
+          style={{
+            color: NEAR_BLACK,
+            fontSize: "clamp(1.25rem, 1.55vw, 1.55rem)",
+            lineHeight: 1.2,
+          }}
+        >
+          {getLocalizedText(project.title, lang)}
+        </h3>
+
+        <p
+          className={`mt-3 overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] ${
+            lang === "ko" ? "eruty-keep-all" : ""
+          }`}
+          style={{
+            color: BODY_TEXT,
+            fontSize: "0.96875rem",
+            lineHeight: 1.75,
+          }}
+        >
+          {getLocalizedText(project.summary, lang)}
+        </p>
+
+        <div className="mt-auto flex items-center justify-between pt-5">
+          <span
+            className="text-sm font-medium"
+            style={{ color: BLUE }}
+          >
+            {copy.viewDetails}
+          </span>
+          <ArrowRight size={16} style={{ color: BLUE }} />
+        </div>
+      </div>
+    </motion.button>
+  );
+}
+
+function ProjectGridSection({
+  projects,
+  onOpen,
+  prefersReducedMotion,
+}: {
+  projects: Project[];
+  onOpen: (project: Project, trigger: HTMLElement | null) => void;
+  prefersReducedMotion: boolean;
+}) {
+  const { lang } = useLanguage();
+  const copy = PAGE_COPY[lang];
+
+  return (
+    <motion.section
+      data-growth-grid
+      className="border-b bg-white pb-16 md:pb-20"
+      style={{ borderColor: BORDER }}
+      {...getRevealProps(prefersReducedMotion)}
+    >
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
+        <AnimatePresence mode="popLayout" initial={false}>
+          {projects.length > 0 ? (
+            <motion.div layout className="grid gap-6 md:grid-cols-2 md:gap-7">
+              {projects.map((project) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={
+                    prefersReducedMotion ? undefined : { opacity: 0, y: 14 }
+                  }
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={
+                    prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }
+                  }
+                  transition={{
+                    duration: prefersReducedMotion ? 0.12 : 0.22,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  <ProjectCard
+                    project={project}
+                    onOpen={onOpen}
+                    prefersReducedMotion={prefersReducedMotion}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              key="empty"
+              initial={prefersReducedMotion ? undefined : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+              className="rounded-[1rem] border px-6 py-12 text-center"
+              style={{ borderColor: BORDER, background: SOFT_BG }}
+            >
+              <p
+                className={lang === "ko" ? "eruty-keep-all" : ""}
+                style={{ color: BODY_TEXT, lineHeight: 1.8 }}
+              >
+                {copy.gridEmpty}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.section>
+  );
+}
+
+function DrawerVisual({
+  project,
+  lang,
+}: {
+  project: Project;
+  lang: Lang;
+}) {
+  if (project.image && project.imageAlt) {
+    return (
+      <div
+        className="overflow-hidden rounded-[1rem] border"
+        style={{ borderColor: BORDER, aspectRatio: "16 / 10" }}
+      >
+        <img
+          src={project.image}
+          alt={getLocalizedText(project.imageAlt, lang)}
+          className="h-full w-full object-cover object-center"
+          draggable={false}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ aspectRatio: "16 / 10" }}>
+      <ProjectVisual project={project} />
+    </div>
+  );
+}
+
+function ProjectDetailDrawer({
+  project,
+  onClose,
+}: {
+  project: Project | null;
+  onClose: () => void;
+}) {
+  const { lang } = useLanguage();
+  const copy = PAGE_COPY[lang];
+  const panelRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!project) {
+      return undefined;
+    }
+
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+
+    const focusFrame = window.requestAnimationFrame(() => {
+      closeButtonRef.current?.focus();
+    });
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onClose();
+        return;
+      }
+
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const focusable = getFocusableElements(panelRef.current);
+      if (focusable.length === 0) {
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const activeElement = document.activeElement;
+
+      if (event.shiftKey && activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.body.style.overflow = previousBodyOverflow;
+    };
+  }, [onClose, project]);
+
+  if (!project) {
+    return null;
+  }
+
+  const detailRows: Array<{ label: string; value: string }> = [];
+  if (project.year) {
+    detailRows.push({ label: copy.yearLabel, value: project.year });
+  }
+  if (project.market) {
+    detailRows.push({
+      label: copy.marketLabel,
+      value: getLocalizedText(project.market, lang),
+    });
+  }
+  if (project.status) {
+    detailRows.push({
+      label: copy.statusLabel,
+      value: getLocalizedText(project.status, lang),
+    });
+  }
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 z-50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <button
+          type="button"
+          aria-label={copy.closeDrawer}
+          className="absolute inset-0 h-full w-full"
+          style={{ background: "rgba(10, 16, 29, 0.52)" }}
+          onClick={onClose}
+        />
+
+        <motion.div
+          ref={panelRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${getLocalizedText(project.title, lang)} ${
+            lang === "ko" ? "상세" : "details"
+          }`}
+          initial={{ x: "100%" }}
+          animate={{ x: 0 }}
+          exit={{ x: "100%" }}
+          transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute bottom-0 right-0 top-0 flex w-full max-w-[560px] flex-col bg-white shadow-2xl"
+        >
+          <div
+            className="flex items-start justify-between gap-4 px-6 pb-4 pt-6 md:px-7 md:pb-5"
+            style={{ borderBottom: `1px solid ${BORDER}` }}
+          >
+            <div className="min-w-0">
+              <div className="flex flex-wrap gap-2">
+                {project.categories.map((category) => (
+                  <CategoryTag key={category} category={category} lang={lang} />
+                ))}
+              </div>
+              <h3
+                className={`mt-4 font-[800] tracking-[-0.04em] ${
+                  lang === "ko" ? "eruty-keep-all" : ""
+                }`}
+                style={{
+                  color: NEAR_BLACK,
+                  fontSize: "clamp(1.55rem, 2.3vw, 2rem)",
+                  lineHeight: 1.18,
+                }}
+              >
+                {getLocalizedText(project.title, lang)}
+              </h3>
+            </div>
+
+            <button
+              ref={closeButtonRef}
+              type="button"
+              onClick={onClose}
+              aria-label={copy.closeDrawer}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3737F2] focus-visible:ring-offset-2"
+              style={{ borderColor: BORDER, color: NEAR_BLACK }}
+            >
+              <X size={18} />
+            </button>
           </div>
-          <div className="lg:col-span-5 flex flex-col sm:flex-row gap-3 lg:justify-end lg:pb-1">
-            <Link to="/technology"
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm transition-all"
-              style={{ background: BLUE, color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500 }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#2828d4"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = BLUE; }}>
-              {ui.ctaBtn1} <ArrowUpRight size={14} />
-            </Link>
-            <Link to="/start-a-project"
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm transition-all"
-              style={{ border: "1px solid rgba(255,255,255,0.2)", color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500 }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.5)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.2)"; }}>
-              {ui.ctaBtn2}
+
+          <div className="flex-1 overflow-y-auto px-6 py-6 md:px-7 md:py-7">
+            <div className="space-y-7">
+              <section>
+                <div
+                  className="mb-3 text-[0.76rem] font-semibold uppercase tracking-[0.22em]"
+                  style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                >
+                  {copy.relatedVisualLabel}
+                </div>
+                <DrawerVisual project={project} lang={lang} />
+              </section>
+
+              {detailRows.length > 0 ? (
+                <section
+                  className="overflow-hidden rounded-[1rem] border"
+                  style={{ borderColor: BORDER }}
+                >
+                  {detailRows.map((row, index) => (
+                    <div
+                      key={row.label}
+                      className="grid gap-2 px-4 py-4 md:grid-cols-[132px_1fr]"
+                      style={{
+                        borderTop:
+                          index > 0 ? `1px solid ${BORDER}` : "1px solid transparent",
+                      }}
+                    >
+                      <div
+                        className="text-[0.76rem] font-semibold uppercase tracking-[0.18em]"
+                        style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                      >
+                        {row.label}
+                      </div>
+                      <div
+                        className={lang === "ko" ? "eruty-keep-all" : ""}
+                        style={{
+                          color: BODY_TEXT,
+                          fontSize: "0.96875rem",
+                          lineHeight: 1.72,
+                        }}
+                      >
+                        {row.value}
+                      </div>
+                    </div>
+                  ))}
+                </section>
+              ) : null}
+
+              <section>
+                <div
+                  className="mb-3 text-[0.76rem] font-semibold uppercase tracking-[0.22em]"
+                  style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                >
+                  {copy.overviewLabel}
+                </div>
+                <p
+                  className={lang === "ko" ? "eruty-keep-all" : ""}
+                  style={{
+                    color: BODY_TEXT,
+                    fontSize: "0.98rem",
+                    lineHeight: 1.82,
+                  }}
+                >
+                  {getLocalizedText(project.summary, lang)}
+                </p>
+              </section>
+
+              {project.role ? (
+                <section>
+                  <div
+                    className="mb-3 text-[0.76rem] font-semibold uppercase tracking-[0.22em]"
+                    style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                  >
+                    {copy.roleLabel}
+                  </div>
+                  <p
+                    className={lang === "ko" ? "eruty-keep-all" : ""}
+                    style={{
+                      color: BODY_TEXT,
+                      fontSize: "0.98rem",
+                      lineHeight: 1.82,
+                    }}
+                  >
+                    {getLocalizedText(project.role, lang)}
+                  </p>
+                </section>
+              ) : null}
+
+              {project.scope && project.scope.length > 0 ? (
+                <section>
+                  <div
+                    className="mb-3 text-[0.76rem] font-semibold uppercase tracking-[0.22em]"
+                    style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                  >
+                    {copy.scopeLabel}
+                  </div>
+                  <ul className="space-y-3">
+                    {project.scope.map((item) => (
+                      <li
+                        key={item.en}
+                        className={`flex gap-3 ${lang === "ko" ? "eruty-keep-all" : ""}`}
+                        style={{
+                          color: BODY_TEXT,
+                          fontSize: "0.98rem",
+                          lineHeight: 1.78,
+                        }}
+                      >
+                        <span
+                          className="mt-[0.72rem] h-[6px] w-[6px] rounded-full"
+                          style={{ background: BLUE }}
+                        />
+                        <span>{getLocalizedText(item, lang)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
+
+              {project.outcome ? (
+                <section>
+                  <div
+                    className="mb-3 text-[0.76rem] font-semibold uppercase tracking-[0.22em]"
+                    style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                  >
+                    {copy.outcomeLabel}
+                  </div>
+                  <p
+                    className={lang === "ko" ? "eruty-keep-all" : ""}
+                    style={{
+                      color: BODY_TEXT,
+                      fontSize: "0.98rem",
+                      lineHeight: 1.82,
+                    }}
+                  >
+                    {getLocalizedText(project.outcome, lang)}
+                  </p>
+                </section>
+              ) : null}
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+function CtaPattern() {
+  return (
+    <svg
+      viewBox="0 0 1200 320"
+      className="absolute inset-x-0 bottom-0 h-full w-full opacity-60"
+      fill="none"
+      aria-hidden="true"
+    >
+      {[0, 22, 44, 66].map((offset) => (
+        <path
+          key={offset}
+          d={`M-40 ${248 + offset} C 168 ${176 + offset} 346 ${186 + offset} 540 ${
+            230 + offset
+          } S 896 ${300 + offset} 1240 ${214 + offset}`}
+          stroke="rgba(55,55,242,0.28)"
+          strokeWidth="1.6"
+        />
+      ))}
+    </svg>
+  );
+}
+
+function FinalCtaSection({
+  prefersReducedMotion,
+}: {
+  prefersReducedMotion: boolean;
+}) {
+  const { lang } = useLanguage();
+  const copy = PAGE_COPY[lang];
+
+  return (
+    <motion.section
+      data-growth-cta
+      className="overflow-hidden bg-[#060B14] py-16 md:py-20"
+      {...getRevealProps(prefersReducedMotion)}
+    >
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
+        <div
+          className="relative overflow-hidden rounded-[1rem] border px-6 py-12 md:px-10 md:py-14 lg:px-14"
+          style={{
+            borderColor: "rgba(255,255,255,0.08)",
+            background:
+              "radial-gradient(circle at 78% 24%, rgba(55,55,242,0.12), transparent 24%), linear-gradient(180deg, #07111E 0%, #050A13 100%)",
+          }}
+        >
+          <CtaPattern />
+          <div className="relative z-10 max-w-[42rem]">
+            <div
+              className="mb-4 text-[0.78rem] font-semibold uppercase tracking-[0.24em]"
+              style={{ color: "rgba(255,255,255,0.56)", fontFamily: "var(--font-mono)" }}
+            >
+              {copy.ctaEyebrow}
+            </div>
+
+            <h2
+              className={`font-[800] tracking-[-0.042em] text-white ${
+                lang === "ko" ? "eruty-keep-all" : ""
+              }`}
+              style={{
+                fontSize: "clamp(2rem, 3.2vw, 2.85rem)",
+                lineHeight: 1.14,
+              }}
+            >
+              {copy.ctaHeadline}
+            </h2>
+
+            <p
+              className={`mt-4 max-w-[33rem] ${
+                lang === "ko" ? "eruty-keep-all" : ""
+              }`}
+              style={{
+                color: "rgba(255,255,255,0.72)",
+                fontSize: "clamp(0.96875rem, 1.04vw, 1.0625rem)",
+                lineHeight: 1.8,
+              }}
+            >
+              {copy.ctaDescription}
+            </p>
+
+            <Link
+              to="/start-a-project"
+              className="mt-8 inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full px-6 text-[0.96rem] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#050A13]"
+              style={{ background: BLUE, color: "#FFFFFF" }}
+            >
+              {copy.ctaButton}
+              <ArrowUpRight size={16} />
             </Link>
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
-// ── 페이지 ────────────────────────────────────────────────────────────────────
-
 export function GrowthPage() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const [activeFilter, setActiveFilter] = useState<ProjectFilter>("all");
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const previousHtmlOverflowX = document.documentElement.style.overflowX;
+    const previousBodyOverflowX = document.body.style.overflowX;
+
+    document.documentElement.style.overflowX = "clip";
+    document.body.style.overflowX = "clip";
+
+    return () => {
+      document.documentElement.style.overflowX = previousHtmlOverflowX;
+      document.body.style.overflowX = previousBodyOverflowX;
+    };
+  }, []);
+
+  const filteredProjects = GRID_PROJECTS.filter((project) =>
+    activeFilter === "all"
+      ? true
+      : project.categories.includes(activeFilter),
+  );
+
+  const selectedProject =
+    PUBLISHED_PROJECTS.find((project) => project.id === selectedProjectId) ?? null;
+
+  function openProject(project: Project, trigger: HTMLElement | null) {
+    triggerRef.current = trigger;
+    setSelectedProjectId(project.id);
+  }
+
+  function closeProject() {
+    setSelectedProjectId(null);
+    const trigger = triggerRef.current;
+    window.requestAnimationFrame(() => trigger?.focus());
+  }
+
   return (
-    <div className="pt-16" style={{ background: "#FFFFFF" }}>
-      <HeroSection />
-      <MetricsSection />
-      <TimelineSection />
-      <AchievementsSection />
-      <CredentialsSection />
-      <CtaSection />
+    <div className="overflow-hidden bg-white pt-16">
+      <HeroSection prefersReducedMotion={prefersReducedMotion} />
+      <FeaturedProjectSection
+        project={FEATURED_PROJECT}
+        onOpen={openProject}
+        prefersReducedMotion={prefersReducedMotion}
+      />
+      <FilterSection
+        activeFilter={activeFilter}
+        onChange={setActiveFilter}
+        prefersReducedMotion={prefersReducedMotion}
+      />
+      <ProjectGridSection
+        projects={filteredProjects}
+        onOpen={openProject}
+        prefersReducedMotion={prefersReducedMotion}
+      />
+      <ProjectDetailDrawer project={selectedProject} onClose={closeProject} />
+      <FinalCtaSection prefersReducedMotion={prefersReducedMotion} />
     </div>
   );
 }

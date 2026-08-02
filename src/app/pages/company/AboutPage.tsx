@@ -15,7 +15,7 @@ import { type Lang, useLanguage } from "../../context/LanguageContext";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
-const BODY_TEXT = "#333438";
+const BODY_TEXT = "#333842";
 const MUTED = "#6E7481";
 const BORDER = "#E4E6EA";
 const SOFT_BG = "#F6F8FC";
@@ -44,6 +44,7 @@ type JourneyMedia =
 
 type JourneyEntry = {
   year: string;
+  tag: Record<Lang, string>;
   caption: Record<Lang, string>;
   items: Record<Lang, string[]>;
   media: JourneyMedia;
@@ -83,6 +84,10 @@ const IDENTITY_ITEMS: IdentityItem[] = [
 const JOURNEY_ENTRIES: JourneyEntry[] = [
   {
     year: "2026",
+    tag: {
+      ko: "GITEX AI Europe · 독일",
+      en: "GITEX AI Europe · Germany",
+    },
     caption: {
       ko: "2026년 7월 독일 GITEX AI Europe 2026 참가 공개 사진입니다.",
       en: "Public image from ERUTY's participation at GITEX AI Europe 2026 in Germany.",
@@ -111,6 +116,10 @@ const JOURNEY_ENTRIES: JourneyEntry[] = [
   },
   {
     year: "2025",
+    tag: {
+      ko: "InnoEX · 베트남",
+      en: "InnoEX · Vietnam",
+    },
     caption: {
       ko: "베트남 InnoEX 2025 현장 공개 사진입니다.",
       en: "Public on-site image from ERUTY's participation at InnoEX 2025 in Vietnam.",
@@ -139,6 +148,10 @@ const JOURNEY_ENTRIES: JourneyEntry[] = [
   },
   {
     year: "2024",
+    tag: {
+      ko: "특허 등록",
+      en: "Patent Registration",
+    },
     caption: {
       ko: "2024년 2월 등록 특허 증서를 대표 이미지로 사용했습니다.",
       en: "Uses the February 2024 registered patent certificate as the representative image.",
@@ -168,6 +181,10 @@ const JOURNEY_ENTRIES: JourneyEntry[] = [
   },
   {
     year: "2023",
+    tag: {
+      ko: "벤처기업 인증",
+      en: "Venture Certification",
+    },
     caption: {
       ko: "벤처기업 인증서와 연구 기반 확립을 보여주는 공개 문서 이미지입니다.",
       en: "Public certification imagery reflecting venture status and ERUTY's R&D foundation.",
@@ -197,6 +214,10 @@ const JOURNEY_ENTRIES: JourneyEntry[] = [
   },
   {
     year: "2022",
+    tag: {
+      ko: "법인 설립 기록",
+      en: "Company Foundation",
+    },
     caption: {
       ko: "공개 현장 이미지가 없어 설립 시기의 아카이브 비주얼로 구성했습니다.",
       en: "Built with an archive visual for the incorporation period because no public image is available.",
@@ -224,6 +245,10 @@ const JOURNEY_ENTRIES: JourneyEntry[] = [
   },
   {
     year: "2021",
+    tag: {
+      ko: "창업 지원 기록",
+      en: "Startup Support",
+    },
     caption: {
       ko: "공개 현장 이미지가 없어 아카이브 비주얼로 구성했습니다.",
       en: "Built with an archive visual because no public event image is available.",
@@ -355,26 +380,26 @@ function HeroSection() {
     >
       <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
         <div className="relative pb-16 pt-16 md:pb-20 md:pt-20 lg:min-h-[32rem] lg:pb-24 lg:pt-24">
-          <div className="relative z-10 max-w-[48rem]">
+          <div className="relative z-10 max-w-[43rem]">
             <Eyebrow>{copy.heroLabel}</Eyebrow>
             <h1
               className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
               style={{
                 color: NEAR_BLACK,
-                fontSize: "clamp(2.95rem, 5vw, 4.75rem)",
+                fontSize: "clamp(3rem, 5.2vw, 4.6rem)",
                 lineHeight: 1.06,
-                letterSpacing: "-0.043em",
+                letterSpacing: "-0.045em",
               }}
             >
               {renderMultilineText(copy.heroHeadline)}
             </h1>
             <p
-              className={`mt-8 max-w-[36rem] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              className={`mt-[30px] max-w-[35rem] ${lang === "ko" ? "eruty-keep-all" : ""}`}
               style={{
-                color: "#4E5561",
+                color: "#454C58",
                 whiteSpace: "pre-line",
-                fontSize: "clamp(0.97rem, 1.1vw, 1.08rem)",
-                lineHeight: 1.82,
+                fontSize: "clamp(0.96875rem, 1.08vw, 1.0625rem)",
+                lineHeight: 1.8,
               }}
             >
               {copy.heroDescription}
@@ -421,14 +446,14 @@ function IdentitySection() {
             boxShadow: "0 22px 52px rgba(12, 29, 63, 0.08)",
           }}
         >
-          <div className="grid gap-8 px-6 py-7 md:px-8 md:py-8 lg:grid-cols-[minmax(252px,320px)_1fr] lg:items-center lg:gap-10 lg:px-10">
-            <div className="max-w-[20rem]">
+          <div className="grid gap-8 px-6 py-7 md:px-8 md:py-8 lg:grid-cols-[minmax(250px,300px)_1fr] lg:items-center lg:gap-10 lg:px-10">
+            <div className="max-w-[18.75rem]">
               <Eyebrow>{copy.identityLabel}</Eyebrow>
               <h2
                 className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
                 style={{
                   color: NEAR_BLACK,
-                  fontSize: "clamp(1.9rem, 2.7vw, 2.5rem)",
+                  fontSize: "clamp(1.85rem, 2.45vw, 2.35rem)",
                   lineHeight: 1.14,
                   letterSpacing: "-0.04em",
                 }}
@@ -447,7 +472,7 @@ function IdentitySection() {
                 return (
                   <div
                     key={item.label.en}
-                    className="flex min-h-[7rem] flex-col justify-center px-0 py-3 sm:px-4 sm:py-4 lg:px-6 lg:py-5"
+                    className="flex min-h-[7.5rem] flex-col justify-center px-0 py-3 sm:px-4 sm:py-4 lg:px-[22px] lg:py-5"
                   >
                     <div className="mb-3 flex items-center">
                       <span
@@ -461,11 +486,12 @@ function IdentitySection() {
                       </span>
                     </div>
                     <div
-                      className="text-[0.78rem] uppercase"
+                      className="text-[0.8rem] uppercase"
                       style={{
                         color: MUTED,
                         fontFamily: "var(--font-mono)",
-                        letterSpacing: "0.08em",
+                        letterSpacing: "0.07em",
+                        lineHeight: 1.4,
                       }}
                     >
                       {item.label[lang]}
@@ -474,7 +500,7 @@ function IdentitySection() {
                       className={`${lang === "ko" ? "eruty-keep-all" : ""} mt-2 font-[700] tracking-[-0.02em]`}
                       style={{
                         color: BLUE,
-                        fontSize: "clamp(1rem, 1.1vw, 1.08rem)",
+                        fontSize: "clamp(1rem, 1.05vw, 1.125rem)",
                         lineHeight: 1.45,
                       }}
                     >
@@ -509,20 +535,20 @@ function BeginningSection() {
               className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
               style={{
                 color: NEAR_BLACK,
-                fontSize: "clamp(2.25rem, 3.9vw, 3.35rem)",
+                fontSize: "clamp(2.25rem, 3.7vw, 3.05rem)",
                 lineHeight: 1.12,
-                letterSpacing: "-0.045em",
+                letterSpacing: "-0.04em",
               }}
             >
               {renderMultilineText(copy.beginningHeadline)}
             </h2>
             <p
-              className={`mt-8 max-w-[32rem] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              className={`mt-[29px] max-w-[33rem] ${lang === "ko" ? "eruty-keep-all" : ""}`}
               style={{
                 color: BODY_TEXT,
                 whiteSpace: "pre-line",
-                fontSize: "clamp(0.96rem, 1.08vw, 1.04rem)",
-                lineHeight: 1.86,
+                fontSize: "clamp(0.96875rem, 1.08vw, 1.0625rem)",
+                lineHeight: 1.85,
               }}
             >
               {copy.beginningDescription}
@@ -546,17 +572,6 @@ function BeginningSection() {
                 />
               </div>
             </figure>
-            <p
-              className="mt-3"
-              style={{
-                color: MUTED,
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.8rem",
-                lineHeight: 1.55,
-              }}
-            >
-              {copy.beginningCaption}
-            </p>
           </div>
         </div>
       </div>
@@ -632,7 +647,8 @@ function JourneyCard({ entry, lang }: { entry: JourneyEntry; lang: Lang }) {
       data-journey-card
       className="flex shrink-0 snap-start flex-col overflow-hidden rounded-[1.75rem] border bg-white"
       style={{
-        width: "min(86vw, 20.75rem)",
+        width: "min(86vw, 368px)",
+        minHeight: "27.75rem",
         borderColor: BORDER,
         boxShadow: "0 14px 34px rgba(16, 31, 68, 0.05)",
       }}
@@ -660,36 +676,38 @@ function JourneyCard({ entry, lang }: { entry: JourneyEntry; lang: Lang }) {
         )}
       </div>
 
-      <div className="flex flex-1 flex-col px-6 pb-7 pt-6">
+      <div className="flex flex-1 flex-col" style={{ padding: "22px 26px 28px" }}>
+        <div
+          className="inline-flex max-w-full self-start overflow-hidden text-ellipsis whitespace-nowrap rounded-full px-3 py-[6px]"
+          style={{
+            background: "rgba(55,55,242,0.08)",
+            color: "#42516A",
+            fontSize: "0.765rem",
+            fontWeight: 600,
+            lineHeight: 1.2,
+          }}
+        >
+          {entry.tag[lang]}
+        </div>
         <div
           data-journey-year
-          className="font-[800] leading-none tracking-[-0.05em]"
+          className="mt-4 font-[800] leading-none tracking-[-0.04em]"
           style={{
             color: BLUE,
-            fontSize: "clamp(1.8rem, 2.2vw, 2.125rem)",
+            fontSize: "clamp(1.75rem, 2.1vw, 2rem)",
           }}
         >
           {entry.year}
         </div>
-        <p
-          className={`${lang === "ko" ? "eruty-keep-all" : ""} mt-3`}
-          style={{
-            color: MUTED,
-            fontSize: "clamp(0.82rem, 0.95vw, 0.875rem)",
-            lineHeight: 1.68,
-          }}
-        >
-          {entry.caption[lang]}
-        </p>
-        <ul className="mt-4 flex-1 space-y-3">
+        <ul className="mt-[18px] flex-1 space-y-[11px]">
           {entry.items[lang].map((item) => (
             <li
               key={item}
-              className={`flex gap-3 ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              className={`flex gap-[11px] ${lang === "ko" ? "eruty-keep-all" : ""}`}
               style={{
                 color: BODY_TEXT,
-                fontSize: "clamp(0.94rem, 1.05vw, 1rem)",
-                lineHeight: 1.72,
+                fontSize: "clamp(0.9375rem, 1.08vw, 1rem)",
+                lineHeight: 1.7,
               }}
             >
               <span
@@ -764,7 +782,7 @@ function JourneySection() {
     }
 
     const firstCard = scroller.querySelector<HTMLElement>("[data-journey-card]");
-    const cardWidth = firstCard?.getBoundingClientRect().width ?? 352;
+    const cardWidth = firstCard?.getBoundingClientRect().width ?? 368;
 
     scroller.scrollBy({
       left: direction * (cardWidth + JOURNEY_SCROLL_GAP),
@@ -845,19 +863,19 @@ function JourneySection() {
   return (
     <section
       data-about-journey
-      className="overflow-hidden border-b py-24 md:py-28"
+      className="overflow-hidden border-b py-20 md:py-24"
       style={{ borderColor: BORDER, background: SOFT_BG }}
     >
       <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
-        <div className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-[34rem]">
             <Eyebrow>{copy.journeyLabel}</Eyebrow>
             <h2
               className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
               style={{
                 color: NEAR_BLACK,
-                fontSize: "clamp(2.75rem, 4vw, 3.25rem)",
-                lineHeight: 1.08,
+                fontSize: "clamp(2.25rem, 3.3vw, 3rem)",
+                lineHeight: 1.1,
                 letterSpacing: "-0.045em",
               }}
             >
@@ -865,18 +883,18 @@ function JourneySection() {
             </h2>
           </div>
 
-          <div className="max-w-[26rem] lg:text-right">
+          <div className="flex max-w-[25rem] flex-col gap-4 lg:items-end lg:text-right">
             <p
               className={`${lang === "ko" ? "eruty-keep-all" : ""}`}
               style={{
                 color: BODY_TEXT,
-                fontSize: "clamp(0.94rem, 1vw, 1rem)",
-                lineHeight: 1.72,
+                fontSize: "0.9375rem",
+                lineHeight: 1.7,
               }}
             >
               {copy.journeyInstruction}
             </p>
-            <div className="mt-5 flex items-center gap-4 lg:justify-end">
+            <div className="flex items-center gap-3 lg:justify-end">
               <button
                 type="button"
                 data-journey-prev
@@ -911,21 +929,21 @@ function JourneySection() {
           </div>
         </div>
 
-        <div className="mt-11">
+        <div className="mt-10">
           <div
             ref={scrollerRef}
             data-journey-scroller
             role="region"
             aria-label={copy.journeyRegionLabel}
             tabIndex={0}
-            className={`eruty-horizontal-scroll flex overflow-x-auto overflow-y-hidden pb-5 pt-1 ${
+            className={`eruty-horizontal-scroll -mr-10 flex overflow-x-auto overflow-y-hidden pb-5 pt-1 lg:mr-0 ${
               isDragging ? "cursor-grabbing" : "cursor-grab"
             }`}
             style={{
               gap: `${JOURNEY_SCROLL_GAP}px`,
               scrollSnapType: "x mandatory",
               scrollPaddingLeft: "0px",
-              paddingRight: "max(2rem, 4vw)",
+              paddingRight: "max(1.5rem, 3vw)",
             }}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
@@ -963,10 +981,10 @@ function JourneySection() {
         </div>
 
         <p
-          className={`mt-8 text-center text-[1rem] font-medium ${lang === "ko" ? "eruty-keep-all" : ""}`}
-          style={{ color: BODY_TEXT }}
+          className={`mt-[23px] text-center text-[0.95rem] font-medium ${lang === "ko" ? "eruty-keep-all" : ""}`}
+          style={{ color: BLUE }}
         >
-          <span style={{ color: BLUE }}>{copy.journeyTail}</span>
+          {copy.journeyTail}
         </p>
       </div>
     </section>
@@ -997,14 +1015,14 @@ function CtaSection() {
           <div className="absolute right-[30%] top-[40%] h-px w-[11%] rotate-[14deg] bg-white/14" />
           <div className="absolute right-[22%] top-[49%] h-px w-[10%] -rotate-[20deg] bg-white/12" />
 
-          <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-[36rem]">
+          <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-[38rem]">
               <h2
                 className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
                 style={{
                   color: "#FFFFFF",
-                  fontSize: "clamp(2.1rem, 3.4vw, 3.05rem)",
-                  lineHeight: 1.14,
+                  fontSize: "clamp(2.15rem, 3.2vw, 2.75rem)",
+                  lineHeight: 1.15,
                   letterSpacing: "-0.042em",
                 }}
               >
@@ -1012,17 +1030,17 @@ function CtaSection() {
               </h2>
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:gap-3">
               <Link
                 to={buildStartProjectHref("general", "partnership")}
-                className="inline-flex min-h-[50px] items-center justify-center rounded-full px-7 text-[0.9rem] font-medium transition-colors"
+                className="inline-flex min-h-[52px] items-center justify-center rounded-full px-7 text-[0.9375rem] font-medium transition-colors"
                 style={{ background: BLUE, color: "#FFFFFF" }}
               >
                 {copy.ctaPrimary}
               </Link>
               <Link
                 to={buildStartProjectHref("general", "general-inquiry")}
-                className="inline-flex min-h-[50px] items-center justify-center rounded-full border px-7 text-[0.9rem] font-medium transition-colors"
+                className="inline-flex min-h-[52px] items-center justify-center rounded-full border px-7 text-[0.9375rem] font-medium transition-colors"
                 style={{ borderColor: "rgba(255,255,255,0.28)", color: "#FFFFFF" }}
               >
                 {copy.ctaSecondary}

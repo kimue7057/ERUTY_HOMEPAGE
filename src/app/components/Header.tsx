@@ -121,10 +121,10 @@ const COMPANY_ITEMS: SimpleMenuItem[] = [
   },
   {
     to: "/company/growth",
-    label: { ko: "성장과 신뢰", en: "Growth & Trust" },
+    label: { ko: "프로젝트", en: "Projects" },
     description: {
-      ko: "주요 성과와 검증된 실행 역량",
-      en: "Review key milestones and validated execution capability.",
+      ko: "이루티가 수행한 글로벌 사업·AX·AI·기술 프로젝트",
+      en: "Selected global business, AX, AI, and technology projects delivered by ERUTY.",
     },
   },
   {
