@@ -30,8 +30,25 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
+      - name: Build current branch
+        run: npm run build
+
+      - name: Start current branch preview
+        run: |
+          npm run preview -- --port 4173 > /tmp/eruty-preview.log 2>&1 &
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/company/team > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/eruty-preview.log
+          exit 1
+
       - name: Capture deployed site screenshots
         run: npm run capture:site
+        env:
+          CAPTURE_BASE_URL: http://127.0.0.1:4173
 
       - name: Upload screenshots artifact
         if: always()

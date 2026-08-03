@@ -246,6 +246,45 @@ async function captureAboutPageDetails(page, viewport) {
   return captures;
 }
 
+async function captureTeamPageDetails(page, viewport) {
+  const captures = [];
+  const leaders = [
+    { name: "김유성", filename: "kim-yusung" },
+    { name: "박상일", filename: "park-sangil" },
+    { name: "이기홍 박사", filename: "lee-kihong" },
+    { name: "김진혁", filename: "kim-jinhyeok" },
+  ];
+
+  for (const leader of leaders) {
+    await page.getByRole("button", { name: new RegExp(leader.name) }).click();
+    await page.waitForTimeout(500);
+
+    captures.push(
+      await captureLocatorScreenshot(page, viewport, {
+        selector: "[data-team-leadership]",
+        filename: `company-team-${leader.filename}.png`,
+        label: `Team Leadership - ${leader.name}`,
+      }),
+    );
+  }
+
+  if (viewport.name === "desktop") {
+    await page.getByRole("button", { name: "EN", exact: true }).click();
+    await page.getByRole("button", { name: /박상일/ }).click();
+    await page.getByText("Career Highlights", { exact: true }).waitFor();
+
+    captures.push(
+      await captureLocatorScreenshot(page, viewport, {
+        selector: "[data-team-leadership]",
+        filename: "company-team-english.png",
+        label: "Team Leadership - English",
+      }),
+    );
+  }
+
+  return captures;
+}
+
 async function captureRoute(context, viewport, routeConfig) {
   const page = await context.newPage();
   const consoleErrors = [];
@@ -317,6 +356,10 @@ async function captureRoute(context, viewport, routeConfig) {
 
     if (routeConfig.route === "/company/about") {
       result.detailCaptures = await captureAboutPageDetails(page, viewport);
+    }
+
+    if (routeConfig.route === "/company/team") {
+      result.detailCaptures = await captureTeamPageDetails(page, viewport);
     }
 
     result.success = true;
