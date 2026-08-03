@@ -1166,10 +1166,9 @@ function BusinessFields() {
               {t.panelA.service}
             </div>
             <h3
-              className="eruty-card-title mb-5"
+              className="eruty-subsection-title eruty-preline-desktop mb-5"
               style={{
                 color: "#FFFFFF",
-                whiteSpace: "pre-line",
                 maxWidth: 520,
               }}
             >
@@ -1235,10 +1234,9 @@ function BusinessFields() {
               {t.panelB.service}
             </div>
             <h3
-              className="eruty-card-title mb-5"
+              className="eruty-subsection-title eruty-preline-desktop mb-5"
               style={{
                 color: NEAR_BLACK,
-                whiteSpace: "pre-line",
                 maxWidth: 520,
               }}
             >
