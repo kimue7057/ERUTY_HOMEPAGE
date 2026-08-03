@@ -1,26 +1,22 @@
-import { useRef, useCallback } from "react";
-import { HeroSection } from "./sections/HeroSection";
-import { EntryRoutesSection } from "./sections/EntryRoutesSection";
-import { ProcessSection } from "./sections/ProcessSection";
-import { IntelligenceSection } from "./sections/IntelligenceSection";
-import { MarketsSection } from "./sections/MarketsSection";
-import { CTASection } from "./sections/CTASection";
+import { HitpickHero } from "./sections/HitpickHero";
+import { HitpickIntro } from "./sections/HitpickIntro";
+import { HitpickExecution } from "./sections/HitpickExecution";
+import { HitpickTechnologyEngine } from "./sections/HitpickTechnologyEngine";
+import { HitpickSignalCoverage } from "./sections/HitpickSignalCoverage";
+import { HitpickPartnerNetwork } from "./sections/HitpickPartnerNetwork";
+import { HitpickFinalCta } from "./sections/HitpickFinalCta";
+import "./HitpickPage.css";
 
 export function HitpickPage() {
-  const processRef = useRef<HTMLDivElement>(null);
-
-  const scrollToProcess = useCallback(() => {
-    processRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, []);
-
   return (
-    <div style={{ paddingTop: 76, background: "#fff" }}>
-      <HeroSection onScrollToProcess={scrollToProcess} />
-      <EntryRoutesSection />
-      <ProcessSection ref={processRef} />
-      <IntelligenceSection />
-      <MarketsSection />
-      <CTASection />
+    <div className="hitpick-page">
+      <HitpickHero />
+      <HitpickIntro />
+      <HitpickExecution />
+      <HitpickTechnologyEngine />
+      <HitpickSignalCoverage />
+      <HitpickPartnerNetwork />
+      <HitpickFinalCta />
     </div>
   );
 }

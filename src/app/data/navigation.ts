@@ -43,7 +43,6 @@ export const mainNavItems = [
 // Company mega menu sub-items
 export const companyNavItems: NavItem[] = [
   { to: "/company/about", label: { ko: "이루티 소개", en: "About ERUTY" } },
-  { to: "/company/global-network", label: { ko: "글로벌 네트워크", en: "Global Network" } },
   { to: "/company/team", label: { ko: "팀 & 리더십", en: "Team & Leadership" } },
   { to: "/company/growth", label: { ko: "성장과 신뢰", en: "Growth & Trust" } },
   { to: "/company/careers", label: { ko: "채용", en: "Careers" } },

@@ -104,14 +104,6 @@ const COMPANY_ITEMS: SimpleMenuItem[] = [
     },
   },
   {
-    to: "/company/global-network",
-    label: { ko: "글로벌 네트워크", en: "Global Network" },
-    description: {
-      ko: "국가별 사업 연결과 파트너 네트워크",
-      en: "See country-level operations and partner networks.",
-    },
-  },
-  {
     to: "/company/team",
     label: { ko: "팀 및 리더십", en: "Team & Leadership" },
     description: {

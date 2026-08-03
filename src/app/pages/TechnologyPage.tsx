@@ -1,378 +1,217 @@
-import { useState } from "react";
+import { ArrowRight, ArrowUpRight, Building2, Code2, FlaskConical, Lightbulb, ShieldCheck } from "lucide-react";
 import { Link } from "react-router";
-import { ArrowUpRight } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
-import { useLanguage } from "../context/LanguageContext";
+import { useLanguage, type Lang } from "../context/LanguageContext";
+import {
+  ArchitectureDiagram,
+  FlowTriplet,
+  HeroTechVisual,
+  MarketIntelligenceMockup,
+  serviceIcons,
+  technologyColors,
+  TrustLedgerMockup,
+  WorkflowMockup,
+} from "./technology/TechnologyComponents";
 
-const techLayers = {
-  ko: [
-    {
-      id: "ai", index: "01",
-      name: "AI & 데이터 인텔리전스",
-      tagline: "시장, 콘텐츠, 오디언스를 대규모로 이해합니다.",
-      description: "이루티의 AI·데이터 레이어는 콘텐츠 신호, 오디언스 행동, 시장 트렌드, 국가별 데이터를 수집·분석해 비즈니스 의사결정을 위한 실질적인 인텔리전스를 제공합니다.",
-      capabilities: [
-        { label: "콘텐츠 데이터 처리", desc: "콘텐츠 메타데이터, 포맷, 톤, 시장 적합도를 수집·분석합니다." },
-        { label: "오디언스 인텔리전스", desc: "크로스 플랫폼 오디언스 세그멘테이션, 행동 및 선호도 모델링" },
-        { label: "시장 트렌드 분석", desc: "OTT, 브랜드, 커머스 분야 국가별 신호 모니터링" },
-        { label: "브랜드 적합도 평가", desc: "오디언스·가치 정렬 기반 콘텐츠 자산과 브랜드 파트너 매칭" },
-        { label: "비즈니스 기회 분석", desc: "배급·라이선싱·파트너십 기회의 자동화된 도출" },
-        { label: "생성형 AI 응용", desc: "LLM 기반 문서 생성, 분석, 추천 시스템" },
-      ],
-      systemFlow: ["원시 데이터 수집", "특징 추출", "모델 추론", "신호 출력", "비즈니스 실행"],
-      accent: "#3737F2",
-    },
-    {
-      id: "automation", index: "02",
-      name: "자동화 시스템",
-      tagline: "반복적인 비즈니스 운영을 지능형 에이전트로 대체합니다.",
-      description: "이루티의 자동화 시스템은 데이터 수집·분석·문서 생성·의사결정 지원이 가능한 AI 에이전트로 수동 워크플로우를 대체합니다.",
-      capabilities: [
-        { label: "AI 에이전트 오케스트레이션", desc: "리서치, 초안 작성, 실행 업무를 위한 다단계 자율 에이전트" },
-        { label: "워크플로우 자동화", desc: "기업 프로세스를 엔드투엔드로 매핑·재설계·자동화" },
-        { label: "데이터 수집 시스템", desc: "검증 레이어를 갖춘 웹·API·데이터베이스 자동 수집" },
-        { label: "문서 생성", desc: "구조화된 입력으로 보고서·계약서·제안서를 AI로 자동 생성" },
-        { label: "보고서 자동화", desc: "운영·영업·리더십을 위한 정기 인텔리전스 보고서" },
-        { label: "내부 운영 시스템", desc: "운영 가시성을 위한 맞춤 어드민 툴·대시보드" },
-      ],
-      systemFlow: ["트리거 / 입력", "에이전트 처리", "툴 실행", "검증", "출력 / 실행"],
-      accent: "#8B5CF6",
-    },
-    {
-      id: "blockchain", index: "03",
-      name: "블록체인 & 권리 인프라",
-      tagline: "IP, 계약, 수익 흐름을 위한 불변 기록 시스템",
-      description: "이루티는 IP 등록, 라이선스 계약, 수익 배분 구조, 권한 관리를 처리하는 블록체인 기반 권리 관리 인프라를 구축했습니다.",
-      capabilities: [
-        { label: "IP 자산 등록소", desc: "출처·소유권 기록과 함께 콘텐츠 IP의 온체인 등록" },
-        { label: "스마트 계약 라이선싱", desc: "라이선스 발행·갱신·집행 자동화" },
-        { label: "권리 관리", desc: "실시간 상태 추적이 가능한 세분화된 접근·사용 권한" },
-        { label: "수익 배분", desc: "거래 이벤트 실행 시 프로그래밍 가능한 로열티 분배" },
-        { label: "정산 인프라", desc: "다자 계약의 자동화된 감사 가능 결제 정산" },
-        { label: "권한 관리", desc: "기업 및 파트너 시스템을 위한 역할 기반 접근 제어" },
-      ],
-      systemFlow: ["IP 등록", "라이선스 발행", "사용 추적", "수익 배분", "정산"],
-      accent: "#F59E0B",
-    },
-    {
-      id: "engineering", index: "04",
-      name: "제품 엔지니어링",
-      tagline: "비즈니스 플랫폼과 AI 제품을 위한 풀스택 개발",
-      description: "이루티 엔지니어링팀은 콘텐츠 플랫폼부터 기업 어드민 시스템, AI 기반 애플리케이션까지 프로덕션 수준의 웹·모바일·SaaS 제품을 구축합니다.",
-      capabilities: [
-        { label: "웹 & 앱 개발", desc: "반응형 웹 애플리케이션, React 프론트엔드, 네이티브 모바일 앱" },
-        { label: "SaaS 아키텍처", desc: "구독·접근 관리를 갖춘 멀티테넌트 SaaS 플랫폼" },
-        { label: "어드민 플랫폼", desc: "내부 및 파트너용 백오피스·운영 대시보드" },
-        { label: "API 연동", desc: "OTT 플랫폼·CRM·금융·물류 등 서드파티 서비스 연동" },
-        { label: "인프라", desc: "클라우드 네이티브 서버 아키텍처, 데이터베이스, CDN, 모니터링" },
-        { label: "운영 & 유지보수", desc: "지속적 배포, 가동률 모니터링, 반복적 개선" },
-      ],
-      systemFlow: ["요구사항", "아키텍처", "개발", "QA & 테스트", "배포 & 모니터링"],
-      accent: "#22C55E",
-    },
-    {
-      id: "rd", index: "05",
-      name: "연구 & 개발",
-      tagline: "AI와 콘텐츠 인텔리전스 최전선의 응용 연구",
-      description: "이루티 R&D 부문은 감성 AI, 콘텐츠 개인화, 자동화 프레임워크 등 독자 모델·시스템을 개발합니다. 정부 지원 연구 및 특허 출원도 병행합니다.",
-      capabilities: [
-        { label: "생성형 AI 연구", desc: "LLM 파인튜닝, 프롬프트 엔지니어링, 응용별 모델 개발" },
-        { label: "감성 분석", desc: "감성 톤·공명·오디언스 반응을 평가하는 AI 시스템" },
-        { label: "콘텐츠 인텔리전스 모델", desc: "콘텐츠 품질·장르 적합도·시장 호환성 독자 모델" },
-        { label: "개인화 시스템", desc: "사용자 적응형 추천 및 콘텐츠 전달 엔진" },
-        { label: "자동화 모델 연구", desc: "복잡한 비즈니스 업무를 위한 신규 에이전트 아키텍처·의사결정 시스템" },
-        { label: "특허 & 정부 R&D", desc: "특허 출원 진행 및 정부 지원 연구 프로그램 참여" },
-      ],
-      systemFlow: ["연구 질문", "가설", "실험", "검증", "프로덕션"],
-      accent: "#EC4899",
-    },
-  ],
-  en: [
-    {
-      id: "ai", index: "01",
-      name: "AI & Data Intelligence",
-      tagline: "Understanding markets, content, and audiences at scale.",
-      description: "ERUTY's AI & data layer collects and analyzes content signals, audience behavior, market trends, and country-level data to provide actionable intelligence for business decisions.",
-      capabilities: [
-        { label: "Content Data Processing", desc: "Collect and analyze content metadata, format, tone, and market fit." },
-        { label: "Audience Intelligence", desc: "Cross-platform audience segmentation, behavior and preference modeling." },
-        { label: "Market Trend Analysis", desc: "Country-level signal monitoring across OTT, brand, and commerce sectors." },
-        { label: "Brand Fit Evaluation", desc: "Match content assets with brand partners based on audience and value alignment." },
-        { label: "Business Opportunity Analysis", desc: "Automated identification of distribution, licensing, and partnership opportunities." },
-        { label: "Generative AI Applications", desc: "LLM-based document generation, analysis, and recommendation systems." },
-      ],
-      systemFlow: ["Raw Data Ingestion", "Feature Extraction", "Model Inference", "Signal Output", "Business Execution"],
-      accent: "#3737F2",
-    },
-    {
-      id: "automation", index: "02",
-      name: "Automation Systems",
-      tagline: "Replacing repetitive business operations with intelligent agents.",
-      description: "ERUTY's automation systems replace manual workflows with AI agents capable of data collection, analysis, document generation, and decision support.",
-      capabilities: [
-        { label: "AI Agent Orchestration", desc: "Multi-step autonomous agents for research, drafting, and execution tasks." },
-        { label: "Workflow Automation", desc: "End-to-end mapping, redesign, and automation of enterprise processes." },
-        { label: "Data Collection Systems", desc: "Automated web, API, and database collection with validation layers." },
-        { label: "Document Generation", desc: "AI-powered auto-generation of reports, contracts, and proposals from structured inputs." },
-        { label: "Report Automation", desc: "Regular intelligence reports for operations, sales, and leadership." },
-        { label: "Internal Operations Systems", desc: "Custom admin tools and dashboards for operational visibility." },
-      ],
-      systemFlow: ["Trigger / Input", "Agent Processing", "Tool Execution", "Validation", "Output / Execution"],
-      accent: "#8B5CF6",
-    },
-    {
-      id: "blockchain", index: "03",
-      name: "Blockchain & Rights Infrastructure",
-      tagline: "Immutable record system for IP, contracts, and revenue flows.",
-      description: "ERUTY has built a blockchain-based rights management infrastructure that handles IP registration, license agreements, revenue distribution structures, and access management.",
-      capabilities: [
-        { label: "IP Asset Registry", desc: "On-chain registration of content IP with provenance and ownership records." },
-        { label: "Smart Contract Licensing", desc: "Automated issuance, renewal, and enforcement of licenses." },
-        { label: "Rights Management", desc: "Granular access and usage permissions with real-time status tracking." },
-        { label: "Revenue Distribution", desc: "Programmable royalty distribution triggered on transaction events." },
-        { label: "Settlement Infrastructure", desc: "Automated, auditable payment settlement for multi-party agreements." },
-        { label: "Access Management", desc: "Role-based access control for enterprise and partner systems." },
-      ],
-      systemFlow: ["IP Registration", "License Issuance", "Usage Tracking", "Revenue Distribution", "Settlement"],
-      accent: "#F59E0B",
-    },
-    {
-      id: "engineering", index: "04",
-      name: "Product Engineering",
-      tagline: "Full-stack development for business platforms and AI products.",
-      description: "ERUTY's engineering team builds production-grade web, mobile, and SaaS products — from content platforms to enterprise admin systems and AI-powered applications.",
-      capabilities: [
-        { label: "Web & App Development", desc: "Responsive web applications, React frontends, native mobile apps." },
-        { label: "SaaS Architecture", desc: "Multi-tenant SaaS platforms with subscription and access management." },
-        { label: "Admin Platforms", desc: "Back-office and operations dashboards for internal and partner use." },
-        { label: "API Integration", desc: "Third-party service integration: OTT platforms, CRM, fintech, logistics." },
-        { label: "Infrastructure", desc: "Cloud-native server architecture, databases, CDN, and monitoring." },
-        { label: "Operations & Maintenance", desc: "Continuous deployment, uptime monitoring, and iterative improvement." },
-      ],
-      systemFlow: ["Requirements", "Architecture", "Development", "QA & Testing", "Deploy & Monitor"],
-      accent: "#22C55E",
-    },
-    {
-      id: "rd", index: "05",
-      name: "Research & Development",
-      tagline: "Applied research at the frontier of AI and content intelligence.",
-      description: "ERUTY's R&D division develops proprietary models and systems in sentiment AI, content personalization, and automation frameworks. Government-funded research and patent applications are conducted in parallel.",
-      capabilities: [
-        { label: "Generative AI Research", desc: "LLM fine-tuning, prompt engineering, and application-specific model development." },
-        { label: "Sentiment Analysis", desc: "AI systems for evaluating emotional tone, resonance, and audience response." },
-        { label: "Content Intelligence Models", desc: "Proprietary models for content quality, genre fit, and market compatibility." },
-        { label: "Personalization Systems", desc: "User-adaptive recommendation and content delivery engines." },
-        { label: "Automation Model Research", desc: "New agent architectures and decision systems for complex business tasks." },
-        { label: "Patents & Government R&D", desc: "Active patent applications and participation in government-funded research programs." },
-      ],
-      systemFlow: ["Research Question", "Hypothesis", "Experiment", "Validation", "Production"],
-      accent: "#EC4899",
-    },
-  ],
-};
+const { BLUE, INK, MUTED, BORDER, SURFACE } = technologyColors;
 
-const UI = {
+const COPY = {
   ko: {
-    badge: "기술",
-    headline: "실제 비즈니스를 위해\n설계된 기술",
-    desc: "이루티는 자체 기술을 설계·구축합니다. 콘텐츠, 시장 데이터, 비즈니스 인풋을 인텔리전스·자동화·제품으로 전환합니다.",
-    archLabel: "기술 아키텍처",
-    layerPrefix: "레이어",
-    ctaHeadline: "이루티 기술을 비즈니스에 연동할 준비가 되셨나요?",
-    ctaBtn1: "프로젝트 시작",
-    ctaBtn2: "서비스 보기",
+    hero: {
+      eyebrow: "TECHNOLOGY",
+      title: "데이터를 사업 판단으로 바꾸고,\n판단을 실제 실행으로 연결하는 기술",
+      description: "ERUTY는 시장 데이터 분석, AX 자동화, 블록체인 기반 신뢰 인프라를 통해 글로벌 사업 실행과 기업 업무 전환을 지원합니다.",
+      link: "기술 구조 살펴보기",
+    },
+    architecture: {
+      eyebrow: "INTEGRATED ARCHITECTURE",
+      title: "통합 기술 아키텍처",
+      description: "데이터에서 실행, 신뢰, 서비스 적용까지 하나의 구조로 연결합니다.",
+    },
+    core: [
+      {
+        index: "01",
+        eyebrow: "GLOBAL MARKET INTELLIGENCE",
+        title: "글로벌 마켓 인텔리전스",
+        lead: "시장과 상품의 해외 가능성을 분석하는 기술",
+        description: "국가별 시장 신호와 소비·콘텐츠 반응, 크리에이터, 상품 정보를 통합해 진입 우선순위와 실행 가능한 다음 액션을 제안합니다.",
+        labels: ["입력", "처리", "출력"] as [string, string, string],
+        flow: [
+          ["국가별 시장 신호", "소비 트렌드", "콘텐츠 반응", "크리에이터 데이터", "상품 · 브랜드 정보"],
+          ["데이터 수집 · 정규화", "분류", "시장 신호 분석", "적합도 평가", "우선순위화"],
+          ["국가 우선순위", "브랜드 적합도", "크리에이터 후보", "실행 제안", "다음 액션"],
+        ] as [string[], string[], string[]],
+      },
+      {
+        index: "02",
+        eyebrow: "AX ORCHESTRATION",
+        title: "AX 실행·자동화 오케스트레이션",
+        lead: "기업 업무를 실제로 자동화하는 기술",
+        description: "업무 요청과 기존 시스템을 연결하고 AI 판단, API 연동, 사람 승인을 조율해 실제 운영 결과와 실행 로그를 만듭니다.",
+        labels: ["입력", "처리", "출력"] as [string, string, string],
+        flow: [
+          ["업무 요청", "기존 시스템 데이터", "문서", "승인 조건"],
+          ["업무 흐름 분석", "AI 판단", "API 연동", "문서 생성", "예외 처리", "사람 승인"],
+          ["자동화된 업무", "AI 에이전트 실행 결과", "운영 대시보드", "실행 로그", "개선된 업무 흐름"],
+        ] as [string[], string[], string[]],
+      },
+      {
+        index: "03",
+        eyebrow: "TRUST, RIGHTS & SETTLEMENT",
+        title: "블록체인 신뢰·권리·정산 레이어",
+        lead: "계약과 권리, 거래 이력을 검증 가능한 기록으로 연결하는 기술",
+        description: "현재 계약·권리·이벤트 이력을 구조화하고 검증 기록으로 관리하는 기술을 개발하고 있습니다. 향후 정산 조건 관리와 결제 연계까지 확장할 수 있는 기반을 설계합니다.",
+        labels: ["현재 기반", "핵심 처리", "확장 방향"] as [string, string, string],
+        flow: [
+          ["계약 정보 기록", "권리 정보 관리", "거래 · 이벤트 이력 관리"],
+          ["정산 조건 관리", "검증 가능한 기록", "권리자 · 상태 추적"],
+          ["정산 프로세스 연계", "결제 시스템 연계", "서비스 간 신뢰 데이터 활용"],
+        ] as [string[], string[], string[]],
+      },
+    ],
+    services: {
+      eyebrow: "SERVICE APPLICATION",
+      title: "기술이 서비스 실행으로 이어집니다",
+      description: "같은 기술 기반을 각 서비스의 목적에 맞게 적용합니다.",
+      cards: [
+        { name: "Hitpick", tag: "글로벌 사업 실행", description: "글로벌 시장 분석과 수요 창출, 판매 실행을 지원하는 서비스", flow: ["상품 정보 입력", "시장 신호 분석", "적합 국가 선정", "크리에이터 후보", "판매 실행", "반응 재수집"], to: "/services/hitpick" },
+        { name: "이룸터", tag: "기업 AX 전환", description: "기업의 업무와 서비스를 AX 기반으로 전환하는 서비스", flow: ["업무 흐름 진단", "시스템 연결", "AI 규칙 적용", "자동화 실행", "사람 승인", "운영 개선"], to: "/services/erumter" },
+      ],
+      link: "서비스 자세히 보기",
+    },
+    foundation: {
+      eyebrow: "TECHNOLOGY FOUNDATION",
+      title: "기술 신뢰를 만드는 기반",
+      description: "지속적인 기술 개발과 실제 서비스 구현 역량을 통해 기술을 사업 실행에 연결합니다.",
+      cards: [
+        { title: "기업부설연구소", description: "AI, 블록체인, AX 분야의 기술 연구와 개발 수행" },
+        { title: "지식재산권", description: "특허 등록 2건 · 특허 출원 1건" },
+        { title: "AI · 블록체인 기술 개발", description: "AI 기반 분석 기술과 블록체인 기반 권리 기술 개발" },
+        { title: "서비스 구현 역량", description: "웹 · 모바일 · API 기반 서비스 구현 및 운영" },
+      ],
+    },
+    cta: { title: "새로운 사업 실행과 업무 전환을\nERUTY의 기술로 함께 만듭니다.", description: "필요한 기술 구조와 실행 방법을 함께 설계해 보세요.", button: "프로젝트 문의하기", secondary: "서비스 보기" },
   },
   en: {
-    badge: "Technology",
-    headline: "Technology Designed\nfor Real Business.",
-    desc: "ERUTY designs and builds its own technology — transforming content, market data, and business inputs into intelligence, automation, and products.",
-    archLabel: "Technology Architecture",
-    layerPrefix: "Layer",
-    ctaHeadline: "Ready to connect ERUTY technology to your business?",
-    ctaBtn1: "Start a Project",
-    ctaBtn2: "View Services",
+    hero: {
+      eyebrow: "TECHNOLOGY",
+      title: "Turn data into business decisions,\nand decisions into real execution.",
+      description: "ERUTY supports global business execution and enterprise transformation through market intelligence, AX automation, and blockchain-based trust infrastructure.",
+      link: "Explore the architecture",
+    },
+    architecture: { eyebrow: "INTEGRATED ARCHITECTURE", title: "Integrated technology architecture", description: "One connected system from data and decisions to execution, trust, and service delivery." },
+    core: [
+      { index: "01", eyebrow: "GLOBAL MARKET INTELLIGENCE", title: "Global Market Intelligence", lead: "Technology that evaluates the global potential of markets and products", description: "We combine country-level signals, consumer trends, content response, creator data, and product information to prioritize markets and recommend executable next actions.", labels: ["Input", "Process", "Output"] as [string, string, string], flow: [["Country market signals", "Consumer trends", "Content response", "Creator data", "Product · brand data"], ["Collect · normalize", "Classify", "Analyze signals", "Fit evaluation", "Prioritize"], ["Market priority", "Brand fit", "Creator candidates", "Execution proposal", "Next action"]] as [string[], string[], string[]] },
+      { index: "02", eyebrow: "AX ORCHESTRATION", title: "AX Execution & Automation Orchestration", lead: "Technology that automates how enterprise work actually gets done", description: "We connect work requests and existing systems, orchestrating AI decisions, APIs, and human approval to produce operational outcomes and auditable execution logs.", labels: ["Input", "Process", "Output"] as [string, string, string], flow: [["Work requests", "System data", "Documents", "Approval rules"], ["Workflow analysis", "AI decision", "API connection", "Document creation", "Exception handling", "Human approval"], ["Automated work", "Agent results", "Operations dashboard", "Execution log", "Improved workflow"]] as [string[], string[], string[]] },
+      { index: "03", eyebrow: "TRUST, RIGHTS & SETTLEMENT", title: "Blockchain Trust, Rights & Settlement Layer", lead: "Technology that connects contracts, rights, and events to verifiable records", description: "We are developing structured, verifiable records for contracts, rights, and events. The foundation is designed to expand toward settlement terms and payment integration over time.", labels: ["Current foundation", "Core handling", "Expansion"] as [string, string, string], flow: [["Contract records", "Rights management", "Transaction · event history"], ["Settlement terms", "Verifiable records", "Holder · status tracking"], ["Settlement integration", "Payment integration", "Cross-service trust data"]] as [string[], string[], string[]] },
+    ],
+    services: { eyebrow: "SERVICE APPLICATION", title: "Technology connected to service execution", description: "The same technology foundation is applied to each service objective.", cards: [{ name: "Hitpick", tag: "Global business execution", description: "A service supporting global market analysis, demand generation, and sales execution", flow: ["Product input", "Signal analysis", "Market selection", "Creator candidates", "Sales execution", "Signal collection"], to: "/services/hitpick" }, { name: "Erumter", tag: "Enterprise AX", description: "A service transforming enterprise work and services through AX", flow: ["Workflow diagnosis", "System connection", "AI rules", "Automation", "Human approval", "Operations improvement"], to: "/services/erumter" }], link: "View service" },
+    foundation: { eyebrow: "TECHNOLOGY FOUNDATION", title: "The foundation behind our technology", description: "Ongoing development and product delivery capabilities connect technology to business execution.", cards: [{ title: "Corporate R&D center", description: "Research and development across AI, blockchain, and AX" }, { title: "Intellectual property", description: "2 registered patents · 1 patent application" }, { title: "AI · blockchain development", description: "AI analysis technology and blockchain-based rights technology" }, { title: "Service engineering", description: "Web, mobile, and API-based service implementation and operation" }] },
+    cta: { title: "Build new business execution and\nworkflow transformation with ERUTY.", description: "Let's design the right technology structure and execution model together.", button: "Start a project", secondary: "View services" },
   },
-};
+} as const;
+
+function SectionHeading({ eyebrow, title, description, align = "left", inverse = false }: { eyebrow: string; title: string; description: string; align?: "left" | "center"; inverse?: boolean }) {
+  return (
+    <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
+      <div className="mb-4 text-[11px] font-bold tracking-[0.18em]" style={{ color: inverse ? "#7EA2FF" : BLUE, fontFamily: "var(--font-mono)" }}>{eyebrow}</div>
+      <h2 className="text-3xl font-extrabold tracking-[-0.03em] eruty-keep-all md:text-4xl" style={{ color: inverse ? "white" : INK, lineHeight: 1.18 }}>{title}</h2>
+      <p className="mt-4 text-sm eruty-keep-all md:text-base" style={{ color: inverse ? "rgba(255,255,255,.58)" : MUTED, lineHeight: 1.75 }}>{description}</p>
+    </div>
+  );
+}
+
+function CoreTechnologySection({ item, index, lang }: { item: (typeof COPY)[Lang]["core"][number]; index: number; lang: Lang }) {
+  const mockup = index === 0 ? <MarketIntelligenceMockup lang={lang} /> : index === 1 ? <WorkflowMockup lang={lang} /> : <TrustLedgerMockup lang={lang} />;
+  const sectionIds = ["market-intelligence", "ax-orchestration", "trust-layer"];
+  return (
+    <section id={sectionIds[index]} className="border-t py-20 md:py-28" style={{ borderColor: BORDER, background: index === 1 ? SURFACE : "white" }} aria-labelledby={`${sectionIds[index]}-title`}>
+      <div className="mx-auto max-w-[1280px] px-5 lg:px-8">
+        <div className={`grid items-center gap-10 lg:grid-cols-12 lg:gap-14 ${index === 1 ? "" : ""}`}>
+          <div className={`lg:col-span-5 ${index === 1 ? "lg:order-2" : ""}`}>
+            <div className="mb-5 text-sm font-bold" style={{ color: "#9AA0AD", fontFamily: "var(--font-mono)" }}>{item.index}</div>
+            <div className="mb-3 text-[11px] font-bold tracking-[0.14em]" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}>{item.eyebrow}</div>
+            <h2 id={`${sectionIds[index]}-title`} className="text-3xl font-extrabold tracking-[-0.035em] eruty-keep-all md:text-[2.55rem]" style={{ color: INK, lineHeight: 1.18 }}>{item.title}</h2>
+            <p className="mt-5 text-lg font-bold eruty-keep-all" style={{ color: "#30333A" }}>{item.lead}</p>
+            <p className="mt-3 text-sm eruty-keep-all md:text-base" style={{ color: MUTED, lineHeight: 1.75 }}>{item.description}</p>
+          </div>
+          <div className={`min-w-0 lg:col-span-7 ${index === 1 ? "lg:order-1" : ""}`}>{mockup}</div>
+        </div>
+        <div className="mt-8 md:mt-10"><FlowTriplet labels={item.labels} sections={item.flow} /></div>
+      </div>
+    </section>
+  );
+}
+
+function ServiceCard({ service, index, linkText }: { service: (typeof COPY)[Lang]["services"]["cards"][number]; index: number; linkText: string }) {
+  const Icon = index === 0 ? serviceIcons.Globe2 : serviceIcons.Workflow;
+  return (
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border bg-white" style={{ borderColor: BORDER }}>
+      <div className="flex items-start justify-between border-b p-6 md:p-7" style={{ borderColor: BORDER }}>
+        <div><div className="mb-2 text-[11px] font-bold tracking-[0.15em]" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}>{service.tag}</div><h3 className="text-2xl font-extrabold" style={{ color: INK }}>{service.name}</h3></div>
+        <span className="flex h-11 w-11 items-center justify-center rounded-xl" style={{ background: "#EEF0FF", color: BLUE }}><Icon size={21} aria-hidden="true" /></span>
+      </div>
+      <div className="flex flex-1 flex-col p-6 md:p-7">
+        <p className="mb-6 text-sm eruty-keep-all md:text-base" style={{ color: MUTED, lineHeight: 1.7 }}>{service.description}</p>
+        <ol className="mb-7 grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {service.flow.map((step, stepIndex) => <li key={step} className="relative rounded-lg border bg-[#FAFBFC] px-3 py-3 text-xs font-semibold eruty-keep-all" style={{ borderColor: "#ECEEF2", color: "#555C6B" }}><span className="mb-2 block text-[9px]" style={{ color: "#9DA2AE", fontFamily: "var(--font-mono)" }}>0{stepIndex + 1}</span>{step}</li>)}
+        </ol>
+        <Link to={service.to} className="mt-auto inline-flex items-center gap-2 self-start text-sm font-bold" style={{ color: BLUE }}>{linkText}<ArrowRight size={15} className="transition-transform group-hover:translate-x-1" aria-hidden="true" /></Link>
+      </div>
+    </article>
+  );
+}
 
 export function TechnologyPage() {
   const { lang } = useLanguage();
-  const layers = techLayers[lang];
-  const ui = UI[lang];
-  const [activeLayer, setActiveLayer] = useState(layers[0]);
-
-  const syncedLayer = layers.find((l) => l.id === activeLayer.id) || layers[0];
+  const copy = COPY[lang];
+  const foundationIcons = [Building2, ShieldCheck, FlaskConical, Code2];
 
   return (
-    <div className="pt-16" style={{ background: "#FFFFFF" }}>
-      {/* 히어로 */}
-      <section className="py-32" style={{ borderBottom: "1px solid #E4E6EA" }}>
-        <div className="max-w-[1440px] mx-auto px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <div>
-              <div className="inline-block text-xs mb-8 px-3 py-1.5 tracking-widest uppercase" style={{ color: "#3737F2", border: "1px solid rgba(55,55,242,0.3)", fontFamily: "var(--font-mono)" }}>
-                {ui.badge}
-              </div>
-              <h1 className="mb-8" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.5rem, 5vw, 4.5rem)", lineHeight: 1.05, color: "#18191B", letterSpacing: "-0.02em", whiteSpace: "pre-line" }}>
-                {ui.headline}
-              </h1>
-              <p style={{ fontSize: "1.1rem", lineHeight: 1.7, color: "#737780", maxWidth: 480 }}>
-                {ui.desc}
-              </p>
-            </div>
+    <div className="overflow-hidden bg-white pt-[76px]">
+      <section className="relative overflow-hidden bg-[#07101F] py-20 md:py-28 lg:py-32" aria-labelledby="technology-hero-title">
+        <div className="absolute inset-0 opacity-50" aria-hidden="true" style={{ background: "radial-gradient(circle at 75% 45%, rgba(55,55,242,.34), transparent 35%), linear-gradient(120deg, transparent 0 55%, rgba(18,47,112,.24) 55% 100%)" }} />
+        <div className="absolute -bottom-32 left-[-10%] h-64 w-[120%] rounded-[50%] border border-[#2251B8]/20" aria-hidden="true" />
+        <div className="relative mx-auto grid max-w-[1280px] items-center gap-14 px-5 lg:grid-cols-12 lg:px-8">
+          <div className="lg:col-span-6">
+            <div className="mb-5 text-[11px] font-bold tracking-[0.2em] text-[#6F94FF]" style={{ fontFamily: "var(--font-mono)" }}>{copy.hero.eyebrow}</div>
+            <h1 id="technology-hero-title" className="text-[2.25rem] font-extrabold tracking-[-0.04em] text-white eruty-keep-all sm:text-5xl lg:text-[3.55rem]" style={{ lineHeight: 1.17, whiteSpace: "pre-line" }}>{copy.hero.title}</h1>
+            <p className="mt-6 max-w-[600px] text-sm text-white/60 eruty-keep-all md:text-base" style={{ lineHeight: 1.85 }}>{copy.hero.description}</p>
+            <a href="#architecture" className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-[#8AA8FF]">{copy.hero.link}<ArrowRight size={15} aria-hidden="true" /></a>
+          </div>
+          <div className="lg:col-span-6"><HeroTechVisual lang={lang} /></div>
+        </div>
+      </section>
 
-            {/* 레이어 시각화 */}
-            <div className="relative p-8" style={{ background: "#F5F6F8", border: "1px solid #E4E6EA" }}>
-              <div className="text-xs mb-6" style={{ color: "#737780", fontFamily: "var(--font-mono)" }}>
-                {ui.archLabel}
-              </div>
-              <div className="flex flex-col gap-2">
-                {layers.map((layer) => (
-                  <button
-                    key={layer.id}
-                    onClick={() => setActiveLayer(layer)}
-                    className="flex items-center gap-4 p-3 text-left transition-all cursor-pointer"
-                    style={{
-                      background: syncedLayer.id === layer.id ? "#FFFFFF" : "transparent",
-                      border: `1px solid ${syncedLayer.id === layer.id ? layer.accent + "40" : "#E4E6EA"}`,
-                    }}
-                  >
-                    <div className="text-xs" style={{ color: layer.accent, fontFamily: "var(--font-mono)", width: 24 }}>
-                      {layer.index}
-                    </div>
-                    <div className="flex-1">
-                      <div className="text-sm" style={{ color: syncedLayer.id === layer.id ? "#18191B" : "#737780", fontFamily: "var(--font-body)", fontWeight: 500 }}>
-                        {layer.name}
-                      </div>
-                    </div>
-                    <div className="w-2 h-2 rounded-full" style={{ background: syncedLayer.id === layer.id ? layer.accent : "#E4E6EA" }} />
-                  </button>
-                ))}
-              </div>
-            </div>
+      <section id="architecture" className="py-20 md:py-24" aria-labelledby="architecture-title">
+        <div className="mx-auto max-w-[1280px] px-5 lg:px-8">
+          <div className="mb-10 grid gap-5 lg:grid-cols-12 lg:items-end"><div className="lg:col-span-7"><SectionHeading {...copy.architecture} /></div><div className="hidden justify-end lg:col-span-5 lg:flex"><div className="flex items-center gap-2 text-xs" style={{ color: MUTED }}><span className="h-2 w-2 rounded-full" style={{ background: BLUE }} />DATA → DECISION → EXECUTION</div></div></div>
+          <ArchitectureDiagram lang={lang} />
+        </div>
+      </section>
+
+      {copy.core.map((item, index) => <CoreTechnologySection key={item.index} item={item} index={index} lang={lang} />)}
+
+      <section className="py-20 md:py-28" style={{ background: SURFACE }} aria-labelledby="services-title">
+        <div className="mx-auto max-w-[1280px] px-5 lg:px-8">
+          <div className="mb-10"><div className="max-w-2xl"><div className="mb-4 text-[11px] font-bold tracking-[0.18em]" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}>{copy.services.eyebrow}</div><h2 id="services-title" className="text-3xl font-extrabold tracking-[-0.03em] eruty-keep-all md:text-4xl" style={{ color: INK }}>{copy.services.title}</h2><p className="mt-4 text-sm eruty-keep-all md:text-base" style={{ color: MUTED }}>{copy.services.description}</p></div></div>
+          <div className="grid gap-5 lg:grid-cols-2">{copy.services.cards.map((service, index) => <ServiceCard key={service.name} service={service} index={index} linkText={copy.services.link} />)}</div>
+        </div>
+      </section>
+
+      <section className="bg-[#07101F] py-20 md:py-24" aria-labelledby="foundation-title">
+        <div className="mx-auto max-w-[1280px] px-5 lg:px-8">
+          <div className="mb-10"><div className="max-w-2xl"><div className="mb-4 text-[11px] font-bold tracking-[0.18em] text-[#7EA2FF]" style={{ fontFamily: "var(--font-mono)" }}>{copy.foundation.eyebrow}</div><h2 id="foundation-title" className="text-3xl font-extrabold tracking-[-0.03em] text-white eruty-keep-all md:text-4xl">{copy.foundation.title}</h2><p className="mt-4 text-sm text-white/55 eruty-keep-all md:text-base" style={{ lineHeight: 1.75 }}>{copy.foundation.description}</p></div></div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {copy.foundation.cards.map((card, index) => { const Icon = foundationIcons[index]; return <article key={card.title} className="rounded-xl border border-white/10 bg-white/[0.04] p-6"><span className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-[#17316B] text-[#81A3FF]"><Icon size={19} aria-hidden="true" /></span><h3 className="mb-2 text-base font-bold text-white eruty-keep-all">{card.title}</h3><p className="text-xs text-white/50 eruty-keep-all" style={{ lineHeight: 1.7 }}>{card.description}</p></article>; })}
           </div>
         </div>
       </section>
 
-      {/* 기술 레이어 상세 */}
-      <section className="py-24">
-        <div className="max-w-[1440px] mx-auto px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            {/* 내비게이션 */}
-            <div className="flex flex-col gap-px">
-              {layers.map((layer) => (
-                <button
-                  key={layer.id}
-                  onClick={() => setActiveLayer(layer)}
-                  className="text-left p-5 transition-all cursor-pointer"
-                  style={{
-                    background: syncedLayer.id === layer.id ? "#F5F6F8" : "transparent",
-                    border: `1px solid ${syncedLayer.id === layer.id ? "#E4E6EA" : "transparent"}`,
-                    borderLeft: syncedLayer.id === layer.id ? `2px solid ${layer.accent}` : "2px solid transparent",
-                  }}
-                >
-                  <div className="text-xs mb-1" style={{ color: layer.accent, fontFamily: "var(--font-mono)" }}>
-                    {layer.index}
-                  </div>
-                  <div className="text-sm" style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: syncedLayer.id === layer.id ? "#18191B" : "#737780" }}>
-                    {layer.name}
-                  </div>
-                </button>
-              ))}
-            </div>
-
-            {/* 상세 패널 */}
-            <div className="lg:col-span-3">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={syncedLayer.id + lang}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="p-8 mb-4" style={{ background: "#FFFFFF", border: `1px solid ${syncedLayer.accent}20`, borderTop: `2px solid ${syncedLayer.accent}` }}>
-                    <div className="text-xs mb-3 tracking-widest uppercase" style={{ color: syncedLayer.accent, fontFamily: "var(--font-mono)" }}>
-                      {ui.layerPrefix} {syncedLayer.index}
-                    </div>
-                    <h2 className="mb-3" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "2rem", color: "#18191B", lineHeight: 1.15 }}>
-                      {syncedLayer.name}
-                    </h2>
-                    <p className="mb-2 italic" style={{ color: "#737780", fontFamily: "var(--font-body)", fontWeight: 300 }}>
-                      {syncedLayer.tagline}
-                    </p>
-                    <p style={{ color: "#333438", lineHeight: 1.7, fontSize: "0.95rem" }}>
-                      {syncedLayer.description}
-                    </p>
-                  </div>
-
-                  {/* 시스템 플로우 */}
-                  <div className="p-6 mb-4 flex items-center gap-0 overflow-x-auto" style={{ background: "#F5F6F8", border: "1px solid #E4E6EA" }}>
-                    {syncedLayer.systemFlow.map((step, i) => (
-                      <div key={step} className="flex items-center flex-shrink-0">
-                        <div
-                          className="px-4 py-2 text-xs whitespace-nowrap"
-                          style={{
-                            background: i === 0 ? syncedLayer.accent : "#FFFFFF",
-                            color: i === 0 ? "#FFFFFF" : "#737780",
-                            border: `1px solid ${i === 0 ? syncedLayer.accent : "#E4E6EA"}`,
-                            fontFamily: "var(--font-mono)",
-                          }}
-                        >
-                          {step}
-                        </div>
-                        {i < syncedLayer.systemFlow.length - 1 && (
-                          <div style={{ color: "#E4E6EA", padding: "0 4px", fontSize: "0.75rem" }}>→</div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* 역량 그리드 */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-px" style={{ background: "#E4E6EA" }}>
-                    {syncedLayer.capabilities.map((cap) => (
-                      <div key={cap.label} className="p-5" style={{ background: "#FFFFFF" }}>
-                        <div className="text-sm mb-1.5" style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: "#18191B" }}>
-                          {cap.label}
-                        </div>
-                        <div className="text-xs" style={{ color: "#737780", lineHeight: 1.6 }}>
-                          {cap.desc}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-24" style={{ background: "#F5F6F8", borderTop: "1px solid #E4E6EA" }}>
-        <div className="max-w-[1440px] mx-auto px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-          <div className="max-w-xl">
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", color: "#18191B", lineHeight: 1.15 }}>
-              {ui.ctaHeadline}
-            </h2>
-          </div>
-          <div className="flex gap-4">
-            <Link
-              to="/start-a-project"
-              className="flex items-center gap-2 px-7 py-4 text-sm transition-all"
-              style={{ background: "#18191B", color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500 }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "#3737F2")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "#18191B")}
-            >
-              {ui.ctaBtn1} <ArrowUpRight size={14} />
-            </Link>
-            <Link
-              to="/services/hitpick"
-              className="flex items-center gap-2 px-7 py-4 text-sm transition-all"
-              style={{ border: "1px solid #E4E6EA", color: "#18191B", fontFamily: "var(--font-body)" }}
-            >
-              {ui.ctaBtn2}
-            </Link>
-          </div>
+      <section className="relative overflow-hidden bg-[#1237A5] py-20 md:py-24" aria-labelledby="technology-cta-title">
+        <div className="absolute inset-0 opacity-60" aria-hidden="true" style={{ background: "radial-gradient(circle at 82% 48%, rgba(78,124,255,.8), transparent 28%), linear-gradient(130deg, transparent 40%, rgba(4,18,54,.35) 40% 100%)" }} />
+        <div className="relative mx-auto flex max-w-[1280px] flex-col items-start justify-between gap-8 px-5 md:flex-row md:items-center lg:px-8">
+          <div className="max-w-2xl"><div className="mb-4 flex items-center gap-2 text-[11px] font-bold tracking-[0.16em] text-[#B7C8FF]"><Lightbulb size={14} aria-hidden="true" />NEXT EXECUTION</div><h2 id="technology-cta-title" className="text-3xl font-extrabold tracking-[-0.03em] text-white eruty-keep-all md:text-4xl" style={{ lineHeight: 1.2, whiteSpace: "pre-line" }}>{copy.cta.title}</h2><p className="mt-4 text-sm text-white/65 eruty-keep-all md:text-base">{copy.cta.description}</p></div>
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row"><Link to="/start-a-project" className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-6 py-3.5 text-sm font-bold" style={{ color: "#1237A5" }}>{copy.cta.button}<ArrowUpRight size={15} aria-hidden="true" /></Link><Link to="/services/hitpick" className="inline-flex items-center justify-center gap-2 rounded-md border border-white/25 px-6 py-3.5 text-sm font-bold text-white">{copy.cta.secondary}<ArrowRight size={15} aria-hidden="true" /></Link></div>
         </div>
       </section>
     </div>

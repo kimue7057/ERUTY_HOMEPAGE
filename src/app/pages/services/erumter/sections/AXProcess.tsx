@@ -1,272 +1,112 @@
-import { useState, useEffect, useRef, forwardRef } from "react";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { forwardRef, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useLanguage } from "../../../../context/LanguageContext";
-import { BLUE, DARK, GRAY, BORDER, LIGHT_BG, AX_STEPS, T, TType } from "../constants";
+import { ERUMTER_COPY, PROCESS_STEPS } from "../constants";
+import { Reveal } from "../components/Reveal";
+import { SceneImage } from "../components/SceneImage";
 
-function DiagnoseVisual({ active, t }: { active: boolean; t: TType }) {
-  return (
-    <div style={{ overflowX: "auto" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.82rem", fontFamily: "var(--font-body)" }}>
-        <tbody>
-          {t.diagnoseRows.map((r) => (
-            <tr key={r.label} style={{ background: active && r.highlight ? "rgba(55,55,242,0.05)" : "transparent" }}>
-              <td style={{ padding: "10px 12px", color: GRAY, fontWeight: 500, width: 140, borderBottom: `1px solid ${BORDER}`, whiteSpace: "nowrap", lineHeight: 1.55 }}>{r.label}</td>
-              <td style={{ padding: "10px 12px", color: active && r.highlight ? BLUE : DARK, fontWeight: r.highlight && active ? 600 : 400, borderBottom: `1px solid ${BORDER}`, lineHeight: 1.65 }}>{r.value}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <p style={{ fontSize: "0.72rem", color: GRAY, marginTop: 10, fontFamily: "var(--font-mono)", lineHeight: 1.55 }}>{t.diagnoseNote}</p>
-    </div>
-  );
-}
+type ProcessStep = (typeof PROCESS_STEPS)[number];
 
-function DesignVisual({ active, t }: { active: boolean; t: TType }) {
-  return (
-    <div className="flex flex-wrap gap-2 items-center">
-      {t.designFlow.map((node, i) => (
-        <div key={node.label} className="flex items-center gap-2">
-          <div
-            className="text-xs px-3 py-2.5 transition-all duration-300"
-            style={{
-              border: `${node.human ? 1.5 : 1}px solid ${active && node.human ? BLUE : active ? DARK : BORDER}`,
-              borderRadius: 4,
-              color: active && node.human ? BLUE : active ? DARK : GRAY,
-              fontWeight: node.human ? 600 : 400,
-              background: active && node.human ? "rgba(55,55,242,0.06)" : "transparent",
-              minWidth: 110,
-            }}
-          >
-            <div style={{ fontSize: "0.65rem", fontFamily: "var(--font-mono)", letterSpacing: "0.05em" }}>{node.label}</div>
-            <div style={{ fontSize: "0.72rem", color: GRAY, marginTop: 4, lineHeight: 1.5 }}>{node.sub}</div>
-          </div>
-          {i < t.designFlow.length - 1 && <ArrowRight size={12} style={{ color: active ? BLUE : BORDER, flexShrink: 0 }} />}
-        </div>
-      ))}
-    </div>
-  );
-}
+function ProcessVisual({ step, lang, mobile = false }: { step: ProcessStep; lang: "ko" | "en"; mobile?: boolean }) {
+  const reduceMotion = useReducedMotion();
 
-function BuildVisual({ active }: { active: boolean }) {
-  const layers = ["DATA SOURCE", "KNOWLEDGE", "AI MODEL", "AGENT", "WORKFLOW", "USER INTERFACE"];
   return (
-    <div className="flex flex-col gap-2">
-      {layers.map((layer, i) => (
-        <div key={layer}>
-          <div
-            className="text-xs px-3 py-2 transition-all duration-300 flex items-center justify-between"
-            style={{
-              border: `1px solid ${active ? (i === layers.length - 1 ? BLUE : DARK) : BORDER}`,
-              borderRadius: 3,
-              color: active ? (i === layers.length - 1 ? BLUE : DARK) : GRAY,
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.62rem",
-              lineHeight: 1.45,
-              background: active && i === layers.length - 1 ? "rgba(55,55,242,0.05)" : "transparent",
-              letterSpacing: "0.06em",
-              maxWidth: 240,
-            }}
-          >
-            {layer}
-          </div>
-          {i < layers.length - 1 && (
-            <div style={{ width: 1, height: 8, background: active ? BLUE : BORDER, marginLeft: 16 }} />
-          )}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function EnableVisual({ active, t }: { active: boolean; t: TType }) {
-  return (
-    <div className="grid grid-cols-2 gap-2">
-      {t.enableItems.map((item) => (
-        <div
-          key={item}
-          className="flex items-center gap-2.5 p-3 text-xs transition-all duration-300"
-          style={{
-            border: `1px solid ${BORDER}`,
-            borderRadius: 4,
-            color: active ? DARK : GRAY,
-            background: active ? "#fff" : "transparent",
-            fontSize: "0.86rem",
-            lineHeight: 1.6,
-          }}
+    <div className={mobile ? "er-process-mobile-visual" : "er-process-visual"}>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          className="er-process-frame"
+          key={`${mobile ? "mobile" : "desktop"}-${step.number}`}
+          initial={reduceMotion ? false : { opacity: 0, scale: 0.985 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={reduceMotion ? undefined : { opacity: 0, scale: 1.01 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div style={{ width: 6, height: 6, borderRadius: "50%", background: active ? BLUE : BORDER, flexShrink: 0 }} />
-          {item}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function OperateVisual({ active, t }: { active: boolean; t: TType }) {
-  return (
-    <div style={{ overflowX: "auto" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.82rem", fontFamily: "var(--font-body)" }}>
-        <tbody>
-          {t.operateStatuses.map((s) => (
-            <tr key={s.label} style={{ background: active && s.highlight ? "rgba(55,55,242,0.05)" : "transparent" }}>
-              <td style={{ padding: "10px 12px", color: GRAY, width: 180, borderBottom: `1px solid ${BORDER}`, lineHeight: 1.55 }}>{s.label}</td>
-              <td style={{ padding: "10px 12px", color: active && s.highlight ? BLUE : DARK, fontWeight: s.highlight && active ? 600 : 400, borderBottom: `1px solid ${BORDER}`, lineHeight: 1.65 }}>{s.value}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <p style={{ fontSize: "0.72rem", color: GRAY, marginTop: 10, fontFamily: "var(--font-mono)", lineHeight: 1.55 }}>{t.operateNote}</p>
-    </div>
-  );
-}
-
-function AXStepVisual({ step, index, active, lang, t }: { step: typeof AX_STEPS[0]; index: number; active: boolean; lang: "ko" | "en"; t: TType }) {
-  const visuals = [
-    <DiagnoseVisual key="d" active={active} t={t} />,
-    <DesignVisual key="de" active={active} t={t} />,
-    <BuildVisual key="b" active={active} />,
-    <EnableVisual key="e" active={active} t={t} />,
-    <OperateVisual key="o" active={active} t={t} />,
-  ];
-  return (
-    <div
-      className="p-8 transition-all duration-300"
-      style={{ border: `1px solid ${active ? BLUE : BORDER}`, borderRadius: 6, background: active ? "rgba(55,55,242,0.02)" : LIGHT_BG }}
-    >
-      <div className="text-xs font-semibold mb-4" style={{ fontFamily: "var(--font-mono)", letterSpacing: "0.08em", color: active ? BLUE : "#C8CBD2", fontSize: "0.6rem" }}>
-        {step.num} · {step.en}
-      </div>
-      <h3 className="text-xl font-bold mb-3" style={{ fontFamily: "var(--font-display)", color: active ? DARK : GRAY }}>
-        {lang === "ko" ? step.ko : step.en}
-      </h3>
-      <p className="text-sm mb-7" style={{ color: GRAY, fontSize: "0.98rem", lineHeight: 1.8, whiteSpace: "pre-line" }}>{lang === "ko" ? step.desc : step.descEn}</p>
-      <div>{visuals[index]}</div>
-    </div>
-  );
-}
-
-function AXMobileStep({ step, index, isOpen, onToggle, lang, t }: { step: typeof AX_STEPS[0]; index: number; isOpen: boolean; onToggle: () => void; lang: "ko" | "en"; t: TType }) {
-  const visuals = [
-    <DiagnoseVisual key="d" active t={t} />,
-    <DesignVisual key="de" active t={t} />,
-    <BuildVisual key="b" active />,
-    <EnableVisual key="e" active t={t} />,
-    <OperateVisual key="o" active t={t} />,
-  ];
-  return (
-    <div style={{ border: `1px solid ${isOpen ? BLUE : BORDER}`, borderRadius: 6, overflow: "hidden" }}>
-      <button
-        className="w-full flex items-center justify-between p-5 text-left"
-        style={{ background: isOpen ? "rgba(55,55,242,0.03)" : "#fff", cursor: "pointer", minHeight: 64 }}
-        onClick={onToggle}
-        aria-expanded={isOpen}
-      >
-        <div className="flex items-center gap-4">
-          <span className="text-xs font-semibold" style={{ fontFamily: "var(--font-mono)", color: isOpen ? BLUE : "#C8CBD2" }}>{step.num}</span>
-          <div>
-            <div className="text-xs font-semibold" style={{ fontFamily: "var(--font-mono)", color: isOpen ? BLUE : GRAY, letterSpacing: "0.08em", fontSize: "0.6rem" }}>{step.en}</div>
-            <div className="text-sm font-medium mt-0.5" style={{ color: DARK }}>{lang === "ko" ? step.ko : step.en}</div>
-          </div>
-        </div>
-        <ChevronDown size={16} style={{ color: GRAY, transform: isOpen ? "rotate(180deg)" : "none", transition: "transform 0.2s", flexShrink: 0 }} />
-      </button>
-      {isOpen && (
-        <div className="px-5 pb-5">
-          <p className="text-sm mb-5" style={{ color: GRAY, fontSize: "0.96rem", lineHeight: 1.8, whiteSpace: "pre-line" }}>{lang === "ko" ? step.desc : step.descEn}</p>
-          <div className="overflow-x-auto">{visuals[index]}</div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-export const AXProcess = forwardRef<HTMLDivElement>((_, ref) => {
-  const { lang } = useLanguage();
-  const t = T[lang];
-  const [activeStep, setActiveStep] = useState(0);
-  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    stepRefs.current.forEach((el, i) => {
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveStep(i); },
-        { threshold: 0.5 }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
-
-  return (
-    <section ref={ref} style={{ background: "#fff", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="mx-auto" style={{ maxWidth: 1280, padding: "80px 32px" }}>
-        <div className="mb-16">
-          <div className="text-xs font-semibold mb-4" style={{ fontFamily: "var(--font-mono)", letterSpacing: "0.1em", color: BLUE }}>
-            {t.processLabel}
-          </div>
-          <h2
-            className="font-bold mb-4"
-            style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.75rem, 3vw, 2.5rem)", color: DARK, lineHeight: 1.25, whiteSpace: "pre-line" }}
-          >
-            {t.processHeading}
-          </h2>
-          <p className="text-sm max-w-lg" style={{ color: GRAY, fontSize: "0.98rem", lineHeight: 1.8, whiteSpace: "pre-line" }}>
-            {t.processDesc}
-          </p>
-        </div>
-
-        {/* Desktop sticky */}
-        <div className="hidden md:flex gap-0">
-          <div className="flex-shrink-0 w-64 pr-10">
-            <div className="sticky" style={{ top: 96 }}>
-              {AX_STEPS.map((step, i) => (
-                <button
-                  key={step.num}
-                  className="w-full text-left flex items-start gap-4 py-5 transition-all duration-200"
-                  style={{ borderLeft: `2px solid ${activeStep === i ? BLUE : BORDER}`, paddingLeft: 16, background: "transparent", cursor: "pointer" }}
-                  onClick={() => stepRefs.current[i]?.scrollIntoView({ behavior: "smooth", block: "center" })}
-                >
-                  <span className="text-xs font-semibold flex-shrink-0 mt-0.5 transition-colors duration-200" style={{ fontFamily: "var(--font-mono)", color: activeStep === i ? BLUE : "#C8CBD2" }}>
-                    {step.num}
-                  </span>
-                  <div>
-                    <div className="text-xs font-semibold mb-0.5 transition-colors duration-200" style={{ fontFamily: "var(--font-mono)", letterSpacing: "0.08em", color: activeStep === i ? BLUE : "#C8CBD2", fontSize: "0.6rem" }}>
-                      {step.en}
-                    </div>
-                    <div className="text-sm font-medium transition-colors duration-200" style={{ color: activeStep === i ? DARK : GRAY }}>
-                      {lang === "ko" ? step.ko : step.en}
-                    </div>
-                  </div>
-                </button>
+          <SceneImage src={step.image} alt={step.imageAlt[lang]} />
+          <div className="er-process-image-shade" />
+          <div className="er-process-overlay">
+            <div className="er-process-overlay-head">
+              <span>{step.number}</span>
+              <strong>{step.title}</strong>
+            </div>
+            <div className="er-process-flow">
+              {step.overlay[lang].map((item, index) => (
+                <span key={item}>
+                  <i aria-hidden="true" />
+                  {item}
+                  {index < step.overlay[lang].length - 1 ? <b aria-hidden="true">→</b> : null}
+                </span>
               ))}
             </div>
           </div>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
 
-          <div className="flex-1 flex flex-col">
-            {AX_STEPS.map((step, i) => (
-              <div key={step.num} ref={(el) => { stepRefs.current[i] = el; }} style={{ minHeight: 300, paddingBottom: 40 }}>
-                <AXStepVisual step={step} index={i} active={activeStep === i} lang={lang} t={t} />
-              </div>
+export const AXProcess = forwardRef<HTMLElement>(function AXProcess(_, forwardedRef) {
+  const { lang } = useLanguage();
+  const t = ERUMTER_COPY[lang].process;
+  const [activeStep, setActiveStep] = useState(0);
+  const itemRefs = useRef<Array<HTMLElement | null>>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        const index = Number((visible.target as HTMLElement).dataset.stepIndex);
+        if (Number.isFinite(index)) setActiveStep(index);
+      },
+      { rootMargin: "-30% 0px -45% 0px", threshold: [0.1, 0.35, 0.6] },
+    );
+
+    itemRefs.current.forEach((item) => item && observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section className="er-section er-process" ref={forwardedRef} aria-labelledby="er-process-title">
+      <div className="er-container">
+        <Reveal className="er-process-intro">
+          <span className="er-kicker er-kicker-light">{t.eyebrow}</span>
+          <h2 id="er-process-title">{t.title}</h2>
+          <p>{t.description}</p>
+        </Reveal>
+
+        <div className="er-process-layout">
+          <div className="er-process-steps">
+            {PROCESS_STEPS.map((step, index) => (
+              <article
+                className={`er-process-step${activeStep === index ? " is-active" : ""}`}
+                data-step-index={index}
+                key={step.number}
+                ref={(node) => {
+                  itemRefs.current[index] = node;
+                }}
+                tabIndex={0}
+                onFocus={() => setActiveStep(index)}
+                onMouseEnter={() => setActiveStep(index)}
+              >
+                <div className="er-process-step-line" aria-hidden="true"><span /></div>
+                <span className="er-process-number">STEP {step.number}</span>
+                <h3>{step.title}</h3>
+                <p>{step.description[lang]}</p>
+                <div className="er-process-outputs">
+                  <small>{t.outputLabel}</small>
+                  <ul>
+                    {step.outputs[lang].map((output) => <li key={output}>{output}</li>)}
+                  </ul>
+                </div>
+                <ProcessVisual step={step} lang={lang} mobile />
+              </article>
             ))}
           </div>
-        </div>
-
-        {/* Mobile accordion */}
-        <div className="md:hidden flex flex-col gap-2">
-          {AX_STEPS.map((step, i) => (
-            <AXMobileStep
-              key={step.num}
-              step={step}
-              index={i}
-              isOpen={activeStep === i}
-              onToggle={() => setActiveStep(activeStep === i ? -1 : i)}
-              lang={lang}
-              t={t}
-            />
-          ))}
+          <div className="er-process-sticky">
+            <ProcessVisual step={PROCESS_STEPS[activeStep]} lang={lang} />
+          </div>
         </div>
       </div>
     </section>

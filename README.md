@@ -3,7 +3,7 @@
 ## 1. 프로젝트 개요
 
 ERUTY Homepage는 주식회사 이루티의 기업 홈페이지 프런트엔드입니다.  
-현재 구현은 글로벌 사업 실행, 기업 AX 전환, 기술 역량, 글로벌 네트워크, 프로젝트 소개, 리소스, 문의·채용 흐름을 한 사이트 안에서 안내하는 구조로 되어 있습니다.
+현재 구현은 글로벌 사업 실행, 기업 AX 전환, 기술 역량, 프로젝트 소개, 리소스, 문의·채용 흐름을 한 사이트 안에서 안내하는 구조로 되어 있습니다.
 
 - Production: [https://erutyhomepage.vercel.app/](https://erutyhomepage.vercel.app/)
   현재 운영 중인 Vercel Production URL입니다.
@@ -90,7 +90,7 @@ npm run capture:site
 
 - `npm run build`는 `vite build` 뒤에 `scripts/prepare-sites-build.mjs`를 실행합니다.
 - 이 스크립트는 `dist/.openai/hosting.json`과 `dist/server/index.js`를 준비합니다.
-- `npm run capture:site`는 기본적으로 `https://erutyhomepage.vercel.app/`를 기준으로 11개 공개 경로를 캡처합니다.
+- `npm run capture:site`는 기본적으로 `https://erutyhomepage.vercel.app/`를 기준으로 10개 공개 경로를 캡처합니다.
 - 다른 URL을 대상으로 캡처하려면 `CAPTURE_BASE_URL` 환경변수를 사용합니다.
 
 ## 6. 라우팅과 페이지 역할
@@ -103,9 +103,6 @@ npm run capture:site
 - `/company/about`
   `src/app/pages/company/AboutPage.tsx`
   회사 소개, 정체성, 시작 배경, 주요 여정, CTA를 담는 페이지입니다.
-- `/company/global-network`
-  `src/app/pages/company/GlobalNetworkPage.tsx`
-  국가별 시장, 권역, 파트너십 구조, 글로벌 활동 현황을 보여주는 페이지입니다.
 - `/company/team`
   `src/app/pages/company/TeamPage.tsx`
   리더십과 팀 구조를 소개하는 페이지입니다.
@@ -270,7 +267,7 @@ npm run capture:site
 
 - Desktop: `1440 x 1000`
 - Mobile: `390 x 844`
-- 대상 경로: 홈, 회사 5개, 서비스 2개, 기술, 리소스, 프로젝트 문의까지 총 11개 공개 경로
+- 대상 경로: 홈, 회사 4개, 서비스 2개, 기술, 리소스, 프로젝트 문의까지 총 10개 공개 경로
 
 2026년 8월 2일 확인 기준 최신 성공 run:
 
@@ -285,7 +282,7 @@ npm run capture:site
 - 메인 페이지는 현재 `Hero -> Statement -> Business Fields -> Technology -> Case Showcase -> Final CTA` 순서입니다.
 - 메인 전용 빈 리소스 섹션은 렌더링되지 않습니다.
 - `HomePage.tsx`의 statement 구간에는 글로벌 활동 쇼케이스가 포함되어 있습니다.
-- `src/app/data/companyMetrics.ts`의 공통 지표를 메인과 글로벌 네트워크 등에서 참조합니다.
+- `src/app/data/companyMetrics.ts`의 공통 지표를 메인과 회사 소개 섹션들에서 참조합니다.
 - `/company/growth` 라우트는 현재 코드 기준 `Projects` 페이지입니다.
 - `ResourcesPage`와 일부 프로젝트/채용 데이터는 공개 여부 필드에 따라 비어 있는 섹션 또는 빈 상태를 보여줄 수 있습니다.
 

@@ -11,7 +11,6 @@ const T = {
     sections: {
       "회사": [
         { label: "이루티 소개", to: "/company/about" },
-        { label: "글로벌 네트워크", to: "/company/global-network" },
         { label: "팀 & 리더십", to: "/company/team" },
         { label: "프로젝트", to: "/company/growth" },
         { label: "채용", to: "/company/careers" },
@@ -58,7 +57,6 @@ const T = {
     sections: {
       "Company": [
         { label: "About ERUTY", to: "/company/about" },
-        { label: "Global Network", to: "/company/global-network" },
         { label: "Team & Leadership", to: "/company/team" },
         { label: "Projects", to: "/company/growth" },
         { label: "Careers", to: "/company/careers" },

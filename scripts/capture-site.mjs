@@ -14,10 +14,6 @@ const POST_LOAD_WAIT_MS = 2_000;
 const ROUTES = [
   { route: "/", filename: "home.png" },
   { route: "/company/about", filename: "company-about.png" },
-  {
-    route: "/company/global-network",
-    filename: "company-global-network.png",
-  },
   { route: "/company/team", filename: "company-team.png" },
   { route: "/company/growth", filename: "company-growth.png" },
   { route: "/company/careers", filename: "company-careers.png" },

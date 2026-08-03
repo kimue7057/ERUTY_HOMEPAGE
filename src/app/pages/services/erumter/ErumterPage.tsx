@@ -1,28 +1,27 @@
-import { useRef, useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { ErumterHeroSection } from "./sections/ErumterHeroSection";
 import { WhatErumterTransforms } from "./sections/WhatErumterTransforms";
 import { AXProcess } from "./sections/AXProcess";
+import { AXEducation } from "./sections/AXEducation";
 import { TransformationSolutions } from "./sections/TransformationSolutions";
 import { BeforeAfter } from "./sections/BeforeAfter";
-import { TechOperation } from "./sections/TechOperation";
-import { AXProjects } from "./sections/AXProjects";
 import { AXInquiryCTA } from "./sections/AXInquiryCTA";
+import "./erumter.css";
 
 export function ErumterPage() {
-  const processRef = useRef<HTMLDivElement>(null);
+  const processRef = useRef<HTMLElement>(null);
   const scrollToProcess = useCallback(() => {
-    processRef.current?.scrollIntoView({ behavior: "smooth" });
+    processRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
   return (
-    <div style={{ paddingTop: 76, background: "#fff" }}>
+    <div className="erumter-page">
       <ErumterHeroSection onScrollToProcess={scrollToProcess} />
       <WhatErumterTransforms />
       <AXProcess ref={processRef} />
+      <AXEducation />
       <TransformationSolutions />
       <BeforeAfter />
-      <TechOperation />
-      <AXProjects />
       <AXInquiryCTA />
     </div>
   );

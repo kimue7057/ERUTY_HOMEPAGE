@@ -29,9 +29,6 @@ const AboutPage = lazy(async () => ({
 const CareersPage = lazy(async () => ({
   default: (await import("./pages/company/CareersPage")).CareersPage,
 }));
-const GlobalNetworkPage = lazy(async () => ({
-  default: (await import("./pages/company/GlobalNetworkPage")).GlobalNetworkPage,
-}));
 const GrowthPage = lazy(async () => ({
   default: (await import("./pages/company/GrowthPage")).GrowthPage,
 }));
@@ -94,10 +91,6 @@ export default function App() {
           <Route element={<AppLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/company/about" element={<AboutPage />} />
-            <Route
-              path="/company/global-network"
-              element={<GlobalNetworkPage />}
-            />
             <Route path="/company/team" element={<TeamPage />} />
             <Route path="/company/growth" element={<GrowthPage />} />
             <Route path="/company/careers" element={<CareersPage />} />

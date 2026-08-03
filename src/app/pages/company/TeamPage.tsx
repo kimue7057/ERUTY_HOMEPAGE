@@ -52,6 +52,11 @@ const PROFILE_IMAGE_BY_ID: Partial<Record<LeaderId, ProfileImage>> = {
     alt: { ko: "박상일 부대표 프로필 사진", en: "Profile photo of Vice President Park Sangil" },
     objectPosition: "center top",
   },
+  "kim-jinhyuk": {
+    src: "/images/company/team/kim-jinhyuk-director.jpg",
+    alt: { ko: "김진혁 이사 프로필 사진", en: "Profile photo of Director Kim Jinhyuk" },
+    objectPosition: "center top",
+  },
 };
 
 const LEADERS: LeaderProfile[] = [
@@ -72,8 +77,18 @@ const LEADERS: LeaderProfile[] = [
       en: ["Company management", "Global business strategy", "Market and partner structure design"],
     },
     keyScope: {
-      ko: ["ERUTY 대표이사", "회사 경영 총괄", "글로벌 사업 전략 총괄"],
-      en: ["CEO of ERUTY", "Overall company management", "Global business strategy leadership"],
+      ko: [
+        "창업 성장기술개발사업 R&D 사업 수주",
+        "블록체인 기술 사업화 지원 사업 수주",
+        "블록체인 기반 저작권 관리 기술 특허 개발 및 등록",
+        "메타오션 창업팀 대표 (2019~2022)",
+      ],
+      en: [
+        "Won an R&D project under the Startup Growth Technology Development Program",
+        "Won a project supporting blockchain technology commercialization",
+        "Developed and registered a patent for blockchain-based copyright management technology",
+        "Head of the founding team, Metaocean (2019-2022)",
+      ],
     },
   },
   {
@@ -93,29 +108,16 @@ const LEADERS: LeaderProfile[] = [
       en: ["Operating structure design", "Business strategy execution", "Global growth operations"],
     },
     keyScope: {
-      ko: ["ERUTY 부대표", "COO & CBO", "기업 운영 및 사업 전략 총괄"],
-      en: ["Vice President at ERUTY", "COO & CBO", "Corporate operations and business strategy leadership"],
-    },
-  },
-  {
-    id: "lee-kihong",
-    name: { ko: "이기홍 박사", en: "이기홍 박사" },
-    title: { ko: "기업부설연구소장 / AI·데이터 연구개발 총괄", en: "Head of Corporate R&D Center / AI & Data R&D Lead" },
-    summary: {
-      ko: "기업부설연구소와 AI·데이터 연구개발을 총괄합니다.",
-      en: "Leads the corporate R&D center and AI/data research and development.",
-    },
-    intro: {
-      ko: "기업부설연구소를 중심으로 AI·데이터 연구개발 방향을 이끌며, 사업과 제품에 필요한 기술 기반을 설계합니다.",
-      en: "Leads AI and data R&D through the corporate research center, shaping the technical foundation needed for business and product delivery.",
-    },
-    focusAreas: {
-      ko: ["AI·데이터 연구개발", "기업부설연구소 운영", "기술 방향 설계"],
-      en: ["AI and data R&D", "Corporate research center leadership", "Technology direction design"],
-    },
-    keyScope: {
-      ko: ["기업부설연구소장", "AI·데이터 연구개발 총괄", "연구 기반 기술 전략 리드"],
-      en: ["Head of Corporate R&D Center", "AI and data R&D leadership", "Research-driven technology strategy lead"],
+      ko: [
+        "에이트원 부사장 — 토큰증권(STO) 기반 금융 신사업 총괄",
+        "카사코리아(Casa Korea) COO — 국내 최초 디지털 수익증권(DABS) 시스템 운영",
+        "한국투자공사(KIC) 경영기획실 수석부장 — 대외협력·지배구조·투자운용 전략 총괄",
+      ],
+      en: [
+        "Vice President, EightOne — Led new financial initiatives based on Security Token Offerings (STO)",
+        "COO, Casa Korea — Operated DABS, Korea's first digital revenue securities system",
+        "Senior Director, Management Planning Office, Korea Investment Corporation (KIC) — Oversaw external relations, governance, and investment strategy",
+      ],
     },
   },
   {
@@ -137,6 +139,27 @@ const LEADERS: LeaderProfile[] = [
     keyScope: {
       ko: ["개발 총괄 이사", "AI·소프트웨어 개발 조직 총괄", "프로젝트 기술 실행 리드"],
       en: ["Director of Engineering", "AI and software engineering leadership", "Project technical execution lead"],
+    },
+  },
+  {
+    id: "lee-kihong",
+    name: { ko: "이기홍 박사", en: "이기홍 박사" },
+    title: { ko: "기업부설연구소장 / AI·데이터 연구개발 총괄", en: "Head of Corporate R&D Center / AI & Data R&D Lead" },
+    summary: {
+      ko: "기업부설연구소와 AI·데이터 연구개발을 총괄합니다.",
+      en: "Leads the corporate R&D center and AI/data research and development.",
+    },
+    intro: {
+      ko: "기업부설연구소를 중심으로 AI·데이터 연구개발 방향을 이끌며, 사업과 제품에 필요한 기술 기반을 설계합니다.",
+      en: "Leads AI and data R&D through the corporate research center, shaping the technical foundation needed for business and product delivery.",
+    },
+    focusAreas: {
+      ko: ["AI·데이터 연구개발", "기업부설연구소 운영", "기술 방향 설계"],
+      en: ["AI and data R&D", "Corporate research center leadership", "Technology direction design"],
+    },
+    keyScope: {
+      ko: ["기업부설연구소장", "AI·데이터 연구개발 총괄", "연구 기반 기술 전략 리드"],
+      en: ["Head of Corporate R&D Center", "AI and data R&D leadership", "Research-driven technology strategy lead"],
     },
   },
 ];
@@ -197,7 +220,7 @@ const TEXT = {
       "공개된 네 명의 리더십은 사업 전략, 운영, 연구개발, 제품 엔지니어링을 각각 맡으며 하나의 실행 구조로 협업합니다.",
     leadershipProfileLabel: "Leadership Profile",
     focusAreasLabel: "담당 영역",
-    keyScopeLabel: "주요 경력 및 역할",
+    keyScopeLabel: "주요 경력",
     imageFallbackLabel: "프로필 이미지 준비 중",
     howWorkLabel: "How We Work",
     howWorkHeadline: "세 개의 핵심 축이\n하나의 실행 구조로 움직입니다.",
@@ -220,7 +243,7 @@ const TEXT = {
       "The four public leadership profiles cover business strategy, operations, R&D, and product engineering while working as one execution structure.",
     leadershipProfileLabel: "Leadership Profile",
     focusAreasLabel: "Focus Areas",
-    keyScopeLabel: "Key Experience & Scope",
+    keyScopeLabel: "Career Highlights",
     imageFallbackLabel: "Profile image coming soon",
     howWorkLabel: "How We Work",
     howWorkHeadline: "Three core pillars,\none execution structure.",
