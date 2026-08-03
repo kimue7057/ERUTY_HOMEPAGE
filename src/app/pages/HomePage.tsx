@@ -700,6 +700,7 @@ function StatementSection() {
   const [isPointerPaused, setIsPointerPaused] = useState(false);
   const [isFocusPaused, setIsFocusPaused] = useState(false);
   const [cycleNonce, setCycleNonce] = useState(0);
+  const chipListRef = useRef<HTMLDivElement | null>(null);
   const chipRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const totalSlides = HOME_ACTIVITY_SLIDES.length;
   const activeSlide = HOME_ACTIVITY_SLIDES[activeIndex];
@@ -730,10 +731,22 @@ function StatementSection() {
   }, [cycleNonce, isAutoPaused, prefersReducedMotion, totalSlides]);
 
   useEffect(() => {
-    chipRefs.current[activeIndex]?.scrollIntoView({
+    const chipList = chipListRef.current;
+    const activeChip = chipRefs.current[activeIndex];
+
+    if (!chipList || !activeChip) return;
+
+    const listRect = chipList.getBoundingClientRect();
+    const chipRect = activeChip.getBoundingClientRect();
+    const targetLeft =
+      chipList.scrollLeft +
+      chipRect.left -
+      listRect.left -
+      (chipList.clientWidth - chipRect.width) / 2;
+
+    chipList.scrollTo({
+      left: Math.max(0, targetLeft),
       behavior: prefersReducedMotion ? "auto" : "smooth",
-      block: "nearest",
-      inline: "center",
     });
   }, [activeIndex, prefersReducedMotion]);
 
@@ -969,6 +982,7 @@ function StatementSection() {
               </AnimatePresence>
 
               <div
+                ref={chipListRef}
                 className="eruty-horizontal-scroll flex gap-3 overflow-x-auto pb-1 xl:grid xl:grid-cols-7 xl:overflow-visible"
                 style={{ scrollSnapType: "x mandatory" }}
               >
