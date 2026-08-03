@@ -8,6 +8,7 @@ import type { FilterKey } from "../../data/openPositions";
 import { submitCareerApplication } from "../../../services/careers";
 import { PageContainer } from "../../components/PageContainer";
 import { PageHeading } from "../../components/PageHeading";
+import { SectionHeading } from "../../components/SectionHeading";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -312,40 +313,37 @@ function WhatWeBuildSection() {
   const { lang } = useLanguage();
   const t = T[lang];
   return (
-    <section style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-      <div className="eruty-container py-20">
-        <div className="text-xs tracking-widest uppercase mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.whatLabel}</div>
-        <h2 className="mb-14" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
-          {t.whatHeadline}
-        </h2>
+    <section className="eruty-section" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
+      <div className="eruty-container">
+        <SectionHeading eyebrow={t.whatLabel} title={t.whatHeadline} align="center" lang={lang} />
 
         {/* 두 사업 분야 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-px mb-px" style={{ background: BORDER }}>
           <div className="p-10" style={{ background: NEAR_BLACK }}>
-            <div className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-mono)" }}>{t.what01Label}</div>
-            <h3 className="mb-5" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.4rem", color: "#FFFFFF", lineHeight: 1.25 }}>
+            <div className="eruty-meta mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>{t.what01Label}</div>
+            <h3 className="eruty-card-title mb-5" style={{ color: "#FFFFFF" }}>
               {t.what01Headline.split("\n").map((line, i, arr) => (
                 <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
               ))}
             </h3>
-            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem", lineHeight: 1.8 }}>{t.what01Desc}</p>
+            <p className="eruty-body-small" style={{ color: "rgba(255,255,255,0.6)" }}>{t.what01Desc}</p>
             <div className="flex flex-wrap gap-2 mt-6">
               {t.what01Tags.map((tag) => (
-                <span key={tag} className="text-xs px-2.5 py-1" style={{ border: "1px solid rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-mono)" }}>{tag}</span>
+                <span key={tag} className="eruty-meta px-2.5 py-1" style={{ border: "1px solid rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.5)" }}>{tag}</span>
               ))}
             </div>
           </div>
           <div className="p-10" style={{ background: "#FFFFFF" }}>
-            <div className="text-xs mb-4" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.what02Label}</div>
-            <h3 className="mb-5" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.4rem", color: NEAR_BLACK, lineHeight: 1.25 }}>
+            <div className="eruty-meta mb-4" style={{ color: MUTED }}>{t.what02Label}</div>
+            <h3 className="eruty-card-title mb-5" style={{ color: NEAR_BLACK }}>
               {t.what02Headline.split("\n").map((line, i, arr) => (
                 <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
               ))}
             </h3>
-            <p style={{ color: MUTED, fontSize: "0.9rem", lineHeight: 1.8 }}>{t.what02Desc}</p>
+            <p className="eruty-body-small" style={{ color: MUTED }}>{t.what02Desc}</p>
             <div className="flex flex-wrap gap-2 mt-6">
               {t.what02Tags.map((tag) => (
-                <span key={tag} className="text-xs px-2.5 py-1" style={{ border: `1px solid ${BORDER}`, color: MUTED, fontFamily: "var(--font-mono)" }}>{tag}</span>
+                <span key={tag} className="eruty-meta px-2.5 py-1" style={{ border: `1px solid ${BORDER}`, color: MUTED }}>{tag}</span>
               ))}
             </div>
           </div>
@@ -355,8 +353,8 @@ function WhatWeBuildSection() {
         <div className="flex gap-px" style={{ background: BORDER }}>
           {t.whatAreas.map((area) => (
             <div key={area.label} className="flex-1 min-w-0 p-5" style={{ background: "#FFFFFF" }}>
-              <div className="text-xs mb-1 truncate" style={{ color: NEAR_BLACK, fontFamily: "var(--font-body)", fontWeight: 600 }}>{area.label}</div>
-              <div className="text-xs truncate" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{area.desc}</div>
+              <div className="eruty-body-small mb-1 truncate" style={{ color: NEAR_BLACK, fontWeight: 600 }}>{area.label}</div>
+              <div className="eruty-meta truncate" style={{ color: MUTED }}>{area.desc}</div>
             </div>
           ))}
         </div>
@@ -372,12 +370,9 @@ function HowWeWorkSection() {
   const t = T[lang];
   const [hovered, setHovered] = useState<number | null>(null);
   return (
-    <section style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="eruty-container py-20">
-        <div className="text-xs tracking-widest uppercase mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.cultureLabel}</div>
-        <h2 className="mb-12" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
-          {t.cultureHeadline}
-        </h2>
+    <section className="eruty-section" style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
+      <div className="eruty-container">
+        <SectionHeading eyebrow={t.cultureLabel} title={t.cultureHeadline} align="center" lang={lang} />
 
         <div className="flex flex-col gap-px" style={{ background: BORDER }}>
           {t.workingPrinciples.map((p, i) => (
@@ -387,19 +382,19 @@ function HowWeWorkSection() {
               className="grid grid-cols-12 items-center transition-all"
               style={{ background: hovered === i ? SOFT_BG : "#FFFFFF", cursor: "default" }}>
               <div className="col-span-12 md:col-span-1 p-6">
-                <span style={{ fontFamily: "var(--font-mono)", fontWeight: 600, fontSize: "0.7rem", color: BLUE }}>{p.num}</span>
+                <span className="eruty-meta eruty-meta--code" style={{ color: BLUE }}>{p.num}</span>
               </div>
               <div className="col-span-12 md:col-span-4 p-6">
-                <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", color: NEAR_BLACK }}>{p.title}</div>
+                <div className="eruty-card-title" style={{ color: NEAR_BLACK }}>{p.title}</div>
               </div>
               <div className="col-span-12 md:col-span-7 p-6">
-                <p className="text-sm" style={{ color: BODY_TEXT, lineHeight: 1.75, maxWidth: 560 }}>{p.desc}</p>
+                <p className="eruty-body-small" style={{ color: BODY_TEXT, maxWidth: 560 }}>{p.desc}</p>
               </div>
             </div>
           ))}
         </div>
 
-        <p className="mt-6 text-xs" style={{ color: MUTED, fontStyle: "italic" }}>
+        <p className="eruty-body-small mt-6" style={{ color: MUTED, fontStyle: "italic" }}>
           {t.cultureNote}
         </p>
       </div>
@@ -428,11 +423,11 @@ function JobModal({ job, onClose, t }: {
         {/* 헤더 */}
         <div className="flex items-start gap-4 p-7" style={{ borderBottom: `1px solid ${BORDER}` }}>
           <div className="flex-1">
-            <div className="text-xs mb-2" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}>{job.team} · {job.type}</div>
-            <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.3rem", color: NEAR_BLACK }}>{job.title}</div>
+            <div className="eruty-meta mb-2" style={{ color: BLUE }}>{job.team} · {job.type}</div>
+            <div className="eruty-card-title" style={{ color: NEAR_BLACK }}>{job.title}</div>
             <div className="flex flex-wrap gap-3 mt-3">
               {[job.level, job.location, `${t.modalDeadlinePrefix}${job.deadline}`].map((tag) => (
-                <span key={tag} className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{tag}</span>
+                <span key={tag} className="eruty-meta" style={{ color: MUTED }}>{tag}</span>
               ))}
             </div>
           </div>
@@ -442,8 +437,8 @@ function JobModal({ job, onClose, t }: {
         {/* 바디 */}
         <div className="flex-1 p-7 flex flex-col gap-8 overflow-auto">
           <div>
-            <div className="text-xs mb-3" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.modalPositionLabel}</div>
-            <p className="text-sm" style={{ color: BODY_TEXT, lineHeight: 1.8 }}>{job.overview}</p>
+            <div className="eruty-meta mb-3" style={{ color: MUTED }}>{t.modalPositionLabel}</div>
+            <p className="eruty-body-small" style={{ color: BODY_TEXT }}>{job.overview}</p>
           </div>
           {[
             { label: t.modalSections[0], items: job.responsibilities },
@@ -451,10 +446,10 @@ function JobModal({ job, onClose, t }: {
             { label: t.modalSections[2], items: job.preferred },
           ].map((section) => (
             <div key={section.label}>
-              <div className="text-xs mb-3" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{section.label}</div>
+              <div className="eruty-meta mb-3" style={{ color: MUTED }}>{section.label}</div>
               <div className="flex flex-col gap-2">
                 {section.items.map((item) => (
-                  <div key={item} className="flex items-start gap-2 text-sm" style={{ color: BODY_TEXT, lineHeight: 1.6 }}>
+                  <div key={item} className="eruty-body-small flex items-start gap-2" style={{ color: BODY_TEXT }}>
                     <div className="w-1 h-1 rounded-full mt-2 flex-shrink-0" style={{ background: BLUE }} />
                     {item}
                   </div>
@@ -463,11 +458,11 @@ function JobModal({ job, onClose, t }: {
             </div>
           ))}
           <div>
-            <div className="text-xs mb-3" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.modalProcessLabel}</div>
+            <div className="eruty-meta mb-3" style={{ color: MUTED }}>{t.modalProcessLabel}</div>
             <div className="flex items-center gap-1 flex-wrap">
               {t.processSteps.map((s, i) => (
                 <div key={i} className="flex items-center gap-1">
-                  <span className="text-xs px-2.5 py-1" style={{ background: SOFT_BG, color: BODY_TEXT, fontFamily: "var(--font-mono)" }}>{s.title}</span>
+                  <span className="eruty-meta px-2.5 py-1" style={{ background: SOFT_BG, color: BODY_TEXT }}>{s.title}</span>
                   {i < t.processSteps.length - 1 && <ChevronRight size={12} style={{ color: MUTED }} />}
                 </div>
               ))}
@@ -516,12 +511,9 @@ function PositionsSection() {
   });
 
   return (
-    <section id="open-positions" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-      <div className="eruty-container py-20">
-        <div className="text-xs tracking-widest uppercase mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.positionsLabel}</div>
-        <h2 className="mb-10" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
-          {t.positionsHeadline}
-        </h2>
+    <section id="open-positions" className="eruty-section" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
+      <div className="eruty-container">
+        <SectionHeading eyebrow={t.positionsLabel} title={t.positionsHeadline} align="left" lang={lang} />
 
         {/* 검색 + 필터 */}
         <div className="flex flex-col sm:flex-row gap-3 mb-6">
@@ -557,17 +549,17 @@ function PositionsSection() {
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = SOFT_BG; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "#FFFFFF"; }}>
                 <div className="col-span-12 md:col-span-5">
-                  <div className="text-sm mb-1" style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: NEAR_BLACK }}>{job.title}</div>
-                  <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{job.team}</div>
+                  <div className="eruty-card-title mb-1" style={{ color: NEAR_BLACK }}>{job.title}</div>
+                  <div className="eruty-meta" style={{ color: MUTED }}>{job.team}</div>
                 </div>
                 <div className="col-span-4 md:col-span-2">
-                  <span className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{job.type}</span>
+                  <span className="eruty-meta" style={{ color: MUTED }}>{job.type}</span>
                 </div>
                 <div className="col-span-4 md:col-span-2">
-                  <span className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{job.level}</span>
+                  <span className="eruty-meta" style={{ color: MUTED }}>{job.level}</span>
                 </div>
                 <div className="col-span-4 md:col-span-2">
-                  <span className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{job.location}</span>
+                  <span className="eruty-meta" style={{ color: MUTED }}>{job.location}</span>
                 </div>
                 <div className="col-span-12 md:col-span-1 flex justify-end">
                   <ArrowUpRight size={14} style={{ color: MUTED }} />
@@ -582,10 +574,10 @@ function PositionsSection() {
               <Search size={22} style={{ color: MUTED }} />
             </div>
             <div className="text-center">
-              <div className="text-base mb-2" style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: NEAR_BLACK }}>
+              <div className="eruty-card-title mb-2" style={{ color: NEAR_BLACK }}>
                 {t.emptyHeadline}
               </div>
-              <p className="text-sm" style={{ color: MUTED, lineHeight: 1.7, maxWidth: 360 }}>
+              <p className="eruty-body-small" style={{ color: MUTED, maxWidth: 360 }}>
                 {t.emptyDesc.split("\n").map((line, i, arr) => (
                   <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
                 ))}
@@ -616,24 +608,21 @@ function ProcessSection() {
   const { lang } = useLanguage();
   const t = T[lang];
   return (
-    <section style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="eruty-container py-20">
-        <div className="text-xs tracking-widest uppercase mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.processLabel}</div>
-        <h2 className="mb-12" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
-          {t.processHeadline}
-        </h2>
+    <section className="eruty-section" style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
+      <div className="eruty-container">
+        <SectionHeading eyebrow={t.processLabel} title={t.processHeadline} align="split" lang={lang} />
 
         <div className="grid grid-cols-1 sm:grid-cols-5 gap-px" style={{ background: BORDER }}>
           {t.processSteps.map((s, i) => (
             <div key={i} className="p-7 flex flex-col gap-4" style={{ background: "#FFFFFF" }}>
-              <div className="text-xs" style={{ color: BLUE, fontFamily: "var(--font-mono)", fontWeight: 600 }}>{s.num}</div>
-              <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "0.95rem", color: NEAR_BLACK }}>{s.title}</div>
-              <p className="text-xs" style={{ color: MUTED, lineHeight: 1.6 }}>{s.desc}</p>
+              <div className="eruty-meta eruty-meta--code" style={{ color: BLUE }}>{s.num}</div>
+              <div className="eruty-card-title" style={{ color: NEAR_BLACK }}>{s.title}</div>
+              <p className="eruty-body-small" style={{ color: MUTED }}>{s.desc}</p>
             </div>
           ))}
         </div>
 
-        <p className="mt-5 text-xs" style={{ color: MUTED }}>
+        <p className="eruty-body-small mt-5" style={{ color: MUTED }}>
           {t.processNote}
         </p>
       </div>
@@ -758,33 +747,27 @@ function ApplicationSection() {
   });
 
   const labelStyle: React.CSSProperties = {
-    display: "block", fontSize: "0.75rem", marginBottom: 6,
-    color: MUTED, fontFamily: "var(--font-mono)",
+    display: "block", fontSize: "var(--eruty-body-small-size)", marginBottom: 6,
+    color: MUTED, fontFamily: "var(--font-body)", fontWeight: 600, lineHeight: 1.5,
   };
 
   const errorMsg = (msg?: string) => msg ? (
     <div className="flex items-center gap-1 mt-1.5">
       <AlertCircle size={11} style={{ color: "#EF4444", flexShrink: 0 }} />
-      <span style={{ fontSize: "0.72rem", color: "#EF4444", fontFamily: "var(--font-mono)" }}>{msg}</span>
+      <span className="eruty-meta" style={{ color: "#EF4444" }}>{msg}</span>
     </div>
   ) : null;
 
   return (
-    <section id="general-application" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-      <div className="eruty-container py-20">
-        <div className="text-xs tracking-widest uppercase mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.appLabel}</div>
-        <h2 className="mb-4" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
-          {t.appHeadline}
-        </h2>
-        <p className="mb-12 text-sm" style={{ color: MUTED, maxWidth: 480, lineHeight: 1.7 }}>
-          {t.appDesc}
-        </p>
+    <section id="general-application" className="eruty-section" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
+      <div className="eruty-container">
+        <SectionHeading eyebrow={t.appLabel} title={t.appHeadline} description={t.appDesc} align="left" lang={lang} />
         {CAREERS_MOCK_ENABLED ? (
           <div className="mb-6 border px-4 py-3" style={{ borderColor: BORDER, background: "#FFFFFF" }}>
-            <div className="mb-1 text-xs uppercase tracking-widest" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}>
+            <div className={`eruty-meta mb-1 ${lang === "en" ? "eruty-meta--code" : ""}`} style={{ color: BLUE }}>
               {mockLabel}
             </div>
-            <p className="text-sm" style={{ color: MUTED, lineHeight: 1.7 }}>
+            <p className="eruty-body-small" style={{ color: MUTED }}>
               {mockDesc}
             </p>
           </div>
@@ -800,14 +783,14 @@ function ApplicationSection() {
                     <CheckCircle size={30} style={{ color: "#16A34A" }} />
                   </div>
                   <div className="text-center">
-                    <div className="text-lg mb-2" style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: NEAR_BLACK }}>{t.successTitle}</div>
-                    <p className="text-sm" style={{ color: MUTED, lineHeight: 1.7 }}>
+                    <div className="eruty-card-title mb-2" style={{ color: NEAR_BLACK }}>{t.successTitle}</div>
+                    <p className="eruty-body-small" style={{ color: MUTED }}>
                       {t.successDesc.split("\n").map((line, i, arr) => (
                         <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
                       ))}
                     </p>
                   </div>
-                  <button onClick={handleReset} className="text-xs cursor-pointer" style={{ color: BLUE, fontFamily: "var(--font-mono)", background: "none", border: "none" }}>
+                  <button onClick={handleReset} className="eruty-body-small cursor-pointer" style={{ color: BLUE, background: "none", border: "none" }}>
                     {t.successRetry}
                   </button>
                 </motion.div>
@@ -875,7 +858,7 @@ function ApplicationSection() {
                     />
                     <div className="flex justify-between mt-1.5">
                       {errors.intro ? errorMsg(errors.intro) : <div />}
-                      <span style={{ fontSize: "0.72rem", color: MUTED, fontFamily: "var(--font-mono)" }}>{t.charCount(form.intro.length)}</span>
+                      <span className="eruty-meta eruty-meta--code" style={{ color: MUTED }}>{t.charCount(form.intro.length)}</span>
                     </div>
                   </div>
 
@@ -942,21 +925,21 @@ function ApplicationSection() {
           {/* 사이드 안내 */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             <div className="p-7" style={{ background: "#FFFFFF", border: `1px solid ${BORDER}` }}>
-              <div className="text-xs mb-4" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.sideInfoLabel}</div>
+              <div className="eruty-meta mb-4" style={{ color: MUTED }}>{t.sideInfoLabel}</div>
               <div className="flex flex-col gap-4">
                 {t.sideInfoItems.map((item) => (
                   <div key={item.q}>
-                    <div className="text-xs mb-1" style={{ fontFamily: "var(--font-mono)", color: NEAR_BLACK, fontWeight: 600 }}>{item.q}</div>
-                    <div className="text-xs" style={{ color: MUTED, lineHeight: 1.6 }}>{item.a}</div>
+                    <div className="eruty-body-small mb-1" style={{ color: NEAR_BLACK, fontWeight: 600 }}>{item.q}</div>
+                    <div className="eruty-body-small" style={{ color: MUTED }}>{item.a}</div>
                   </div>
                 ))}
               </div>
             </div>
             <div className="p-7" style={{ background: "#FFFFFF", border: `1px solid ${BORDER}` }}>
-              <div className="text-xs mb-4" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.lookingForLabel}</div>
+              <div className="eruty-meta mb-4" style={{ color: MUTED }}>{t.lookingForLabel}</div>
               <div className="flex flex-col gap-2">
                 {t.lookingForItems.map((item) => (
-                  <div key={item} className="flex items-start gap-2 text-xs" style={{ color: BODY_TEXT, lineHeight: 1.6 }}>
+                  <div key={item} className="eruty-body-small flex items-start gap-2" style={{ color: BODY_TEXT }}>
                     <div className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0" style={{ background: BLUE }} />
                     {item}
                   </div>
@@ -976,11 +959,11 @@ function CtaSection() {
   const { lang } = useLanguage();
   const t = T[lang];
   return (
-    <section className="py-28" style={{ background: NEAR_BLACK }}>
+    <section className="eruty-section-compact" style={{ background: NEAR_BLACK }}>
       <div className="eruty-container">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
           <div className="lg:col-span-7">
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.08, color: "#FFFFFF", letterSpacing: "-0.025em" }}>
+            <h2 className="eruty-section-title" style={{ color: "#FFFFFF" }}>
               {t.ctaHeadline.split("\n").map((line, i, arr) => (
                 <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
               ))}

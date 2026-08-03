@@ -14,6 +14,7 @@ import { buildStartProjectHref } from "../../data/inquiryOptions";
 import { type Lang, useLanguage } from "../../context/LanguageContext";
 import { PageContainer } from "../../components/PageContainer";
 import { PageHeading } from "../../components/PageHeading";
+import { SectionHeading } from "../../components/SectionHeading";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -352,20 +353,6 @@ function usePrefersReducedMotion() {
   return prefersReducedMotion;
 }
 
-function Eyebrow({ children, accent = true }: { children: string; accent?: boolean }) {
-  return (
-    <div
-      className="mb-4 text-[0.78rem] font-semibold uppercase tracking-[0.24em]"
-      style={{
-        color: accent ? BLUE : MUTED,
-        fontFamily: "var(--font-mono)",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
 function HeroSection() {
   const { lang } = useLanguage();
   const copy = COPY[lang];
@@ -433,18 +420,7 @@ function IdentitySection() {
         >
           <div className="grid gap-8 px-6 py-7 md:px-8 md:py-8 lg:grid-cols-[minmax(250px,300px)_1fr] lg:items-center lg:gap-10 lg:px-10">
             <div className="max-w-[18.75rem]">
-              <Eyebrow>{copy.identityLabel}</Eyebrow>
-              <h2
-                className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
-                style={{
-                  color: NEAR_BLACK,
-                  fontSize: "clamp(1.85rem, 2.45vw, 2.35rem)",
-                  lineHeight: 1.14,
-                  letterSpacing: "-0.04em",
-                }}
-              >
-                {renderMultilineText(copy.identityHeadline)}
-              </h2>
+              <SectionHeading eyebrow={copy.identityLabel} title={renderMultilineText(copy.identityHeadline)} lang={lang} compact />
             </div>
 
             <div
@@ -471,22 +447,17 @@ function IdentitySection() {
                       </span>
                     </div>
                     <div
-                      className="text-[0.8rem] uppercase"
+                      className={lang === "ko" ? "eruty-meta" : "eruty-meta eruty-meta--code"}
                       style={{
                         color: MUTED,
-                        fontFamily: "var(--font-mono)",
-                        letterSpacing: "0.07em",
-                        lineHeight: 1.4,
                       }}
                     >
                       {item.label[lang]}
                     </div>
                     <div
-                      className={`${lang === "ko" ? "eruty-keep-all" : ""} mt-2 font-[700] tracking-[-0.02em]`}
+                      className="eruty-card-title mt-2"
                       style={{
                         color: BLUE,
-                        fontSize: "clamp(1rem, 1.05vw, 1.125rem)",
-                        lineHeight: 1.45,
                       }}
                     >
                       {renderMultilineText(item.value[lang])}
@@ -509,35 +480,13 @@ function BeginningSection() {
   return (
     <section
       data-about-beginning
-      className="border-b py-20 md:py-24"
+      className="eruty-section border-b"
       style={{ borderColor: BORDER, background: "#FFFFFF" }}
     >
       <div className="eruty-container">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.03fr)_minmax(0,0.97fr)] lg:gap-16">
           <div className="max-w-[35rem]">
-            <Eyebrow>{copy.beginningLabel}</Eyebrow>
-            <h2
-              className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
-              style={{
-                color: NEAR_BLACK,
-                fontSize: "clamp(2.25rem, 3.7vw, 3.05rem)",
-                lineHeight: 1.12,
-                letterSpacing: "-0.04em",
-              }}
-            >
-              {renderMultilineText(copy.beginningHeadline)}
-            </h2>
-            <p
-              className={`mt-[29px] max-w-[33rem] ${lang === "ko" ? "eruty-keep-all" : ""}`}
-              style={{
-                color: BODY_TEXT,
-                whiteSpace: "pre-line",
-                fontSize: "clamp(0.96875rem, 1.08vw, 1.0625rem)",
-                lineHeight: 1.85,
-              }}
-            >
-              {copy.beginningDescription}
-            </p>
+            <SectionHeading eyebrow={copy.beginningLabel} title={renderMultilineText(copy.beginningHeadline)} description={copy.beginningDescription} lang={lang} compact />
           </div>
 
           <div className="lg:justify-self-end">
@@ -663,20 +612,18 @@ function JourneyCard({ entry, lang }: { entry: JourneyEntry; lang: Lang }) {
 
       <div className="flex flex-1 flex-col" style={{ padding: "22px 26px 28px" }}>
         <div
-          className="inline-flex max-w-full self-start overflow-hidden text-ellipsis whitespace-nowrap rounded-full px-3 py-[6px]"
+          className="eruty-meta inline-flex max-w-full self-start overflow-hidden text-ellipsis whitespace-nowrap rounded-full px-3 py-[6px]"
           style={{
             background: "rgba(55,55,242,0.08)",
             color: "#42516A",
-            fontSize: "0.765rem",
             fontWeight: 600,
-            lineHeight: 1.2,
           }}
         >
           {entry.tag[lang]}
         </div>
         <div
           data-journey-year
-          className="mt-4 font-[800] leading-none tracking-[-0.04em]"
+          className="eruty-metric-value mt-4"
           style={{
             color: BLUE,
             fontSize: "clamp(1.75rem, 2.1vw, 2rem)",
@@ -688,11 +635,9 @@ function JourneyCard({ entry, lang }: { entry: JourneyEntry; lang: Lang }) {
           {entry.items[lang].map((item) => (
             <li
               key={item}
-              className={`flex gap-[11px] ${lang === "ko" ? "eruty-keep-all" : ""}`}
+              className="eruty-body-small flex gap-[11px]"
               style={{
                 color: BODY_TEXT,
-                fontSize: "clamp(0.9375rem, 1.08vw, 1rem)",
-                lineHeight: 1.7,
               }}
             >
               <span
@@ -848,38 +793,18 @@ function JourneySection() {
   return (
     <section
       data-about-journey
-      className="overflow-hidden border-b py-20 md:py-24"
+      className="eruty-section overflow-hidden border-b"
       style={{ borderColor: BORDER, background: SOFT_BG }}
     >
       <div className="eruty-container">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-[34rem]">
-            <Eyebrow>{copy.journeyLabel}</Eyebrow>
-            <h2
-              className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
-              style={{
-                color: NEAR_BLACK,
-                fontSize: "clamp(2.25rem, 3.3vw, 3rem)",
-                lineHeight: 1.1,
-                letterSpacing: "-0.045em",
-              }}
-            >
-              {copy.journeyHeadline}
-            </h2>
-          </div>
-
-          <div className="flex max-w-[25rem] flex-col gap-4 lg:items-end lg:text-right">
-            <p
-              className={`${lang === "ko" ? "eruty-keep-all" : ""}`}
-              style={{
-                color: BODY_TEXT,
-                fontSize: "0.9375rem",
-                lineHeight: 1.7,
-              }}
-            >
-              {copy.journeyInstruction}
-            </p>
-            <div className="flex items-center gap-3 lg:justify-end">
+        <SectionHeading
+          eyebrow={copy.journeyLabel}
+          title={copy.journeyHeadline}
+          description={copy.journeyInstruction}
+          align="center"
+          lang={lang}
+          action={
+            <div className="flex items-center justify-center gap-3">
               <button
                 type="button"
                 data-journey-prev
@@ -911,10 +836,10 @@ function JourneySection() {
                 <ArrowRight size={19} />
               </button>
             </div>
-          </div>
-        </div>
+          }
+        />
 
-        <div className="mt-10">
+        <div>
           <div
             ref={scrollerRef}
             data-journey-scroller
@@ -1002,15 +927,7 @@ function CtaSection() {
 
           <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-[38rem]">
-              <h2
-                className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
-                style={{
-                  color: "#FFFFFF",
-                  fontSize: "clamp(2.15rem, 3.2vw, 2.75rem)",
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.042em",
-                }}
-              >
+              <h2 className="eruty-section-title" style={{ color: "#FFFFFF" }}>
                 {copy.ctaHeadline}
               </h2>
             </div>

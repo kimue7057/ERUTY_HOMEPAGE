@@ -449,7 +449,7 @@ export function HitpickBlockchainTrust() {
       <div className="hp-shell hp-blockchain-grid">
         <header className="hp-blockchain-copy">
           <motion.span
-            className="hp-eyebrow"
+className="hp-eyebrow hp-eyebrow-code"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
             transition={{ duration: 0.5, ease: REVEAL_EASE }}

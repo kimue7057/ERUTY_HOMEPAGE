@@ -122,7 +122,7 @@ export function HitpickExecution() {
     <section ref={sectionRef} className="hp-section hp-execution" aria-labelledby="hp-execution-title">
       <div className="hp-shell">
         <header className="hp-heading hp-execution-heading">
-          <span className="hp-eyebrow">{t.executionLabel}</span>
+          <span className="hp-eyebrow hp-eyebrow-code">{t.executionLabel}</span>
           <h2 id="hp-execution-title" className="hp-display">{t.executionHeading}</h2>
           <p>{t.executionDescription}</p>
         </header>

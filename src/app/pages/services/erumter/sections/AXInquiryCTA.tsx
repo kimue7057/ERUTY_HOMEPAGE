@@ -21,7 +21,7 @@ export function AXInquiryCTA() {
       <div className="er-final-shade" />
       <div className="er-container er-final-inner">
         <Reveal>
-          <span className="er-kicker er-kicker-light">{t.eyebrow}</span>
+          <span className="er-kicker er-kicker-light er-kicker-code">{t.eyebrow}</span>
           <h2 id="er-final-title">{t.title}</h2>
           <p>{t.description}</p>
           <Link className="er-button er-button-primary" to={inquiryHref}>

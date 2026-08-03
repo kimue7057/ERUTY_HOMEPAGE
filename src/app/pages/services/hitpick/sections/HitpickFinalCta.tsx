@@ -13,7 +13,7 @@ export function HitpickFinalCta() {
       <img src="/images/services/hitpick/cta-global-network.webp" alt="" aria-hidden="true" loading="lazy" />
       <div className="hp-final-cta-overlay" aria-hidden="true" />
       <div className="hp-shell hp-final-cta-content">
-        <span className="hp-eyebrow hp-eyebrow-light">{t.ctaLabel}</span>
+        <span className="hp-eyebrow hp-eyebrow-light hp-eyebrow-code">{t.ctaLabel}</span>
         <h2 id="hp-cta-title" className="hp-display">{t.ctaHeading}</h2>
         <p>{t.ctaDescription}</p>
         <Link className="hp-button hp-button-light" to={buildStartProjectHref("hitpick", "global-expansion")}>

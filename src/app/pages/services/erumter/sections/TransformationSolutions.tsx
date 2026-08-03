@@ -11,7 +11,7 @@ export function TransformationSolutions() {
     <section className="er-section er-solutions" aria-labelledby="er-solutions-title">
       <div className="er-container">
         <Reveal className="er-solutions-intro">
-          <span className="er-kicker">{t.eyebrow}</span>
+          <span className="er-kicker er-kicker-code">{t.eyebrow}</span>
           <h2 id="er-solutions-title">{t.title}</h2>
           <p>{t.description}</p>
         </Reveal>

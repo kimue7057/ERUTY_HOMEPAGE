@@ -25,7 +25,7 @@
 }
 
 .hp-section {
-  padding-block: 144px;
+  padding-block: var(--eruty-section-space);
   border-bottom: 1px solid #e3e6ec;
 }
 
@@ -33,11 +33,18 @@
   display: inline-block;
   margin-bottom: 20px;
   color: #3737f2;
+  font-family: var(--font-body);
+  font-size: var(--eruty-meta-size);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.hp-eyebrow-code {
   font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 760;
-  letter-spacing: 0.15em;
-  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .hp-eyebrow-light {
@@ -50,8 +57,8 @@
   font-family: var(--font-display);
   font-size: var(--eruty-section-title-size);
   font-weight: 790;
-  letter-spacing: -0.055em;
-  line-height: 1.04;
+  letter-spacing: -0.035em;
+  line-height: 1.18;
   white-space: normal;
   word-break: keep-all;
   overflow-wrap: break-word;
@@ -59,16 +66,16 @@
 }
 
 .hp-heading {
-  max-width: 1040px;
-  margin-bottom: 72px;
+  max-width: var(--eruty-section-heading-max);
+  margin-bottom: var(--eruty-section-content-gap);
 }
 
 .hp-heading > p {
   max-width: 760px;
-  margin: 28px 0 0;
+  margin: 18px 0 0;
   color: #60656f;
-  font-size: 1.1rem;
-  line-height: 1.82;
+  font-size: var(--eruty-lead-size);
+  line-height: var(--eruty-copy-line-height);
   word-break: keep-all;
 }
 
@@ -224,8 +231,8 @@
 .hp-intro-copy p {
   margin: 0 0 32px;
   color: #50555f;
-  font-size: 1.16rem;
-  line-height: 1.9;
+  font-size: var(--eruty-lead-size);
+  line-height: var(--eruty-copy-line-height);
   word-break: keep-all;
 }
 
@@ -411,17 +418,18 @@
 .hp-card-body h3 {
   margin: 16px 0 14px;
   color: #17191f;
-  font-family: var(--font-display);
-  font-size: 2.15rem;
-  font-weight: 780;
-  letter-spacing: -0.045em;
+  font-family: var(--font-body);
+  font-size: var(--eruty-card-title-size);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.4;
 }
 
 .hp-card-body > p {
   min-height: 82px;
   margin: 0;
   color: #656a74;
-  font-size: 0.96rem;
+  font-size: var(--eruty-card-body-size);
   line-height: 1.72;
   word-break: keep-all;
 }
@@ -475,32 +483,33 @@
 
 /* Technology */
 .hp-tech {
-  padding-block: 108px;
+  padding-block: var(--eruty-section-space);
   background: #071022;
   color: #fff;
 }
 
 .hp-tech-heading {
-  display: grid;
-  margin-bottom: 52px;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.55fr);
-  align-items: end;
-  gap: 72px;
+  max-width: 900px;
+  margin: 0 auto var(--eruty-section-content-gap);
+  text-align: center;
 }
 
 .hp-tech-heading h2 {
   margin: 0;
   color: #fff;
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 4vw, 4.8rem);
-  font-weight: 780;
-  letter-spacing: -0.05em;
+  font-size: var(--eruty-section-title-size);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.18;
 }
 
 .hp-tech-heading > p {
-  margin: 0;
+  max-width: 720px;
+  margin: 18px auto 0;
   color: rgba(255, 255, 255, 0.54);
-  line-height: 1.8;
+  font-size: var(--eruty-lead-size);
+  line-height: var(--eruty-copy-line-height);
 }
 
 .hp-tech-flow {
@@ -543,15 +552,15 @@
 .hp-tech-flow h3 {
   margin: 0 0 12px;
   color: #fff;
-  font-size: 1rem;
+  font-size: var(--eruty-card-title-size);
   font-weight: 700;
 }
 
 .hp-tech-flow p {
   margin: 0;
   color: rgba(255, 255, 255, 0.48);
-  font-size: 0.78rem;
-  line-height: 1.65;
+  font-size: var(--eruty-body-small-size);
+  line-height: 1.68;
   word-break: keep-all;
 }
 
@@ -599,10 +608,10 @@
   margin: 0;
   color: #101d35;
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 2.72vw, 3.55rem);
-  font-weight: 790;
-  letter-spacing: -0.06em;
-  line-height: 1.1;
+  font-size: var(--eruty-section-title-size);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.18;
   word-break: keep-all;
 }
 
@@ -612,14 +621,14 @@
 }
 
 .hp-blockchain-copy h2 > span:last-child {
-  font-size: 0.88em;
+  font-size: 1em;
 }
 
 .hp-blockchain-copy p {
   margin: 28px 0 20px;
   color: #606979;
-  font-size: 1.04rem;
-  line-height: 1.82;
+  font-size: var(--eruty-body-size);
+  line-height: var(--eruty-copy-line-height);
   white-space: pre-line;
   word-break: keep-all;
 }
@@ -1290,10 +1299,11 @@
 .hp-signal-panel-header h3 {
   margin: 8px 0 0;
   color: #17191e;
-  font-family: var(--font-display);
-  font-size: 2.6rem;
-  font-weight: 780;
-  letter-spacing: -0.045em;
+  font-family: var(--font-body);
+  font-size: var(--eruty-subsection-title-size);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
 }
 
 .hp-monitoring-badge {
@@ -1401,7 +1411,13 @@
 }
 
 .hp-partner-heading {
-  max-width: 1080px;
+  max-width: 900px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.hp-partner-heading > p {
+  margin-inline: auto;
 }
 
 .hp-network-board {
@@ -1472,7 +1488,8 @@
 
 .hp-role-node strong {
   color: #2c3038;
-  font-size: 0.9rem;
+  font-size: var(--eruty-body-small-size);
+  line-height: 1.68;
 }
 
 .hp-role-node i {
@@ -1551,18 +1568,21 @@
   font-weight: 800;
   letter-spacing: -0.06em;
   line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .hp-metrics h3 {
   margin: 0 0 8px;
   color: #1d2026;
-  font-size: 1rem;
+  font-size: var(--eruty-card-title-size);
+  line-height: 1.4;
 }
 
 .hp-metrics p {
   margin: 0;
   color: #7a808a;
-  font-size: 0.78rem;
+  font-size: var(--eruty-body-small-size);
+  line-height: 1.68;
 }
 
 /* Final CTA */
@@ -1604,8 +1624,8 @@
   max-width: 610px;
   margin: 28px 0 36px;
   color: rgba(255, 255, 255, 0.62);
-  font-size: 1rem;
-  line-height: 1.85;
+  font-size: var(--eruty-body-size);
+  line-height: var(--eruty-copy-line-height);
   word-break: keep-all;
 }
 
@@ -1635,7 +1655,7 @@
 
 @media (max-width: 1100px) {
   .hp-section {
-    padding-block: 112px;
+    padding-block: var(--eruty-section-space);
   }
 
   .hp-intro-grid {
@@ -1705,11 +1725,11 @@
   }
 
   .hp-section {
-    padding-block: 84px;
+    padding-block: var(--eruty-section-space);
   }
 
   .hp-display {
-    line-height: 1.08;
+    line-height: 1.18;
   }
 
   .hp-heading {
@@ -1717,9 +1737,7 @@
   }
 
   .hp-heading > p {
-    margin-top: 22px;
-    font-size: 0.96rem;
-    line-height: 1.75;
+    margin-top: 18px;
   }
 
   .hp-heading-row {
@@ -1830,10 +1848,6 @@
     padding: 28px 26px 30px;
   }
 
-  .hp-card-body h3 {
-    font-size: 1.8rem;
-  }
-
   .hp-card-body > p {
     min-height: 0;
   }
@@ -1843,7 +1857,7 @@
   }
 
   .hp-tech {
-    padding-block: 82px;
+    padding-block: var(--eruty-section-space);
   }
 
   .hp-tech-heading {
@@ -1851,13 +1865,8 @@
     margin-bottom: 38px;
   }
 
-  .hp-tech-heading h2 {
-    font-size: 2.45rem;
-  }
-
   .hp-tech-heading > p {
-    margin-top: 22px;
-    font-size: 0.9rem;
+    margin-top: 18px;
   }
 
   .hp-tech-flow {
@@ -1870,11 +1879,6 @@
     min-height: 250px;
   }
 
-  .hp-blockchain-copy h2 {
-    font-size: clamp(2.35rem, 10vw, 3.55rem);
-    line-height: 1.12;
-  }
-
   .hp-blockchain-copy h2 > span {
     white-space: normal;
   }
@@ -1885,7 +1889,6 @@
 
   .hp-blockchain-copy p {
     margin-block: 24px 18px;
-    font-size: 0.96rem;
   }
 
   .hp-blockchain-keywords {
@@ -2017,10 +2020,6 @@
 
   .hp-signal-panel-header {
     display: block;
-  }
-
-  .hp-signal-panel-header h3 {
-    font-size: 2rem;
   }
 
   .hp-monitoring-badge {

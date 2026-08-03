@@ -66,18 +66,25 @@ main:has(.erumter-page) + footer > div {
 }
 
 .er-section {
-  padding: 148px 0;
+  padding: var(--eruty-section-space) 0;
 }
 
 .er-kicker {
   display: inline-block;
   margin-bottom: 22px;
   color: var(--er-blue);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-family: var(--font-body);
+  font-size: var(--eruty-meta-size);
   font-weight: 700;
-  letter-spacing: 0.17em;
-  line-height: 1.4;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.er-kicker-code,
+.er-hero .er-kicker {
+  font-family: var(--font-mono);
+  letter-spacing: 0.15em;
   text-transform: uppercase;
 }
 
@@ -343,9 +350,10 @@ main:has(.erumter-page) + footer > div {
 .er-solutions-intro h2,
 .er-comparison-intro h2,
 .er-final-inner h2 {
-  font-size: clamp(2.35rem, 4.2vw, 4.35rem);
-  font-weight: 650;
-  line-height: 1.15;
+  font-size: var(--eruty-section-title-size);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.18;
 }
 
 .er-section-copy > p,
@@ -353,10 +361,10 @@ main:has(.erumter-page) + footer > div {
 .er-education-copy > p,
 .er-solutions-intro > p,
 .er-final-inner p {
-  margin-top: 28px;
+  margin-top: 18px;
   color: var(--er-muted);
-  font-size: 1rem;
-  line-height: 1.8;
+  font-size: var(--eruty-body-size);
+  line-height: var(--eruty-copy-line-height);
   word-break: keep-all;
 }
 
@@ -448,20 +456,20 @@ main:has(.erumter-page) + footer > div {
 }
 
 .er-process-intro {
-  display: grid;
-  grid-template-columns: 1.05fr 0.7fr;
-  align-items: end;
-  gap: 80px;
+  max-width: 900px;
+  margin-inline: auto;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  padding-bottom: 72px;
+  padding-bottom: var(--eruty-section-content-gap);
+  text-align: center;
 }
 
 .er-process-intro .er-kicker {
-  grid-column: 1 / -1;
-  margin-bottom: -45px;
+  margin-bottom: 16px;
 }
 
 .er-process-intro > p {
+  max-width: 720px;
+  margin-inline: auto;
   color: rgba(255, 255, 255, 0.54);
 }
 
@@ -525,17 +533,18 @@ main:has(.erumter-page) + footer > div {
 }
 
 .er-process-step h3 {
-  font-size: clamp(2.45rem, 4vw, 4.15rem);
-  font-weight: 620;
-  line-height: 1;
+  font-size: var(--eruty-subsection-title-size);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
 }
 
 .er-process-step > p {
   max-width: 470px;
   margin-top: 25px;
   color: rgba(255, 255, 255, 0.72);
-  font-size: 1.02rem;
-  line-height: 1.75;
+  font-size: var(--eruty-body-size);
+  line-height: var(--eruty-copy-line-height);
   word-break: keep-all;
 }
 
@@ -732,20 +741,18 @@ main:has(.erumter-page) + footer > div {
 }
 
 .er-solutions-intro {
-  display: grid;
-  grid-template-columns: 1fr 0.72fr;
-  align-items: end;
-  gap: 90px;
-  margin-bottom: 76px;
+  max-width: 900px;
+  margin: 0 auto var(--eruty-section-content-gap);
+  text-align: center;
 }
 
 .er-solutions-intro .er-kicker {
-  grid-column: 1 / -1;
-  margin-bottom: -52px;
+  margin-bottom: 16px;
 }
 
 .er-solutions-intro > p {
-  margin-top: 0;
+  max-width: 720px;
+  margin: 18px auto 0;
 }
 
 .er-solutions-grid {
@@ -836,9 +843,10 @@ main:has(.erumter-page) + footer > div {
 }
 
 .er-solution-body h3 {
-  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
-  font-weight: 650;
-  line-height: 1.25;
+  font-size: var(--eruty-card-title-size);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.4;
 }
 
 .er-solution-body ul {
@@ -854,8 +862,8 @@ main:has(.erumter-page) + footer > div {
 .er-solution-body li {
   position: relative;
   padding-left: 12px;
-  font-size: 0.82rem;
-  line-height: 1.55;
+  font-size: var(--eruty-body-small-size);
+  line-height: 1.68;
 }
 
 .er-solution-body li::before {
@@ -875,7 +883,9 @@ main:has(.erumter-page) + footer > div {
 }
 
 .er-comparison-intro {
-  margin-bottom: 64px;
+  max-width: 900px;
+  margin: 0 auto var(--eruty-section-content-gap);
+  text-align: center;
 }
 
 .er-comparison-grid {
@@ -940,8 +950,8 @@ main:has(.erumter-page) + footer > div {
   gap: 11px;
   border-bottom: 1px solid var(--er-line);
   color: #434a55;
-  font-size: 0.83rem;
-  line-height: 1.5;
+  font-size: var(--eruty-body-small-size);
+  line-height: 1.68;
 }
 
 .er-compare-panel li:last-child {
@@ -1037,21 +1047,11 @@ main:has(.erumter-page) + footer > div {
   }
 
   .er-section {
-    padding: 96px 0;
+    padding: var(--eruty-section-space) 0;
   }
 
   .er-kicker {
     margin-bottom: 17px;
-  }
-
-  .er-section-copy h2,
-  .er-process-intro h2,
-  .er-education-copy h2,
-  .er-solutions-intro h2,
-  .er-comparison-intro h2,
-  .er-final-inner h2 {
-    font-size: clamp(2.25rem, 9vw, 3.35rem);
-    line-height: 1.17;
   }
 
   .er-hero {
@@ -1154,7 +1154,14 @@ main:has(.erumter-page) + footer > div {
   .er-process-intro,
   .er-solutions-intro {
     display: block;
-    padding-bottom: 56px;
+  }
+
+  .er-process-intro {
+    padding-bottom: var(--eruty-section-content-gap);
+  }
+
+  .er-solutions-intro {
+    padding-bottom: 0;
   }
 
   .er-process-intro .er-kicker,
@@ -1180,10 +1187,6 @@ main:has(.erumter-page) + footer > div {
   .er-process-step-line,
   .er-process-sticky {
     display: none;
-  }
-
-  .er-process-step h3 {
-    font-size: clamp(2.45rem, 12vw, 3.5rem);
   }
 
   .er-process-step > p {
@@ -1243,7 +1246,7 @@ main:has(.erumter-page) + footer > div {
   }
 
   .er-solutions-intro {
-    margin-bottom: 0;
+    margin-bottom: var(--eruty-section-content-gap);
   }
 
   .er-solutions-grid {
@@ -1282,7 +1285,7 @@ main:has(.erumter-page) + footer > div {
 
 @media (max-width: 520px) {
   .er-section {
-    padding: 84px 0;
+    padding: var(--eruty-section-space) 0;
   }
 
   .er-hero {

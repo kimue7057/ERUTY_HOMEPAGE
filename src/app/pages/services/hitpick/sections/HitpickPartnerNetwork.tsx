@@ -35,7 +35,7 @@ export function HitpickPartnerNetwork() {
     <section className="hp-section hp-partners" aria-labelledby="hp-partners-title">
       <div className="hp-shell">
         <header className="hp-heading hp-partner-heading">
-          <span className="hp-eyebrow">{t.partnerLabel}</span>
+          <span className="hp-eyebrow hp-eyebrow-code">{t.partnerLabel}</span>
           <h2 id="hp-partners-title" className="hp-display">{t.partnerHeading}</h2>
           <p>{t.partnerDescription}</p>
         </header>

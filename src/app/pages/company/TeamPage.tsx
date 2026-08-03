@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { type Lang, useLanguage } from "../../context/LanguageContext";
 import { PageContainer } from "../../components/PageContainer";
 import { PageHeading } from "../../components/PageHeading";
+import { SectionHeading } from "../../components/SectionHeading";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -360,33 +361,9 @@ function LeaderDetailMedia({ leaderId, name, lang, fallbackLabel }: { leaderId: 
       >
         {getInitials(name)}
       </div>
-      <div className="text-center" style={{ color: MUTED, fontSize: "0.86rem", lineHeight: 1.7, fontFamily: "var(--font-mono)" }}>
+      <div className="eruty-body-small text-center" style={{ color: MUTED }}>
         {fallbackLabel}
       </div>
-    </div>
-  );
-}
-
-function SectionIntro({ label, title, desc }: { label: string; title: string; desc: string }) {
-  return (
-    <div className="flex flex-col gap-4 max-w-[760px]">
-      <div className="text-xs tracking-[0.24em] uppercase" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}>
-        {label}
-      </div>
-      <h2
-        style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 800,
-          fontSize: "clamp(1.9rem, 3vw, 3rem)",
-          lineHeight: 1.08,
-          letterSpacing: "-0.03em",
-          color: NEAR_BLACK,
-          whiteSpace: "pre-line",
-        }}
-      >
-        {title}
-      </h2>
-      <p style={{ color: BODY_TEXT, fontSize: "1rem", lineHeight: 1.82, maxWidth: 720 }}>{desc}</p>
     </div>
   );
 }
@@ -474,10 +451,10 @@ function LeadershipSection() {
 
   return (
     <section data-team-leadership style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-      <div className="eruty-container py-18 sm:py-20">
-        <SectionIntro label={t.leadershipLabel} title={t.leadershipHeadline} desc={t.leadershipDesc} />
+      <div className="eruty-container eruty-section">
+        <SectionHeading eyebrow={t.leadershipLabel} title={t.leadershipHeadline} description={t.leadershipDesc} align="center" lang={lang} />
 
-        <div ref={detailRef} className="mt-10 sm:mt-12">
+        <div ref={detailRef}>
           <AnimatePresence mode="wait">
             <motion.div
               key={leader.id}
@@ -504,51 +481,42 @@ function LeadershipSection() {
 
               <div className="lg:col-span-8 p-6 sm:p-8 lg:p-10 flex flex-col gap-8">
                 <div className="flex flex-col gap-4">
-                  <div className="text-xs tracking-[0.24em] uppercase" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}>
+                  <div className={lang === "ko" ? "eruty-eyebrow-ko" : "eruty-eyebrow-en"} style={{ color: BLUE }}>
                     {t.leadershipProfileLabel}
                   </div>
                   <div className="flex flex-col gap-2">
-                    <h3
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontWeight: 800,
-                        fontSize: "clamp(1.8rem, 2.2vw, 2.7rem)",
-                        lineHeight: 1.05,
-                        letterSpacing: "-0.03em",
-                        color: NEAR_BLACK,
-                      }}
-                    >
+                    <h3 className="eruty-subsection-title" style={{ color: NEAR_BLACK }}>
                       {leader.name[lang]}
                     </h3>
-                    <p style={{ color: BLUE, fontSize: "0.95rem", lineHeight: 1.6, fontFamily: "var(--font-mono)" }}>{leader.title[lang]}</p>
-                    <p style={{ color: BODY_TEXT, fontSize: "1rem", lineHeight: 1.84 }}>{leader.intro[lang]}</p>
+                    <p className="eruty-body-small" style={{ color: BLUE, fontWeight: 600 }}>{leader.title[lang]}</p>
+                    <p className="eruty-body" style={{ color: BODY_TEXT }}>{leader.intro[lang]}</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 pt-6" style={{ borderTop: `1px solid ${BORDER}` }}>
                   <div className="flex flex-col gap-4">
-                    <div className="text-xs tracking-[0.22em] uppercase" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>
+                    <div className={lang === "ko" ? "eruty-meta font-semibold" : "eruty-meta eruty-meta--code font-semibold"} style={{ color: MUTED }}>
                       {t.focusAreasLabel}
                     </div>
                     <div className="flex flex-col gap-3">
                       {leader.focusAreas[lang].map((item) => (
                         <div key={item} className="flex items-start gap-3">
                           <div className="w-2 h-2 rounded-full mt-2" style={{ background: BLUE, flexShrink: 0 }} />
-                          <p style={{ color: BODY_TEXT, fontSize: "0.97rem", lineHeight: 1.72 }}>{item}</p>
+                          <p className="eruty-body-small" style={{ color: BODY_TEXT }}>{item}</p>
                         </div>
                       ))}
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-4">
-                    <div className="text-xs tracking-[0.22em] uppercase" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>
+                    <div className={lang === "ko" ? "eruty-meta font-semibold" : "eruty-meta eruty-meta--code font-semibold"} style={{ color: MUTED }}>
                       {t.keyScopeLabel}
                     </div>
                     <div className="flex flex-col gap-3">
                       {leader.keyScope[lang].map((item) => (
                         <div key={item} className="flex items-start gap-3">
                           <div className="w-2 h-2 rounded-full mt-2" style={{ background: BORDER, flexShrink: 0 }} />
-                          <p style={{ color: BODY_TEXT, fontSize: "0.97rem", lineHeight: 1.72 }}>{item}</p>
+                          <p className="eruty-body-small" style={{ color: BODY_TEXT }}>{item}</p>
                         </div>
                       ))}
                     </div>
@@ -581,30 +549,20 @@ function LeadershipSection() {
 
                   <div className="flex-1 min-w-0 flex flex-col gap-2">
                     <div className="flex flex-col gap-1">
-                      <div
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontWeight: 700,
-                          fontSize: "1.08rem",
-                          color: NEAR_BLACK,
-                          lineHeight: 1.2,
-                        }}
-                      >
+                      <div className="eruty-card-title" style={{ color: NEAR_BLACK }}>
                         {item.name[lang]}
                       </div>
                       <div
+                        className="eruty-meta"
                         style={{
                           color: isActive ? BLUE : MUTED,
-                          fontFamily: "var(--font-mono)",
-                          fontSize: "0.78rem",
-                          lineHeight: 1.5,
                         }}
                       >
                         {item.title[lang]}
                       </div>
                     </div>
 
-                    <p style={{ color: BODY_TEXT, fontSize: "0.94rem", lineHeight: 1.72 }}>{item.summary[lang]}</p>
+                    <p className="eruty-body-small" style={{ color: BODY_TEXT }}>{item.summary[lang]}</p>
                   </div>
                 </div>
               </button>
@@ -622,10 +580,10 @@ function HowWeWorkSection() {
 
   return (
     <section data-team-how-we-work style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="eruty-container py-18 sm:py-20">
-        <SectionIntro label={t.howWorkLabel} title={t.howWorkHeadline} desc={t.howWorkDesc} />
+      <div className="eruty-container eruty-section">
+        <SectionHeading eyebrow={t.howWorkLabel} title={t.howWorkHeadline} description={t.howWorkDesc} align="center" lang={lang} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 mt-10 sm:mt-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5">
           {HOW_WE_WORK_PILLARS.map((pillar) => (
             <div
               key={pillar.id}
@@ -638,29 +596,21 @@ function HowWeWorkSection() {
             >
               <div className="flex flex-col gap-5 h-full">
                 <div className="flex items-center justify-between gap-4">
-                  <span style={{ color: BLUE, fontFamily: "var(--font-mono)", fontSize: "0.8rem", fontWeight: 600 }}>{pillar.number}</span>
+                  <span className="eruty-meta eruty-meta--code" style={{ color: BLUE, fontWeight: 600 }}>{pillar.number}</span>
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 700,
-                      fontSize: "1.3rem",
-                      lineHeight: 1.15,
-                      color: NEAR_BLACK,
-                    }}
-                  >
+                  <h3 className="eruty-card-title" style={{ color: NEAR_BLACK }}>
                     {pillar.title[lang]}
                   </h3>
-                  <p style={{ color: BODY_TEXT, fontSize: "0.97rem", lineHeight: 1.8 }}>{pillar.desc[lang]}</p>
+                  <p className="eruty-body-small" style={{ color: BODY_TEXT }}>{pillar.desc[lang]}</p>
                 </div>
 
                 <div className="flex flex-wrap gap-2 mt-auto pt-3">
                   {pillar.tags[lang].map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1.5 text-xs"
+                      className="eruty-meta px-3 py-1.5"
                       style={{
                         borderRadius: 999,
                         background: "#FFFFFF",
@@ -686,21 +636,11 @@ function CtaSection() {
   const t = TEXT[lang];
 
   return (
-    <section className="py-24 sm:py-28" style={{ background: NEAR_BLACK }}>
+    <section className="eruty-section-compact" style={{ background: NEAR_BLACK }}>
       <div className="eruty-container">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end">
           <div className="lg:col-span-7">
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 800,
-                fontSize: "clamp(2rem, 4vw, 3.5rem)",
-                lineHeight: 1.08,
-                color: "#FFFFFF",
-                letterSpacing: "-0.025em",
-                whiteSpace: "pre-line",
-              }}
-            >
+            <h2 className="eruty-section-title eruty-preline-desktop" style={{ color: "#FFFFFF" }}>
               {t.ctaHeadline}
             </h2>
           </div>

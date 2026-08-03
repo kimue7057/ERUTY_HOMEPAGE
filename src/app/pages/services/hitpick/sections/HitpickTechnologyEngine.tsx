@@ -13,7 +13,7 @@ export function HitpickTechnologyEngine() {
       <div className="hp-shell">
         <header className="hp-tech-heading">
           <div>
-            <span className="hp-eyebrow hp-eyebrow-light">TECHNOLOGY FOUNDATION</span>
+<span className="hp-eyebrow hp-eyebrow-light hp-eyebrow-code">TECHNOLOGY FOUNDATION</span>
             <h2 id="hp-tech-title">{t.technologyEngine}</h2>
           </div>
           <p>{t.technologyDescription}</p>

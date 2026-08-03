@@ -12,7 +12,7 @@ export function BeforeAfter() {
     <section className="er-section er-comparison" aria-labelledby="er-comparison-title">
       <div className="er-container">
         <Reveal className="er-comparison-intro">
-          <span className="er-kicker">{t.eyebrow}</span>
+          <span className="er-kicker er-kicker-code">{t.eyebrow}</span>
           <h2 id="er-comparison-title">{t.title}</h2>
         </Reveal>
 
