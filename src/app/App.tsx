@@ -36,10 +36,10 @@ const TeamPage = lazy(async () => ({
   default: (await import("./pages/company/TeamPage")).TeamPage,
 }));
 const ErumterPage = lazy(async () => ({
-  default: (await import("./pages/services/ErumterPage")).ErumterPage,
+  default: (await import("./pages/services/erumter/ErumterPage")).ErumterPage,
 }));
 const HitpickPage = lazy(async () => ({
-  default: (await import("./pages/services/HitpickPage")).HitpickPage,
+  default: (await import("./pages/services/hitpick/HitpickPage")).HitpickPage,
 }));
 
 function ScrollToTop() {
