@@ -3,6 +3,8 @@ import { Link } from "react-router";
 import { ArrowRight, ArrowUpRight, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { type Lang, useLanguage } from "../../context/LanguageContext";
+import { PageContainer } from "../../components/PageContainer";
+import { PageHeading } from "../../components/PageHeading";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -503,38 +505,20 @@ function HeroSection({ prefersReducedMotion }: { prefersReducedMotion: boolean }
       style={{ borderColor: BORDER }}
       {...getRevealProps(prefersReducedMotion)}
     >
-      <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
-        <div className="relative py-16 md:py-20 lg:py-24">
-          <div className="relative z-10 max-w-[38rem]">
-            <Eyebrow>{copy.heroEyebrow}</Eyebrow>
-            <h1
-              className={`font-[800] tracking-[-0.045em] ${
-                lang === "ko" ? "eruty-keep-all" : ""
-              }`}
-              style={{
-                color: NEAR_BLACK,
-                fontSize: "clamp(2.75rem, 5vw, 4.5rem)",
-                lineHeight: 1.06,
-              }}
-            >
-              {copy.heroHeadline}
-            </h1>
-            <p
-              className={`mt-7 max-w-[35rem] ${
-                lang === "ko" ? "eruty-keep-all" : ""
-              }`}
-              style={{
-                color: BODY_TEXT,
-                fontSize: "clamp(0.96875rem, 1.08vw, 1.0625rem)",
-                lineHeight: 1.82,
-              }}
-            >
-              {copy.heroDescription}
-            </p>
+      <PageContainer>
+        <div className="relative eruty-hero-section">
+          <div className="relative z-10">
+            <PageHeading
+              eyebrow={copy.heroEyebrow}
+              title={copy.heroHeadline}
+              description={copy.heroDescription}
+              align="center"
+              lang={lang}
+            />
           </div>
           <HeroPattern />
         </div>
-      </div>
+      </PageContainer>
     </motion.section>
   );
 }
@@ -1735,7 +1719,7 @@ export function GrowthPage() {
   }
 
   return (
-    <div className="overflow-hidden bg-white pt-16">
+    <div className="overflow-hidden bg-white">
       <HeroSection prefersReducedMotion={prefersReducedMotion} />
       <FeaturedProjectSection
         project={FEATURED_PROJECT}

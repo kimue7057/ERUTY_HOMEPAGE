@@ -55,7 +55,7 @@ function ScrollToTop() {
 function RouteFallback() {
   return (
     <div
-      className="flex min-h-[calc(100vh-76px)] items-center justify-center px-6"
+      className="flex min-h-[calc(100vh-var(--eruty-header-height))] items-center justify-center px-6"
       style={{ background: "#FFFFFF" }}
     >
       <div
@@ -73,7 +73,7 @@ function AppLayout() {
     <div style={{ minHeight: "100vh", background: "#FFFFFF" }}>
       <ScrollToTop />
       <Header />
-      <main>
+      <main style={{ paddingTop: "var(--eruty-header-height)" }}>
         <Suspense fallback={<RouteFallback />}>
           <Outlet />
         </Suspense>

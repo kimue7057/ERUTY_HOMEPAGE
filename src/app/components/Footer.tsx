@@ -106,7 +106,7 @@ export function Footer() {
 
   return (
     <footer style={{ background: NEAR_BLACK }}>
-      <div className="mx-auto px-8 pt-16 pb-8" style={{ maxWidth: 1280 }}>
+      <div className="eruty-container pb-8 pt-16">
         {/* 상단 */}
         <div className="grid grid-cols-12 gap-8 pb-14" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
           {/* 브랜드 */}

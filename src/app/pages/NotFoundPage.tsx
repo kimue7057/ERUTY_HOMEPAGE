@@ -27,10 +27,10 @@ export function NotFoundPage() {
 
   return (
     <section
-      className="flex min-h-[calc(100vh-64px)] items-center"
+      className="flex min-h-[calc(100vh-var(--eruty-header-height))] items-center"
       style={{ background: "#FFFFFF" }}
     >
-      <div className="mx-auto flex max-w-[1440px] flex-col gap-8 px-8 py-20">
+      <div className="eruty-container flex flex-col gap-8 py-20">
         <div
           className="inline-flex w-fit items-center border px-3 py-1.5 text-xs uppercase tracking-[0.24em]"
           style={{ color: "#3737F2", borderColor: "rgba(55,55,242,0.25)" }}
@@ -38,17 +38,7 @@ export function NotFoundPage() {
           {t.badge}
         </div>
         <div className="max-w-2xl">
-          <h1
-            className="mb-4"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.6rem, 6vw, 4.5rem)",
-              fontWeight: 800,
-              color: "#18191B",
-              lineHeight: 1.05,
-              letterSpacing: "-0.03em",
-            }}
-          >
+          <h1 className="eruty-page-title mb-4" style={{ color: "#18191B" }}>
             {t.heading}
           </h1>
           <p

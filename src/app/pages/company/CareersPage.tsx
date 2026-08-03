@@ -6,6 +6,8 @@ import { useLanguage } from "../../context/LanguageContext";
 import { openPositions as _openPositions } from "../../data/openPositions";
 import type { FilterKey } from "../../data/openPositions";
 import { submitCareerApplication } from "../../../services/careers";
+import { PageContainer } from "../../components/PageContainer";
+import { PageHeading } from "../../components/PageHeading";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -265,28 +267,18 @@ function HeroSection() {
   const t = T[lang];
   return (
     <section style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8 pt-28 pb-20">
-        <div className="inline-block text-xs mb-14 px-3 py-1.5 tracking-widest uppercase" style={{ color: BLUE, border: `1px solid rgba(55,55,242,0.25)`, fontFamily: "var(--font-mono)" }}>
-          {t.heroLabel}
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-          <div className="lg:col-span-7">
-            <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.6rem, 5vw, 4.5rem)", lineHeight: 1.04, letterSpacing: "-0.03em", color: NEAR_BLACK }}>
-              {t.heroHeadline.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </h1>
-          </div>
-          <div className="lg:col-span-5 flex flex-col justify-end gap-8">
-            <p style={{ fontSize: "1rem", lineHeight: 1.85, color: BODY_TEXT }}>
-              {t.heroDesc.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </p>
+      <PageContainer className="eruty-hero-section">
+        <PageHeading
+          eyebrow={t.heroLabel}
+          title={t.heroHeadline}
+          description={t.heroDesc}
+          align="center"
+          lang={lang}
+          actions={
             <div className="flex flex-wrap gap-3">
               <button
                 onClick={() => scrollTo("open-positions")}
-                className="inline-flex items-center gap-2 px-7 py-4 text-sm transition-all cursor-pointer"
+                className="inline-flex min-h-12 items-center gap-2 px-7 py-3 text-sm transition-all cursor-pointer"
                 style={{ background: BLUE, color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500, border: "none" }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#2828d4"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = BLUE; }}>
@@ -294,23 +286,22 @@ function HeroSection() {
               </button>
               <button
                 onClick={() => scrollTo("general-application")}
-                className="inline-flex items-center gap-2 px-5 py-4 text-sm transition-all cursor-pointer"
+                className="inline-flex min-h-12 items-center gap-2 px-5 py-3 text-sm transition-all cursor-pointer"
                 style={{ color: BLUE, fontFamily: "var(--font-body)", fontWeight: 500, background: "transparent", border: "none" }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.7"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}>
                 {t.heroBtn2} <ChevronRight size={14} />
               </button>
             </div>
-          </div>
-        </div>
+          }
+        />
 
-        {/* 역량 태그 띠 */}
-        <div className="flex flex-wrap gap-2 mt-16 pt-8" style={{ borderTop: `1px solid ${BORDER}` }}>
+        <div className="mt-12 flex flex-wrap justify-center gap-2 border-t pt-7" style={{ borderColor: BORDER }}>
           {t.heroTags.map((tag) => (
-            <span key={tag} className="text-xs px-3 py-1.5" style={{ border: `1px solid ${BORDER}`, color: MUTED, fontFamily: "var(--font-mono)" }}>{tag}</span>
+            <span key={tag} className="eruty-text-balance px-3 py-1.5 text-xs" style={{ border: `1px solid ${BORDER}`, color: MUTED, fontFamily: "var(--font-body)" }}>{tag}</span>
           ))}
         </div>
-      </div>
+      </PageContainer>
     </section>
   );
 }
@@ -322,7 +313,7 @@ function WhatWeBuildSection() {
   const t = T[lang];
   return (
     <section style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8 py-20">
+      <div className="eruty-container py-20">
         <div className="text-xs tracking-widest uppercase mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.whatLabel}</div>
         <h2 className="mb-14" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
           {t.whatHeadline}
@@ -382,7 +373,7 @@ function HowWeWorkSection() {
   const [hovered, setHovered] = useState<number | null>(null);
   return (
     <section style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8 py-20">
+      <div className="eruty-container py-20">
         <div className="text-xs tracking-widest uppercase mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.cultureLabel}</div>
         <h2 className="mb-12" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
           {t.cultureHeadline}
@@ -526,7 +517,7 @@ function PositionsSection() {
 
   return (
     <section id="open-positions" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8 py-20">
+      <div className="eruty-container py-20">
         <div className="text-xs tracking-widest uppercase mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.positionsLabel}</div>
         <h2 className="mb-10" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
           {t.positionsHeadline}
@@ -626,7 +617,7 @@ function ProcessSection() {
   const t = T[lang];
   return (
     <section style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8 py-20">
+      <div className="eruty-container py-20">
         <div className="text-xs tracking-widest uppercase mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.processLabel}</div>
         <h2 className="mb-12" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
           {t.processHeadline}
@@ -780,7 +771,7 @@ function ApplicationSection() {
 
   return (
     <section id="general-application" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-8 py-20">
+      <div className="eruty-container py-20">
         <div className="text-xs tracking-widest uppercase mb-2" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{t.appLabel}</div>
         <h2 className="mb-4" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
           {t.appHeadline}
@@ -986,7 +977,7 @@ function CtaSection() {
   const t = T[lang];
   return (
     <section className="py-28" style={{ background: NEAR_BLACK }}>
-      <div className="max-w-[1440px] mx-auto px-8">
+      <div className="eruty-container">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
           <div className="lg:col-span-7">
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.08, color: "#FFFFFF", letterSpacing: "-0.025em" }}>
@@ -1022,7 +1013,7 @@ function CtaSection() {
 
 export function CareersPage() {
   return (
-    <div className="pt-16" style={{ background: "#FFFFFF" }}>
+    <div style={{ background: "#FFFFFF" }}>
       <HeroSection />
       <WhatWeBuildSection />
       <HowWeWorkSection />

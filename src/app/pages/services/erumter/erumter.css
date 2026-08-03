@@ -6,7 +6,6 @@
   --er-line: #dfe3ea;
   --er-soft: #f3f5f8;
   overflow: clip;
-  padding-top: 76px;
   background: #fff;
   color: var(--er-ink);
 }
@@ -38,12 +37,12 @@ main:has(.erumter-page) + footer > div {
 .erumter-page h3 {
   letter-spacing: -0.035em;
   word-break: keep-all;
-  overflow-wrap: normal;
+  overflow-wrap: break-word;
 }
 
 .erumter-page h1,
 .erumter-page h2 {
-  white-space: pre-line;
+  white-space: normal;
 }
 
 .erumter-page a,
@@ -59,8 +58,11 @@ main:has(.erumter-page) + footer > div {
 }
 
 .er-container {
-  width: min(1280px, calc(100% - 64px));
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--eruty-container);
   margin-inline: auto;
+  padding-inline: var(--eruty-page-gutter-desktop);
 }
 
 .er-section {
@@ -161,7 +163,7 @@ main:has(.erumter-page) + footer > div {
 /* Hero */
 .er-hero {
   position: relative;
-  min-height: max(720px, calc(100svh - 76px));
+  min-height: max(720px, calc(100svh - var(--eruty-header-height)));
   overflow: hidden;
   background: #08111d;
   color: #fff;
@@ -188,7 +190,7 @@ main:has(.erumter-page) + footer > div {
   position: relative;
   z-index: 2;
   display: grid;
-  min-height: max(720px, calc(100svh - 76px));
+  min-height: max(720px, calc(100svh - var(--eruty-header-height)));
   grid-template-columns: minmax(0, 1.2fr) minmax(360px, 0.8fr);
   align-items: center;
   gap: clamp(48px, 7vw, 112px);
@@ -201,7 +203,7 @@ main:has(.erumter-page) + footer > div {
 
 .er-hero-copy h1 {
   max-width: 720px;
-  font-size: clamp(3.25rem, 5.4vw, 5.65rem);
+  font-size: var(--eruty-page-title-size);
   font-weight: 680;
   line-height: 1.08;
 }
@@ -210,7 +212,7 @@ main:has(.erumter-page) + footer > div {
   max-width: 590px;
   margin-top: 32px;
   color: rgba(255, 255, 255, 0.75);
-  font-size: clamp(1rem, 1.25vw, 1.2rem);
+  font-size: var(--eruty-lead-size);
   line-height: 1.75;
   word-break: keep-all;
 }
@@ -1015,10 +1017,6 @@ main:has(.erumter-page) + footer > div {
     gap: 45px;
   }
 
-  .er-hero-copy h1 {
-    font-size: clamp(3.2rem, 5.6vw, 4.7rem);
-  }
-
   .er-process-layout {
     grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
     gap: 58px;
@@ -1035,7 +1033,7 @@ main:has(.erumter-page) + footer > div {
   }
 
   .er-container {
-    width: min(100% - 44px, 680px);
+    padding-inline: var(--eruty-page-gutter-mobile);
   }
 
   .er-section {
@@ -1081,8 +1079,7 @@ main:has(.erumter-page) + footer > div {
 
   .er-hero-copy h1 {
     max-width: 650px;
-    font-size: clamp(2.65rem, 10.8vw, 4.5rem);
-    line-height: 1.09;
+    line-height: var(--eruty-title-line-height);
   }
 
   .er-hero-copy p {
@@ -1284,10 +1281,6 @@ main:has(.erumter-page) + footer > div {
 }
 
 @media (max-width: 520px) {
-  .er-container {
-    width: calc(100% - 40px);
-  }
-
   .er-section {
     padding: 84px 0;
   }
@@ -1300,10 +1293,6 @@ main:has(.erumter-page) + footer > div {
     min-height: 860px;
     padding-top: 58px;
     padding-bottom: 48px;
-  }
-
-  .er-hero-copy h1 {
-    font-size: clamp(2.42rem, 11.4vw, 3rem);
   }
 
   .er-hero-actions {
@@ -1442,6 +1431,13 @@ main:has(.erumter-page) + footer > div {
   }
 }
 
+@media (min-width: 1024px) {
+  .erumter-page h1,
+  .erumter-page h2 {
+    white-space: pre-line;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .erumter-page *,
   .erumter-page *::before,
@@ -1456,4 +1452,3 @@ main:has(.erumter-page) + footer > div {
     transform: none;
   }
 }
-

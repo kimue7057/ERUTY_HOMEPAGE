@@ -16,6 +16,8 @@ import {
   type InquiryTypeSlug,
 } from "../data/inquiryOptions";
 import { useLanguage } from "../context/LanguageContext";
+import { PageContainer } from "../components/PageContainer";
+import { PageHeading } from "../components/PageHeading";
 import {
   submitInquiry,
   type InquiryAttachment,
@@ -446,7 +448,7 @@ export function StartProjectPage() {
   if (status === "success") {
     return (
       <div
-        className="flex min-h-screen items-center justify-center px-8 pt-16"
+        className="flex min-h-[calc(100svh-var(--eruty-header-height))] items-center justify-center px-5 lg:px-8"
         style={{ background: "#FFFFFF" }}
       >
         <motion.div
@@ -463,16 +465,7 @@ export function StartProjectPage() {
           >
             <Check size={22} style={{ color: BLUE }} />
           </div>
-          <h1
-            className="mb-4"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(2.3rem, 5vw, 3.5rem)",
-              color: NEAR_BLACK,
-              lineHeight: 1.08,
-            }}
-          >
+          <h1 className="eruty-page-title mb-4" style={{ color: NEAR_BLACK }}>
             {t.successHeading}
           </h1>
           <p
@@ -517,43 +510,15 @@ export function StartProjectPage() {
   }
 
   return (
-    <div className="pt-16" style={{ background: "#FFFFFF" }}>
-      <section className="py-20" style={{ borderBottom: `1px solid ${BORDER}` }}>
-        <div className="mx-auto max-w-[1440px] px-8">
-          <div
-            className="mb-8 inline-block border px-3 py-1.5 text-xs uppercase tracking-[0.24em]"
-            style={{ color: BLUE, borderColor: "rgba(55,55,242,0.3)" }}
-          >
-            {t.badge}
-          </div>
-          <h1
-            className="mb-4"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(2.6rem, 5vw, 4rem)",
-              color: NEAR_BLACK,
-              lineHeight: 1.05,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            {t.heading}
-          </h1>
-          <p
-            style={{
-              color: MUTED,
-              maxWidth: 560,
-              lineHeight: 1.7,
-              fontSize: "1rem",
-            }}
-          >
-            {t.description}
-          </p>
-        </div>
+    <div style={{ background: "#FFFFFF" }}>
+      <section style={{ borderBottom: `1px solid ${BORDER}` }}>
+        <PageContainer className="eruty-hero-section">
+          <PageHeading eyebrow={t.badge} title={t.heading} description={t.description} align="center" lang={lang} />
+        </PageContainer>
       </section>
 
       <section className="py-16">
-        <div className="mx-auto max-w-[1440px] px-8">
+        <div className="eruty-container">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             <aside>
               <div className="sticky top-24">
