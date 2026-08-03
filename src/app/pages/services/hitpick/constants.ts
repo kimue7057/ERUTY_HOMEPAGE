@@ -241,14 +241,35 @@ export interface PartnerLogo {
 // Keep this data source separate so verified assets can be added without changing the section layout.
 export const PARTNER_LOGOS: PartnerLogo[] = [];
 
+export interface HeroStep {
+  code: string;
+  label: string;
+}
+
+export const HERO_STEPS: Record<Lang, readonly HeroStep[]> = {
+  ko: [
+    { code: "MARKET", label: "시장 검증" },
+    { code: "DEMAND", label: "수요 창출" },
+    { code: "COMMERCE", label: "판매 실행" },
+    { code: "EXPORT", label: "수출 운영" },
+    { code: "GROWTH", label: "성장 확장" },
+  ],
+  en: [
+    { code: "MARKET", label: "Market Validation" },
+    { code: "DEMAND", label: "Demand Creation" },
+    { code: "COMMERCE", label: "Commerce Execution" },
+    { code: "EXPORT", label: "Export Operations" },
+    { code: "GROWTH", label: "Growth Expansion" },
+  ],
+};
+
 export const T = {
   ko: {
     heroLabel: "HITPICK",
     heroHeading: "브랜드의 가능성을,\n글로벌 매출로.",
-    heroMediaLabel: "BRAND → MARKET → DEMAND → SALES → EXPORT → GROWTH",
-    heroFallback: "브랜드와 상품이 시장 데이터, 크리에이터 콘텐츠, 글로벌 판매와 수출 운영을 거쳐 성장하는 흐름",
-    videoPause: "영상 일시정지",
-    videoPlay: "영상 재생",
+    heroDescription: "시장 검증부터 콘텐츠, 판매와 수출 운영까지 직접 실행합니다.",
+    heroSteps: HERO_STEPS.ko,
+    heroFallback: "Hitpick이 시장 검증, 수요 창출, 판매 실행, 수출 운영과 성장 확장을 연결하는 과정을 보여주는 영상입니다.",
     introLabel: "HITPICK",
     introHeading: "시장의 신호부터,\n실행과 성장까지.",
     introDescription: "히트픽은 글로벌 시장의 신호를 읽고, 크리에이터와 함께 수요를 만들며 판매·수출·운영까지 직접 실행하여 브랜드의 성장을 완성합니다.",
@@ -291,10 +312,9 @@ export const T = {
   en: {
     heroLabel: "HITPICK",
     heroHeading: "Turn Brand Potential\ninto Global Revenue.",
-    heroMediaLabel: "BRAND → MARKET → DEMAND → SALES → EXPORT → GROWTH",
-    heroFallback: "A brand and product journey through market data, creator content, global sales, export operations and growth",
-    videoPause: "Pause video",
-    videoPlay: "Play video",
+    heroDescription: "From market validation to content, commerce, and export operations, we execute global growth end to end.",
+    heroSteps: HERO_STEPS.en,
+    heroFallback: "A visual sequence showing how Hitpick connects market validation, demand creation, commerce execution, export operations, and growth expansion.",
     introLabel: "HITPICK",
     introHeading: "From Market Signals\nto Execution and Growth.",
     introDescription: "HITPICK reads global market signals, builds demand with creators, and directly executes sales, export and operations to complete brand growth.",
