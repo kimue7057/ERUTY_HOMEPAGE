@@ -72,8 +72,18 @@ const LEADERS: LeaderProfile[] = [
       en: ["Company management", "Global business strategy", "Market and partner structure design"],
     },
     keyScope: {
-      ko: ["ERUTY 대표이사", "회사 경영 총괄", "글로벌 사업 전략 총괄"],
-      en: ["CEO of ERUTY", "Overall company management", "Global business strategy leadership"],
+      ko: [
+        "창업 성장기술개발사업 R&D 사업 수주",
+        "블록체인 기술 사업화 지원 사업 수주",
+        "블록체인 기반 저작권 관리 기술 특허 개발 및 등록",
+        "메타오션 창업팀 대표 (2019~2022)",
+      ],
+      en: [
+        "Won an R&D project under the Startup Growth Technology Development Program",
+        "Won a project supporting blockchain technology commercialization",
+        "Developed and registered a patent for blockchain-based copyright management technology",
+        "Head of the founding team, Metaocean (2019-2022)",
+      ],
     },
   },
   {
@@ -93,8 +103,16 @@ const LEADERS: LeaderProfile[] = [
       en: ["Operating structure design", "Business strategy execution", "Global growth operations"],
     },
     keyScope: {
-      ko: ["ERUTY 부대표", "COO & CBO", "기업 운영 및 사업 전략 총괄"],
-      en: ["Vice President at ERUTY", "COO & CBO", "Corporate operations and business strategy leadership"],
+      ko: [
+        "에이트원 부사장 — 토큰증권(STO) 기반 금융 신사업 총괄",
+        "카사코리아(Casa Korea) COO — 국내 최초 디지털 수익증권(DABS) 시스템 운영",
+        "한국투자공사(KIC) 경영기획실 수석부장 — 대외협력·지배구조·투자운용 전략 총괄",
+      ],
+      en: [
+        "Vice President, EightOne — Led new financial initiatives based on Security Token Offerings (STO)",
+        "COO, Casa Korea — Operated DABS, Korea's first digital revenue securities system",
+        "Senior Director, Management Planning Office, Korea Investment Corporation (KIC) — Oversaw external relations, governance, and investment strategy",
+      ],
     },
   },
   {
@@ -197,7 +215,7 @@ const TEXT = {
       "공개된 네 명의 리더십은 사업 전략, 운영, 연구개발, 제품 엔지니어링을 각각 맡으며 하나의 실행 구조로 협업합니다.",
     leadershipProfileLabel: "Leadership Profile",
     focusAreasLabel: "담당 영역",
-    keyScopeLabel: "주요 경력 및 역할",
+    keyScopeLabel: "주요 경력",
     imageFallbackLabel: "프로필 이미지 준비 중",
     howWorkLabel: "How We Work",
     howWorkHeadline: "세 개의 핵심 축이\n하나의 실행 구조로 움직입니다.",
@@ -220,7 +238,7 @@ const TEXT = {
       "The four public leadership profiles cover business strategy, operations, R&D, and product engineering while working as one execution structure.",
     leadershipProfileLabel: "Leadership Profile",
     focusAreasLabel: "Focus Areas",
-    keyScopeLabel: "Key Experience & Scope",
+    keyScopeLabel: "Career Highlights",
     imageFallbackLabel: "Profile image coming soon",
     howWorkLabel: "How We Work",
     howWorkHeadline: "Three core pillars,\none execution structure.",
