@@ -91,9 +91,7 @@ const PUBLISHED_PROJECTS = PROJECTS.filter(
 );
 const FEATURED_PROJECT =
   PUBLISHED_PROJECTS.find((project) => project.featured) ?? PUBLISHED_PROJECTS[0];
-const GRID_PROJECTS = PUBLISHED_PROJECTS.filter(
-  (project) => project.id !== FEATURED_PROJECT.id,
-);
+const GRID_PROJECTS = PUBLISHED_PROJECTS;
 
 function getLocalizedText(text: LocalizedText, lang: Lang) {
   return text[lang];
@@ -147,24 +145,6 @@ function Eyebrow({ children }: { children: string }) {
       style={{ color: BLUE }}
     >
       {children}
-    </div>
-  );
-}
-
-function ConceptPill({ lang }: { lang: Lang }) {
-  return (
-    <div
-      className={`pointer-events-none absolute right-4 top-4 z-10 rounded-full border px-3 py-1.5 eruty-meta ${
-        lang === "en" ? "eruty-meta--code uppercase tracking-[0.12em]" : ""
-      }`}
-      style={{
-        background: "rgba(7,17,30,0.72)",
-        borderColor: "rgba(255,255,255,0.22)",
-        color: "#FFFFFF",
-        backdropFilter: "blur(10px)",
-      }}
-    >
-      {lang === "ko" ? "콘셉트 이미지" : "CONCEPT IMAGE"}
     </div>
   );
 }
@@ -277,7 +257,6 @@ function ProjectVisual({
         fetchPriority={featured ? "high" : "auto"}
         draggable={false}
       />
-      {project.visualIsConcept ? <ConceptPill lang={lang} /> : null}
     </div>
   );
 }
@@ -606,7 +585,6 @@ function DrawerVisual({
         loading="lazy"
         draggable={false}
       />
-      {project.visualIsConcept ? <ConceptPill lang={lang} /> : null}
     </div>
   );
 }

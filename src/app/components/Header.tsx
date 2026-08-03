@@ -113,7 +113,7 @@ const COMPANY_ITEMS: SimpleMenuItem[] = [
   },
   {
     to: "/company/growth",
-    label: { ko: "프로젝트", en: "Projects" },
+    label: { ko: "프로젝트 포트폴리오", en: "Project Portfolio" },
     description: {
       ko: "이루티가 수행한 글로벌 사업·AX·AI·기술 프로젝트",
       en: "Selected global business, AX, AI, and technology projects delivered by ERUTY.",
