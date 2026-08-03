@@ -418,7 +418,7 @@ export function Header() {
         }}
       >
         <div
-          className="mx-auto flex h-[76px] max-w-[1280px] items-center justify-between px-5 lg:px-8"
+          className="eruty-container flex h-[76px] items-center justify-between"
         >
           <Link to="/" className="flex items-center gap-3" aria-label="ERUTY home">
             <img

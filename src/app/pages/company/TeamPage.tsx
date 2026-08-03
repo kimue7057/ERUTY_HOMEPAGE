@@ -3,6 +3,8 @@ import { Link } from "react-router";
 import { ArrowUpRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { type Lang, useLanguage } from "../../context/LanguageContext";
+import { PageContainer } from "../../components/PageContainer";
+import { PageHeading } from "../../components/PageHeading";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -395,53 +397,33 @@ function HeroSection() {
 
   return (
     <section data-team-hero style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 pt-24 sm:pt-28 pb-18 sm:pb-20">
+      <PageContainer className="py-[68px] md:py-[88px] lg:py-[108px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          <div className="lg:col-span-5 flex flex-col gap-7">
-            <div
-              className="inline-flex w-fit items-center px-3 py-1.5 text-xs tracking-[0.24em] uppercase"
-              style={{
-                color: BLUE,
-                border: `1px solid ${BLUE}2B`,
-                borderRadius: 999,
-                fontFamily: "var(--font-mono)",
-              }}
-            >
-              {t.heroLabel}
-            </div>
-
-            <h1
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 800,
-                fontSize: "clamp(2.5rem, 5vw, 4.6rem)",
-                lineHeight: 1.02,
-                letterSpacing: "-0.04em",
-                color: NEAR_BLACK,
-                whiteSpace: "pre-line",
-              }}
-            >
-              {t.heroHeadline}
-            </h1>
-
-            <p style={{ color: BODY_TEXT, fontSize: "1rem", lineHeight: 1.86, maxWidth: 580 }}>{t.heroDesc}</p>
-
-            <div className="flex flex-wrap gap-2.5">
-              {t.heroHighlights.map((item) => (
-                <span
-                  key={item}
-                  className="px-3.5 py-2 text-sm"
-                  style={{
-                    borderRadius: 999,
-                    background: "#F7F8FC",
-                    border: `1px solid ${BORDER}`,
-                    color: NEAR_BLACK,
-                  }}
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
+          <div className="lg:col-span-5">
+            <PageHeading
+              eyebrow={t.heroLabel}
+              title={t.heroHeadline}
+              description={t.heroDesc}
+              lang={lang}
+              actions={
+                <div className="flex flex-wrap gap-2.5">
+                  {t.heroHighlights.map((item) => (
+                    <span
+                      key={item}
+                      className="px-3.5 py-2 text-sm"
+                      style={{
+                        borderRadius: 999,
+                        background: "#F7F8FC",
+                        border: `1px solid ${BORDER}`,
+                        color: NEAR_BLACK,
+                      }}
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              }
+            />
           </div>
 
           <div className="lg:col-span-7">
@@ -468,7 +450,7 @@ function HeroSection() {
             </div>
           </div>
         </div>
-      </div>
+      </PageContainer>
     </section>
   );
 }
@@ -492,7 +474,7 @@ function LeadershipSection() {
 
   return (
     <section data-team-leadership style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 py-18 sm:py-20">
+      <div className="eruty-container py-18 sm:py-20">
         <SectionIntro label={t.leadershipLabel} title={t.leadershipHeadline} desc={t.leadershipDesc} />
 
         <div ref={detailRef} className="mt-10 sm:mt-12">
@@ -640,7 +622,7 @@ function HowWeWorkSection() {
 
   return (
     <section data-team-how-we-work style={{ background: "#FFFFFF", borderBottom: `1px solid ${BORDER}` }}>
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 py-18 sm:py-20">
+      <div className="eruty-container py-18 sm:py-20">
         <SectionIntro label={t.howWorkLabel} title={t.howWorkHeadline} desc={t.howWorkDesc} />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 mt-10 sm:mt-12">
@@ -705,7 +687,7 @@ function CtaSection() {
 
   return (
     <section className="py-24 sm:py-28" style={{ background: NEAR_BLACK }}>
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8">
+      <div className="eruty-container">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end">
           <div className="lg:col-span-7">
             <h2
@@ -746,7 +728,7 @@ function CtaSection() {
 
 export function TeamPage() {
   return (
-    <div className="pt-16" style={{ background: "#FFFFFF" }}>
+    <div style={{ background: "#FFFFFF" }}>
       <HeroSection />
       <LeadershipSection />
       <HowWeWorkSection />

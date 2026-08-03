@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { buildStartProjectHref } from "../../data/inquiryOptions";
 import { type Lang, useLanguage } from "../../context/LanguageContext";
+import { PageContainer } from "../../components/PageContainer";
+import { PageHeading } from "../../components/PageHeading";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -378,32 +380,15 @@ function HeroSection() {
           "radial-gradient(circle at 70% 12%, rgba(55,55,242,0.09), transparent 26%), linear-gradient(180deg, #FFFFFF 0%, #FBFCFF 100%)",
       }}
     >
-      <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
+      <PageContainer>
         <div className="relative pb-16 pt-16 md:pb-20 md:pt-20 lg:min-h-[32rem] lg:pb-24 lg:pt-24">
           <div className="relative z-10 max-w-[43rem]">
-            <Eyebrow>{copy.heroLabel}</Eyebrow>
-            <h1
-              className={`font-[800] ${lang === "ko" ? "eruty-keep-all" : ""}`}
-              style={{
-                color: NEAR_BLACK,
-                fontSize: "clamp(3rem, 5.2vw, 4.6rem)",
-                lineHeight: 1.06,
-                letterSpacing: "-0.045em",
-              }}
-            >
-              {renderMultilineText(copy.heroHeadline)}
-            </h1>
-            <p
-              className={`mt-[30px] max-w-[35rem] ${lang === "ko" ? "eruty-keep-all" : ""}`}
-              style={{
-                color: "#454C58",
-                whiteSpace: "pre-line",
-                fontSize: "clamp(0.96875rem, 1.08vw, 1.0625rem)",
-                lineHeight: 1.8,
-              }}
-            >
-              {copy.heroDescription}
-            </p>
+            <PageHeading
+              eyebrow={copy.heroLabel}
+              title={copy.heroHeadline}
+              description={copy.heroDescription}
+              lang={lang}
+            />
           </div>
 
           <div className="mt-10 lg:absolute lg:right-[-3.75rem] lg:top-2 lg:mt-0 lg:h-[27.75rem] lg:w-[56%] xl:right-[-4.25rem] xl:w-[57%]">
@@ -426,7 +411,7 @@ function HeroSection() {
             </div>
           </div>
         </div>
-      </div>
+      </PageContainer>
     </section>
   );
 }
@@ -437,7 +422,7 @@ function IdentitySection() {
 
   return (
     <section data-about-identity className="relative z-20 -mt-12 md:-mt-16 lg:-mt-24">
-      <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
+      <div className="eruty-container">
         <div
           className="overflow-hidden rounded-[2rem] border"
           style={{
@@ -527,7 +512,7 @@ function BeginningSection() {
       className="border-b py-20 md:py-24"
       style={{ borderColor: BORDER, background: "#FFFFFF" }}
     >
-      <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
+      <div className="eruty-container">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.03fr)_minmax(0,0.97fr)] lg:gap-16">
           <div className="max-w-[35rem]">
             <Eyebrow>{copy.beginningLabel}</Eyebrow>
@@ -866,7 +851,7 @@ function JourneySection() {
       className="overflow-hidden border-b py-20 md:py-24"
       style={{ borderColor: BORDER, background: SOFT_BG }}
     >
-      <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
+      <div className="eruty-container">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-[34rem]">
             <Eyebrow>{copy.journeyLabel}</Eyebrow>
@@ -997,7 +982,7 @@ function CtaSection() {
 
   return (
     <section data-about-cta className="pb-0 pt-0" style={{ background: "#FFFFFF" }}>
-      <div className="mx-auto max-w-[1320px] px-6 lg:px-8">
+      <div className="eruty-container">
         <div
           className="relative overflow-hidden rounded-[2rem] px-8 py-12 md:px-10 md:py-14 lg:px-14 lg:py-16"
           style={{
@@ -1068,7 +1053,7 @@ export function AboutPage() {
   }, []);
 
   return (
-    <div className="overflow-hidden bg-white pt-16">
+    <div className="overflow-hidden bg-white">
       <HeroSection />
       <IdentitySection />
       <BeginningSection />

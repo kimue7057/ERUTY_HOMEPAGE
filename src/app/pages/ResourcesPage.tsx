@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Download } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { PageContainer } from "../components/PageContainer";
+import { PageHeading } from "../components/PageHeading";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -314,23 +316,15 @@ export function ResourcesPage() {
     : publishedOpportunities.filter((item) => item.category === activeOppFilter);
 
   return (
-    <div className="pt-16" style={{ background: "#FFFFFF" }}>
-      <section className="py-24" style={{ borderBottom: `1px solid ${BORDER}` }}>
-        <div className="max-w-[1440px] mx-auto px-8">
-          <div className="inline-block text-xs mb-8 px-3 py-1.5 tracking-widest uppercase" style={{ color: BLUE, border: "1px solid rgba(55,55,242,0.3)", fontFamily: "var(--font-mono)" }}>
-            {t.badge}
-          </div>
-          <h1 className="mb-6" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.5rem, 5vw, 4.5rem)", lineHeight: 1.05, color: NEAR_BLACK, letterSpacing: "-0.02em" }}>
-            {t.heading}
-          </h1>
-          <p style={{ fontSize: "1.05rem", color: BODY_TEXT, maxWidth: 560, lineHeight: 1.72 }}>
-            {t.description}
-          </p>
-        </div>
+    <div style={{ background: "#FFFFFF" }}>
+      <section style={{ borderBottom: `1px solid ${BORDER}` }}>
+        <PageContainer className="eruty-hero-section">
+          <PageHeading eyebrow={t.badge} title={t.heading} description={t.description} align="center" lang={lang} />
+        </PageContainer>
       </section>
 
-      <section style={{ borderBottom: `1px solid ${BORDER}`, position: "sticky", top: 64, zIndex: 30, background: "#FFFFFF" }}>
-        <div className="max-w-[1440px] mx-auto px-8 flex gap-0 overflow-x-auto">
+      <section style={{ borderBottom: `1px solid ${BORDER}`, position: "sticky", top: "var(--eruty-header-height)", zIndex: 30, background: "#FFFFFF" }}>
+        <div className="eruty-container eruty-horizontal-scroll flex gap-0 overflow-x-auto">
           {categories.map((category, index) => (
             <button
               key={category}
@@ -352,7 +346,7 @@ export function ResourcesPage() {
 
       {showCaseStudies && (
         <section className="py-20" style={{ borderBottom: `1px solid ${BORDER}` }}>
-          <div className="max-w-[1440px] mx-auto px-8">
+          <div className="eruty-container">
             <SectionHeader label={t.caseStudiesLabel} heading={t.caseStudiesHeading} />
             {publishedCaseStudies.length === 0 ? (
               <EmptyStateCard message={t.emptyState} />
@@ -389,7 +383,7 @@ export function ResourcesPage() {
 
       {showOpportunities && (
         <section className="py-20" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-          <div className="max-w-[1440px] mx-auto px-8">
+          <div className="eruty-container">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-10">
               <div>
                 <SectionHeader label={t.opportunitiesLabel} heading={t.opportunitiesHeading} />
@@ -444,7 +438,7 @@ export function ResourcesPage() {
 
       {showInsights && (
         <section className="py-20" style={{ borderBottom: `1px solid ${BORDER}` }}>
-          <div className="max-w-[1440px] mx-auto px-8">
+          <div className="eruty-container">
             <SectionHeader label={t.insightsLabel} heading={t.insightsHeading} />
             {publishedInsights.length === 0 ? (
               <EmptyStateCard message={t.emptyState} />
@@ -472,7 +466,7 @@ export function ResourcesPage() {
 
       {showPrograms && (
         <section className="py-20" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
-          <div className="max-w-[1440px] mx-auto px-8">
+          <div className="eruty-container">
             <SectionHeader label={t.programsLabel} heading={t.programsHeading} />
             {publishedPrograms.length === 0 ? (
               <EmptyStateCard message={t.emptyState} />
@@ -502,7 +496,7 @@ export function ResourcesPage() {
 
       {showNews && (
         <section className="py-20" style={{ borderBottom: `1px solid ${BORDER}` }}>
-          <div className="max-w-[1440px] mx-auto px-8">
+          <div className="eruty-container">
             <SectionHeader label={t.newsLabel} heading={t.newsHeading} />
             {publishedNews.length === 0 ? (
               <EmptyStateCard message={t.emptyState} />
@@ -527,7 +521,7 @@ export function ResourcesPage() {
 
       {showDownloads && (
         <section className="py-20">
-          <div className="max-w-[1440px] mx-auto px-8">
+          <div className="eruty-container">
             <SectionHeader label={t.downloadsLabel} heading={t.downloadsHeading} />
             {publishedDownloads.length === 0 ? (
               <EmptyStateCard message={t.emptyState} />

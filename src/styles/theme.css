@@ -6,6 +6,21 @@
   --font-body: 'Pretendard Variable', 'Pretendard', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
+  --eruty-header-height: 76px;
+  --eruty-container: 1280px;
+  --eruty-container-wide: 1440px;
+  --eruty-page-gutter-mobile: 20px;
+  --eruty-page-gutter-desktop: 32px;
+  --eruty-home-display-size: clamp(2.65rem, 5vw, 4.25rem);
+  --eruty-page-title-size: clamp(2.35rem, 4.3vw, 3.75rem);
+  --eruty-section-title-size: clamp(1.85rem, 3vw, 2.6rem);
+  --eruty-subsection-title-size: clamp(1.35rem, 2vw, 1.85rem);
+  --eruty-lead-size: clamp(0.98rem, 1.2vw, 1.12rem);
+  --eruty-body-size: 1rem;
+  --eruty-title-line-height: 1.1;
+  --eruty-copy-line-height: 1.75;
+  --eruty-title-letter-spacing: -0.04em;
+
   --background: #FFFFFF;
   --foreground: #18191B;
   --card: #F5F6F8;
@@ -217,6 +232,166 @@
 
   .eruty-keep-all {
     word-break: keep-all;
-    overflow-wrap: normal;
+    overflow-wrap: break-word;
+  }
+
+  .eruty-container,
+  .eruty-container-wide {
+    box-sizing: border-box;
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--eruty-page-gutter-mobile);
+  }
+
+  .eruty-container {
+    max-width: var(--eruty-container);
+  }
+
+  .eruty-container-wide {
+    max-width: var(--eruty-container-wide);
+  }
+
+  .eruty-home-display,
+  .eruty-page-title,
+  .eruty-section-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: var(--eruty-title-letter-spacing);
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+  }
+
+  .eruty-home-display {
+    font-size: var(--eruty-home-display-size);
+    line-height: 1.08;
+  }
+
+  .eruty-page-title {
+    font-size: var(--eruty-page-title-size);
+    line-height: var(--eruty-title-line-height);
+  }
+
+  .eruty-section-title {
+    font-size: var(--eruty-section-title-size);
+    line-height: 1.18;
+  }
+
+  .eruty-page-lead {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--eruty-lead-size);
+    line-height: var(--eruty-copy-line-height);
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .eruty-eyebrow-en,
+  .eruty-eyebrow-ko {
+    display: inline-block;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .eruty-eyebrow-en {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .eruty-eyebrow-ko {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    letter-spacing: -0.01em;
+  }
+
+  .eruty-text-balance {
+    text-wrap: balance;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .eruty-preline-desktop {
+    white-space: normal;
+  }
+
+  .eruty-hero-section {
+    padding-block: 68px;
+  }
+
+  .eruty-page-heading {
+    width: 100%;
+  }
+
+  .eruty-page-heading--center {
+    max-width: 960px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .eruty-page-heading--center .eruty-page-heading__description {
+    margin-inline: auto;
+  }
+
+  .eruty-page-heading__eyebrow {
+    margin-bottom: 18px;
+    color: var(--accent);
+  }
+
+  .eruty-page-heading__title {
+    max-width: 960px;
+    color: var(--foreground);
+  }
+
+  .eruty-page-heading__description {
+    max-width: 720px;
+    margin-top: 24px;
+    color: #454c58;
+  }
+
+  .eruty-page-heading__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .eruty-page-heading--center .eruty-page-heading__actions {
+    justify-content: center;
+  }
+
+  .eruty-page-heading--inverse .eruty-page-heading__title {
+    color: #fff;
+  }
+
+  .eruty-page-heading--inverse .eruty-page-heading__eyebrow {
+    color: #8aa8ff;
+  }
+
+  .eruty-page-heading--inverse .eruty-page-heading__description {
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  @media (min-width: 768px) {
+    .eruty-hero-section {
+      padding-block: 88px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .eruty-container,
+    .eruty-container-wide {
+      padding-inline: var(--eruty-page-gutter-desktop);
+    }
+
+    .eruty-preline-desktop {
+      white-space: pre-line;
+    }
+
+    .eruty-hero-section {
+      padding-block: 108px;
+    }
   }
 }

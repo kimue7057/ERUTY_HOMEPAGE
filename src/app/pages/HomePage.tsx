@@ -603,8 +603,8 @@ function HeroSection() {
   };
 
   return (
-    <section className="pt-[76px]" style={{ background: "#FFFFFF" }}>
-      <div className="mx-auto px-8" style={{ maxWidth: 1280 }}>
+    <section style={{ background: "#FFFFFF" }}>
+      <div className="eruty-container">
         <div className="mt-7 mb-8 relative overflow-hidden" style={{ borderRadius: 6, background: "#111" }}>
           <div style={{ paddingBottom: "43.7%" }} />
           <video
@@ -647,21 +647,16 @@ function HeroSection() {
         <div className="grid grid-cols-12 gap-6 pb-16" style={{ borderBottom: `1px solid ${BORDER}` }}>
           <div className="col-span-12 lg:col-span-7">
             <h1
+              className="eruty-home-display eruty-preline-desktop"
               style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 800,
-                fontSize: "clamp(2.6rem, 4.5vw, 4.25rem)",
-                lineHeight: 1.08,
-                letterSpacing: "-0.025em",
                 color: NEAR_BLACK,
-                whiteSpace: "pre-line",
               }}
             >
               {t.headline}
             </h1>
           </div>
           <div className="col-span-12 lg:col-span-5 flex flex-col justify-end pb-1">
-            <p className="mb-7" style={{ fontSize: "1rem", lineHeight: 1.85, color: BODY_TEXT, whiteSpace: "pre-line" }}>
+            <p className="eruty-page-lead eruty-preline-desktop mb-7" style={{ color: BODY_TEXT }}>
               {t.desc}
             </p>
             <div className="flex items-center gap-6">
