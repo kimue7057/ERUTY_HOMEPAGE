@@ -14,7 +14,7 @@ function ProcessVisual({ step, lang, mobile = false }: { step: ProcessStep; lang
     <div className={mobile ? "er-process-mobile-visual" : "er-process-visual"}>
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
-          className="er-process-frame"
+          className={`er-process-frame er-process-frame-${step.number}`}
           key={`${mobile ? "mobile" : "desktop"}-${step.number}`}
           initial={reduceMotion ? false : { opacity: 0, scale: 0.985 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -51,6 +51,8 @@ export const AXProcess = forwardRef<HTMLElement>(function AXProcess(_, forwarded
   const itemRefs = useRef<Array<HTMLElement | null>>([]);
 
   useEffect(() => {
+    if (!("IntersectionObserver" in window)) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -83,6 +85,7 @@ export const AXProcess = forwardRef<HTMLElement>(function AXProcess(_, forwarded
                 className={`er-process-step${activeStep === index ? " is-active" : ""}`}
                 data-step-index={index}
                 key={step.number}
+                aria-current={activeStep === index ? "step" : undefined}
                 ref={(node) => {
                   itemRefs.current[index] = node;
                 }}
@@ -90,7 +93,6 @@ export const AXProcess = forwardRef<HTMLElement>(function AXProcess(_, forwarded
                 onFocus={() => setActiveStep(index)}
                 onMouseEnter={() => setActiveStep(index)}
               >
-                <div className="er-process-step-line" aria-hidden="true"><span /></div>
                 <span className="er-process-number">STEP {step.number}</span>
                 <h3>{step.title}</h3>
                 <p>{step.description[lang]}</p>
@@ -100,13 +102,72 @@ export const AXProcess = forwardRef<HTMLElement>(function AXProcess(_, forwarded
                     {step.outputs[lang].map((output) => <li key={output}>{output}</li>)}
                   </ul>
                 </div>
-                <ProcessVisual step={step} lang={lang} mobile />
               </article>
             ))}
+          </div>
+          <div className="er-process-axis" aria-hidden="true">
+            <span className="er-process-axis-track" />
+            <div className="er-process-axis-list">
+              {PROCESS_STEPS.map((step, index) => (
+                <span
+                  className={`er-process-axis-node${activeStep === index ? " is-active" : ""}`}
+                  key={step.number}
+                >
+                  <i />
+                </span>
+              ))}
+            </div>
           </div>
           <div className="er-process-sticky">
             <ProcessVisual step={PROCESS_STEPS[activeStep]} lang={lang} />
           </div>
+        </div>
+
+        <div className="er-process-mobile">
+          <nav className="er-process-mobile-progress" aria-label={t.eyebrow}>
+            {PROCESS_STEPS.map((step, index) => (
+              <button
+                type="button"
+                className={activeStep === index ? "is-active" : undefined}
+                aria-current={activeStep === index ? "step" : undefined}
+                aria-controls={`er-process-mobile-step-${index}`}
+                onClick={() => setActiveStep(index)}
+                key={step.number}
+              >
+                {step.number}
+              </button>
+            ))}
+          </nav>
+
+          <div className="er-process-mobile-steps">
+            {PROCESS_STEPS.map((step, index) => (
+              <details
+                className="er-process-mobile-step"
+                id={`er-process-mobile-step-${index}`}
+                open={activeStep === index}
+                onToggle={(event) => {
+                  if (event.currentTarget.open) setActiveStep(index);
+                }}
+                key={step.number}
+              >
+                <summary>
+                  <span>STEP {step.number}</span>
+                  <strong>{step.title}</strong>
+                </summary>
+                <div className="er-process-mobile-copy">
+                  <p>{step.description[lang]}</p>
+                  <div className="er-process-outputs">
+                    <small>{t.outputLabel}</small>
+                    <ul>
+                      {step.outputs[lang].map((output) => <li key={output}>{output}</li>)}
+                    </ul>
+                  </div>
+                </div>
+              </details>
+            ))}
+          </div>
+
+          <ProcessVisual step={PROCESS_STEPS[activeStep]} lang={lang} mobile />
         </div>
       </div>
     </section>

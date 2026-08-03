@@ -32,6 +32,7 @@ const VIEWPORTS = [
     contextOptions: {
       viewport: { width: 1440, height: 1000 },
       deviceScaleFactor: 1,
+      reducedMotion: "reduce",
     },
   },
   {
@@ -43,6 +44,7 @@ const VIEWPORTS = [
       deviceScaleFactor: 2,
       hasTouch: true,
       isMobile: true,
+      reducedMotion: "reduce",
     },
   },
 ];
@@ -76,6 +78,34 @@ async function prepareOutputDirectory() {
   await rm(OUTPUT_DIR, { recursive: true, force: true });
   await mkdir(path.join(OUTPUT_DIR, "desktop"), { recursive: true });
   await mkdir(path.join(OUTPUT_DIR, "mobile"), { recursive: true });
+}
+
+async function prepareFullPageCapture(page) {
+  await page.evaluate(async () => {
+    const scrollLimit = Math.max(
+      0,
+      document.documentElement.scrollHeight - window.innerHeight,
+    );
+    const scrollStep = Math.max(320, Math.round(window.innerHeight * 0.8));
+
+    for (let scrollTop = 0; scrollTop < scrollLimit; scrollTop += scrollStep) {
+      window.scrollTo({ top: scrollTop, behavior: "auto" });
+      await new Promise((resolve) => window.setTimeout(resolve, 80));
+    }
+
+    window.scrollTo({ top: scrollLimit, behavior: "auto" });
+    await new Promise((resolve) => window.setTimeout(resolve, 180));
+
+    const firstProcessStep = document.querySelector(".er-process-step");
+    if (firstProcessStep instanceof HTMLElement) {
+      firstProcessStep.scrollIntoView({ block: "center", behavior: "auto" });
+      await new Promise((resolve) => window.setTimeout(resolve, 180));
+    }
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+  });
+
+  await page.waitForTimeout(400);
 }
 
 async function captureLocatorScreenshot(page, viewport, options) {
@@ -290,6 +320,7 @@ async function captureRoute(context, viewport, routeConfig) {
     result.httpStatus = response?.status() ?? null;
 
     await page.waitForTimeout(POST_LOAD_WAIT_MS);
+    await prepareFullPageCapture(page);
 
     const metrics = await page.evaluate(() => ({
       documentHeight: document.documentElement.scrollHeight,
