@@ -1,10 +1,17 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { ArrowRight, ArrowUpRight, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { type Lang, useLanguage } from "../../context/LanguageContext";
 import { PageContainer } from "../../components/PageContainer";
 import { PageHeading } from "../../components/PageHeading";
+import {
+  CATEGORY_LABELS,
+  PROJECTS,
+  type LocalizedText,
+  type Project,
+  type ProjectCategory,
+} from "../../data/projects";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -14,39 +21,6 @@ const BORDER = "#E4E6EA";
 const SOFT_BG = "#F5F7FB";
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
-
-type ProjectCategory =
-  | "global-business"
-  | "ai-ax"
-  | "blockchain"
-  | "product-rd"
-  | "education";
-
-type ProjectVisibility = "published" | "draft" | "hidden";
-
-type LocalizedText = {
-  ko: string;
-  en: string;
-};
-
-type Project = {
-  id: string;
-  featured?: boolean;
-  visibility: ProjectVisibility;
-  year?: string;
-  categories: ProjectCategory[];
-  title: LocalizedText;
-  summary: LocalizedText;
-  role?: LocalizedText;
-  scope?: LocalizedText[];
-  outcome?: LocalizedText;
-  status?: LocalizedText;
-  market?: LocalizedText;
-  image?: string;
-  imageAlt?: LocalizedText;
-  visualType?: "image" | "interface" | "abstract";
-  visualIsConcept?: boolean;
-};
 
 type ProjectFilter = "all" | ProjectCategory;
 
@@ -63,7 +37,6 @@ const PAGE_COPY = {
     gridEmpty: "선택한 카테고리에 해당하는 공개 프로젝트를 준비 중입니다.",
     viewDetails: "상세 보기",
     closeDrawer: "프로젝트 상세 닫기",
-    yearLabel: "연도",
     marketLabel: "시장 또는 대상",
     overviewLabel: "프로젝트 개요",
     roleLabel: "이루티의 역할",
@@ -89,7 +62,6 @@ const PAGE_COPY = {
     gridEmpty: "Public projects for this category are being prepared.",
     viewDetails: "View Details",
     closeDrawer: "Close project details",
-    yearLabel: "Year",
     marketLabel: "Market or Audience",
     overviewLabel: "Project Overview",
     roleLabel: "ERUTY Role",
@@ -105,254 +77,13 @@ const PAGE_COPY = {
   },
 } as const;
 
-const CATEGORY_LABELS: Record<ProjectCategory, LocalizedText> = {
-  "global-business": { ko: "글로벌 사업", en: "Global Business" },
-  "ai-ax": { ko: "AI & AX", en: "AI & AX" },
-  blockchain: { ko: "블록체인", en: "Blockchain" },
-  "product-rd": { ko: "제품·R&D", en: "Product & R&D" },
-  education: { ko: "교육사업", en: "Education" },
-};
-
 const FILTERS: ProjectFilter[] = [
   "all",
   "global-business",
-  "ai-ax",
-  "blockchain",
-  "product-rd",
-  "education",
-];
-
-const PROJECTS: Project[] = [
-  {
-    id: "emotion-personalization",
-    featured: true,
-    visibility: "published",
-    categories: ["ai-ax", "product-rd"],
-    title: {
-      ko: "AI 기반 감성 분석 및 개인화 콘텐츠 시스템",
-      en: "AI-Based Emotion Analysis & Personalized Content System",
-    },
-    summary: {
-      ko: "사용자의 감정과 행동 데이터를 분석해 개인 맞춤형 콘텐츠를 제공하는 AI 기반 시스템을 설계·개발했습니다.",
-      en: "An AI-based system designed to analyze user emotion and behavior data and deliver personalized content experiences.",
-    },
-    role: {
-      ko: "감정 분석 로직, 개인화 콘텐츠 흐름, 운영 구조를 포함한 서비스 시스템을 설계·개발했습니다.",
-      en: "ERUTY designed and developed the service system covering emotion analysis logic, personalization flow, and operational structure.",
-    },
-    scope: [
-      {
-        ko: "감정 및 행동 데이터 구조 설계",
-        en: "Emotion and behavior data structure design",
-      },
-      {
-        ko: "개인화 콘텐츠 추천 흐름 기획",
-        en: "Personalized content recommendation flow planning",
-      },
-      {
-        ko: "운영을 위한 분석·관리 인터페이스 구성",
-        en: "Analysis and management interface configuration for operations",
-      },
-    ],
-    outcome: {
-      ko: "개인화 콘텐츠 제공을 위한 AI 시스템 구조를 공개 가능한 범위에서 정리했습니다.",
-      en: "A public-facing overview of the AI system structure for personalized content delivery was prepared.",
-    },
-    status: {
-      ko: "설계·개발 프로젝트",
-      en: "Design and Development Project",
-    },
-    market: {
-      ko: "디지털 콘텐츠 서비스",
-      en: "Digital Content Services",
-    },
-    visualType: "interface",
-    visualIsConcept: true,
-  },
-  {
-    id: "content-profitability",
-    visibility: "published",
-    categories: ["ai-ax", "product-rd"],
-    title: {
-      ko: "AI 콘텐츠 수익성 분석 시스템",
-      en: "AI Content Performance & Profitability Analysis",
-    },
-    summary: {
-      ko: "콘텐츠와 시장 데이터를 분석해 사업성과 수익 가능성 판단을 지원하는 AI 분석 시스템입니다.",
-      en: "An AI analysis system supporting content performance and profitability assessment through market and content data.",
-    },
-    role: {
-      ko: "콘텐츠 사업성 검토를 위한 분석 구조와 운영 화면 구성을 설계했습니다.",
-      en: "ERUTY designed the analysis structure and operational screens for content business assessment.",
-    },
-    scope: [
-      {
-        ko: "콘텐츠·시장 데이터 분석 흐름 설계",
-        en: "Content and market data analysis flow design",
-      },
-      {
-        ko: "수익성 판단을 위한 검토 인터페이스 구성",
-        en: "Review interface configuration for profitability assessment",
-      },
-      {
-        ko: "사업 의사결정을 위한 분석 리포트 구조 정리",
-        en: "Analysis report structure for business decision-making",
-      },
-    ],
-    outcome: {
-      ko: "콘텐츠 기획과 사업성 검토에 활용할 수 있는 분석 환경을 구성했습니다.",
-      en: "An analysis environment for content planning and business feasibility review was established.",
-    },
-    status: {
-      ko: "제품·R&D 프로젝트",
-      en: "Product and R&D Project",
-    },
-    market: {
-      ko: "콘텐츠·시장 데이터 분석",
-      en: "Content and Market Data Analysis",
-    },
-    visualType: "interface",
-    visualIsConcept: true,
-  },
-  {
-    id: "blockchain-rights",
-    visibility: "published",
-    categories: ["blockchain", "product-rd"],
-    title: {
-      ko: "블록체인 기반 저작권 관리·거래 시스템",
-      en: "Blockchain-Based Rights Management & Transaction System",
-    },
-    summary: {
-      ko: "콘텐츠 권리, 계약과 거래 이력을 관리할 수 있도록 설계한 블록체인 기반 시스템입니다.",
-      en: "A blockchain-based system designed to manage content rights, contracts, and transaction records.",
-    },
-    role: {
-      ko: "권리 구조 모델링, 거래 기록 흐름 설계, 시스템 화면 구성을 담당했습니다.",
-      en: "ERUTY handled rights structure modeling, transaction flow design, and system interface planning.",
-    },
-    scope: [
-      {
-        ko: "권리 등록 및 관리 구조 설계",
-        en: "Rights registration and management structure design",
-      },
-      {
-        ko: "계약·거래 이력 추적 흐름 구성",
-        en: "Contract and transaction history tracking flow",
-      },
-      {
-        ko: "블록체인 기반 기록 관리 인터페이스 설계",
-        en: "Blockchain-based record management interface design",
-      },
-    ],
-    outcome: {
-      ko: "콘텐츠 권리와 계약 이력을 체계적으로 관리할 수 있는 시스템 구조를 정리했습니다.",
-      en: "A structured system for managing content rights and contract histories was defined.",
-    },
-    status: {
-      ko: "제품·R&D 프로젝트",
-      en: "Product and R&D Project",
-    },
-    market: {
-      ko: "콘텐츠 권리·계약 관리",
-      en: "Content Rights and Contract Management",
-    },
-    visualType: "abstract",
-    visualIsConcept: true,
-  },
-  {
-    id: "vietnam-market-development",
-    visibility: "published",
-    categories: ["global-business"],
-    title: {
-      ko: "베트남 시장 사업개발 및 파트너 연결",
-      en: "Vietnam Market Development & Partner Network",
-    },
-    summary: {
-      ko: "베트남 현지 파트너 네트워크를 기반으로 콘텐츠와 비즈니스 협업 구조를 검토하고 연결한 프로젝트입니다.",
-      en: "A market development project connecting content and business opportunities through a local partner network in Vietnam.",
-    },
-    role: {
-      ko: "현지 파트너 검토, 사업 기회 정리, 협업 구조 연결을 수행했습니다.",
-      en: "ERUTY reviewed local partners, mapped business opportunities, and connected collaboration structures.",
-    },
-    scope: [
-      {
-        ko: "베트남 현지 파트너 네트워크 검토",
-        en: "Review of local partner networks in Vietnam",
-      },
-      {
-        ko: "콘텐츠·사업 협업 기회 정리",
-        en: "Organization of content and business collaboration opportunities",
-      },
-      {
-        ko: "현장 기반 파트너 연결 및 실행 준비",
-        en: "On-site partner connection and execution preparation",
-      },
-    ],
-    outcome: {
-      ko: "베트남 현지 네트워크를 바탕으로 협업 검토와 연결을 지원했습니다.",
-      en: "ERUTY supported collaboration review and partner connection through its local Vietnam network.",
-    },
-    status: {
-      ko: "글로벌 사업 프로젝트",
-      en: "Global Business Project",
-    },
-    market: {
-      ko: "베트남 시장",
-      en: "Vietnam Market",
-    },
-    image: "/images/company/about/journey-2025-vietnam.png",
-    imageAlt: {
-      ko: "베트남 현장 공개 이미지",
-      en: "Public on-site image from Vietnam",
-    },
-    visualType: "image",
-  },
-  {
-    id: "public-ax-education",
-    visibility: "published",
-    categories: ["education", "ai-ax"],
-    title: {
-      ko: "공공기관 대상 AX 교육 프로그램",
-      en: "AX Education Program for Public Institutions",
-    },
-    summary: {
-      ko: "공공기관의 AI 활용 역량 강화를 위한 교육 과정과 운영 프로그램을 설계·수행했습니다.",
-      en: "An education program designed and delivered to strengthen practical AI capabilities in public institutions.",
-    },
-    role: {
-      ko: "교육 과정 설계, 운영 구조 기획, 현장 실행 체계를 구성했습니다.",
-      en: "ERUTY designed the curriculum, planned the operating model, and built the execution framework for delivery.",
-    },
-    scope: [
-      {
-        ko: "공공기관 대상 AX 교육 과정 설계",
-        en: "AX curriculum design for public institutions",
-      },
-      {
-        ko: "실습 중심 프로그램 운영 구조 정리",
-        en: "Practice-oriented program operations framework",
-      },
-      {
-        ko: "교육 운영을 위한 관리 화면 및 자료 구성",
-        en: "Management views and supporting materials for delivery",
-      },
-    ],
-    outcome: {
-      ko: "공공기관 실무 환경에 맞춘 AX 교육 프로그램을 공개 가능한 범위에서 정리했습니다.",
-      en: "A public-facing overview of an AX education program tailored to public-sector practice was prepared.",
-    },
-    status: {
-      ko: "교육사업 프로젝트",
-      en: "Education Project",
-    },
-    market: {
-      ko: "공공기관",
-      en: "Public Institutions",
-    },
-    visualType: "interface",
-    visualIsConcept: true,
-  },
+  "products-services",
+  "rnd",
+  "ict-app",
+  "erumter-education",
 ];
 
 const PUBLISHED_PROJECTS = PROJECTS.filter(
@@ -420,18 +151,20 @@ function Eyebrow({ children }: { children: string }) {
   );
 }
 
-function ConceptPill() {
+function ConceptPill({ lang }: { lang: Lang }) {
   return (
     <div
-      className="absolute right-4 top-4 rounded-full px-3 py-1 text-[0.66rem] font-semibold uppercase tracking-[0.18em]"
+      className={`pointer-events-none absolute right-4 top-4 z-10 rounded-full border px-3 py-1.5 eruty-meta ${
+        lang === "en" ? "eruty-meta--code uppercase tracking-[0.12em]" : ""
+      }`}
       style={{
-        background: "rgba(255,255,255,0.12)",
+        background: "rgba(7,17,30,0.72)",
+        borderColor: "rgba(255,255,255,0.22)",
         color: "#FFFFFF",
-        fontFamily: "var(--font-mono)",
         backdropFilter: "blur(10px)",
       }}
     >
-      CONCEPT VISUAL
+      {lang === "ko" ? "콘셉트 이미지" : "CONCEPT IMAGE"}
     </div>
   );
 }
@@ -523,390 +256,6 @@ function HeroSection({ prefersReducedMotion }: { prefersReducedMotion: boolean }
   );
 }
 
-function InterfaceShell({
-  children,
-  featured = false,
-  dark = true,
-}: {
-  children: ReactNode;
-  featured?: boolean;
-  dark?: boolean;
-}) {
-  return (
-    <div
-      className={`relative h-full w-full overflow-hidden rounded-[1rem] border ${
-        featured ? "p-4 md:p-5" : "p-3.5"
-      }`}
-      style={{
-        borderColor: dark ? "rgba(255,255,255,0.08)" : "rgba(55,55,242,0.08)",
-        background: dark
-          ? "linear-gradient(180deg, rgba(12,19,33,0.98) 0%, rgba(10,15,26,1) 100%)"
-          : "linear-gradient(180deg, #FCFDFF 0%, #F1F5FB 100%)",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-function EmotionConceptVisual({ featured = false }: { featured?: boolean }) {
-  return (
-    <InterfaceShell featured={featured}>
-      <ConceptPill />
-      <div className="grid h-full gap-3 md:grid-cols-[118px_1fr]">
-        <div className="flex flex-col gap-2">
-          <div
-            className="h-10 rounded-[0.8rem]"
-            style={{ background: "rgba(255,255,255,0.08)" }}
-          />
-          <div
-            className="h-10 rounded-[0.8rem]"
-            style={{ background: "rgba(255,255,255,0.06)" }}
-          />
-          <div
-            className="h-10 rounded-[0.8rem]"
-            style={{ background: "rgba(255,255,255,0.06)" }}
-          />
-          <div
-            className="mt-2 flex-1 rounded-[1rem]"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)",
-            }}
-          />
-        </div>
-
-        <div className="flex h-full flex-col gap-3">
-          <div className="grid gap-3 sm:grid-cols-3">
-            {[
-              "rgba(55,55,242,0.28)",
-              "rgba(116,155,255,0.18)",
-              "rgba(255,255,255,0.08)",
-            ].map((background, index) => (
-              <div
-                key={`${background}-${index}`}
-                className="h-16 rounded-[0.9rem]"
-                style={{ background }}
-              />
-            ))}
-          </div>
-
-          <div
-            className="relative flex-1 overflow-hidden rounded-[1rem] border"
-            style={{
-              borderColor: "rgba(255,255,255,0.08)",
-              background:
-                "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%)",
-            }}
-          >
-            <svg
-              viewBox="0 0 560 240"
-              className="absolute inset-0 h-full w-full"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M18 162 C 82 102 128 86 182 120 S 292 198 350 152 S 470 76 540 118"
-                stroke="rgba(119,212,255,0.88)"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-              <path
-                d="M18 182 C 96 132 142 138 198 168 S 314 204 378 178 S 486 126 540 148"
-                stroke="rgba(55,55,242,0.88)"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-              />
-              <path
-                d="M18 138 C 88 126 132 82 196 98 S 312 170 384 130 S 488 68 540 92"
-                stroke="rgba(255,255,255,0.34)"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-            <div className="absolute inset-x-5 bottom-4 grid grid-cols-3 gap-2">
-              {["48%", "58%", "42%"].map((height, index) => (
-                <div
-                  key={`${height}-${index}`}
-                  className="rounded-[0.85rem]"
-                  style={{
-                    height,
-                    background:
-                      "linear-gradient(180deg, rgba(55,55,242,0.22) 0%, rgba(55,55,242,0.08) 100%)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </InterfaceShell>
-  );
-}
-
-function AnalysisConceptVisual() {
-  return (
-    <InterfaceShell>
-      <ConceptPill />
-      <div className="grid h-full gap-3">
-        <div className="grid grid-cols-[1.2fr_0.8fr] gap-3">
-          <div
-            className="rounded-[0.95rem] border p-3"
-            style={{
-              borderColor: "rgba(255,255,255,0.07)",
-              background: "rgba(255,255,255,0.04)",
-            }}
-          >
-            <div className="flex h-[7.5rem] items-end gap-2">
-              {["38%", "62%", "44%", "72%", "56%", "82%"].map((height, index) => (
-                <div
-                  key={`${height}-${index}`}
-                  className="flex-1 rounded-t-[0.6rem]"
-                  style={{
-                    height,
-                    background:
-                      index % 2 === 0
-                        ? "rgba(55,55,242,0.9)"
-                        : "rgba(107,188,255,0.82)",
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div
-            className="flex items-center justify-center rounded-[0.95rem] border"
-            style={{
-              borderColor: "rgba(255,255,255,0.07)",
-              background: "rgba(255,255,255,0.04)",
-            }}
-          >
-            <div
-              className="h-24 w-24 rounded-full"
-              style={{
-                background:
-                  "conic-gradient(from 160deg, rgba(55,55,242,1), rgba(119,212,255,0.92), rgba(55,55,242,0.18), rgba(55,55,242,1))",
-                padding: 10,
-              }}
-            >
-              <div className="h-full w-full rounded-full bg-[#091221]" />
-            </div>
-          </div>
-        </div>
-
-        <div
-          className="rounded-[0.95rem] border p-4"
-          style={{
-            borderColor: "rgba(255,255,255,0.07)",
-            background: "rgba(255,255,255,0.04)",
-          }}
-        >
-          <svg viewBox="0 0 420 120" className="h-full w-full" fill="none" aria-hidden="true">
-            <path
-              d="M10 82 C 48 70 72 34 118 42 S 194 104 240 84 S 330 24 410 40"
-              stroke="rgba(55,55,242,0.92)"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-            />
-            <path
-              d="M10 96 C 62 78 86 72 132 88 S 212 108 258 94 S 332 52 410 68"
-              stroke="rgba(119,212,255,0.88)"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-            />
-            <path
-              d="M10 62 C 52 56 92 18 136 26 S 206 88 258 64 S 340 18 410 22"
-              stroke="rgba(255,255,255,0.28)"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-        </div>
-      </div>
-    </InterfaceShell>
-  );
-}
-
-function BlockchainConceptVisual() {
-  return (
-    <div
-      className="relative h-full w-full overflow-hidden rounded-[1rem]"
-      style={{
-        background:
-          "radial-gradient(circle at 50% 26%, rgba(95,168,255,0.22), transparent 28%), linear-gradient(180deg, #081427 0%, #09101D 100%)",
-      }}
-    >
-      <ConceptPill />
-      <svg
-        viewBox="0 0 600 360"
-        className="absolute inset-0 h-full w-full"
-        fill="none"
-        aria-hidden="true"
-      >
-        {[
-          [180, 92],
-          [424, 86],
-          [138, 252],
-          [458, 248],
-          [300, 54],
-          [304, 298],
-        ].map(([x, y], index) => (
-          <g key={`${x}-${y}-${index}`}>
-            <line
-              x1="300"
-              y1="176"
-              x2={x}
-              y2={y}
-              stroke="rgba(85,155,255,0.24)"
-              strokeWidth="2"
-            />
-            <rect
-              x={x - 34}
-              y={y - 34}
-              width="68"
-              height="68"
-              rx="12"
-              fill="rgba(55,55,242,0.16)"
-              stroke="rgba(119,212,255,0.34)"
-            />
-            <rect
-              x={x - 16}
-              y={y - 18}
-              width="32"
-              height="36"
-              rx="6"
-              fill="rgba(119,212,255,0.20)"
-            />
-          </g>
-        ))}
-      </svg>
-      <div
-        className="absolute left-1/2 top-1/2 h-[126px] w-[126px] -translate-x-1/2 -translate-y-1/2 rounded-[1.4rem] border"
-        style={{
-          borderColor: "rgba(119,212,255,0.45)",
-          background:
-            "linear-gradient(180deg, rgba(55,55,242,0.42) 0%, rgba(55,55,242,0.18) 100%)",
-          boxShadow: "0 16px 44px rgba(11, 35, 88, 0.32)",
-        }}
-      >
-        <div
-          className="absolute inset-x-[34px] top-[28px] h-[24px] rounded-t-full border"
-          style={{ borderColor: "rgba(255,255,255,0.72)" }}
-        />
-        <div
-          className="absolute left-[26px] right-[26px] top-[44px] bottom-[26px] rounded-[1rem]"
-          style={{ background: "rgba(255,255,255,0.12)" }}
-        />
-      </div>
-    </div>
-  );
-}
-
-function EducationConceptVisual() {
-  return (
-    <InterfaceShell dark={false}>
-      <ConceptPill />
-      <div className="grid h-full gap-3 md:grid-cols-[108px_1fr]">
-        <div
-          className="rounded-[0.95rem] border p-3"
-          style={{
-            borderColor: "rgba(55,55,242,0.08)",
-            background: "rgba(255,255,255,0.72)",
-          }}
-        >
-          <div className="flex flex-col gap-2">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <div
-                key={`side-${index}`}
-                className="h-9 rounded-[0.8rem]"
-                style={{
-                  background:
-                    index === 0
-                      ? "rgba(55,55,242,0.12)"
-                      : "rgba(24,25,27,0.05)",
-                }}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="grid gap-3">
-          <div
-            className="relative overflow-hidden rounded-[0.95rem] border"
-            style={{
-              borderColor: "rgba(55,55,242,0.08)",
-              background:
-                "linear-gradient(180deg, rgba(255,255,255,0.88) 0%, rgba(243,247,252,0.92) 100%)",
-            }}
-          >
-            <div className="grid h-full gap-3 p-3 sm:grid-cols-[1.25fr_0.75fr]">
-              <div
-                className="flex items-center justify-center rounded-[0.85rem]"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(55,55,242,0.16) 0%, rgba(119,212,255,0.18) 100%)",
-                }}
-              >
-                <div
-                  className="h-16 w-16 rounded-full"
-                  style={{ background: "rgba(55,55,242,0.22)" }}
-                />
-              </div>
-              <div className="grid gap-2">
-                {Array.from({ length: 3 }).map((_, index) => (
-                  <div
-                    key={`course-${index}`}
-                    className="rounded-[0.8rem]"
-                    style={{
-                      height: index === 0 ? 44 : 38,
-                      background:
-                        index === 0
-                          ? "rgba(55,55,242,0.12)"
-                          : "rgba(24,25,27,0.05)",
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-3">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <div
-                key={`module-${index}`}
-                className="rounded-[0.95rem] border p-3"
-                style={{
-                  borderColor: "rgba(55,55,242,0.08)",
-                  background: "rgba(255,255,255,0.8)",
-                }}
-              >
-                <div
-                  className="h-10 rounded-[0.75rem]"
-                  style={{
-                    background:
-                      index === 1
-                        ? "rgba(119,212,255,0.16)"
-                        : "rgba(55,55,242,0.10)",
-                  }}
-                />
-                <div
-                  className="mt-3 h-2.5 rounded-full"
-                  style={{ background: "rgba(24,25,27,0.08)" }}
-                />
-                <div
-                  className="mt-2 h-2.5 w-[72%] rounded-full"
-                  style={{ background: "rgba(24,25,27,0.08)" }}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </InterfaceShell>
-  );
-}
-
 function ProjectVisual({
   project,
   featured = false,
@@ -916,32 +265,21 @@ function ProjectVisual({
 }) {
   const { lang } = useLanguage();
 
-  if (project.image && project.imageAlt) {
-    return (
-      <div className="relative h-full w-full overflow-hidden rounded-[1rem] bg-[#EDF2FA]">
-        <img
-          src={project.image}
-          alt={getLocalizedText(project.imageAlt, lang)}
-          className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.015]"
-          draggable={false}
-        />
-      </div>
-    );
-  }
-
-  if (project.id === "emotion-personalization") {
-    return <EmotionConceptVisual featured={featured} />;
-  }
-
-  if (project.id === "content-profitability") {
-    return <AnalysisConceptVisual />;
-  }
-
-  if (project.id === "blockchain-rights") {
-    return <BlockchainConceptVisual />;
-  }
-
-  return <EducationConceptVisual />;
+  return (
+    <div className="relative h-full w-full overflow-hidden rounded-[1rem] bg-[#EDF2FA]">
+      <img
+        src={project.image}
+        alt={getLocalizedText(project.imageAlt, lang)}
+        className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.015]"
+        width={1600}
+        height={1000}
+        loading="eager"
+        fetchPriority={featured ? "high" : "auto"}
+        draggable={false}
+      />
+      {project.visualIsConcept ? <ConceptPill lang={lang} /> : null}
+    </div>
+  );
 }
 
 function FeaturedProjectSection({
@@ -988,17 +326,6 @@ function FeaturedProjectSection({
                     dark
                   />
                 ))}
-                {project.year ? (
-                  <span
-                    className="eruty-meta eruty-meta--code inline-flex items-center rounded-full px-3 py-[7px]"
-                    style={{
-                      background: "rgba(255,255,255,0.08)",
-                      color: "rgba(255,255,255,0.92)",
-                    }}
-                  >
-                    {project.year}
-                  </span>
-                ) : null}
               </div>
 
               <h2
@@ -1019,6 +346,13 @@ function FeaturedProjectSection({
               >
                 {getLocalizedText(project.summary, lang)}
               </p>
+
+              <div
+                className="eruty-meta mt-5"
+                style={{ color: "rgba(255,255,255,0.6)" }}
+              >
+                {getLocalizedText(project.status, lang)}
+              </div>
             </div>
 
             <div className="mt-8">
@@ -1163,6 +497,10 @@ function ProjectCard({
           {getLocalizedText(project.summary, lang)}
         </p>
 
+        <div className="eruty-meta mt-5" style={{ color: MUTED }}>
+          {getLocalizedText(project.status, lang)}
+        </div>
+
         <div className="mt-auto flex items-center justify-between pt-5">
           <span
             className="text-sm font-medium"
@@ -1254,25 +592,21 @@ function DrawerVisual({
   project: Project;
   lang: Lang;
 }) {
-  if (project.image && project.imageAlt) {
-    return (
-      <div
-        className="overflow-hidden rounded-[1rem] border"
-        style={{ borderColor: BORDER, aspectRatio: "16 / 10" }}
-      >
-        <img
-          src={project.image}
-          alt={getLocalizedText(project.imageAlt, lang)}
-          className="h-full w-full object-cover object-center"
-          draggable={false}
-        />
-      </div>
-    );
-  }
-
   return (
-    <div style={{ aspectRatio: "16 / 10" }}>
-      <ProjectVisual project={project} />
+    <div
+      className="relative overflow-hidden rounded-[1rem] border bg-[#EDF2FA]"
+      style={{ borderColor: BORDER, aspectRatio: "16 / 10" }}
+    >
+      <img
+        src={project.image}
+        alt={getLocalizedText(project.imageAlt, lang)}
+        className="h-full w-full object-cover object-center"
+        width={1600}
+        height={1000}
+        loading="lazy"
+        draggable={false}
+      />
+      {project.visualIsConcept ? <ConceptPill lang={lang} /> : null}
     </div>
   );
 }
@@ -1347,9 +681,6 @@ function ProjectDetailDrawer({
   }
 
   const detailRows: Array<{ label: string; value: string }> = [];
-  if (project.year) {
-    detailRows.push({ label: copy.yearLabel, value: project.year });
-  }
   if (project.market) {
     detailRows.push({
       label: copy.marketLabel,
