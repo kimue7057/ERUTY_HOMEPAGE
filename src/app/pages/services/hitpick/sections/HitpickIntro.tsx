@@ -15,7 +15,7 @@ export function HitpickIntro() {
       <div className="hp-shell">
         <div className="hp-intro-grid">
           <div>
-            <span className="hp-eyebrow">{t.introLabel}</span>
+            <span className="hp-eyebrow hp-eyebrow-code">{t.introLabel}</span>
             <h2 id="hp-intro-title" className="hp-display">{t.introHeading}</h2>
           </div>
           <div className="hp-intro-copy">

@@ -91,7 +91,7 @@ export function HitpickSignalCoverage() {
     <section className="hp-section hp-signals" aria-labelledby="hp-signals-title">
       <div className="hp-shell">
         <header className="hp-heading">
-          <span className="hp-eyebrow">{t.signalLabel}</span>
+          <span className="hp-eyebrow hp-eyebrow-code">{t.signalLabel}</span>
           <h2 id="hp-signals-title" className="hp-display">{t.signalHeading}</h2>
           <p>{t.signalDescription}</p>
         </header>

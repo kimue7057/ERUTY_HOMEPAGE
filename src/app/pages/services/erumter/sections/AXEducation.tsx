@@ -12,7 +12,7 @@ export function AXEducation() {
       <div className="er-container">
         <Reveal className="er-education-grid">
           <div className="er-education-copy">
-            <span className="er-kicker">{t.eyebrow}</span>
+            <span className="er-kicker er-kicker-code">{t.eyebrow}</span>
             <h2 id="er-education-title">{t.title}</h2>
             <p>{t.description}</p>
           </div>
@@ -35,4 +35,3 @@ export function AXEducation() {
     </section>
   );
 }
-

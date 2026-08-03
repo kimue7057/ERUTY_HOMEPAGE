@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../context/LanguageContext";
 import heroVideo from "../../assets/video/eruty-hero.mp4";
 import { COMPANY_METRICS } from "../data/companyMetrics";
+import { SectionHeading } from "../components/SectionHeading";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -285,15 +286,6 @@ const T = {
 /* ─── Category dot color map ──────────────────────────────────── */
 
 /* ─── Reusable Eyebrow ─────────────────────────────────────────── */
-
-function Eyebrow({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
-  return (
-    <div
-      className="text-xs tracking-widest uppercase mb-5"
-      style={{ color: light ? "rgba(255,255,255,0.35)" : MUTED, fontFamily: "var(--font-mono)", letterSpacing: "0.12em" }}
-    >{children}</div>
-  );
-}
 
 type CountryCode = "US" | "DE" | "JP" | "SG" | "VN" | "AE" | "IN";
 
@@ -768,38 +760,13 @@ function StatementSection() {
   return (
     <section style={{ background: "#FFFFFF" }}>
       <div className="mx-auto px-8" style={{ maxWidth: 1280 }}>
-        <div className="py-20" style={{ borderBottom: `1px solid ${BORDER}` }}>
-          <div style={{ maxWidth: 920 }}>
-            <div
-              className="mb-5"
-              style={{
-                color: "#666B74",
-                fontFamily: "var(--font-body)",
-                fontSize: "0.875rem",
-                fontWeight: 500,
-                letterSpacing: "0.01em",
-                lineHeight: 1.4,
-              }}
-            >
-              {ui.statementEyebrow}
-            </div>
-            <h2
-              className="eruty-keep-all"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 700,
-                fontSize: "clamp(2rem, 3.4vw, 3rem)",
-                lineHeight: 1.25,
-                color: NEAR_BLACK,
-                maxWidth: 920,
-                wordBreak: "keep-all",
-                overflowWrap: "normal",
-                whiteSpace: "pre-line",
-              }}
-            >
-              {ui.statementHeadline}
-            </h2>
-          </div>
+        <div className="eruty-section-compact" style={{ borderBottom: `1px solid ${BORDER}` }}>
+          <SectionHeading
+            eyebrow={ui.statementEyebrow}
+            title={ui.statementHeadline}
+            align="center"
+            lang={lang}
+          />
         </div>
 
         <div className="py-14 lg:py-16" style={{ borderBottom: `1px solid ${BORDER}` }}>
@@ -812,15 +779,7 @@ function StatementSection() {
               onBlurCapture={handleBlurCapture}
             >
               <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <h3
-                  style={{
-                    color: NEAR_BLACK,
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 700,
-                    fontSize: "clamp(1.4rem, 2vw, 1.7rem)",
-                    lineHeight: 1.3,
-                  }}
-                >
+                <h3 className="eruty-subsection-title" style={{ color: NEAR_BLACK }}>
                   {ui.activityTitle}
                 </h3>
 
@@ -1069,40 +1028,25 @@ function StatementSection() {
                     </div>
 
                     <div
+                      className="eruty-metric-value"
                       style={{
                         color: BLUE,
-                        fontFamily: "var(--font-display)",
-                        fontWeight: 800,
                         fontSize: "clamp(3.6rem, 4.8vw, 4.5rem)",
-                        lineHeight: 0.98,
-                        letterSpacing: "-0.045em",
                       }}
                     >
                       {metric.value}
                     </div>
                     <div
-                      className="eruty-keep-all mt-5"
-                      style={{
-                        color: NEAR_BLACK,
-                        fontFamily: "var(--font-display)",
-                        fontWeight: 700,
-                        fontSize: "clamp(1.12rem, 1.55vw, 1.28rem)",
-                        lineHeight: 1.34,
-                        wordBreak: "keep-all",
-                        overflowWrap: "normal",
-                      }}
+                      className="eruty-card-title eruty-keep-all mt-5"
+                      style={{ color: NEAR_BLACK }}
                     >
                       {metric.label}
                     </div>
                     <p
-                      className="eruty-keep-all mt-3"
+                      className="eruty-body-small eruty-keep-all mt-3"
                       style={{
                         maxWidth: 320,
                         color: BODY_TEXT,
-                        fontSize: "0.9rem",
-                        lineHeight: 1.72,
-                        wordBreak: "keep-all",
-                        overflowWrap: "normal",
                       }}
                     >
                       {metric.note}
@@ -1208,63 +1152,35 @@ function BusinessFields() {
   );
 
   return (
-    <section style={{ background: SOFT_BG }}>
-      <div className="mx-auto px-6 py-20 sm:px-8 sm:py-24" style={{ maxWidth: 1280 }}>
-        <div className="mb-14 max-w-[860px]">
-          <div className="mb-3" style={{ color: "#5A5F68", fontSize: "0.875rem", fontWeight: 500, letterSpacing: "0.01em" }}>
-            {t.eyebrow}
-          </div>
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 700,
-              fontSize: "clamp(2.75rem, 4.3vw, 3.5rem)",
-              color: NEAR_BLACK,
-              lineHeight: 1.18,
-              whiteSpace: "pre-line",
-              wordBreak: "keep-all",
-              overflowWrap: "normal",
-            }}
-          >
-            {t.headline}
-          </h2>
-        </div>
+    <section className="eruty-section" style={{ background: SOFT_BG }}>
+      <div className="mx-auto px-6 sm:px-8" style={{ maxWidth: 1280 }}>
+        <SectionHeading eyebrow={t.eyebrow} title={t.headline} align="center" lang={lang} />
 
         <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 xl:gap-6">
           {/* Panel A */}
           <div className="relative flex flex-col overflow-hidden rounded-[6px] p-7 sm:p-8 xl:min-h-[540px] xl:p-10" style={{ background: NEAR_BLACK }}>
-            <div className="inline-block text-[11px] mb-4 tracking-[0.18em]" style={{ color: BLUE, fontFamily: "var(--font-mono)", alignSelf: "flex-start" }}>
+            <div className="eruty-meta eruty-meta--code mb-4" style={{ color: BLUE, alignSelf: "flex-start" }}>
               {t.panelA.badge}
             </div>
             <div className="mb-4" style={{ color: "#FFFFFF", fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
               {t.panelA.service}
             </div>
             <h3
-              className="mb-5"
+              className="eruty-card-title mb-5"
               style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 700,
-                fontSize: "clamp(1.875rem, 2.65vw, 2.25rem)",
                 color: "#FFFFFF",
-                lineHeight: 1.25,
                 whiteSpace: "pre-line",
-                wordBreak: "keep-all",
-                overflowWrap: "normal",
                 maxWidth: 520,
               }}
             >
               {t.panelA.headline}
             </h3>
             <p
-              className="mb-8"
+              className="eruty-body mb-8"
               style={{
-                fontSize: "clamp(1rem, 1.2vw, 1.125rem)",
-                lineHeight: 1.72,
                 color: "rgba(255,255,255,0.82)",
                 maxWidth: 540,
                 whiteSpace: "pre-line",
-                wordBreak: "keep-all",
-                overflowWrap: "normal",
               }}
             >
               {t.panelA.desc}
@@ -1291,7 +1207,7 @@ function BusinessFields() {
               ))}
             </div>
             <div className="mt-auto">
-              <div className="mb-4" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.75rem", fontWeight: 600 }}>
+              <div className="eruty-meta mb-4" style={{ color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>
                 {t.panelA.flowLabel}
               </div>
               {renderDesktopFlow(t.contentFlow, contentStep, true)}
@@ -1312,38 +1228,28 @@ function BusinessFields() {
 
           {/* Panel B */}
           <div className="relative flex flex-col overflow-hidden rounded-[6px] border p-7 sm:p-8 xl:min-h-[540px] xl:p-10" style={{ background: "#FFFFFF", borderColor: BORDER }}>
-            <div className="inline-block text-[11px] mb-4 tracking-[0.18em]" style={{ color: BLUE, fontFamily: "var(--font-mono)", alignSelf: "flex-start" }}>
+            <div className="eruty-meta eruty-meta--code mb-4" style={{ color: BLUE, alignSelf: "flex-start" }}>
               {t.panelB.badge}
             </div>
             <div className="mb-4" style={{ color: NEAR_BLACK, fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
               {t.panelB.service}
             </div>
             <h3
-              className="mb-5"
+              className="eruty-card-title mb-5"
               style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 700,
-                fontSize: "clamp(1.875rem, 2.65vw, 2.25rem)",
                 color: NEAR_BLACK,
-                lineHeight: 1.25,
                 whiteSpace: "pre-line",
-                wordBreak: "keep-all",
-                overflowWrap: "normal",
                 maxWidth: 520,
               }}
             >
               {t.panelB.headline}
             </h3>
             <p
-              className="mb-8"
+              className="eruty-body mb-8"
               style={{
-                fontSize: "clamp(1rem, 1.2vw, 1.125rem)",
-                lineHeight: 1.72,
                 color: BODY_TEXT,
                 maxWidth: 540,
                 whiteSpace: "pre-line",
-                wordBreak: "keep-all",
-                overflowWrap: "normal",
               }}
             >
               {t.panelB.desc}
@@ -1370,7 +1276,7 @@ function BusinessFields() {
               ))}
             </div>
             <div className="mt-auto">
-              <div className="mb-4" style={{ color: MUTED, fontSize: "0.75rem", fontWeight: 600 }}>
+              <div className="eruty-meta mb-4" style={{ color: MUTED, fontWeight: 600 }}>
                 {t.panelB.flowLabel}
               </div>
               {renderDesktopFlow(t.axFlow, axStep, false)}
@@ -1402,53 +1308,22 @@ function TechnologySection() {
 
   return (
     <section
+      className="eruty-section"
       style={{
         background: "linear-gradient(180deg, #17181B 0%, #15161A 100%)",
       }}
     >
-      <div className="mx-auto px-6 py-20 sm:px-8 sm:py-24" style={{ maxWidth: 1280 }}>
+      <div className="mx-auto px-6 sm:px-8" style={{ maxWidth: 1280 }}>
         <div className="grid grid-cols-1 gap-10 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.55fr)] xl:gap-14">
           <div className="xl:pr-4">
-            <div
-              className="mb-4"
-              style={{
-                color: "rgba(255,255,255,0.56)",
-                fontSize: "0.875rem",
-                fontWeight: 500,
-                letterSpacing: "0.01em",
-              }}
-            >
-              {t.eyebrow}
-            </div>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 700,
-                fontSize: "clamp(3rem, 4.4vw, 4rem)",
-                color: "#FFFFFF",
-                lineHeight: 1.16,
-                whiteSpace: "pre-line",
-                wordBreak: "keep-all",
-                overflowWrap: "normal",
-                maxWidth: 560,
-              }}
-            >
-              {t.headline}
-            </h2>
-            <p
-              className="eruty-keep-all mt-7"
-              style={{
-                maxWidth: 520,
-                fontSize: "clamp(1.1rem, 1.5vw, 1.32rem)",
-                lineHeight: 1.74,
-                color: "rgba(255,255,255,0.74)",
-                whiteSpace: "pre-line",
-                wordBreak: "keep-all",
-                overflowWrap: "normal",
-              }}
-            >
-              {t.desc}
-            </p>
+            <SectionHeading
+              eyebrow={t.eyebrow}
+              title={t.headline}
+              description={t.desc}
+              align="left"
+              inverse
+              lang={lang}
+            />
             <div className="mt-10">
               <Link
                 to={t.href}
@@ -1484,55 +1359,35 @@ function TechnologySection() {
                 }}
               >
                 <div
-                  style={{
-                    color: BLUE,
-                    fontFamily: "var(--font-mono)",
-                    fontWeight: 600,
-                    fontSize: "clamp(1.15rem, 1.9vw, 1.5rem)",
-                    lineHeight: 1,
-                    letterSpacing: "0.02em",
-                  }}
+                  className="eruty-meta eruty-meta--code"
+                  style={{ color: BLUE }}
                 >
                   {card.number}
                 </div>
                 <h3
-                  className="eruty-keep-all mt-6"
+                  className="eruty-card-title eruty-keep-all mt-6"
                   style={{
                     color: "#FFFFFF",
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 700,
-                    fontSize: "clamp(1.45rem, 2.2vw, 1.75rem)",
-                    lineHeight: 1.24,
-                    wordBreak: "keep-all",
-                    overflowWrap: "normal",
                     maxWidth: 320,
                   }}
                 >
                   {card.title}
                 </h3>
                 <p
-                  className="eruty-keep-all mt-4"
+                  className="eruty-body-small eruty-keep-all mt-4"
                   style={{
                     color: "rgba(255,255,255,0.72)",
-                    fontSize: "clamp(0.98rem, 1.35vw, 1.08rem)",
-                    lineHeight: 1.72,
                     whiteSpace: "pre-line",
-                    wordBreak: "keep-all",
-                    overflowWrap: "normal",
                     maxWidth: 330,
                   }}
                 >
                   {card.desc}
                 </p>
                 <div
-                  className="mt-auto pt-7"
+                  className={`eruty-meta mt-auto pt-7 ${lang === "en" ? "eruty-meta--code" : ""}`}
                   style={{
                     borderTop: "1px solid rgba(255,255,255,0.08)",
                     color: "rgba(255,255,255,0.42)",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.74rem",
-                    lineHeight: 1.5,
-                    letterSpacing: "0.08em",
                   }}
                 >
                   {card.keywords}
@@ -1564,16 +1419,14 @@ function GlobalWork() {
   ];
 
   return (
-    <section style={{ background: "#FFFFFF" }}>
-      <div className="mx-auto px-6 py-20 sm:px-8 sm:py-24" style={{ maxWidth: 1280 }}>
-        <div className="mb-14 flex items-end justify-between gap-6">
-          <div>
-            <Eyebrow>{t.eyebrow}</Eyebrow>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 3vw, 2.75rem)", color: NEAR_BLACK, lineHeight: 1.2, whiteSpace: "pre-line" }}>
-              {t.headline}
-            </h2>
-          </div>
-          <Link
+    <section className="eruty-section" style={{ background: "#FFFFFF" }}>
+      <div className="mx-auto px-6 sm:px-8" style={{ maxWidth: 1280 }}>
+        <SectionHeading
+          eyebrow={t.eyebrow}
+          title={t.headline}
+          align="split"
+          lang={lang}
+          action={<Link
             to="/resources"
             className="hidden items-center gap-1.5 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3737F2] sm:flex"
             style={{ color: MUTED }}
@@ -1581,8 +1434,8 @@ function GlobalWork() {
             onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = MUTED)}
           >
             {t.viewAll} <ArrowUpRight size={13} />
-          </Link>
-        </div>
+          </Link>}
+        />
 
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,2.08fr)] lg:gap-6">
           <div
@@ -1615,29 +1468,23 @@ function GlobalWork() {
                   <div className="min-w-0">
                     <div className="mb-3 flex items-center gap-2">
                       <span
+                        className="eruty-meta eruty-meta--code"
                         style={{
                           color: active === i ? BLUE : MUTED,
-                          fontFamily: "var(--font-mono)",
-                          fontSize: "0.82rem",
                           fontWeight: 600,
-                          letterSpacing: "0.06em",
                         }}
                       >
                         {cas.index}
                       </span>
-                      <span style={{ color: active === i ? BLUE : MUTED, fontSize: "0.86rem", fontWeight: 500 }}>
+                      <span className="eruty-body-small" style={{ color: active === i ? BLUE : MUTED, fontWeight: 500 }}>
                         / {cas.market}
                       </span>
                     </div>
                     <div
-                      className="eruty-keep-all"
+                      className="eruty-body-small eruty-keep-all"
                       style={{
                         color: active === i ? NEAR_BLACK : BODY_TEXT,
-                        fontSize: "clamp(0.96rem, 1.1vw, 1.04rem)",
-                        lineHeight: 1.55,
                         fontWeight: active === i ? 600 : 500,
-                        wordBreak: "keep-all",
-                        overflowWrap: "normal",
                         display: "-webkit-box",
                         WebkitLineClamp: 3,
                         WebkitBoxOrient: "vertical",
@@ -1674,15 +1521,13 @@ function GlobalWork() {
                 {c.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1.5"
+                    className="eruty-meta px-3 py-1.5"
                     style={{
                       background: "#FFFFFF",
                       border: `1px solid ${BORDER}`,
                       color: BODY_TEXT,
                       borderRadius: 4,
-                      fontSize: "0.78rem",
                       fontWeight: 500,
-                      lineHeight: 1.25,
                     }}
                   >
                     {tag}
@@ -1691,15 +1536,9 @@ function GlobalWork() {
               </div>
 
               <h3
-                className="eruty-keep-all mb-8"
+                className="eruty-subsection-title eruty-keep-all mb-8"
                 style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 700,
-                  fontSize: "clamp(1.55rem, 2.4vw, 2rem)",
                   color: NEAR_BLACK,
-                  lineHeight: 1.32,
-                  wordBreak: "keep-all",
-                  overflowWrap: "normal",
                   maxWidth: 900,
                 }}
               >
@@ -1758,18 +1597,14 @@ function GlobalWork() {
                           <Icon size={16} color={BLUE} />
                         </div>
                         <div className="min-w-0 flex-1">
-                          <div style={{ color: MUTED, fontSize: "0.77rem", fontWeight: 500, lineHeight: 1.4 }}>
+                          <div className="eruty-meta" style={{ color: MUTED, fontWeight: 500 }}>
                             {row.label}
                           </div>
                           <div
-                            className="eruty-keep-all mt-1.5"
+                            className="eruty-body-small eruty-keep-all mt-1.5"
                             style={{
                               color: NEAR_BLACK,
-                              fontSize: "0.97rem",
                               fontWeight: 600,
-                              lineHeight: 1.55,
-                              wordBreak: "keep-all",
-                              overflowWrap: "normal",
                             }}
                           >
                             {row.value}
@@ -1807,18 +1642,19 @@ function FinalCTA() {
   const t = T[lang].cta;
 
   return (
-    <section style={{ background: NEAR_BLACK }}>
-      <div className="mx-auto px-8 py-32" style={{ maxWidth: 1280 }}>
+    <section className="eruty-section-compact" style={{ background: NEAR_BLACK }}>
+      <div className="mx-auto px-8" style={{ maxWidth: 1280 }}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2
-              style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.25rem, 4vw, 3.75rem)", color: "#FFFFFF", lineHeight: 1.15, letterSpacing: "-0.02em", whiteSpace: "pre-line" }}
+              className="eruty-section-title"
+              style={{ color: "#FFFFFF", whiteSpace: "pre-line" }}
             >
               {t.headline}
             </h2>
           </div>
           <div>
-            <p className="mb-10 text-base" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.85, whiteSpace: "pre-line" }}>
+            <p className="eruty-body mb-10" style={{ color: "rgba(255,255,255,0.5)", whiteSpace: "pre-line" }}>
               {t.desc}
             </p>
             <div className="flex items-center gap-5">

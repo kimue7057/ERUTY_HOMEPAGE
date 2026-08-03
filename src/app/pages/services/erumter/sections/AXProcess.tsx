@@ -71,7 +71,7 @@ export const AXProcess = forwardRef<HTMLElement>(function AXProcess(_, forwarded
     <section className="er-section er-process" ref={forwardedRef} aria-labelledby="er-process-title">
       <div className="er-container">
         <Reveal className="er-process-intro">
-          <span className="er-kicker er-kicker-light">{t.eyebrow}</span>
+          <span className="er-kicker er-kicker-light er-kicker-code">{t.eyebrow}</span>
           <h2 id="er-process-title">{t.title}</h2>
           <p>{t.description}</p>
         </Reveal>

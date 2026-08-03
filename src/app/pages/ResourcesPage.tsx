@@ -3,6 +3,7 @@ import { Download } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { PageContainer } from "../components/PageContainer";
 import { PageHeading } from "../components/PageHeading";
+import { SectionHeading } from "../components/SectionHeading";
 
 const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
@@ -260,21 +261,10 @@ const statusColors: Record<string, string> = {
   "Completed": MUTED,
 };
 
-function SectionHeader({ label, heading }: { label: string; heading: string }) {
-  return (
-    <>
-      <div className="text-xs tracking-widest uppercase mb-4" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{label}</div>
-      <h2 className="mb-10" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", color: NEAR_BLACK }}>
-        {heading}
-      </h2>
-    </>
-  );
-}
-
 function EmptyStateCard({ message }: { message: string }) {
   return (
-    <div className="p-8 md:p-10" style={{ background: "#FFFFFF", border: `1px solid ${BORDER}` }}>
-      <p style={{ color: BODY_TEXT, fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(1.02rem, 1.6vw, 1.18rem)", lineHeight: 1.72 }}>
+    <div className="flex min-h-32 items-center justify-center p-8 text-center md:p-10" style={{ background: "#FFFFFF", border: `1px solid ${BORDER}` }}>
+      <p className="eruty-body" style={{ color: BODY_TEXT, fontWeight: 600 }}>
         {message}
       </p>
     </div>
@@ -345,9 +335,9 @@ export function ResourcesPage() {
       </section>
 
       {showCaseStudies && (
-        <section className="py-20" style={{ borderBottom: `1px solid ${BORDER}` }}>
+        <section className="eruty-section" style={{ borderBottom: `1px solid ${BORDER}` }}>
           <div className="eruty-container">
-            <SectionHeader label={t.caseStudiesLabel} heading={t.caseStudiesHeading} />
+            <SectionHeading eyebrow={t.caseStudiesLabel} title={t.caseStudiesHeading} align="center" lang={lang} />
             {publishedCaseStudies.length === 0 ? (
               <EmptyStateCard message={t.emptyState} />
             ) : (
@@ -356,23 +346,23 @@ export function ResourcesPage() {
                   <div key={item.id} className="p-7" style={{ background: "#FFFFFF", border: `1px solid ${BORDER}` }}>
                     <div className="flex flex-wrap gap-2 mb-5">
                       {item.tags.map((tag) => (
-                        <span key={tag} className="text-xs px-2 py-0.5" style={{ border: `1px solid ${BLUE}33`, color: BLUE, fontFamily: "var(--font-mono)" }}>
+                        <span key={tag} className="eruty-meta px-2 py-0.5" style={{ border: `1px solid ${BLUE}33`, color: BLUE }}>
                           {tag}
                         </span>
                       ))}
                     </div>
-                    <h3 className="mb-4" style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1rem", lineHeight: 1.5, color: NEAR_BLACK }}>
+                    <h3 className="eruty-card-title mb-4" style={{ color: NEAR_BLACK }}>
                       {item.headline}
                     </h3>
                     <div className="flex flex-col gap-2 mb-5">
                       {[{ label: t.market, value: item.country }, { label: t.erutyRole, value: item.role }].map((row) => (
-                        <div key={row.label} className="flex items-center gap-2 text-xs">
-                          <span style={{ color: MUTED, fontFamily: "var(--font-mono)", width: 84 }}>{row.label}</span>
-                          <span style={{ color: BODY_TEXT, fontSize: "0.92rem", lineHeight: 1.6 }}>{row.value}</span>
+                        <div key={row.label} className="flex items-center gap-2">
+                          <span className="eruty-meta" style={{ color: MUTED, width: 84 }}>{row.label}</span>
+                          <span className="eruty-body-small" style={{ color: BODY_TEXT }}>{row.value}</span>
                         </div>
                       ))}
                     </div>
-                    <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{item.tech}</div>
+                    <div className="eruty-meta" style={{ color: MUTED }}>{item.tech}</div>
                   </div>
                 ))}
               </div>
@@ -382,29 +372,24 @@ export function ResourcesPage() {
       )}
 
       {showOpportunities && (
-        <section className="py-20" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
+        <section className="eruty-section" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
           <div className="eruty-container">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-10">
-              <div>
-                <SectionHeader label={t.opportunitiesLabel} heading={t.opportunitiesHeading} />
-              </div>
-              <div className="flex gap-2">
+            <SectionHeading eyebrow={t.opportunitiesLabel} title={t.opportunitiesHeading} align="center" lang={lang} />
+              <div className="mb-6 flex flex-wrap gap-2">
                 {opportunityFilters.map((filter, index) => (
                   <button
                     key={filter}
                     onClick={() => setOpportunityFilter(filter)}
-                    className="px-4 py-2 text-xs transition-all cursor-pointer"
+                    className="eruty-meta cursor-pointer px-4 py-2 transition-all"
                     style={{
                       background: activeOppFilterIndex === index ? NEAR_BLACK : "transparent",
                       color: activeOppFilterIndex === index ? "#FFFFFF" : MUTED,
                       border: `1px solid ${BORDER}`,
-                      fontFamily: "var(--font-mono)",
                     }}
                   >
                     {filter}
                   </button>
                 ))}
-              </div>
             </div>
             {filteredOpportunities.length === 0 ? (
               <EmptyStateCard message={t.emptyState} />
@@ -415,8 +400,8 @@ export function ResourcesPage() {
                     <div className="flex items-center gap-6 flex-1">
                       <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: statusColors[item.status] || MUTED }} />
                       <div>
-                        <div className="text-sm mb-1" style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "0.98rem", color: NEAR_BLACK }}>{item.title}</div>
-                        <div className="flex items-center gap-4 text-xs" style={{ color: MUTED }}>
+                        <div className="eruty-card-title mb-1" style={{ color: NEAR_BLACK }}>{item.title}</div>
+                        <div className="eruty-meta flex flex-wrap items-center gap-4" style={{ color: MUTED }}>
                           <span>{item.country}</span>
                           <span style={{ color: BORDER }}>·</span>
                           <span>{item.type}</span>
@@ -425,7 +410,7 @@ export function ResourcesPage() {
                         </div>
                       </div>
                     </div>
-                    <span className="text-xs px-2.5 py-1" style={{ color: statusColors[item.status] || MUTED, border: `1px solid ${(statusColors[item.status] || MUTED) + "33"}`, fontFamily: "var(--font-mono)" }}>
+                    <span className="eruty-meta eruty-meta--code px-2.5 py-1" style={{ color: statusColors[item.status] || MUTED, border: `1px solid ${(statusColors[item.status] || MUTED) + "33"}` }}>
                       {t.statusLabels[item.status] ?? item.status}
                     </span>
                   </div>
@@ -437,9 +422,9 @@ export function ResourcesPage() {
       )}
 
       {showInsights && (
-        <section className="py-20" style={{ borderBottom: `1px solid ${BORDER}` }}>
+        <section className="eruty-section" style={{ borderBottom: `1px solid ${BORDER}` }}>
           <div className="eruty-container">
-            <SectionHeader label={t.insightsLabel} heading={t.insightsHeading} />
+            <SectionHeading eyebrow={t.insightsLabel} title={t.insightsHeading} align="center" lang={lang} />
             {publishedInsights.length === 0 ? (
               <EmptyStateCard message={t.emptyState} />
             ) : (
@@ -447,15 +432,15 @@ export function ResourcesPage() {
                 {publishedInsights.map((item) => (
                   <div key={item.id} className="p-7" style={{ background: "#FFFFFF", border: `1px solid ${BORDER}` }}>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs px-2 py-0.5" style={{ border: "1px solid rgba(245,158,11,0.3)", color: "#F59E0B", fontFamily: "var(--font-mono)" }}>
+                      <span className="eruty-meta px-2 py-0.5" style={{ border: "1px solid rgba(245,158,11,0.3)", color: "#F59E0B" }}>
                         {item.type}
                       </span>
-                      <span className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{item.date}</span>
+                      <span className="eruty-meta eruty-meta--code" style={{ color: MUTED }}>{item.date}</span>
                     </div>
-                    <h3 className="mb-3" style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1rem", lineHeight: 1.55, color: NEAR_BLACK }}>
+                    <h3 className="eruty-card-title mb-3" style={{ color: NEAR_BLACK }}>
                       {item.title}
                     </h3>
-                    <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{item.region} · {item.category}</div>
+                    <div className="eruty-meta" style={{ color: MUTED }}>{item.region} · {item.category}</div>
                   </div>
                 ))}
               </div>
@@ -465,9 +450,9 @@ export function ResourcesPage() {
       )}
 
       {showPrograms && (
-        <section className="py-20" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
+        <section className="eruty-section" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
           <div className="eruty-container">
-            <SectionHeader label={t.programsLabel} heading={t.programsHeading} />
+            <SectionHeading eyebrow={t.programsLabel} title={t.programsHeading} align="center" lang={lang} />
             {publishedPrograms.length === 0 ? (
               <EmptyStateCard message={t.emptyState} />
             ) : (
@@ -475,14 +460,14 @@ export function ResourcesPage() {
                 {publishedPrograms.map((item) => (
                   <div key={item.id} className="flex items-center justify-between p-6" style={{ background: "#FFFFFF", border: `1px solid ${BORDER}` }}>
                     <div>
-                      <div className="text-sm mb-1" style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "0.98rem", color: NEAR_BLACK }}>{item.title}</div>
-                      <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>
+                      <div className="eruty-card-title mb-1" style={{ color: NEAR_BLACK }}>{item.title}</div>
+                      <div className="eruty-meta eruty-meta--code" style={{ color: MUTED }}>
                         {item.date} · {item.location}
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{item.type}</span>
-                      <span className="text-xs px-2.5 py-1" style={{ color: statusColors[item.status] || MUTED, border: `1px solid ${(statusColors[item.status] || MUTED) + "33"}`, fontFamily: "var(--font-mono)" }}>
+                      <span className="eruty-meta" style={{ color: MUTED }}>{item.type}</span>
+                      <span className="eruty-meta eruty-meta--code px-2.5 py-1" style={{ color: statusColors[item.status] || MUTED, border: `1px solid ${(statusColors[item.status] || MUTED) + "33"}` }}>
                         {t.statusLabels[item.status] ?? item.status}
                       </span>
                     </div>
@@ -495,9 +480,9 @@ export function ResourcesPage() {
       )}
 
       {showNews && (
-        <section className="py-20" style={{ borderBottom: `1px solid ${BORDER}` }}>
+        <section className="eruty-section" style={{ borderBottom: `1px solid ${BORDER}` }}>
           <div className="eruty-container">
-            <SectionHeader label={t.newsLabel} heading={t.newsHeading} />
+            <SectionHeading eyebrow={t.newsLabel} title={t.newsHeading} align="center" lang={lang} />
             {publishedNews.length === 0 ? (
               <EmptyStateCard message={t.emptyState} />
             ) : (
@@ -505,12 +490,12 @@ export function ResourcesPage() {
                 {publishedNews.map((item) => (
                   <div key={item.id} className="flex items-center justify-between py-5" style={{ borderBottom: `1px solid ${BORDER}` }}>
                     <div className="flex items-center gap-6">
-                      <span className="text-xs flex-shrink-0" style={{ color: MUTED, fontFamily: "var(--font-mono)", width: 80 }}>
+                      <span className="eruty-meta eruty-meta--code flex-shrink-0" style={{ color: MUTED, width: 80 }}>
                         {item.date}
                       </span>
-                      <span className="text-sm" style={{ color: NEAR_BLACK, fontFamily: "var(--font-body)", fontSize: "0.98rem" }}>{item.title}</span>
+                      <span className="eruty-card-title" style={{ color: NEAR_BLACK }}>{item.title}</span>
                     </div>
-                    <span className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>{item.type}</span>
+                    <span className="eruty-meta" style={{ color: MUTED }}>{item.type}</span>
                   </div>
                 ))}
               </div>
@@ -520,9 +505,9 @@ export function ResourcesPage() {
       )}
 
       {showDownloads && (
-        <section className="py-20">
+        <section className="eruty-section">
           <div className="eruty-container">
-            <SectionHeader label={t.downloadsLabel} heading={t.downloadsHeading} />
+            <SectionHeading eyebrow={t.downloadsLabel} title={t.downloadsHeading} align="center" lang={lang} />
             {publishedDownloads.length === 0 ? (
               <EmptyStateCard message={t.emptyState} />
             ) : (
@@ -540,9 +525,9 @@ export function ResourcesPage() {
                       style={{ background: "#FFFFFF", border: `1px solid ${BORDER}`, cursor: isClickable ? "pointer" : "default" }}
                     >
                       <div className="flex-1">
-                        <div className="text-sm mb-2" style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1rem", color: NEAR_BLACK }}>{item.label}</div>
-                        <div className="text-xs mb-4" style={{ color: BODY_TEXT, lineHeight: 1.68 }}>{item.desc}</div>
-                        <div className="text-xs" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>
+                        <div className="eruty-card-title mb-2" style={{ color: NEAR_BLACK }}>{item.label}</div>
+                        <div className="eruty-body-small mb-4" style={{ color: BODY_TEXT }}>{item.desc}</div>
+                        <div className="eruty-meta eruty-meta--code" style={{ color: MUTED }}>
                           {item.format} · {item.size}
                         </div>
                       </div>

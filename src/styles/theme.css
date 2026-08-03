@@ -20,6 +20,14 @@
   --eruty-title-line-height: 1.1;
   --eruty-copy-line-height: 1.75;
   --eruty-title-letter-spacing: -0.04em;
+  --eruty-section-space: clamp(72px, 7vw, 112px);
+  --eruty-section-space-compact: clamp(56px, 5.5vw, 88px);
+  --eruty-section-content-gap: clamp(36px, 4vw, 56px);
+  --eruty-section-heading-max: 760px;
+  --eruty-card-title-size: clamp(1.08rem, 1.4vw, 1.3rem);
+  --eruty-card-body-size: 0.95rem;
+  --eruty-body-small-size: 0.875rem;
+  --eruty-meta-size: 0.76rem;
 
   --background: #FFFFFF;
   --foreground: #18191B;
@@ -278,6 +286,93 @@
     line-height: 1.18;
   }
 
+  .eruty-section {
+    padding-block: var(--eruty-section-space);
+  }
+
+  .eruty-section-compact {
+    padding-block: var(--eruty-section-space-compact);
+  }
+
+  .eruty-section-content-gap {
+    margin-top: var(--eruty-section-content-gap);
+  }
+
+  .eruty-subsection-title,
+  .eruty-card-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+  }
+
+  .eruty-subsection-title {
+    font-size: var(--eruty-subsection-title-size);
+    line-height: 1.27;
+    letter-spacing: -0.025em;
+  }
+
+  .eruty-card-title {
+    font-size: var(--eruty-card-title-size);
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+  }
+
+  .eruty-body,
+  .eruty-body-small {
+    margin: 0;
+    font-family: var(--font-body);
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+  }
+
+  .eruty-body {
+    font-size: var(--eruty-body-size);
+    line-height: var(--eruty-copy-line-height);
+  }
+
+  .eruty-body-small {
+    font-size: var(--eruty-body-small-size);
+    line-height: 1.68;
+  }
+
+  .eruty-meta {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--eruty-meta-size);
+    line-height: 1.5;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .eruty-meta[data-format="code"],
+  .eruty-meta--code {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .eruty-metric-value {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.035em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .eruty-metric-label {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--eruty-body-small-size);
+    font-weight: 600;
+    line-height: 1.55;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
   .eruty-page-lead {
     margin: 0;
     font-family: var(--font-body);
@@ -374,6 +469,61 @@
     color: rgba(255, 255, 255, 0.68);
   }
 
+  .eruty-section-heading {
+    width: 100%;
+    margin-bottom: var(--eruty-section-content-gap);
+  }
+
+  .eruty-section-heading__eyebrow {
+    margin-bottom: 16px;
+    color: var(--accent);
+  }
+
+  .eruty-section-heading__title {
+    max-width: var(--eruty-section-heading-max);
+  }
+
+  .eruty-section-heading__details {
+    max-width: 720px;
+    margin-top: 18px;
+  }
+
+  .eruty-section-heading__description {
+    color: #525967;
+  }
+
+  .eruty-section-heading__action {
+    margin-top: 22px;
+  }
+
+  .eruty-section-heading--center {
+    max-width: 900px;
+    margin-inline: auto;
+    margin-bottom: var(--eruty-section-content-gap);
+    text-align: center;
+  }
+
+  .eruty-section-heading--center .eruty-section-heading__title,
+  .eruty-section-heading--center .eruty-section-heading__details {
+    margin-inline: auto;
+  }
+
+  .eruty-section-heading--compact {
+    margin-bottom: clamp(28px, 3vw, 40px);
+  }
+
+  .eruty-section-heading--inverse .eruty-section-heading__title {
+    color: #fff;
+  }
+
+  .eruty-section-heading--inverse .eruty-section-heading__eyebrow {
+    color: #8aa8ff;
+  }
+
+  .eruty-section-heading--inverse .eruty-section-heading__description {
+    color: rgba(255, 255, 255, 0.66);
+  }
+
   @media (min-width: 768px) {
     .eruty-hero-section {
       padding-block: 88px;
@@ -392,6 +542,18 @@
 
     .eruty-hero-section {
       padding-block: 108px;
+    }
+
+    .eruty-section-heading--split {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: end;
+      gap: clamp(40px, 5vw, 72px);
+    }
+
+    .eruty-section-heading--split .eruty-section-heading__details {
+      margin-top: 0;
+      justify-self: end;
     }
   }
 }

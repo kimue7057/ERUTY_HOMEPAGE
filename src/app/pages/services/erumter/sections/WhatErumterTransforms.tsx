@@ -11,7 +11,7 @@ export function WhatErumterTransforms() {
     <section className="er-section er-problem" aria-labelledby="er-problem-title">
       <div className="er-container er-problem-layout">
         <Reveal className="er-section-copy">
-          <span className="er-kicker">{t.eyebrow}</span>
+          <span className="er-kicker er-kicker-code">{t.eyebrow}</span>
           <h2 id="er-problem-title">{t.title}</h2>
           <p>{t.description}</p>
         </Reveal>

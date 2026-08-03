@@ -517,7 +517,7 @@ export function StartProjectPage() {
         </PageContainer>
       </section>
 
-      <section className="py-16">
+      <section className="eruty-section-compact">
         <div className="eruty-container">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             <aside>
@@ -531,13 +531,12 @@ export function StartProjectPage() {
                     return (
                       <div key={item.label} className="flex items-start gap-4">
                         <div
-                          className="flex h-8 w-8 items-center justify-center text-xs"
+                          className="eruty-meta eruty-meta--code flex h-8 w-8 items-center justify-center"
                           style={{
                             background:
                               completed || active ? BLUE : SOFT_BG,
                             color:
                               completed || active ? "#FFFFFF" : MUTED,
-                            fontFamily: "var(--font-mono)",
                             borderRadius: 999,
                           }}
                         >
@@ -545,7 +544,7 @@ export function StartProjectPage() {
                         </div>
                         <div>
                           <div
-                            className="mb-1 text-sm"
+                            className="eruty-card-title mb-1"
                             style={{
                               color: active || completed ? NEAR_BLACK : MUTED,
                               fontWeight: 600,
@@ -554,8 +553,8 @@ export function StartProjectPage() {
                             {item.label}
                           </div>
                           <p
-                            className="text-xs"
-                            style={{ color: MUTED, lineHeight: 1.6 }}
+                            className="eruty-body-small"
+                            style={{ color: MUTED }}
                           >
                             {item.desc}
                           </p>
@@ -571,14 +570,14 @@ export function StartProjectPage() {
                     style={{ background: SOFT_BG, borderColor: BORDER }}
                   >
                     <div
-                      className="mb-3 text-xs uppercase tracking-[0.24em]"
-                      style={{ color: BLUE, fontFamily: "var(--font-mono)" }}
+                      className={`eruty-meta mb-3 ${lang === "en" ? "eruty-meta--code" : ""}`}
+                      style={{ color: BLUE }}
                     >
                       {t.mockLabel}
                     </div>
                     <p
-                      className="text-sm"
-                      style={{ color: MUTED, lineHeight: 1.7 }}
+                      className="eruty-body-small"
+                      style={{ color: MUTED }}
                     >
                       {t.mockDesc}
                     </p>
@@ -590,16 +589,16 @@ export function StartProjectPage() {
                   style={{ background: SOFT_BG, borderColor: BORDER }}
                 >
                   <div
-                    className="mb-4 text-xs uppercase tracking-[0.24em]"
-                    style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                    className={`eruty-meta mb-4 ${lang === "en" ? "eruty-meta--code" : ""}`}
+                    style={{ color: MUTED }}
                   >
                     {t.directContact}
                   </div>
                   <div className="flex flex-col gap-3 text-sm" style={{ color: "#333438" }}>
                     <div>
                       <div
-                        className="mb-1 text-xs"
-                        style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                        className="eruty-meta mb-1"
+                        style={{ color: MUTED }}
                       >
                         {t.emailLabel}
                       </div>
@@ -607,8 +606,8 @@ export function StartProjectPage() {
                     </div>
                     <div>
                       <div
-                        className="mb-1 text-xs"
-                        style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                        className="eruty-meta mb-1"
+                        style={{ color: MUTED }}
                       >
                         {t.hqLabel}
                       </div>
@@ -616,8 +615,8 @@ export function StartProjectPage() {
                     </div>
                     <div>
                       <div
-                        className="mb-1 text-xs"
-                        style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                        className="eruty-meta mb-1"
+                        style={{ color: MUTED }}
                       >
                         {t.replyLabel}
                       </div>
@@ -639,27 +638,22 @@ export function StartProjectPage() {
                     transition={{ duration: 0.2 }}
                   >
                     <div
-                      className="mb-6 text-xs uppercase tracking-[0.24em]"
-                      style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                      className={`eruty-meta mb-6 ${lang === "en" ? "eruty-meta--code" : ""}`}
+                      style={{ color: MUTED }}
                     >
                       {t.step1Label}
                     </div>
                     <h2
-                      className="mb-8"
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontWeight: 700,
-                        fontSize: "1.9rem",
-                        color: NEAR_BLACK,
-                      }}
+                      className="eruty-subsection-title mb-8"
+                      style={{ color: NEAR_BLACK }}
                     >
                       {t.step1Heading}
                     </h2>
 
                     <div className="mb-10">
                       <div
-                        className="mb-3 text-xs uppercase tracking-[0.18em]"
-                        style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                        className="eruty-meta mb-3"
+                        style={{ color: MUTED }}
                       >
                         {t.serviceLabel}
                       </div>
@@ -680,7 +674,7 @@ export function StartProjectPage() {
                               aria-pressed={active}
                             >
                               <div
-                                className="mb-2 text-sm"
+                                className="eruty-card-title mb-2"
                                 style={{
                                   color: active ? NEAR_BLACK : "#333438",
                                   fontWeight: 600,
@@ -689,8 +683,8 @@ export function StartProjectPage() {
                                 {service.label[lang]}
                               </div>
                               <p
-                                className="text-xs"
-                                style={{ color: MUTED, lineHeight: 1.6 }}
+                                className="eruty-body-small"
+                                style={{ color: MUTED }}
                               >
                                 {service.description[lang]}
                               </p>
@@ -703,8 +697,8 @@ export function StartProjectPage() {
 
                     <div className="mb-10">
                       <div
-                        className="mb-3 text-xs uppercase tracking-[0.18em]"
-                        style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                        className="eruty-meta mb-3"
+                        style={{ color: MUTED }}
                       >
                         {t.typeLabel}
                       </div>
@@ -725,7 +719,7 @@ export function StartProjectPage() {
                             >
                               <div>
                                 <div
-                                  className="mb-1 text-sm"
+                                  className="eruty-card-title mb-1"
                                   style={{
                                     color: active ? NEAR_BLACK : "#333438",
                                     fontWeight: 600,
@@ -734,8 +728,8 @@ export function StartProjectPage() {
                                   {option.label[lang]}
                                 </div>
                                 <p
-                                  className="text-xs"
-                                  style={{ color: MUTED, lineHeight: 1.6 }}
+                                  className="eruty-body-small"
+                                  style={{ color: MUTED }}
                                 >
                                   {option.description[lang]}
                                 </p>
@@ -770,25 +764,20 @@ export function StartProjectPage() {
                     transition={{ duration: 0.2 }}
                   >
                     <div
-                      className="mb-6 text-xs uppercase tracking-[0.24em]"
-                      style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                      className="eruty-meta mb-6"
+                      style={{ color: MUTED }}
                     >
                       {selectedServiceOption?.label[lang]} / {selectedTypeOption?.label[lang]}
                     </div>
                     <h2
-                      className="mb-3"
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontWeight: 700,
-                        fontSize: "1.9rem",
-                        color: NEAR_BLACK,
-                      }}
+                      className="eruty-subsection-title mb-3"
+                      style={{ color: NEAR_BLACK }}
                     >
                       {t.step2Heading}
                     </h2>
                     <p
-                      className="mb-8 text-sm"
-                      style={{ color: MUTED, lineHeight: 1.7 }}
+                      className="eruty-body mb-8"
+                      style={{ color: MUTED }}
                     >
                       {t.step2Summary}
                     </p>
@@ -932,8 +921,8 @@ export function StartProjectPage() {
 
                       <div>
                         <div
-                          className="mb-2 text-xs uppercase tracking-[0.18em]"
-                          style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                          className="eruty-meta mb-2"
+                          style={{ color: MUTED }}
                         >
                           {t.fileAttach}
                         </div>
@@ -967,8 +956,8 @@ export function StartProjectPage() {
                               {form.attachment ? form.attachment.name : t.fileEmpty}
                             </div>
                             <div
-                              className="mt-1 text-xs"
-                              style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                              className="eruty-meta mt-1"
+                              style={{ color: MUTED }}
                             >
                               {t.fileHint}
                             </div>
@@ -1012,7 +1001,7 @@ export function StartProjectPage() {
                           >
                             {form.consent ? <Check size={12} color="#FFFFFF" /> : null}
                           </button>
-                          <span className="text-xs" style={{ color: MUTED, lineHeight: 1.7 }}>
+                          <span className="eruty-body-small" style={{ color: MUTED }}>
                             {t.consent}
                           </span>
                         </label>
@@ -1077,8 +1066,8 @@ function FormField({
   return (
     <div>
       <label
-        className="mb-2 block text-xs uppercase tracking-[0.18em]"
-        style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+        className="eruty-body-small mb-2 block"
+        style={{ color: MUTED, fontWeight: 600 }}
       >
         {label}
         {required ? <span style={{ color: BLUE }}> *</span> : null}
@@ -1093,7 +1082,7 @@ function FormField({
           color: ${NEAR_BLACK};
           padding: 12px 14px;
           font-family: var(--font-body);
-          font-size: 0.92rem;
+          font-size: var(--eruty-card-body-size);
           line-height: 1.65;
           outline: none;
           transition: border-color 0.16s ease;
@@ -1129,10 +1118,9 @@ function FieldError({ message }: { message?: string }) {
     <div className="mt-1.5 flex items-center gap-1.5">
       <AlertCircle size={11} style={{ color: "#EF4444", flexShrink: 0 }} />
       <span
+        className="eruty-meta"
         style={{
           color: "#EF4444",
-          fontSize: "0.72rem",
-          fontFamily: "var(--font-mono)",
         }}
       >
         {message}

@@ -412,8 +412,8 @@ function getRevealProps(prefersReducedMotion: boolean) {
 function Eyebrow({ children }: { children: string }) {
   return (
     <div
-      className="mb-4 text-[0.78rem] font-semibold uppercase tracking-[0.24em]"
-      style={{ color: BLUE, fontFamily: "var(--font-mono)" }}
+      className="eruty-eyebrow-en mb-4"
+      style={{ color: BLUE }}
     >
       {children}
     </div>
@@ -959,7 +959,7 @@ function FeaturedProjectSection({
   return (
     <motion.section
       data-growth-featured
-      className="border-b bg-white py-10 md:py-12"
+      className="eruty-section-compact border-b bg-white"
       style={{ borderColor: BORDER }}
       {...getRevealProps(prefersReducedMotion)}
     >
@@ -990,11 +990,10 @@ function FeaturedProjectSection({
                 ))}
                 {project.year ? (
                   <span
-                    className="inline-flex items-center rounded-full px-3 py-[7px] text-[0.76rem]"
+                    className="eruty-meta eruty-meta--code inline-flex items-center rounded-full px-3 py-[7px]"
                     style={{
                       background: "rgba(255,255,255,0.08)",
                       color: "rgba(255,255,255,0.92)",
-                      fontFamily: "var(--font-mono)",
                     }}
                   >
                     {project.year}
@@ -1003,25 +1002,19 @@ function FeaturedProjectSection({
               </div>
 
               <h2
-                className={`mt-7 max-w-[24rem] font-[800] tracking-[-0.042em] text-white ${
+                className={`eruty-section-title mt-7 max-w-[24rem] text-white ${
                   lang === "ko" ? "eruty-keep-all" : ""
                 }`}
-                style={{
-                  fontSize: "clamp(2rem, 3.2vw, 2.9rem)",
-                  lineHeight: 1.12,
-                }}
               >
                 {getLocalizedText(project.title, lang)}
               </h2>
 
               <p
-                className={`mt-5 max-w-[25rem] ${
+                className={`eruty-body mt-5 max-w-[25rem] ${
                   lang === "ko" ? "eruty-keep-all" : ""
                 }`}
                 style={{
                   color: "rgba(255,255,255,0.76)",
-                  fontSize: "clamp(0.96875rem, 1.04vw, 1.03125rem)",
-                  lineHeight: 1.8,
                 }}
               >
                 {getLocalizedText(project.summary, lang)}
@@ -1076,7 +1069,10 @@ function FilterSection({
       {...getRevealProps(prefersReducedMotion)}
     >
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
-        <div className="mb-4 text-[0.78rem] font-semibold uppercase tracking-[0.24em]" style={{ color: MUTED, fontFamily: "var(--font-mono)" }}>
+        <div
+          className={`eruty-meta mb-4 ${lang === "en" ? "eruty-meta--code" : ""}`}
+          style={{ color: MUTED }}
+        >
           {copy.filterLabel}
         </div>
         <div className="flex flex-wrap gap-2 md:gap-3">
@@ -1150,27 +1146,19 @@ function ProjectCard({
         </div>
 
         <h3
-          className={`mt-4 font-[800] tracking-[-0.03em] ${
+          className={`eruty-card-title mt-4 ${
             lang === "ko" ? "eruty-keep-all" : ""
           }`}
-          style={{
-            color: NEAR_BLACK,
-            fontSize: "clamp(1.25rem, 1.55vw, 1.55rem)",
-            lineHeight: 1.2,
-          }}
+          style={{ color: NEAR_BLACK }}
         >
           {getLocalizedText(project.title, lang)}
         </h3>
 
         <p
-          className={`mt-3 overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] ${
+          className={`eruty-body-small mt-3 overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] ${
             lang === "ko" ? "eruty-keep-all" : ""
           }`}
-          style={{
-            color: BODY_TEXT,
-            fontSize: "0.96875rem",
-            lineHeight: 1.75,
-          }}
+          style={{ color: BODY_TEXT }}
         >
           {getLocalizedText(project.summary, lang)}
         </p>
@@ -1246,8 +1234,8 @@ function ProjectGridSection({
               style={{ borderColor: BORDER, background: SOFT_BG }}
             >
               <p
-                className={lang === "ko" ? "eruty-keep-all" : ""}
-                style={{ color: BODY_TEXT, lineHeight: 1.8 }}
+                className={`eruty-body ${lang === "ko" ? "eruty-keep-all" : ""}`}
+                style={{ color: BODY_TEXT }}
               >
                 {copy.gridEmpty}
               </p>
@@ -1415,14 +1403,10 @@ function ProjectDetailDrawer({
                 ))}
               </div>
               <h3
-                className={`mt-4 font-[800] tracking-[-0.04em] ${
+                className={`eruty-subsection-title mt-4 ${
                   lang === "ko" ? "eruty-keep-all" : ""
                 }`}
-                style={{
-                  color: NEAR_BLACK,
-                  fontSize: "clamp(1.55rem, 2.3vw, 2rem)",
-                  lineHeight: 1.18,
-                }}
+                style={{ color: NEAR_BLACK }}
               >
                 {getLocalizedText(project.title, lang)}
               </h3>
@@ -1444,8 +1428,8 @@ function ProjectDetailDrawer({
             <div className="space-y-7">
               <section>
                 <div
-                  className="mb-3 text-[0.76rem] font-semibold uppercase tracking-[0.22em]"
-                  style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                  className={`eruty-meta mb-3 ${lang === "en" ? "eruty-meta--code" : ""}`}
+                  style={{ color: MUTED }}
                 >
                   {copy.relatedVisualLabel}
                 </div>
@@ -1467,18 +1451,14 @@ function ProjectDetailDrawer({
                       }}
                     >
                       <div
-                        className="text-[0.76rem] font-semibold uppercase tracking-[0.18em]"
-                        style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                        className={`eruty-meta ${lang === "en" ? "eruty-meta--code" : ""}`}
+                        style={{ color: MUTED }}
                       >
                         {row.label}
                       </div>
                       <div
-                        className={lang === "ko" ? "eruty-keep-all" : ""}
-                        style={{
-                          color: BODY_TEXT,
-                          fontSize: "0.96875rem",
-                          lineHeight: 1.72,
-                        }}
+                        className={`eruty-body-small ${lang === "ko" ? "eruty-keep-all" : ""}`}
+                        style={{ color: BODY_TEXT }}
                       >
                         {row.value}
                       </div>
@@ -1489,18 +1469,14 @@ function ProjectDetailDrawer({
 
               <section>
                 <div
-                  className="mb-3 text-[0.76rem] font-semibold uppercase tracking-[0.22em]"
-                  style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                  className={`eruty-meta mb-3 ${lang === "en" ? "eruty-meta--code" : ""}`}
+                  style={{ color: MUTED }}
                 >
                   {copy.overviewLabel}
                 </div>
                 <p
-                  className={lang === "ko" ? "eruty-keep-all" : ""}
-                  style={{
-                    color: BODY_TEXT,
-                    fontSize: "0.98rem",
-                    lineHeight: 1.82,
-                  }}
+                  className={`eruty-body ${lang === "ko" ? "eruty-keep-all" : ""}`}
+                  style={{ color: BODY_TEXT }}
                 >
                   {getLocalizedText(project.summary, lang)}
                 </p>
@@ -1509,18 +1485,14 @@ function ProjectDetailDrawer({
               {project.role ? (
                 <section>
                   <div
-                    className="mb-3 text-[0.76rem] font-semibold uppercase tracking-[0.22em]"
-                    style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                    className={`eruty-meta mb-3 ${lang === "en" ? "eruty-meta--code" : ""}`}
+                    style={{ color: MUTED }}
                   >
                     {copy.roleLabel}
                   </div>
                   <p
-                    className={lang === "ko" ? "eruty-keep-all" : ""}
-                    style={{
-                      color: BODY_TEXT,
-                      fontSize: "0.98rem",
-                      lineHeight: 1.82,
-                    }}
+                    className={`eruty-body ${lang === "ko" ? "eruty-keep-all" : ""}`}
+                    style={{ color: BODY_TEXT }}
                   >
                     {getLocalizedText(project.role, lang)}
                   </p>
@@ -1530,8 +1502,8 @@ function ProjectDetailDrawer({
               {project.scope && project.scope.length > 0 ? (
                 <section>
                   <div
-                    className="mb-3 text-[0.76rem] font-semibold uppercase tracking-[0.22em]"
-                    style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                    className={`eruty-meta mb-3 ${lang === "en" ? "eruty-meta--code" : ""}`}
+                    style={{ color: MUTED }}
                   >
                     {copy.scopeLabel}
                   </div>
@@ -1539,12 +1511,8 @@ function ProjectDetailDrawer({
                     {project.scope.map((item) => (
                       <li
                         key={item.en}
-                        className={`flex gap-3 ${lang === "ko" ? "eruty-keep-all" : ""}`}
-                        style={{
-                          color: BODY_TEXT,
-                          fontSize: "0.98rem",
-                          lineHeight: 1.78,
-                        }}
+                        className={`eruty-body flex gap-3 ${lang === "ko" ? "eruty-keep-all" : ""}`}
+                        style={{ color: BODY_TEXT }}
                       >
                         <span
                           className="mt-[0.72rem] h-[6px] w-[6px] rounded-full"
@@ -1560,18 +1528,14 @@ function ProjectDetailDrawer({
               {project.outcome ? (
                 <section>
                   <div
-                    className="mb-3 text-[0.76rem] font-semibold uppercase tracking-[0.22em]"
-                    style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
+                    className={`eruty-meta mb-3 ${lang === "en" ? "eruty-meta--code" : ""}`}
+                    style={{ color: MUTED }}
                   >
                     {copy.outcomeLabel}
                   </div>
                   <p
-                    className={lang === "ko" ? "eruty-keep-all" : ""}
-                    style={{
-                      color: BODY_TEXT,
-                      fontSize: "0.98rem",
-                      lineHeight: 1.82,
-                    }}
+                    className={`eruty-body ${lang === "ko" ? "eruty-keep-all" : ""}`}
+                    style={{ color: BODY_TEXT }}
                   >
                     {getLocalizedText(project.outcome, lang)}
                   </p>
@@ -1618,7 +1582,7 @@ function FinalCtaSection({
   return (
     <motion.section
       data-growth-cta
-      className="overflow-hidden bg-[#060B14] py-16 md:py-20"
+      className="eruty-section-compact overflow-hidden bg-[#060B14]"
       {...getRevealProps(prefersReducedMotion)}
     >
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
@@ -1633,32 +1597,26 @@ function FinalCtaSection({
           <CtaPattern />
           <div className="relative z-10 max-w-[42rem]">
             <div
-              className="mb-4 text-[0.78rem] font-semibold uppercase tracking-[0.24em]"
-              style={{ color: "rgba(255,255,255,0.56)", fontFamily: "var(--font-mono)" }}
+              className={`eruty-meta mb-4 ${lang === "en" ? "eruty-meta--code" : ""}`}
+              style={{ color: "rgba(255,255,255,0.56)" }}
             >
               {copy.ctaEyebrow}
             </div>
 
             <h2
-              className={`font-[800] tracking-[-0.042em] text-white ${
+              className={`eruty-section-title text-white ${
                 lang === "ko" ? "eruty-keep-all" : ""
               }`}
-              style={{
-                fontSize: "clamp(2rem, 3.2vw, 2.85rem)",
-                lineHeight: 1.14,
-              }}
             >
               {copy.ctaHeadline}
             </h2>
 
             <p
-              className={`mt-4 max-w-[33rem] ${
+              className={`eruty-body mt-4 max-w-[33rem] ${
                 lang === "ko" ? "eruty-keep-all" : ""
               }`}
               style={{
                 color: "rgba(255,255,255,0.72)",
-                fontSize: "clamp(0.96875rem, 1.04vw, 1.0625rem)",
-                lineHeight: 1.8,
               }}
             >
               {copy.ctaDescription}

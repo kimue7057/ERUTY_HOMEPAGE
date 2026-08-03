@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { useLanguage, type Lang } from "../context/LanguageContext";
 import { PageContainer } from "../components/PageContainer";
 import { PageHeading } from "../components/PageHeading";
+import { SectionHeading } from "../components/SectionHeading";
 import {
   ArchitectureDiagram,
   FlowTriplet,
@@ -112,29 +113,19 @@ const COPY = {
   },
 } as const;
 
-function SectionHeading({ eyebrow, title, description, align = "left", inverse = false }: { eyebrow: string; title: string; description: string; align?: "left" | "center"; inverse?: boolean }) {
-  return (
-    <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-      <div className="eruty-eyebrow-en mb-4" style={{ color: inverse ? "#7EA2FF" : BLUE }}>{eyebrow}</div>
-      <h2 className="eruty-section-title" style={{ color: inverse ? "white" : INK }}>{title}</h2>
-      <p className="mt-4 text-sm eruty-keep-all md:text-base" style={{ color: inverse ? "rgba(255,255,255,.58)" : MUTED, lineHeight: 1.75 }}>{description}</p>
-    </div>
-  );
-}
-
 function CoreTechnologySection({ item, index, lang }: { item: (typeof COPY)[Lang]["core"][number]; index: number; lang: Lang }) {
   const mockup = index === 0 ? <MarketIntelligenceMockup lang={lang} /> : index === 1 ? <WorkflowMockup lang={lang} /> : <TrustLedgerMockup lang={lang} />;
   const sectionIds = ["market-intelligence", "ax-orchestration", "trust-layer"];
   return (
-    <section id={sectionIds[index]} className="border-t py-20 md:py-28" style={{ borderColor: BORDER, background: index === 1 ? SURFACE : "white" }} aria-labelledby={`${sectionIds[index]}-title`}>
+    <section id={sectionIds[index]} className="eruty-section border-t" style={{ borderColor: BORDER, background: index === 1 ? SURFACE : "white" }} aria-labelledby={`${sectionIds[index]}-title`}>
       <div className="eruty-container">
         <div className={`grid items-center gap-10 lg:grid-cols-12 lg:gap-14 ${index === 1 ? "" : ""}`}>
           <div className={`lg:col-span-5 ${index === 1 ? "lg:order-2" : ""}`}>
-            <div className="mb-5 text-sm font-bold" style={{ color: "#9AA0AD", fontFamily: "var(--font-mono)" }}>{item.index}</div>
-            <div className="mb-3 text-[11px] font-bold tracking-[0.14em]" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}>{item.eyebrow}</div>
+            <div className="eruty-meta eruty-meta--code mb-5 font-bold" style={{ color: "#9AA0AD" }}>{item.index}</div>
+            <div className="eruty-eyebrow-en mb-4" style={{ color: BLUE }}>{item.eyebrow}</div>
             <h2 id={`${sectionIds[index]}-title`} className="eruty-section-title" style={{ color: INK }}>{item.title}</h2>
-            <p className="mt-5 text-lg font-bold eruty-keep-all" style={{ color: "#30333A" }}>{item.lead}</p>
-            <p className="mt-3 text-sm eruty-keep-all md:text-base" style={{ color: MUTED, lineHeight: 1.75 }}>{item.description}</p>
+            <p className="eruty-page-lead mt-5 font-bold" style={{ color: "#30333A" }}>{item.lead}</p>
+            <p className="eruty-body mt-3" style={{ color: MUTED }}>{item.description}</p>
           </div>
           <div className={`min-w-0 lg:col-span-7 ${index === 1 ? "lg:order-1" : ""}`}>{mockup}</div>
         </div>
@@ -144,18 +135,18 @@ function CoreTechnologySection({ item, index, lang }: { item: (typeof COPY)[Lang
   );
 }
 
-function ServiceCard({ service, index, linkText }: { service: (typeof COPY)[Lang]["services"]["cards"][number]; index: number; linkText: string }) {
+function ServiceCard({ service, index, linkText, lang }: { service: (typeof COPY)[Lang]["services"]["cards"][number]; index: number; linkText: string; lang: Lang }) {
   const Icon = index === 0 ? serviceIcons.Globe2 : serviceIcons.Workflow;
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border bg-white" style={{ borderColor: BORDER }}>
       <div className="flex items-start justify-between border-b p-6 md:p-7" style={{ borderColor: BORDER }}>
-        <div><div className="mb-2 text-[11px] font-bold tracking-[0.15em]" style={{ color: BLUE, fontFamily: "var(--font-mono)" }}>{service.tag}</div><h3 className="text-2xl font-extrabold" style={{ color: INK }}>{service.name}</h3></div>
+        <div><div className={lang === "ko" ? "eruty-meta mb-2 font-bold" : "eruty-meta eruty-meta--code mb-2 font-bold"} style={{ color: BLUE }}>{service.tag}</div><h3 className="eruty-card-title" style={{ color: INK }}>{service.name}</h3></div>
         <span className="flex h-11 w-11 items-center justify-center rounded-xl" style={{ background: "#EEF0FF", color: BLUE }}><Icon size={21} aria-hidden="true" /></span>
       </div>
       <div className="flex flex-1 flex-col p-6 md:p-7">
-        <p className="mb-6 text-sm eruty-keep-all md:text-base" style={{ color: MUTED, lineHeight: 1.7 }}>{service.description}</p>
+        <p className="eruty-body-small mb-6" style={{ color: MUTED }}>{service.description}</p>
         <ol className="mb-7 grid grid-cols-2 gap-2 sm:grid-cols-3">
-          {service.flow.map((step, stepIndex) => <li key={step} className="relative rounded-lg border bg-[#FAFBFC] px-3 py-3 text-xs font-semibold eruty-keep-all" style={{ borderColor: "#ECEEF2", color: "#555C6B" }}><span className="mb-2 block text-[9px]" style={{ color: "#9DA2AE", fontFamily: "var(--font-mono)" }}>0{stepIndex + 1}</span>{step}</li>)}
+          {service.flow.map((step, stepIndex) => <li key={step} className="eruty-body-small relative rounded-lg border bg-[#FAFBFC] px-3 py-3 font-semibold" style={{ borderColor: "#ECEEF2", color: "#555C6B" }}><span className="eruty-meta eruty-meta--code mb-2 block" style={{ color: "#9DA2AE" }}>0{stepIndex + 1}</span>{step}</li>)}
         </ol>
         <Link to={service.to} className="mt-auto inline-flex items-center gap-2 self-start text-sm font-bold" style={{ color: BLUE }}>{linkText}<ArrowRight size={15} className="transition-transform group-hover:translate-x-1" aria-hidden="true" /></Link>
       </div>
@@ -189,35 +180,35 @@ export function TechnologyPage() {
         </PageContainer>
       </section>
 
-      <section id="architecture" className="py-20 md:py-24" aria-labelledby="architecture-title">
+      <section id="architecture" className="eruty-section-compact" aria-labelledby="architecture-title">
         <div className="eruty-container">
-          <div className="mb-10 grid gap-5 lg:grid-cols-12 lg:items-end"><div className="lg:col-span-7"><SectionHeading {...copy.architecture} /></div><div className="hidden justify-end lg:col-span-5 lg:flex"><div className="flex items-center gap-2 text-xs" style={{ color: MUTED }}><span className="h-2 w-2 rounded-full" style={{ background: BLUE }} />DATA → DECISION → EXECUTION</div></div></div>
+          <SectionHeading {...copy.architecture} align="split" lang={lang} titleId="architecture-title" action={<div className="eruty-meta eruty-meta--code flex items-center gap-2" style={{ color: MUTED }}><span className="h-2 w-2 rounded-full" style={{ background: BLUE }} />DATA → DECISION → EXECUTION</div>} />
           <ArchitectureDiagram lang={lang} />
         </div>
       </section>
 
       {copy.core.map((item, index) => <CoreTechnologySection key={item.index} item={item} index={index} lang={lang} />)}
 
-      <section className="py-20 md:py-28" style={{ background: SURFACE }} aria-labelledby="services-title">
+      <section className="eruty-section" style={{ background: SURFACE }} aria-labelledby="services-title">
         <div className="eruty-container">
-          <div className="mb-10"><div className="max-w-2xl"><div className="eruty-eyebrow-en mb-4" style={{ color: BLUE }}>{copy.services.eyebrow}</div><h2 id="services-title" className="eruty-section-title" style={{ color: INK }}>{copy.services.title}</h2><p className="mt-4 text-sm eruty-keep-all md:text-base" style={{ color: MUTED }}>{copy.services.description}</p></div></div>
-          <div className="grid gap-5 lg:grid-cols-2">{copy.services.cards.map((service, index) => <ServiceCard key={service.name} service={service} index={index} linkText={copy.services.link} />)}</div>
+          <SectionHeading {...copy.services} align="center" lang={lang} titleId="services-title" />
+          <div className="grid gap-5 lg:grid-cols-2">{copy.services.cards.map((service, index) => <ServiceCard key={service.name} service={service} index={index} linkText={copy.services.link} lang={lang} />)}</div>
         </div>
       </section>
 
-      <section className="bg-[#07101F] py-20 md:py-24" aria-labelledby="foundation-title">
+      <section className="eruty-section-compact bg-[#07101F]" aria-labelledby="foundation-title">
         <div className="eruty-container">
-          <div className="mb-10"><div className="max-w-2xl"><div className="eruty-eyebrow-en mb-4 text-[#7EA2FF]">{copy.foundation.eyebrow}</div><h2 id="foundation-title" className="eruty-section-title text-white">{copy.foundation.title}</h2><p className="mt-4 text-sm text-white/55 eruty-keep-all md:text-base" style={{ lineHeight: 1.75 }}>{copy.foundation.description}</p></div></div>
+          <SectionHeading {...copy.foundation} align="center" inverse lang={lang} titleId="foundation-title" />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {copy.foundation.cards.map((card, index) => { const Icon = foundationIcons[index]; return <article key={card.title} className="rounded-xl border border-white/10 bg-white/[0.04] p-6"><span className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-[#17316B] text-[#81A3FF]"><Icon size={19} aria-hidden="true" /></span><h3 className="mb-2 text-base font-bold text-white eruty-keep-all">{card.title}</h3><p className="text-xs text-white/50 eruty-keep-all" style={{ lineHeight: 1.7 }}>{card.description}</p></article>; })}
+            {copy.foundation.cards.map((card, index) => { const Icon = foundationIcons[index]; return <article key={card.title} className="rounded-xl border border-white/10 bg-white/[0.04] p-6"><span className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-[#17316B] text-[#81A3FF]"><Icon size={19} aria-hidden="true" /></span><h3 className="eruty-card-title mb-2 text-white">{card.title}</h3><p className="eruty-body-small text-white/50">{card.description}</p></article>; })}
           </div>
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#1237A5] py-20 md:py-24" aria-labelledby="technology-cta-title">
+      <section className="eruty-section-compact relative overflow-hidden bg-[#1237A5]" aria-labelledby="technology-cta-title">
         <div className="absolute inset-0 opacity-60" aria-hidden="true" style={{ background: "radial-gradient(circle at 82% 48%, rgba(78,124,255,.8), transparent 28%), linear-gradient(130deg, transparent 40%, rgba(4,18,54,.35) 40% 100%)" }} />
         <div className="eruty-container relative flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
-          <div className="max-w-2xl"><div className="eruty-eyebrow-en mb-4 flex items-center gap-2 text-[#B7C8FF]"><Lightbulb size={14} aria-hidden="true" />NEXT EXECUTION</div><h2 id="technology-cta-title" className="eruty-section-title eruty-preline-desktop text-white">{copy.cta.title}</h2><p className="mt-4 text-sm text-white/65 eruty-keep-all md:text-base">{copy.cta.description}</p></div>
+          <div className="max-w-2xl"><div className="eruty-eyebrow-en mb-4 flex items-center gap-2 text-[#B7C8FF]"><Lightbulb size={14} aria-hidden="true" />NEXT EXECUTION</div><h2 id="technology-cta-title" className="eruty-section-title eruty-preline-desktop text-white">{copy.cta.title}</h2><p className="eruty-body mt-4 text-white/65">{copy.cta.description}</p></div>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row"><Link to="/start-a-project" className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-6 py-3.5 text-sm font-bold" style={{ color: "#1237A5" }}>{copy.cta.button}<ArrowUpRight size={15} aria-hidden="true" /></Link><Link to="/services/hitpick" className="inline-flex items-center justify-center gap-2 rounded-md border border-white/25 px-6 py-3.5 text-sm font-bold text-white">{copy.cta.secondary}<ArrowRight size={15} aria-hidden="true" /></Link></div>
         </div>
       </section>
