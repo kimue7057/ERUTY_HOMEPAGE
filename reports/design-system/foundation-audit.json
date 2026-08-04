@@ -1,0 +1,2096 @@
+{
+  "generatedAt": "2026-08-04T13:00:34.645Z",
+  "policy": {
+    "mode": "report-only",
+    "rootFontSize": "17px",
+    "note": "This inventory establishes a baseline. It intentionally does not fail CI.",
+    "exceptionNamespaces": [
+      "service-hitpick-*",
+      "service-erumter-*",
+      "mockup-*",
+      "illustration-*",
+      "decorative-label-*",
+      "horizontal-scroll-*"
+    ]
+  },
+  "summary": {
+    "filesScanned": 57,
+    "arbitraryOccurrences": 253,
+    "uniqueArbitraryValues": 171,
+    "normalPageArbitraryOccurrences": 100,
+    "exceptionArbitraryOccurrences": 153,
+    "namespaceBoundaryReviews": 0,
+    "directValueReviews": 6
+  },
+  "arbitraryValues": [
+    {
+      "kind": "letter-spacing",
+      "value": "tracking-[0.24em]",
+      "file": "src/app/App.tsx",
+      "line": 62,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "letter-spacing",
+      "value": "tracking-[0.24em]",
+      "file": "src/app/components/Header.tsx",
+      "line": 530,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "letter-spacing",
+      "value": "tracking-[0.24em]",
+      "file": "src/app/components/Header.tsx",
+      "line": 604,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "letter-spacing",
+      "value": "tracking-[0.24em]",
+      "file": "src/app/components/Header.tsx",
+      "line": 896,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[76px]",
+      "file": "src/app/components/Header.tsx",
+      "line": 595,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[0.95rem]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 894,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[0.9375rem]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 938,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[0.9375rem]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 945,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": ":right-[-3.75rem]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 381,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": ":right-[-4.25rem]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 381,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": ":px-[22px]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 436,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[24%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 534,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[44%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 535,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[64%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 536,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "left-[10%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 537,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[18%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 537,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "left-[32%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 538,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[42%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 538,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "left-[64%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 539,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[32%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 539,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "left-[75%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 540,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[58%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 540,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "left-[10%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 541,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[18%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 541,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "left-[32%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 542,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[42%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 542,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "left-[52%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 543,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[38%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 543,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "right-[10%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 559,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "pb-[10%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 559,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "bottom-[16%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 565,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "left-[8%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 565,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "bottom-[41%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 568,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "left-[14%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 568,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "bottom-[33%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 569,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "left-[14%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 569,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "bottom-[25%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 570,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "left-[14%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 570,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "py-[6px]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 615,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "space-y-[11px]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 634,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "bottom-[-42%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 919,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "bottom-[-36%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 920,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "right-[12%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 922,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[26%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 922,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "right-[19%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 923,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[36%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 923,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "right-[24%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 924,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[49%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 924,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "right-[30%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 925,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[40%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 925,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "right-[22%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 926,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[49%]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 926,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[rgba(55,55,242,0.14)]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 534,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[rgba(55,55,242,0.10)]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 535,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[rgba(55,55,242,0.08)]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 536,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[rgba(55,55,242,0.68)]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 537,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[rgba(55,55,242,0.58)]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 538,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[rgba(55,55,242,0.5)]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 539,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[rgba(55,55,242,0.34)]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 540,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[rgba(55,55,242,0.22)]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 541,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[rgba(55,55,242,0.18)]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 542,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[rgba(55,55,242,0.18)]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 543,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#DDE7F8]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 560,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#C9D9F4]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 561,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#B6CCF1]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 562,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[rgba(55,55,242,0.20)]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 568,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[rgba(55,55,242,0.12)]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 569,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[rgba(55,55,242,0.12)]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 570,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#96C4FF]",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 923,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[0.76rem]",
+      "file": "src/app/pages/company/GrowthPage.tsx",
+      "line": 163,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[0.96rem]",
+      "file": "src/app/pages/company/GrowthPage.tsx",
+      "line": 936,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "py-[7px]",
+      "file": "src/app/pages/company/GrowthPage.tsx",
+      "line": 163,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "right-[-9%]",
+      "file": "src/app/pages/company/GrowthPage.tsx",
+      "line": 176,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[-2rem]",
+      "file": "src/app/pages/company/GrowthPage.tsx",
+      "line": 176,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "py-[11px]",
+      "file": "src/app/pages/company/GrowthPage.tsx",
+      "line": 405,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#EDF2FA]",
+      "file": "src/app/pages/company/GrowthPage.tsx",
+      "line": 249,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#EDF2FA]",
+      "file": "src/app/pages/company/GrowthPage.tsx",
+      "line": 576,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#060B14]",
+      "file": "src/app/pages/company/GrowthPage.tsx",
+      "line": 894,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": ":py-[88px]",
+      "file": "src/app/pages/company/TeamPage.tsx",
+      "line": 377,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": ":py-[108px]",
+      "file": "src/app/pages/company/TeamPage.tsx",
+      "line": 377,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[11px]",
+      "file": "src/app/pages/HomePage.tsx",
+      "line": 975,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[11px]",
+      "file": "src/app/pages/HomePage.tsx",
+      "line": 1009,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "letter-spacing",
+      "value": "tracking-[0.24em]",
+      "file": "src/app/pages/NotFoundPage.tsx",
+      "line": 35,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[0.6875rem]",
+      "file": "src/app/pages/ResourcesPage.tsx",
+      "line": 167,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "font-size",
+      "value": ":text-[#18191B]",
+      "file": "src/app/pages/ResourcesPage.tsx",
+      "line": 204,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "letter-spacing",
+      "value": "tracking-[0.18em]",
+      "file": "src/app/pages/ResourcesPage.tsx",
+      "line": 147,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": ":text-[#18191B]",
+      "file": "src/app/pages/ResourcesPage.tsx",
+      "line": 204,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#A1A5AF]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 80,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[10px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 108,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#7EA2FF]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 114,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[11px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 128,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#8BA9FF]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 128,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[11px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 146,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#33416B]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 146,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[9px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 148,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#747B8C]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 148,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[10px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 168,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#4F5668]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 168,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[9px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 171,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#697083]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 171,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#454B5B]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 174,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[10px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 180,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#4F5668]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 180,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#2E4DA8]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 183,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#9A9FAD]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 186,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[10px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 187,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#29A36A]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 187,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[10px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 192,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#4F5668]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 192,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[10px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 200,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#4F5668]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 200,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[8px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 204,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#6071A9]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 204,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#4C5363]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 205,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[10px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 211,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#4F5668]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 211,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[9px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 214,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#606779]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 214,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#3737F2]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 214,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[9px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 240,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#40517E]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 240,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[9px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 244,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#565D6D]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 244,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[8px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 245,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#A0A5B0]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 245,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#7A91D9]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 249,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[9px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 254,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[8px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 255,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#69E4AC]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 255,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[8px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 258,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[8px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 261,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#9AA0AD]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 275,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[11px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 275,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#3F485A]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 275,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#9AA0AD]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 276,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[8px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 276,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#20945B]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 276,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[10px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 280,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#40517E]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 280,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#4D74EF]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 283,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[9px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 284,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#4C5363]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 284,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#A0A5B0]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 284,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[10px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 289,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#40517E]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 289,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[8px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 292,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#626A7A]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 292,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[7px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 292,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#ADB1BA]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 292,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[10px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 297,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#40517E]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 297,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[11px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 298,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#465064]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 298,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[7px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 299,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#798091]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 299,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[10px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 302,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#40517E]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 302,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#9AA0AD]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 303,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[10px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 303,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#3F485A]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 303,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#9AA0AD]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 304,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[8px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 304,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#596172]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 304,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[8px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 305,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[10px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 319,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "letter-spacing",
+      "value": "tracking-[0.16em]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 69,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "letter-spacing",
+      "value": "tracking-[0.16em]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 106,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "left-[8%]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 59,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "right-[8%]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 59,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "top-[57px]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 59,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#D9DDFE]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 59,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#A1A5AF]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 80,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#6F8BFF]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 105,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#0D1830]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 112,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#18336C]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 114,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#7EA2FF]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 114,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "border-[#416CF0]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 126,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#15327B]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 126,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#8BA9FF]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 128,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#D9DCE3]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 142,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#D9DCE3]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 143,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#D9DCE3]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 144,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#33416B]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 146,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#F1F3F7]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 148,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#747B8C]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 148,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#F8F9FB]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 166,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#4F5668]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 168,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#697083]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 171,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#EEF0F4]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 173,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#4772F5]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 173,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#454B5B]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 174,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#4F5668]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 180,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#2E4DA8]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 183,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#9A9FAD]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 186,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#29A36A]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 187,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#4F5668]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 192,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#4F5668]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 200,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#F7F8FA]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 203,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#E5E9F8]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 204,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#6071A9]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 204,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#4C5363]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 205,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#4F5668]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 211,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#606779]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 214,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#EEF0FF]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 214,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#3737F2]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 214,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#40517E]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 240,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#FAFBFC]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 243,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#565D6D]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 244,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#A0A5B0]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 245,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#4D7CF8]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 245,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#7A91D9]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 249,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#111F3D]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 253,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#54D694]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 254,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#153E39]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 255,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#69E4AC]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 255,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#9AA0AD]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 275,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#3F485A]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 275,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#9AA0AD]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 276,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#E5F8ED]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 276,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#20945B]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 276,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#40517E]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 280,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#EEF1FF]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 283,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#4D74EF]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 283,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#4C5363]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 284,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#A0A5B0]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 284,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#40517E]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 289,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#626A7A]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 292,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "border-[#6B8DFA]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 292,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#ADB1BA]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 292,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#40517E]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 297,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#465064]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 298,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#798091]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 299,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#40517E]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 302,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#F7F9FB]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 303,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#9AA0AD]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 303,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#3F485A]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 303,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#F7F9FB]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 304,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#9AA0AD]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 304,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#596172]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 304,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#152650]",
+      "file": "src/app/pages/technology/TechnologyComponents.tsx",
+      "line": 305,
+      "exceptionNamespace": "mockup-*",
+      "status": "exception-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#8AA8FF]",
+      "file": "src/app/pages/TechnologyPage.tsx",
+      "line": 176,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#81A3FF]",
+      "file": "src/app/pages/TechnologyPage.tsx",
+      "line": 203,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "font-size",
+      "value": "text-[#B7C8FF]",
+      "file": "src/app/pages/TechnologyPage.tsx",
+      "line": 211,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "spacing",
+      "value": "left-[-10%]",
+      "file": "src/app/pages/TechnologyPage.tsx",
+      "line": 166,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#FAFBFC]",
+      "file": "src/app/pages/TechnologyPage.tsx",
+      "line": 149,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#07101F]",
+      "file": "src/app/pages/TechnologyPage.tsx",
+      "line": 164,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "border-[#2251B8]",
+      "file": "src/app/pages/TechnologyPage.tsx",
+      "line": 166,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#8AA8FF]",
+      "file": "src/app/pages/TechnologyPage.tsx",
+      "line": 176,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#07101F]",
+      "file": "src/app/pages/TechnologyPage.tsx",
+      "line": 199,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#17316B]",
+      "file": "src/app/pages/TechnologyPage.tsx",
+      "line": 203,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#81A3FF]",
+      "file": "src/app/pages/TechnologyPage.tsx",
+      "line": 203,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "bg-[#1237A5]",
+      "file": "src/app/pages/TechnologyPage.tsx",
+      "line": 208,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    },
+    {
+      "kind": "color",
+      "value": "text-[#B7C8FF]",
+      "file": "src/app/pages/TechnologyPage.tsx",
+      "line": 211,
+      "exceptionNamespace": null,
+      "status": "normal-page-review"
+    }
+  ],
+  "namespaceUsages": [],
+  "directValues": [
+    {
+      "property": "max-width",
+      "value": "767px)\"\r\n                  srcSet=\"/images/company/about/hero-approved-visual-mobile.webp\"\r\n                />\r\n                <img\r\n                  src=\"/images/company/about/hero-approved-visual.webp\"\r\n                  alt=",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 385,
+      "status": "inventory-not-ci-error"
+    },
+    {
+      "property": "padding",
+      "value": "\"22px 26px 28px\"",
+      "file": "src/app/pages/company/AboutPage.tsx",
+      "line": 613,
+      "status": "inventory-not-ci-error"
+    },
+    {
+      "property": "padding",
+      "value": "\"12px 14px\", fontSize: \"0.9rem\",\r\n    border: `1px solid $",
+      "file": "src/app/pages/company/CareersPage.tsx",
+      "line": 744,
+      "status": "inventory-not-ci-error"
+    },
+    {
+      "property": "max-width",
+      "value": "1023px)\").matches)",
+      "file": "src/app/pages/company/TeamPage.tsx",
+      "line": 445,
+      "status": "inventory-not-ci-error"
+    },
+    {
+      "property": "padding",
+      "value": "\"0.85rem 0.9rem\",\r\n                        borderRadius: 8,\r\n                        border: isActive ? `1px solid $",
+      "file": "src/app/pages/HomePage.tsx",
+      "line": 835,
+      "status": "inventory-not-ci-error"
+    },
+    {
+      "property": "padding",
+      "value": "12px 14px",
+      "file": "src/app/pages/StartProjectPage.tsx",
+      "line": 1083,
+      "status": "inventory-not-ci-error"
+    }
+  ]
+}

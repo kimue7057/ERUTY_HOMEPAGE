@@ -11,6 +11,9 @@
     "lint": "eslint . --ext .ts,.tsx --max-warnings 0",
     "check": "npm run typecheck && npm run lint && npm run build",
     "capture:site": "node scripts/capture-site.mjs",
+    "audit:design": "npm run audit:design:foundation",
+    "audit:design:foundation": "node scripts/audit-design-foundation.mjs",
+    "audit:design:foundation:equivalence": "node scripts/audit-design-foundation-equivalence.mjs",
     "audit:footer-overflow": "node scripts/audit-footer-overflow.mjs"
   },
   "dependencies": {

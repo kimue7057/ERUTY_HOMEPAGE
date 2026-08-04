@@ -1,36 +1,144 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --font-size: 17px;
-  --font-display: 'Pretendard Variable', 'Pretendard', system-ui, sans-serif;
-  --font-body: 'Pretendard Variable', 'Pretendard', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* Foundation policy: keep the production root at 17px until the dedicated root migration. */
+  --eruty-root-font-size: 17px;
+  --font-size: var(--eruty-root-font-size);
+  --eruty-font-display: 'Pretendard Variable', 'Pretendard', system-ui, sans-serif;
+  --eruty-font-body: 'Pretendard Variable', 'Pretendard', system-ui, sans-serif;
+  --eruty-font-mono: 'JetBrains Mono', monospace;
+  --font-display: var(--eruty-font-display);
+  --font-body: var(--eruty-font-body);
+  --font-mono: var(--eruty-font-mono);
 
   --eruty-header-height: 76px;
   --eruty-container: 1280px;
   --eruty-container-wide: 1440px;
   --eruty-page-gutter-mobile: 20px;
   --eruty-page-gutter-desktop: 32px;
-  --eruty-home-display-size: clamp(2.65rem, 5vw, 4.25rem);
-  --eruty-page-title-size: clamp(2.35rem, 4.3vw, 3.75rem);
-  --eruty-section-title-size: clamp(1.85rem, 3vw, 2.6rem);
-  --eruty-subsection-title-size: clamp(1.35rem, 2vw, 1.85rem);
-  --eruty-lead-size: clamp(0.98rem, 1.2vw, 1.12rem);
-  --eruty-body-size: 1rem;
-  --eruty-title-line-height: 1.1;
-  --eruty-copy-line-height: 1.75;
-  --eruty-title-letter-spacing: -0.04em;
-  --eruty-section-space: clamp(72px, 7vw, 112px);
-  --eruty-section-space-compact: clamp(56px, 5.5vw, 88px);
-  --eruty-section-content-gap: clamp(36px, 4vw, 56px);
-  --eruty-section-heading-max: 760px;
-  --eruty-card-title-size: clamp(1.08rem, 1.4vw, 1.3rem);
-  --eruty-card-body-size: 0.95rem;
-  --eruty-body-small-size: 0.875rem;
-  --eruty-meta-size: 0.76rem;
+  /* Official typography roles. Each role owns its complete visual contract. */
+  --eruty-type-display-home-family: var(--eruty-font-display);
+  --eruty-type-display-home-size: clamp(2.65rem, 5vw, 4.25rem);
+  --eruty-type-display-home-weight: 800;
+  --eruty-type-display-home-line-height: 1.08;
+  --eruty-type-display-home-tracking: -0.04em;
 
-  --background: #FFFFFF;
-  --foreground: #18191B;
+  --eruty-type-title-page-family: var(--eruty-font-display);
+  --eruty-type-title-page-size: clamp(2.35rem, 4.3vw, 3.75rem);
+  --eruty-type-title-page-weight: 800;
+  --eruty-type-title-page-line-height: 1.1;
+  --eruty-type-title-page-tracking: -0.04em;
+
+  --eruty-type-title-section-family: var(--eruty-font-display);
+  --eruty-type-title-section-size: clamp(1.85rem, 3vw, 2.6rem);
+  --eruty-type-title-section-weight: 800;
+  --eruty-type-title-section-line-height: 1.18;
+  --eruty-type-title-section-tracking: -0.04em;
+
+  --eruty-type-title-subsection-family: var(--eruty-font-display);
+  --eruty-type-title-subsection-size: clamp(1.35rem, 2vw, 1.85rem);
+  --eruty-type-title-subsection-weight: 700;
+  --eruty-type-title-subsection-line-height: 1.27;
+  --eruty-type-title-subsection-tracking: -0.025em;
+
+  --eruty-type-title-card-family: var(--eruty-font-display);
+  --eruty-type-title-card-size: clamp(1.08rem, 1.4vw, 1.3rem);
+  --eruty-type-title-card-weight: 700;
+  --eruty-type-title-card-line-height: 1.4;
+  --eruty-type-title-card-tracking: -0.015em;
+
+  --eruty-type-body-lead-family: var(--eruty-font-body);
+  --eruty-type-body-lead-size: clamp(0.98rem, 1.2vw, 1.12rem);
+  --eruty-type-body-lead-weight: 400;
+  --eruty-type-body-lead-line-height: 1.75;
+  --eruty-type-body-lead-tracking: 0;
+
+  --eruty-type-body-default-family: var(--eruty-font-body);
+  --eruty-type-body-default-size: 1rem;
+  --eruty-type-body-default-weight: 400;
+  --eruty-type-body-default-line-height: 1.75;
+  --eruty-type-body-default-tracking: 0;
+
+  --eruty-type-body-small-family: var(--eruty-font-body);
+  --eruty-type-body-small-size: 0.875rem;
+  --eruty-type-body-small-weight: 400;
+  --eruty-type-body-small-line-height: 1.68;
+  --eruty-type-body-small-tracking: 0;
+
+  --eruty-type-meta-family: var(--eruty-font-body);
+  --eruty-type-meta-size: 0.76rem;
+  --eruty-type-meta-weight: 400;
+  --eruty-type-meta-line-height: 1.5;
+  --eruty-type-meta-tracking: 0;
+
+  --eruty-type-eyebrow-family: var(--eruty-font-mono);
+  --eruty-type-eyebrow-size: 0.72rem;
+  --eruty-type-eyebrow-weight: 600;
+  --eruty-type-eyebrow-line-height: 1.4;
+  --eruty-type-eyebrow-tracking: 0.14em;
+  --eruty-type-eyebrow-ko-family: var(--eruty-font-body);
+  --eruty-type-eyebrow-ko-size: 0.78rem;
+  --eruty-type-eyebrow-ko-tracking: -0.01em;
+
+  /* Compatibility aliases used by the current pages. */
+  --eruty-home-display-size: var(--eruty-type-display-home-size);
+  --eruty-page-title-size: var(--eruty-type-title-page-size);
+  --eruty-section-title-size: var(--eruty-type-title-section-size);
+  --eruty-subsection-title-size: var(--eruty-type-title-subsection-size);
+  --eruty-card-title-size: var(--eruty-type-title-card-size);
+  --eruty-lead-size: var(--eruty-type-body-lead-size);
+  --eruty-body-size: var(--eruty-type-body-default-size);
+  --eruty-body-small-size: var(--eruty-type-body-small-size);
+  --eruty-meta-size: var(--eruty-type-meta-size);
+  --eruty-title-line-height: var(--eruty-type-title-page-line-height);
+  --eruty-copy-line-height: var(--eruty-type-body-default-line-height);
+  --eruty-title-letter-spacing: var(--eruty-type-title-page-tracking);
+
+  /* Semantic spacing roles; Tailwind's 17px-root scale remains unchanged. */
+  --eruty-space-heading-eyebrow-title: 18px;
+  --eruty-space-heading-eyebrow-title-compact: 16px;
+  --eruty-space-heading-title-description: 24px;
+  --eruty-space-heading-title-description-compact: 18px;
+  --eruty-space-heading-description-content: 30px;
+  --eruty-space-card-title-body: 12px;
+  --eruty-space-card-content: 17px;
+  --eruty-space-button-inline: 8.5px;
+  --eruty-space-button-block: 12.75px;
+
+  --eruty-section-space-default: clamp(72px, 7vw, 112px);
+  --eruty-section-space-compact: clamp(56px, 5.5vw, 88px);
+  --eruty-section-space-spacious: clamp(96px, 9vw, 144px);
+  --eruty-section-space-hero-mobile: 68px;
+  --eruty-section-space-hero-tablet: 88px;
+  --eruty-section-space-hero-desktop: 108px;
+  --eruty-section-content-gap: clamp(36px, 4vw, 56px);
+  --eruty-section-space: var(--eruty-section-space-default);
+  --eruty-section-heading-max: 760px;
+  --eruty-copy-max: 720px;
+  --eruty-reading-max: 760px;
+  --eruty-card-body-size: 0.95rem;
+
+  /* Component foundation roles. New components consume these; pages are not mass-migrated. */
+  --eruty-button-height-compact: 44px;
+  --eruty-button-height-default: 51px;
+  --eruty-button-height-large: 54px;
+  --eruty-button-padding-inline-compact: 17px;
+  --eruty-button-padding-inline-default: 25.5px;
+  --eruty-button-padding-inline-large: 29.75px;
+  --eruty-button-radius: 4px;
+  --eruty-card-padding-compact: 17px;
+  --eruty-card-padding-default: 25.5px;
+  --eruty-card-padding-featured: 34px;
+  --eruty-card-radius: 6px;
+
+  --eruty-color-surface-base: #FFFFFF;
+  --eruty-color-surface-subtle: #F5F6F8;
+  --eruty-color-text-primary: #18191B;
+  --eruty-color-text-muted: #737780;
+  --eruty-color-border-default: #E4E6EA;
+  --eruty-color-brand-primary: #3737F2;
+  --background: var(--eruty-color-surface-base);
+  --foreground: var(--eruty-color-text-primary);
   --card: #F5F6F8;
   --card-foreground: #18191B;
   --popover: #FFFFFF;
@@ -41,11 +149,11 @@
   --secondary-foreground: #18191B;
   --muted: #F5F6F8;
   --muted-foreground: #737780;
-  --accent: #3737F2;
+  --accent: var(--eruty-color-brand-primary);
   --accent-foreground: #FFFFFF;
   --destructive: #d4183d;
   --destructive-foreground: #ffffff;
-  --border: #E4E6EA;
+  --border: var(--eruty-color-border-default);
   --input: #F5F6F8;
   --input-background: #F5F6F8;
   --switch-background: #E4E6EA;
@@ -69,6 +177,12 @@
 }
 
 .dark {
+  --eruty-color-surface-base: #18191B;
+  --eruty-color-surface-subtle: #2A2C30;
+  --eruty-color-text-primary: #F5F6F8;
+  --eruty-color-text-muted: #9A9BA0;
+  --eruty-color-border-default: rgba(255,255,255,0.08);
+  --eruty-color-brand-primary: #3737F2;
   --background: #18191B;
   --foreground: #F5F6F8;
   --card: #222327;
@@ -259,31 +373,51 @@
     max-width: var(--eruty-container-wide);
   }
 
+  .eruty-container-reading {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--eruty-reading-max);
+    margin-inline: auto;
+    padding-inline: var(--eruty-page-gutter-mobile);
+  }
+
+  .eruty-type-display-home,
+  .eruty-type-title-page,
+  .eruty-type-title-section,
   .eruty-home-display,
   .eruty-page-title,
   .eruty-section-title {
     margin: 0;
-    font-family: var(--font-display);
-    font-weight: 800;
-    letter-spacing: var(--eruty-title-letter-spacing);
     word-break: keep-all;
     overflow-wrap: break-word;
     text-wrap: balance;
   }
 
+  .eruty-type-display-home,
   .eruty-home-display {
-    font-size: var(--eruty-home-display-size);
-    line-height: 1.08;
+    font-family: var(--eruty-type-display-home-family);
+    font-size: var(--eruty-type-display-home-size);
+    font-weight: var(--eruty-type-display-home-weight);
+    line-height: var(--eruty-type-display-home-line-height);
+    letter-spacing: var(--eruty-type-display-home-tracking);
   }
 
+  .eruty-type-title-page,
   .eruty-page-title {
-    font-size: var(--eruty-page-title-size);
-    line-height: var(--eruty-title-line-height);
+    font-family: var(--eruty-type-title-page-family);
+    font-size: var(--eruty-type-title-page-size);
+    font-weight: var(--eruty-type-title-page-weight);
+    line-height: var(--eruty-type-title-page-line-height);
+    letter-spacing: var(--eruty-type-title-page-tracking);
   }
 
+  .eruty-type-title-section,
   .eruty-section-title {
-    font-size: var(--eruty-section-title-size);
-    line-height: 1.18;
+    font-family: var(--eruty-type-title-section-family);
+    font-size: var(--eruty-type-title-section-size);
+    font-weight: var(--eruty-type-title-section-weight);
+    line-height: var(--eruty-type-title-section-line-height);
+    letter-spacing: var(--eruty-type-title-section-tracking);
   }
 
   .eruty-section {
@@ -294,58 +428,89 @@
     padding-block: var(--eruty-section-space-compact);
   }
 
+  .eruty-section-spacious {
+    padding-block: var(--eruty-section-space-spacious);
+  }
+
   .eruty-section-content-gap {
     margin-top: var(--eruty-section-content-gap);
   }
 
+  .eruty-type-title-subsection,
+  .eruty-type-title-card,
   .eruty-subsection-title,
   .eruty-card-title {
     margin: 0;
-    font-family: var(--font-display);
-    font-weight: 700;
     word-break: keep-all;
     overflow-wrap: break-word;
     text-wrap: pretty;
   }
 
+  .eruty-type-title-subsection,
   .eruty-subsection-title {
-    font-size: var(--eruty-subsection-title-size);
-    line-height: 1.27;
-    letter-spacing: -0.025em;
+    font-family: var(--eruty-type-title-subsection-family);
+    font-size: var(--eruty-type-title-subsection-size);
+    font-weight: var(--eruty-type-title-subsection-weight);
+    line-height: var(--eruty-type-title-subsection-line-height);
+    letter-spacing: var(--eruty-type-title-subsection-tracking);
   }
 
+  .eruty-type-title-card,
   .eruty-card-title {
-    font-size: var(--eruty-card-title-size);
-    line-height: 1.4;
-    letter-spacing: -0.015em;
+    font-family: var(--eruty-type-title-card-family);
+    font-size: var(--eruty-type-title-card-size);
+    font-weight: var(--eruty-type-title-card-weight);
+    line-height: var(--eruty-type-title-card-line-height);
+    letter-spacing: var(--eruty-type-title-card-tracking);
   }
 
+  .eruty-type-body-default,
+  .eruty-type-body-small,
   .eruty-body,
   .eruty-body-small {
     margin: 0;
-    font-family: var(--font-body);
     word-break: keep-all;
     overflow-wrap: break-word;
     text-wrap: pretty;
   }
 
+  .eruty-type-body-default,
   .eruty-body {
-    font-size: var(--eruty-body-size);
-    line-height: var(--eruty-copy-line-height);
+    font-family: var(--eruty-type-body-default-family);
+    font-size: var(--eruty-type-body-default-size);
+    line-height: var(--eruty-type-body-default-line-height);
+    letter-spacing: var(--eruty-type-body-default-tracking);
   }
 
+  .eruty-type-body-default {
+    font-weight: var(--eruty-type-body-default-weight);
+  }
+
+  .eruty-type-body-small,
   .eruty-body-small {
-    font-size: var(--eruty-body-small-size);
-    line-height: 1.68;
+    font-family: var(--eruty-type-body-small-family);
+    font-size: var(--eruty-type-body-small-size);
+    line-height: var(--eruty-type-body-small-line-height);
+    letter-spacing: var(--eruty-type-body-small-tracking);
   }
 
+  .eruty-type-body-small {
+    font-weight: var(--eruty-type-body-small-weight);
+  }
+
+  .eruty-type-meta,
   .eruty-meta {
     margin: 0;
-    font-family: var(--font-body);
-    font-size: var(--eruty-meta-size);
-    line-height: 1.5;
+    font-family: var(--eruty-type-meta-family);
+    font-size: var(--eruty-type-meta-size);
+    line-height: var(--eruty-type-meta-line-height);
+    letter-spacing: var(--eruty-type-meta-tracking);
     word-break: keep-all;
     overflow-wrap: break-word;
+  }
+
+  .eruty-type-meta {
+    font-weight: var(--eruty-type-meta-weight);
   }
 
   .eruty-meta[data-format="code"],
@@ -373,33 +538,40 @@
     overflow-wrap: break-word;
   }
 
+  .eruty-type-body-lead,
   .eruty-page-lead {
     margin: 0;
-    font-family: var(--font-body);
-    font-size: var(--eruty-lead-size);
-    line-height: var(--eruty-copy-line-height);
+    font-family: var(--eruty-type-body-lead-family);
+    font-size: var(--eruty-type-body-lead-size);
+    line-height: var(--eruty-type-body-lead-line-height);
+    letter-spacing: var(--eruty-type-body-lead-tracking);
     word-break: keep-all;
     overflow-wrap: break-word;
   }
 
+  .eruty-type-body-lead {
+    font-weight: var(--eruty-type-body-lead-weight);
+    text-wrap: pretty;
+  }
+
+  .eruty-type-eyebrow,
   .eruty-eyebrow-en,
   .eruty-eyebrow-ko {
     display: inline-block;
-    font-weight: 600;
-    line-height: 1.4;
-  }
-
-  .eruty-eyebrow-en {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    font-family: var(--eruty-type-eyebrow-family);
+    font-size: var(--eruty-type-eyebrow-size);
+    font-weight: var(--eruty-type-eyebrow-weight);
+    line-height: var(--eruty-type-eyebrow-line-height);
+    letter-spacing: var(--eruty-type-eyebrow-tracking);
     text-transform: uppercase;
   }
 
+  .eruty-type-eyebrow[data-lang="ko"],
   .eruty-eyebrow-ko {
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    letter-spacing: -0.01em;
+    font-family: var(--eruty-type-eyebrow-ko-family);
+    font-size: var(--eruty-type-eyebrow-ko-size);
+    letter-spacing: var(--eruty-type-eyebrow-ko-tracking);
+    text-transform: none;
   }
 
   .eruty-text-balance {
@@ -413,7 +585,7 @@
   }
 
   .eruty-hero-section {
-    padding-block: 68px;
+    padding-block: var(--eruty-section-space-hero-mobile);
   }
 
   .eruty-page-heading {
@@ -431,7 +603,7 @@
   }
 
   .eruty-page-heading__eyebrow {
-    margin-bottom: 18px;
+    margin-bottom: var(--eruty-space-heading-eyebrow-title);
     color: var(--accent);
   }
 
@@ -441,8 +613,8 @@
   }
 
   .eruty-page-heading__description {
-    max-width: 720px;
-    margin-top: 24px;
+    max-width: var(--eruty-copy-max);
+    margin-top: var(--eruty-space-heading-title-description);
     color: #454c58;
   }
 
@@ -450,7 +622,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 30px;
+    margin-top: var(--eruty-space-heading-description-content);
   }
 
   .eruty-page-heading--center .eruty-page-heading__actions {
@@ -475,7 +647,7 @@
   }
 
   .eruty-section-heading__eyebrow {
-    margin-bottom: 16px;
+    margin-bottom: var(--eruty-space-heading-eyebrow-title-compact);
     color: var(--accent);
   }
 
@@ -484,8 +656,8 @@
   }
 
   .eruty-section-heading__details {
-    max-width: 720px;
-    margin-top: 18px;
+    max-width: var(--eruty-copy-max);
+    margin-top: var(--eruty-space-heading-title-description-compact);
   }
 
   .eruty-section-heading__description {
@@ -524,15 +696,116 @@
     color: rgba(255, 255, 255, 0.66);
   }
 
+  .eruty-button {
+    --eruty-button-current-height: var(--eruty-button-height-default);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--eruty-space-button-inline);
+    border: 1px solid transparent;
+    border-radius: var(--eruty-button-radius);
+    font-family: var(--eruty-font-body);
+    font-size: var(--eruty-type-body-small-size);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .eruty-button--compact {
+    --eruty-button-current-height: var(--eruty-button-height-compact);
+    min-height: var(--eruty-button-height-compact);
+    padding-inline: var(--eruty-button-padding-inline-compact);
+  }
+
+  .eruty-button--default {
+    --eruty-button-current-height: var(--eruty-button-height-default);
+    min-height: var(--eruty-button-height-default);
+    padding-inline: var(--eruty-button-padding-inline-default);
+  }
+
+  .eruty-button--large {
+    --eruty-button-current-height: var(--eruty-button-height-large);
+    min-height: var(--eruty-button-height-large);
+    padding-inline: var(--eruty-button-padding-inline-large);
+  }
+
+  .eruty-button--primary {
+    background: var(--eruty-color-brand-primary);
+    color: #fff;
+  }
+
+  .eruty-button--secondary {
+    border-color: var(--eruty-color-border-default);
+    background: var(--eruty-color-surface-base);
+    color: var(--eruty-color-text-primary);
+  }
+
+  .eruty-button--text {
+    min-height: auto;
+    padding-inline: 0;
+    background: transparent;
+    color: var(--eruty-color-brand-primary);
+  }
+
+  .eruty-button--icon {
+    width: var(--eruty-button-current-height);
+    padding-inline: 0;
+    border-color: var(--eruty-color-border-default);
+    background: var(--eruty-color-surface-base);
+    color: var(--eruty-color-text-primary);
+  }
+
+  .eruty-button:disabled,
+  .eruty-button[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.48;
+  }
+
+  .eruty-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--eruty-space-card-content);
+    border: 1px solid var(--eruty-color-border-default);
+    border-radius: var(--eruty-card-radius);
+    background: var(--eruty-color-surface-base);
+    color: var(--eruty-color-text-primary);
+  }
+
+  .eruty-card--compact {
+    padding: var(--eruty-card-padding-compact);
+  }
+
+  .eruty-card--default {
+    padding: var(--eruty-card-padding-default);
+  }
+
+  .eruty-card--featured {
+    padding: var(--eruty-card-padding-featured);
+  }
+
+  .eruty-card--mockup {
+    padding: 0;
+  }
+
+  .eruty-card__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--eruty-space-card-title-body);
+  }
+
   @media (min-width: 768px) {
     .eruty-hero-section {
-      padding-block: 88px;
+      padding-block: var(--eruty-section-space-hero-tablet);
     }
   }
 
   @media (min-width: 1024px) {
     .eruty-container,
-    .eruty-container-wide {
+    .eruty-container-wide,
+    .eruty-container-reading {
       padding-inline: var(--eruty-page-gutter-desktop);
     }
 
@@ -541,7 +814,7 @@
     }
 
     .eruty-hero-section {
-      padding-block: 108px;
+      padding-block: var(--eruty-section-space-hero-desktop);
     }
 
     .eruty-section-heading--split {
