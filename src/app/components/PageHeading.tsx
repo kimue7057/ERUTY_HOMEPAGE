@@ -31,10 +31,11 @@ export function PageHeading({
 }: PageHeadingProps) {
   const alignmentClass = align === "center" ? "eruty-page-heading--center" : "";
   const inverseClass = inverse ? "eruty-page-heading--inverse" : "";
+  const displayClass = `eruty-page-heading--${display}`;
   const eyebrowClass = isKoreanEyebrow(eyebrow, lang) ? "eruty-eyebrow-ko" : "eruty-eyebrow-en";
 
   return (
-    <div className={`eruty-page-heading ${alignmentClass} ${inverseClass} ${className}`.trim()}>
+    <div className={`eruty-page-heading ${displayClass} ${alignmentClass} ${inverseClass} ${className}`.trim()}>
       {eyebrow ? (
         <div className={`eruty-page-heading__eyebrow ${eyebrowClass}`}>{eyebrow}</div>
       ) : null}

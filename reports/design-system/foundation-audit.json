@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T13:00:34.645Z",
+  "generatedAt": "2026-08-04T13:22:06.967Z",
   "policy": {
     "mode": "report-only",
     "rootFontSize": "17px",
@@ -14,13 +14,13 @@
     ]
   },
   "summary": {
-    "filesScanned": 57,
-    "arbitraryOccurrences": 253,
+    "filesScanned": 58,
+    "arbitraryOccurrences": 251,
     "uniqueArbitraryValues": 171,
-    "normalPageArbitraryOccurrences": 100,
+    "normalPageArbitraryOccurrences": 98,
     "exceptionArbitraryOccurrences": 153,
-    "namespaceBoundaryReviews": 0,
-    "directValueReviews": 6
+    "namespaceBoundaryReviews": 6,
+    "directValueReviews": 10
   },
   "arbitraryValues": [
     {
@@ -660,22 +660,6 @@
       "value": ":py-[108px]",
       "file": "src/app/pages/company/TeamPage.tsx",
       "line": 377,
-      "exceptionNamespace": null,
-      "status": "normal-page-review"
-    },
-    {
-      "kind": "font-size",
-      "value": "text-[11px]",
-      "file": "src/app/pages/HomePage.tsx",
-      "line": 975,
-      "exceptionNamespace": null,
-      "status": "normal-page-review"
-    },
-    {
-      "kind": "font-size",
-      "value": "text-[11px]",
-      "file": "src/app/pages/HomePage.tsx",
-      "line": 1009,
       "exceptionNamespace": null,
       "status": "normal-page-review"
     },
@@ -2048,7 +2032,56 @@
       "status": "normal-page-review"
     }
   ],
-  "namespaceUsages": [],
+  "namespaceUsages": [
+    {
+      "value": "decorative-label-business-step",
+      "file": "src/app/pages/HomePage.css",
+      "line": 36,
+      "expectedNamespace": null,
+      "status": "review-boundary",
+      "namespace": "decorative-label-business-*"
+    },
+    {
+      "value": "horizontal-scroll-home-activity",
+      "file": "src/app/pages/HomePage.tsx",
+      "line": 815,
+      "expectedNamespace": null,
+      "status": "review-boundary",
+      "namespace": "horizontal-scroll-home-*"
+    },
+    {
+      "value": "mockup-business-flow",
+      "file": "src/app/pages/HomePage.tsx",
+      "line": 949,
+      "expectedNamespace": null,
+      "status": "review-boundary",
+      "namespace": "mockup-business-*"
+    },
+    {
+      "value": "decorative-label-business-step",
+      "file": "src/app/pages/HomePage.tsx",
+      "line": 972,
+      "expectedNamespace": null,
+      "status": "review-boundary",
+      "namespace": "decorative-label-business-*"
+    },
+    {
+      "value": "mockup-business-flow",
+      "file": "src/app/pages/HomePage.tsx",
+      "line": 991,
+      "expectedNamespace": null,
+      "status": "review-boundary",
+      "namespace": "mockup-business-*"
+    },
+    {
+      "value": "decorative-label-business-step",
+      "file": "src/app/pages/HomePage.tsx",
+      "line": 1006,
+      "expectedNamespace": null,
+      "status": "review-boundary",
+      "namespace": "decorative-label-business-*"
+    }
+  ],
   "directValues": [
     {
       "property": "max-width",
@@ -2079,10 +2112,38 @@
       "status": "inventory-not-ci-error"
     },
     {
+      "property": "padding-bottom",
+      "value": "64px",
+      "file": "src/app/pages/HomePage.css",
+      "line": 2,
+      "status": "inventory-not-ci-error"
+    },
+    {
+      "property": "font-size",
+      "value": "0.9375rem",
+      "file": "src/app/pages/HomePage.css",
+      "line": 10,
+      "status": "inventory-not-ci-error"
+    },
+    {
+      "property": "font-size",
+      "value": "11px",
+      "file": "src/app/pages/HomePage.css",
+      "line": 37,
+      "status": "inventory-not-ci-error"
+    },
+    {
+      "property": "padding-top",
+      "value": "28px",
+      "file": "src/app/pages/HomePage.css",
+      "line": 49,
+      "status": "inventory-not-ci-error"
+    },
+    {
       "property": "padding",
       "value": "\"0.85rem 0.9rem\",\r\n                        borderRadius: 8,\r\n                        border: isActive ? `1px solid $",
       "file": "src/app/pages/HomePage.tsx",
-      "line": 835,
+      "line": 838,
       "status": "inventory-not-ci-error"
     },
     {

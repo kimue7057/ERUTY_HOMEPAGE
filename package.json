@@ -14,6 +14,7 @@
     "audit:design": "npm run audit:design:foundation",
     "audit:design:foundation": "node scripts/audit-design-foundation.mjs",
     "audit:design:foundation:equivalence": "node scripts/audit-design-foundation-equivalence.mjs",
+    "audit:design:home-pilot": "node scripts/audit-home-design-system-pilot.mjs",
     "audit:footer-overflow": "node scripts/audit-footer-overflow.mjs"
   },
   "dependencies": {

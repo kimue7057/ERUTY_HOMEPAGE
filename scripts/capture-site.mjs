@@ -7,7 +7,7 @@ import { chromium } from "playwright";
 
 const DEFAULT_BASE_URL = "https://erutyhomepage.vercel.app";
 const BASE_URL = process.env.CAPTURE_BASE_URL ?? DEFAULT_BASE_URL;
-const OUTPUT_DIR = path.resolve("screenshots");
+const OUTPUT_DIR = path.resolve(process.env.CAPTURE_OUTPUT_DIR ?? "screenshots");
 const NAVIGATION_TIMEOUT_MS = 60_000;
 const POST_LOAD_WAIT_MS = 2_000;
 

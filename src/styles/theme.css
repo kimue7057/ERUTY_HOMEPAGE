@@ -696,6 +696,14 @@
     color: rgba(255, 255, 255, 0.66);
   }
 
+  .eruty-page-heading--home .eruty-page-heading__title {
+    max-width: 900px;
+  }
+
+  .eruty-page-heading--home .eruty-page-heading__description {
+    color: #333438;
+  }
+
   .eruty-button {
     --eruty-button-current-height: var(--eruty-button-height-default);
     display: inline-flex;
@@ -712,6 +720,12 @@
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+  }
+
+  .eruty-button:focus-visible {
+    outline: 2px solid var(--eruty-color-brand-primary);
+    outline-offset: 4px;
   }
 
   .eruty-button--compact {
@@ -735,6 +749,10 @@
   .eruty-button--primary {
     background: var(--eruty-color-brand-primary);
     color: #fff;
+  }
+
+  .eruty-button--primary:hover {
+    background: #2828d4;
   }
 
   .eruty-button--secondary {

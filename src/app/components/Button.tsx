@@ -1,4 +1,5 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { Link, type LinkProps } from "react-router";
 
 export type ButtonVariant = "primary" | "secondary" | "text" | "icon";
 export type ButtonSize = "compact" | "default" | "large";
@@ -31,7 +32,7 @@ export function Button({
   );
 }
 
-export type ButtonLinkProps = FoundationButtonProps & AnchorHTMLAttributes<HTMLAnchorElement>;
+export type ButtonLinkProps = FoundationButtonProps & Omit<LinkProps, "className">;
 
 export function ButtonLink({
   children,
@@ -41,8 +42,8 @@ export function ButtonLink({
   ...props
 }: ButtonLinkProps) {
   return (
-    <a className={buttonClassName(variant, size, className)} {...props}>
+    <Link className={buttonClassName(variant, size, className)} {...props}>
       {children}
-    </a>
+    </Link>
   );
 }

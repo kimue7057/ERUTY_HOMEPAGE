@@ -1,0 +1,63 @@
+.home-hero-heading {
+  padding-bottom: 64px;
+  border-bottom: 1px solid #e4e6ea;
+}
+
+.home-hero-button {
+  border-color: #18191b;
+  background: #18191b;
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.home-hero-button:hover {
+  border-color: #3737f2;
+  background: #3737f2;
+}
+
+.home-activity-metric-card {
+  min-height: 236px;
+  gap: 0;
+  border-radius: 8px;
+  box-shadow: 0 8px 18px rgba(24, 25, 27, 0.03);
+}
+
+.home-business-panel {
+  min-height: auto;
+  border-radius: var(--eruty-card-radius);
+}
+
+.home-business-flow-step {
+  border-radius: var(--eruty-card-radius);
+}
+
+.decorative-label-business-step {
+  font-size: 11px;
+}
+
+.home-technology-card {
+  min-height: 248px;
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+}
+
+.home-technology-card__meta {
+  margin-top: auto;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 1024px) {
+  .home-technology-card {
+    min-height: 264px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .home-business-panel {
+    min-height: 540px;
+  }
+}
