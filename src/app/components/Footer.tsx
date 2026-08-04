@@ -105,9 +105,9 @@ export function Footer() {
     <footer style={{ background: NEAR_BLACK }}>
       <div className="eruty-container pb-8 pt-16">
         {/* 상단 */}
-        <div className="grid grid-cols-12 gap-8 pb-14" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+        <div className="grid min-w-0 grid-cols-1 gap-8 pb-14 lg:grid-cols-12" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
           {/* 브랜드 */}
-          <div className="col-span-12 lg:col-span-3">
+          <div className="min-w-0 lg:col-span-3">
             <div className="mb-5">
               <img src={erutyLogo} alt="eruty" style={{ height: 24, width: "auto", filter: "invert(1) brightness(2)" }} />
             </div>
@@ -134,7 +134,7 @@ export function Footer() {
           </div>
 
           {/* 링크 */}
-          <div className="col-span-12 lg:col-span-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid min-w-0 grid-cols-2 gap-8 md:grid-cols-4 lg:col-span-6">
             {Object.entries(t.sections).map(([category, items]) => (
               <div key={category}>
                 <div className="text-xs mb-4 tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-mono)" }}>
@@ -160,7 +160,7 @@ export function Footer() {
           </div>
 
           {/* 연락처 */}
-          <div className="col-span-12 lg:col-span-3">
+          <div className="min-w-0 lg:col-span-3">
             <div className="text-xs mb-4 tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-mono)" }}>
               {t.contact}
             </div>

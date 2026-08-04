@@ -1,0 +1,1554 @@
+{
+  "generatedAt": "2026-08-04T12:32:43.698Z",
+  "label": "after",
+  "baseUrl": "http://127.0.0.1:4174/",
+  "routes": [
+    "/",
+    "/company/about",
+    "/company/global-network",
+    "/company/team",
+    "/company/growth",
+    "/company/careers",
+    "/services/hitpick",
+    "/services/erumter",
+    "/technology",
+    "/resources",
+    "/start-a-project"
+  ],
+  "viewports": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "summary": {
+    "resultCount": 22,
+    "errorCount": 0,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "mobileRootOverflowCount": 0,
+    "mobileEnglishRootOverflowCount": 0,
+    "footerOffenderCount": 0,
+    "englishFooterOffenderCount": 0
+  },
+  "results": [
+    {
+      "route": "/",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/",
+      "url": "http://127.0.0.1:4174/",
+      "root": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footer": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 350,
+        "scrollWidth": 350,
+        "clientWidth": 350,
+        "display": "grid",
+        "gridTemplateColumns": "350px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [
+        {
+          "selector": "section > div.mx-auto.px-8 > div.py-14 > div.grid.grid-cols-1.gap-6 > div > div.eruty-horizontal-scroll.flex.gap-3",
+          "className": "eruty-horizontal-scroll flex gap-3 overflow-x-auto pb-1 xl:grid xl:grid-cols-7 xl:overflow-visible",
+          "scrollWidth": 1001,
+          "clientWidth": 322,
+          "overflowX": "auto"
+        }
+      ],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "screenshots/footer-overflow/after/home-mobile-footer.png",
+      "englishFooterCheck": {
+        "root": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "body": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "header": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footer": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footerOffenders": [],
+        "footerLinkCount": 22,
+        "footerVisibleLinkCount": 22
+      }
+    },
+    {
+      "route": "/company/about",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/company/about",
+      "url": "http://127.0.0.1:4174/company/about",
+      "root": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footer": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 350,
+        "scrollWidth": 350,
+        "clientWidth": 350,
+        "display": "grid",
+        "gridTemplateColumns": "350px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [
+        {
+          "selector": "main > div.overflow-hidden.bg-white > section.eruty-section.overflow-hidden.border-b > div.eruty-container > div > div.eruty-horizontal-scroll.-mr-10.flex",
+          "className": "eruty-horizontal-scroll -mr-10 flex overflow-x-auto overflow-y-hidden pb-5 pt-1 lg:mr-0 cursor-grab",
+          "scrollWidth": 2158,
+          "clientWidth": 393,
+          "overflowX": "auto"
+        }
+      ],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": {
+        "root": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "body": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "header": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footer": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footerOffenders": [],
+        "footerLinkCount": 22,
+        "footerVisibleLinkCount": 22
+      }
+    },
+    {
+      "route": "/company/global-network",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/company/global-network",
+      "url": "http://127.0.0.1:4174/company/global-network",
+      "root": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footer": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 350,
+        "scrollWidth": 350,
+        "clientWidth": 350,
+        "display": "grid",
+        "gridTemplateColumns": "350px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": {
+        "root": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "body": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "header": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footer": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footerOffenders": [],
+        "footerLinkCount": 22,
+        "footerVisibleLinkCount": 22
+      }
+    },
+    {
+      "route": "/company/team",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/company/team",
+      "url": "http://127.0.0.1:4174/company/team",
+      "root": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footer": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 350,
+        "scrollWidth": 350,
+        "clientWidth": 350,
+        "display": "grid",
+        "gridTemplateColumns": "350px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": {
+        "root": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "body": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "header": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footer": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footerOffenders": [],
+        "footerLinkCount": 22,
+        "footerVisibleLinkCount": 22
+      }
+    },
+    {
+      "route": "/company/growth",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/company/growth",
+      "url": "http://127.0.0.1:4174/company/growth",
+      "root": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footer": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 350,
+        "scrollWidth": 350,
+        "clientWidth": 350,
+        "display": "grid",
+        "gridTemplateColumns": "350px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": {
+        "root": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "body": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "header": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footer": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footerOffenders": [],
+        "footerLinkCount": 22,
+        "footerVisibleLinkCount": 22
+      }
+    },
+    {
+      "route": "/company/careers",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/company/careers",
+      "url": "http://127.0.0.1:4174/company/careers",
+      "root": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footer": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 350,
+        "scrollWidth": 350,
+        "clientWidth": 350,
+        "display": "grid",
+        "gridTemplateColumns": "350px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "screenshots/footer-overflow/after/company-careers-mobile-footer.png",
+      "englishFooterCheck": {
+        "root": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "body": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "header": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footer": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footerOffenders": [],
+        "footerLinkCount": 22,
+        "footerVisibleLinkCount": 22
+      }
+    },
+    {
+      "route": "/services/hitpick",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/services/hitpick",
+      "url": "http://127.0.0.1:4174/services/hitpick",
+      "root": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footer": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 350,
+        "scrollWidth": 350,
+        "clientWidth": 350,
+        "display": "grid",
+        "gridTemplateColumns": "350px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [
+        {
+          "selector": "div > main > div.hitpick-page > section.hp-section.hp-intro > div.hp-shell > ol.hp-process",
+          "className": "hp-process",
+          "scrollWidth": 1093,
+          "clientWidth": 370,
+          "overflowX": "auto"
+        },
+        {
+          "selector": "main > div.hitpick-page > section.hp-section.hp-execution > div.hp-shell > div.hp-slider-stage > div.hp-card-track",
+          "className": "hp-card-track",
+          "scrollWidth": 1835,
+          "clientWidth": 370,
+          "overflowX": "auto"
+        },
+        {
+          "selector": "div > main > div.hitpick-page > section.hp-tech > div.hp-shell > div.hp-tech-flow",
+          "className": "hp-tech-flow",
+          "scrollWidth": 1200,
+          "clientWidth": 368,
+          "overflowX": "auto"
+        },
+        {
+          "selector": "div.hitpick-page > section.hp-section.hp-blockchain > div.hp-shell.hp-blockchain-grid > div.hp-trust-panel > article.hp-trust-track.hp-trust-track--logistics > div.hp-trust-scroll",
+          "className": "hp-trust-scroll",
+          "scrollWidth": 808,
+          "clientWidth": 330,
+          "overflowX": "auto"
+        },
+        {
+          "selector": "div.hitpick-page > section.hp-section.hp-blockchain > div.hp-shell.hp-blockchain-grid > div.hp-trust-panel > article.hp-trust-track.hp-trust-track--rights > div.hp-trust-scroll",
+          "className": "hp-trust-scroll",
+          "scrollWidth": 808,
+          "clientWidth": 330,
+          "overflowX": "auto"
+        },
+        {
+          "selector": "div > main > div.hitpick-page > section.hp-section.hp-signals > div.hp-shell > div.hp-region-tabs",
+          "className": "hp-region-tabs",
+          "scrollWidth": 355,
+          "clientWidth": 350,
+          "overflowX": "auto"
+        },
+        {
+          "selector": "main > div.hitpick-page > section.hp-section.hp-signals > div.hp-shell > div.hp-signal-stage > aside.hp-market-list",
+          "className": "hp-market-list",
+          "scrollWidth": 1292,
+          "clientWidth": 370,
+          "overflowX": "auto"
+        }
+      ],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "screenshots/footer-overflow/after/services-hitpick-mobile-footer.png",
+      "englishFooterCheck": {
+        "root": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "body": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "header": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footer": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footerOffenders": [],
+        "footerLinkCount": 22,
+        "footerVisibleLinkCount": 22
+      }
+    },
+    {
+      "route": "/services/erumter",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/services/erumter",
+      "url": "http://127.0.0.1:4174/services/erumter",
+      "root": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footer": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 350,
+        "scrollWidth": 350,
+        "clientWidth": 350,
+        "display": "grid",
+        "gridTemplateColumns": "350px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": {
+        "root": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "body": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "header": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footer": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footerOffenders": [],
+        "footerLinkCount": 22,
+        "footerVisibleLinkCount": 22
+      }
+    },
+    {
+      "route": "/technology",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/technology",
+      "url": "http://127.0.0.1:4174/technology",
+      "root": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footer": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 350,
+        "scrollWidth": 350,
+        "clientWidth": 350,
+        "display": "grid",
+        "gridTemplateColumns": "350px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "screenshots/footer-overflow/after/technology-mobile-footer.png",
+      "englishFooterCheck": {
+        "root": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "body": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "header": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footer": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footerOffenders": [],
+        "footerLinkCount": 22,
+        "footerVisibleLinkCount": 22
+      }
+    },
+    {
+      "route": "/resources",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/resources",
+      "url": "http://127.0.0.1:4174/resources",
+      "root": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footer": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 350,
+        "scrollWidth": 350,
+        "clientWidth": 350,
+        "display": "grid",
+        "gridTemplateColumns": "350px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": {
+        "root": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "body": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "header": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footer": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footerOffenders": [],
+        "footerLinkCount": 22,
+        "footerVisibleLinkCount": 22
+      }
+    },
+    {
+      "route": "/start-a-project",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 844,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/start-a-project",
+      "url": "http://127.0.0.1:4174/start-a-project",
+      "root": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footer": {
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 350,
+        "scrollWidth": 350,
+        "clientWidth": 350,
+        "display": "grid",
+        "gridTemplateColumns": "350px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": {
+        "root": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "body": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "delta": 0
+        },
+        "header": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footer": {
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "footerOffenders": [],
+        "footerLinkCount": 22,
+        "footerVisibleLinkCount": 22
+      }
+    },
+    {
+      "route": "/",
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/",
+      "url": "http://127.0.0.1:4174/",
+      "root": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 1216,
+        "scrollWidth": 1216,
+        "clientWidth": 1216,
+        "display": "grid",
+        "gridTemplateColumns": "70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "screenshots/footer-overflow/after/home-desktop-footer.png",
+      "englishFooterCheck": null
+    },
+    {
+      "route": "/company/about",
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/company/about",
+      "url": "http://127.0.0.1:4174/company/about",
+      "root": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 1216,
+        "scrollWidth": 1216,
+        "clientWidth": 1216,
+        "display": "grid",
+        "gridTemplateColumns": "70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [
+        {
+          "selector": "main > div.overflow-hidden.bg-white > section.eruty-section.overflow-hidden.border-b > div.eruty-container > div > div.eruty-horizontal-scroll.-mr-10.flex",
+          "className": "eruty-horizontal-scroll -mr-10 flex overflow-x-auto overflow-y-hidden pb-5 pt-1 lg:mr-0 cursor-grab",
+          "scrollWidth": 2371,
+          "clientWidth": 1216,
+          "overflowX": "auto"
+        }
+      ],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": null
+    },
+    {
+      "route": "/company/global-network",
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/company/global-network",
+      "url": "http://127.0.0.1:4174/company/global-network",
+      "root": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 1216,
+        "scrollWidth": 1216,
+        "clientWidth": 1216,
+        "display": "grid",
+        "gridTemplateColumns": "70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": null
+    },
+    {
+      "route": "/company/team",
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/company/team",
+      "url": "http://127.0.0.1:4174/company/team",
+      "root": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 1216,
+        "scrollWidth": 1216,
+        "clientWidth": 1216,
+        "display": "grid",
+        "gridTemplateColumns": "70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": null
+    },
+    {
+      "route": "/company/growth",
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/company/growth",
+      "url": "http://127.0.0.1:4174/company/growth",
+      "root": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 1216,
+        "scrollWidth": 1216,
+        "clientWidth": 1216,
+        "display": "grid",
+        "gridTemplateColumns": "70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": null
+    },
+    {
+      "route": "/company/careers",
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/company/careers",
+      "url": "http://127.0.0.1:4174/company/careers",
+      "root": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 1216,
+        "scrollWidth": 1216,
+        "clientWidth": 1216,
+        "display": "grid",
+        "gridTemplateColumns": "70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": null
+    },
+    {
+      "route": "/services/hitpick",
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/services/hitpick",
+      "url": "http://127.0.0.1:4174/services/hitpick",
+      "root": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 1216,
+        "scrollWidth": 1216,
+        "clientWidth": 1216,
+        "display": "grid",
+        "gridTemplateColumns": "70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [
+        {
+          "selector": "main > div.hitpick-page > section.hp-section.hp-execution > div.hp-shell > div.hp-slider-stage > div.hp-card-track",
+          "className": "hp-card-track",
+          "scrollWidth": 2948,
+          "clientWidth": 1216,
+          "overflowX": "auto"
+        }
+      ],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": null
+    },
+    {
+      "route": "/services/erumter",
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/services/erumter",
+      "url": "http://127.0.0.1:4174/services/erumter",
+      "root": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 1216,
+        "scrollWidth": 1216,
+        "clientWidth": 1216,
+        "display": "grid",
+        "gridTemplateColumns": "70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": null
+    },
+    {
+      "route": "/technology",
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/technology",
+      "url": "http://127.0.0.1:4174/technology",
+      "root": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 1216,
+        "scrollWidth": 1216,
+        "clientWidth": 1216,
+        "display": "grid",
+        "gridTemplateColumns": "70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": null
+    },
+    {
+      "route": "/resources",
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/resources",
+      "url": "http://127.0.0.1:4174/resources",
+      "root": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 1216,
+        "scrollWidth": 1216,
+        "clientWidth": 1216,
+        "display": "grid",
+        "gridTemplateColumns": "70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": null
+    },
+    {
+      "route": "/start-a-project",
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "httpStatus": 200,
+      "finalUrl": "http://127.0.0.1:4174/start-a-project",
+      "url": "http://127.0.0.1:4174/start-a-project",
+      "root": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "body": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "delta": 0
+      },
+      "header": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "footerTopGrid": {
+        "selector": "div > div > footer > div.eruty-container.pb-8.pt-16 > div.grid.min-w-0.grid-cols-1",
+        "width": 1216,
+        "scrollWidth": 1216,
+        "clientWidth": 1216,
+        "display": "grid",
+        "gridTemplateColumns": "70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px 70.1562px",
+        "columnGap": "34px",
+        "rowGap": "34px"
+      },
+      "footerOffenders": [],
+      "intentionalScrollRegions": [],
+      "footerLinkCount": 22,
+      "footerVisibleLinkCount": 22,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": null,
+      "englishFooterCheck": null
+    }
+  ]
+}
