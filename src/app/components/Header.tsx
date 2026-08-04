@@ -47,7 +47,7 @@ const COPY = {
     services: "서비스",
     technology: "기술",
     resources: "리소스",
-    startProject: "프로젝트 시작",
+    contact: "문의하기",
     menuOpen: "메뉴 열기",
     menuClose: "메뉴 닫기",
     currentPage: "현재 페이지",
@@ -67,7 +67,7 @@ const COPY = {
     services: "Services",
     technology: "Technology",
     resources: "Resources",
-    startProject: "Start a Project",
+    contact: "Contact Us",
     menuOpen: "Open menu",
     menuClose: "Close menu",
     currentPage: "Current page",
@@ -342,7 +342,7 @@ export function Header() {
           </Link>
 
           <nav
-            className="hidden items-center gap-1 lg:flex"
+            className="hidden items-center gap-2 lg:flex"
             aria-label={copy.menuLabel}
           >
             <HeaderLink to="/" label={copy.home} exact />
@@ -424,9 +424,9 @@ export function Header() {
             <Link
               to="/start-a-project"
               className="inline-flex items-center gap-2 px-5 py-2.5 text-sm"
-              style={{ background: NEAR_BLACK, color: "#FFFFFF", fontWeight: 500 }}
+              style={{ background: NEAR_BLACK, color: "#FFFFFF", fontWeight: 500, borderRadius: 6 }}
             >
-              {copy.startProject}
+              {copy.contact}
               <ArrowUpRight size={14} />
             </Link>
           </div>
@@ -809,10 +809,10 @@ export function Header() {
               <Link
                 to="/start-a-project"
                 className="mt-6 inline-flex items-center justify-center gap-2 px-5 py-3 text-sm"
-                style={{ background: NEAR_BLACK, color: "#FFFFFF", fontWeight: 500 }}
+                style={{ background: NEAR_BLACK, color: "#FFFFFF", fontWeight: 500, borderRadius: 6 }}
                 onClick={() => setMobileOpen(false)}
               >
-                {copy.startProject}
+                {copy.contact}
                 <ArrowUpRight size={14} />
               </Link>
             </div>

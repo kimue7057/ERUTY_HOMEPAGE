@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import { useLanguage } from "../context/LanguageContext";
 import erutyLogo from "../../assets/brand/eruty-logo.png";
 
-const BLUE = "#3737F2";
 const NEAR_BLACK = "#18191B";
 
 const T = {
@@ -16,12 +15,12 @@ const T = {
         { label: "채용", to: "/company/careers" },
       ],
       "서비스": [
-        { label: "콘텐츠 투자", to: "/services/hitpick" },
-        { label: "글로벌 배급", to: "/services/hitpick" },
-        { label: "IP & 라이선싱", to: "/services/hitpick" },
-        { label: "브랜드 협업", to: "/services/hitpick" },
-        { label: "AX 교육", to: "/services/erumter" },
-        { label: "AI 개발", to: "/services/erumter" },
+        { label: "Hitpick", to: "/services/hitpick" },
+        { label: "시장 검증", to: "/services/hitpick" },
+        { label: "크리에이터 마케팅", to: "/services/hitpick" },
+        { label: "글로벌 판매·수출", to: "/services/hitpick" },
+        { label: "이룸터", to: "/services/erumter" },
+        { label: "AX·업무 자동화", to: "/services/erumter" },
       ],
       "기술": [
         { label: "AI & 데이터", to: "/technology" },
@@ -45,7 +44,6 @@ const T = {
     hqVal: "부산광역시 남구 문현금융로 40, 21층 6호",
     branch: "서울지사",
     branchVal: "서울특별시 영등포구 의사당대로 83, 오투타워 6층 서울핀테크랩",
-    startProject: "프로젝트 시작",
     copyright: "© 2026 주식회사 이루티. All rights reserved.",
     privacy: "개인정보처리방침",
     terms: "이용약관",
@@ -62,12 +60,12 @@ const T = {
         { label: "Careers", to: "/company/careers" },
       ],
       "Services": [
-        { label: "Content Investment", to: "/services/hitpick" },
-        { label: "Global Distribution", to: "/services/hitpick" },
-        { label: "IP & Licensing", to: "/services/hitpick" },
-        { label: "Brand Collaboration", to: "/services/hitpick" },
-        { label: "AX Education", to: "/services/erumter" },
-        { label: "AI Development", to: "/services/erumter" },
+        { label: "Hitpick", to: "/services/hitpick" },
+        { label: "Market Validation", to: "/services/hitpick" },
+        { label: "Creator Marketing", to: "/services/hitpick" },
+        { label: "Global Sales & Export", to: "/services/hitpick" },
+        { label: "Erumter", to: "/services/erumter" },
+        { label: "AX & Workflow Automation", to: "/services/erumter" },
       ],
       "Technology": [
         { label: "AI & Data", to: "/technology" },
@@ -91,7 +89,6 @@ const T = {
     hqVal: "21F, Suite 6, 40 Munhyeongeumyung-ro, Nam-gu, Busan, Republic of Korea",
     branch: "Seoul Office",
     branchVal: "6F, O2 Tower, 83 Uisadang-daero, Yeongdeungpo-gu, Seoul\nSeoul Fintech Lab",
-    startProject: "Start a Project",
     copyright: "© 2026 ERUTY Co., Ltd. All rights reserved.",
     privacy: "Privacy Policy",
     terms: "Terms of Service",
@@ -181,15 +178,6 @@ export function Footer() {
                 <span style={{ whiteSpace: "pre-line" }}>{t.branchVal}</span>
               </div>
             </div>
-            <Link
-              to="/start-a-project"
-              className="inline-flex mt-6 px-5 py-2.5 text-sm transition-all duration-200"
-              style={{ background: BLUE, color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500, borderRadius: 4 }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "#2828d4")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = BLUE)}
-            >
-              {t.startProject}
-            </Link>
           </div>
         </div>
 

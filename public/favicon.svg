@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ERUTY">
   <rect width="64" height="64" rx="14" fill="#18191B" />
-  <path d="M16 18h31v6H23v8h21v6H23v8h24v6H16V18Z" fill="#FFFFFF" />
+  <path d="M16 18h31v6H23v8h21v6H23v8h24v6H16V18Z" fill="#FFFFFF" transform="translate(0 -3)" />
 </svg>

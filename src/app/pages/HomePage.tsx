@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router";
-import { ArrowUpRight, Pause, Play, ChevronLeft, ChevronRight, Globe2, BriefcaseBusiness, Layers3, Tags } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../context/LanguageContext";
 import heroVideo from "../../assets/video/eruty-hero.mp4";
@@ -19,18 +19,9 @@ const SOFT_BG = "#F5F6F8";
 const T = {
   ko: {
     hero: {
-      videoLabel: "ERUTY  /  GLOBAL BUSINESS IN MOTION",
-      pauseLabel: "영상 일시정지",
-      playLabel: "영상 재생",
       headline: "가능성을 연결해,\n글로벌 비즈니스를 만듭니다.",
-      desc: "이루티는 콘텐츠와 기술, 글로벌 네트워크를 연결해\n새로운 사업을 설계하고 실행합니다.",
+      desc: "브랜드의 글로벌 확장과 기업의 AX 전환을 실행합니다.",
       btn1: "이루티 알아보기",
-      btn2: "프로젝트 시작하기",
-    },
-    statement: {
-      eyebrow: "우리가 만드는 것",
-      headline: "콘텐츠의 가능성을 글로벌 사업으로,\n기업의 업무를 지능형 시스템으로 전환합니다.",
-      signalsLabel: "글로벌 활동 현황",
     },
     signals: [
       { country: "베트남", flag: "🇻🇳", desc: "콘텐츠 & 기술 파트너십" },
@@ -50,7 +41,7 @@ const T = {
     ],
     business: {
       eyebrow: "사업 분야",
-      headline: "글로벌 시장 확장부터\n기업 AX 전환까지.",
+      headline: "브랜드는 더 넓은 시장으로,\n기업은 더 나은 업무 방식으로.",
       contentFlow: ["브랜드 발굴", "시장 검증", "수요 창출", "판매·수출", "성장 확장"],
       axFlow: ["업무 분석", "AI 적용", "자동화 구축", "지속 운영"],
       panelA: {
@@ -75,8 +66,7 @@ const T = {
       },
     },
     tech: {
-      eyebrow: "기술 기반",
-      headline: "글로벌 사업과 AX 전환을\n움직이는 기술 기반.",
+      headline: "글로벌 사업과 AX 전환을\n움직이는 기술.",
       desc: "이루티는 시장과 운영 데이터를 분석하고,\n자동화와 제품 엔지니어링을 통해\n실제 실행 시스템을 구축합니다.",
       cta: "기술 역량 자세히 보기",
       href: "/technology",
@@ -107,18 +97,6 @@ const T = {
         },
       ],
     },
-    work: {
-      eyebrow: "우리의 사업",
-      headline: "시장을 넘어.\n실제 사업으로.",
-      viewAll: "전체 사례 보기",
-      cases: [
-        { index: "01", market: "베트남", headline: "한국 콘텐츠와 현지 제작·비즈니스 파트너를 연결했습니다.", tags: ["글로벌 콘텐츠", "파트너십", "시장 진입"], role: "전략 파트너 & 시장 운영자", tech: "콘텐츠 인텔리전스 · 시장 분석" },
-        { index: "02", market: "한국", headline: "AI 기반 감성 분석 및 개인화 콘텐츠 추천 시스템을 구축했습니다.", tags: ["AI", "데이터", "소프트웨어 엔지니어링"], role: "기술 개발사", tech: "생성형 AI · 감성 분석 · LLM" },
-        { index: "03", market: "유럽", headline: "글로벌 시장에서 새로운 배급 및 커머스 기회를 창출했습니다.", tags: ["배급", "브랜드", "커머스"], role: "IP 비즈니스 자문 & 운영자", tech: "권리 인프라 · 시장 인텔리전스" },
-      ],
-      labels: { market: "시장", role: "이루티 역할", tech: "적용 기술", category: "분류" },
-      detailLink: "사례 상세 보기",
-    },
     resources: {
       eyebrow: "리소스",
       headline: "이루티의 최신 소식.",
@@ -143,26 +121,16 @@ const T = {
       ],
     },
     cta: {
-      headline: "다음 기회를\n이루티와 함께 만드세요.",
-      desc: "콘텐츠 사업, 글로벌 파트너십,\nAX 전환과 기술 개발을 이루티와 함께 시작하세요.",
-      btn1: "프로젝트 시작",
-      btn2: "이루티 문의",
+      headline: "비즈니스의 다음 성장을 함께 만듭니다.",
+      desc: "글로벌 확장부터 AI 기반 업무 혁신까지.\n귀사의 목표에 맞는 최적의 솔루션을 제안합니다.",
+      button: "문의하기",
     },
   },
   en: {
     hero: {
-      videoLabel: "ERUTY  /  GLOBAL BUSINESS IN MOTION",
-      pauseLabel: "Pause video",
-      playLabel: "Play video",
       headline: "Connecting Possibilities,\nBuilding Global Business.",
-      desc: "ERUTY connects content, technology, and global networks\nto design and execute new business ventures.",
+      desc: "ERUTY executes global expansion for brands and AX transformation for enterprises.",
       btn1: "About ERUTY",
-      btn2: "Start a Project",
-    },
-    statement: {
-      eyebrow: "What We Create",
-      headline: "Transforming content potential into global business,\nand enterprise operations into intelligent systems.",
-      signalsLabel: "Global Activity",
     },
     signals: [
       { country: "Vietnam", flag: "🇻🇳", desc: "Content & Tech Partnership" },
@@ -182,7 +150,7 @@ const T = {
     ],
     business: {
       eyebrow: "Business Areas",
-      headline: "From Global Market Expansion\nto Enterprise AX Transformation.",
+      headline: "Taking Brands to Wider Markets.\nTransforming How Enterprises Work.",
       contentFlow: ["Brand Discovery", "Market Validation", "Demand Creation", "Sales & Export", "Growth Expansion"],
       axFlow: ["Workflow Analysis", "AI Integration", "Automation Build", "Continuous Operation"],
       panelA: {
@@ -207,8 +175,7 @@ const T = {
       },
     },
     tech: {
-      eyebrow: "Technology Foundation",
-      headline: "The Technology Foundation\nBehind Global Business and AX.",
+      headline: "Technology that Powers\nGlobal Business and AX Transformation.",
       desc: "ERUTY analyzes market and operational data,\nand builds execution systems through automation\nand product engineering.",
       cta: "Explore Technology",
       href: "/technology",
@@ -239,18 +206,6 @@ const T = {
         },
       ],
     },
-    work: {
-      eyebrow: "Our Business",
-      headline: "Beyond Markets.\nReal Business.",
-      viewAll: "View All Cases",
-      cases: [
-        { index: "01", market: "Vietnam", headline: "Connected Korean content with local production and business partners.", tags: ["Global Content", "Partnership", "Market Entry"], role: "Strategic Partner & Market Operator", tech: "Content Intelligence · Market Analysis" },
-        { index: "02", market: "Korea", headline: "Built an AI-powered sentiment analysis and personalized content recommendation system.", tags: ["AI", "Data", "Software Engineering"], role: "Technology Developer", tech: "Generative AI · Sentiment Analysis · LLM" },
-        { index: "03", market: "Europe", headline: "Created new distribution and commerce opportunities in global markets.", tags: ["Distribution", "Brand", "Commerce"], role: "IP Business Advisor & Operator", tech: "Rights Infrastructure · Market Intelligence" },
-      ],
-      labels: { market: "Market", role: "ERUTY Role", tech: "Technology Applied", category: "Category" },
-      detailLink: "View Case Details",
-    },
     resources: {
       eyebrow: "Resources",
       headline: "Latest from ERUTY.",
@@ -275,10 +230,9 @@ const T = {
       ],
     },
     cta: {
-      headline: "Build the Next Opportunity\nwith ERUTY.",
-      desc: "Start your content business, global partnerships,\nAX transformation, and technology development with ERUTY.",
-      btn1: "Start a Project",
-      btn2: "Contact ERUTY",
+      headline: "Build Your Next Stage of Growth with ERUTY.",
+      desc: "From global expansion to AI-powered operational innovation,\nwe propose the right solution for your goals.",
+      button: "Contact Us",
     },
   },
 };
@@ -461,8 +415,6 @@ function CountryFlag({
 
 const HOME_ACTIVITY_UI = {
   ko: {
-    statementEyebrow: "이루티가 실행하는 일",
-    statementHeadline: "브랜드의 가능성을 글로벌 사업으로 연결하고,\n기업의 업무를 지능형 시스템으로 전환합니다.",
     activityTitle: "글로벌 활동 현황",
     networkBadgeLabel: "GLOBAL NETWORK",
     placeholderLabel: "대표 이미지",
@@ -474,8 +426,6 @@ const HOME_ACTIVITY_UI = {
     creatorNote: "국내외 콘텐츠 · 마케팅 협업 네트워크",
   },
   en: {
-    statementEyebrow: "What ERUTY Executes",
-    statementHeadline: "We connect brand potential to global business\nand transform enterprise operations into intelligent systems.",
     activityTitle: "Global Activity",
     networkBadgeLabel: "GLOBAL NETWORK",
     placeholderLabel: "Representative Image",
@@ -556,43 +506,13 @@ const HOME_ACTIVITY_SLIDES = [
 
 const HOME_ACTIVITY_DEFAULT_INDEX = 0;
 
-const HOME_CASE_MEDIA = {
-  "01": {
-    image: "/images/company/about/journey-2025-vietnam.png",
-    imageAltKo: "베트남 글로벌 사업 대표 이미지",
-    imageAltEn: "Representative image for the Vietnam global business case",
-    isPlaceholder: true,
-  },
-  "02": {
-    image: "/images/company/about/journey-2026-ces.png",
-    imageAltKo: "한국 AI 프로젝트 대표 이미지",
-    imageAltEn: "Representative image for the Korea AI project",
-    isPlaceholder: true,
-  },
-  "03": {
-    image: "/images/home/global-activity/de-representative.png",
-    imageAltKo: "유럽 비즈니스 네트워크 대표 이미지",
-    imageAltEn: "Representative image for the Europe business network case",
-    isPlaceholder: true,
-  },
-} as const;
-
 // ── 1. 히어로 ──────────────────────────────────────────────────────────────────
 
 function HeroSection() {
   const { lang } = useLanguage();
   const t = T[lang].hero;
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(true);
   const prefersReduced =
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  const togglePlay = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (v.paused) { v.play(); setPlaying(true); }
-    else { v.pause(); setPlaying(false); }
-  };
 
   return (
     <section style={{ background: "#FFFFFF" }}>
@@ -600,7 +520,6 @@ function HeroSection() {
         <div className="mt-7 mb-8 relative overflow-hidden" style={{ borderRadius: 6, background: "#111" }}>
           <div style={{ paddingBottom: "43.7%" }} />
           <video
-            ref={videoRef}
             src={heroVideo}
             autoPlay={!prefersReduced}
             muted
@@ -613,74 +532,36 @@ function HeroSection() {
             className="absolute inset-0 pointer-events-none"
             style={{ background: "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.18) 100%)" }}
           />
-          <div
-            className="absolute bottom-4 left-5"
-            style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", fontSize: "0.7rem" }}
-          >
-            {t.videoLabel}
-          </div>
-          <button
-            onClick={togglePlay}
-            className="absolute bottom-4 right-4 flex items-center justify-center"
-            style={{
-              width: 32, height: 32,
-              background: "rgba(255,255,255,0.15)",
-              backdropFilter: "blur(8px)",
-              border: "1px solid rgba(255,255,255,0.25)",
-              borderRadius: "50%",
-              color: "#FFFFFF",
-            }}
-            aria-label={playing ? t.pauseLabel : t.playLabel}
-          >
-            {playing ? <Pause size={12} /> : <Play size={12} />}
-          </button>
         </div>
 
-        <div className="grid grid-cols-12 gap-6 pb-16" style={{ borderBottom: `1px solid ${BORDER}` }}>
-          <div className="col-span-12 lg:col-span-7">
-            <h1
-              className="eruty-home-display eruty-preline-desktop"
-              style={{
-                color: NEAR_BLACK,
-              }}
-            >
-              {t.headline}
-            </h1>
-          </div>
-          <div className="col-span-12 lg:col-span-5 flex flex-col justify-end pb-1">
-            <p className="eruty-page-lead eruty-preline-desktop mb-7" style={{ color: BODY_TEXT }}>
-              {t.desc}
-            </p>
-            <div className="flex items-center gap-6">
-              <Link
-                to="/company/about"
-                className="px-6 py-3 text-sm transition-all duration-200"
-                style={{ background: NEAR_BLACK, color: "#FFFFFF", fontWeight: 500, borderRadius: 4 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = BLUE)}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = NEAR_BLACK)}
-              >
-                {t.btn1}
-              </Link>
-              <Link
-                to="/start-a-project"
-                className="flex items-center gap-1.5 text-sm transition-colors duration-150"
-                style={{ color: BODY_TEXT }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = BLUE)}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = BODY_TEXT)}
-              >
-                {t.btn2} <ArrowUpRight size={14} />
-              </Link>
-            </div>
-          </div>
+        <div className="pb-16" style={{ borderBottom: `1px solid ${BORDER}` }}>
+          <h1
+            className="eruty-home-display eruty-preline-desktop eruty-keep-all"
+            style={{ color: NEAR_BLACK, maxWidth: 900, letterSpacing: "-0.02em" }}
+          >
+            {t.headline}
+          </h1>
+          <p className="eruty-page-lead eruty-keep-all mt-6 mb-8" style={{ color: BODY_TEXT, maxWidth: 760 }}>
+            {t.desc}
+          </p>
+          <Link
+            to="/company/about"
+            className="inline-flex px-6 py-3 text-sm transition-all duration-200"
+            style={{ background: NEAR_BLACK, color: "#FFFFFF", fontWeight: 500, borderRadius: 4 }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = BLUE)}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = NEAR_BLACK)}
+          >
+            {t.btn1}
+          </Link>
         </div>
       </div>
     </section>
   );
 }
 
-// ── 2. Statement + Global Signals ─────────────────────────────────────────────
+// ── 2. Global Activity ────────────────────────────────────────────────────────
 
-function StatementSection() {
+function GlobalActivitySection() {
   const { lang } = useLanguage();
   const ui = HOME_ACTIVITY_UI[lang];
   const [activeIndex, setActiveIndex] = useState(HOME_ACTIVITY_DEFAULT_INDEX);
@@ -760,15 +641,6 @@ function StatementSection() {
   return (
     <section style={{ background: "#FFFFFF" }}>
       <div className="mx-auto px-8" style={{ maxWidth: 1280 }}>
-        <div className="eruty-section-compact" style={{ borderBottom: `1px solid ${BORDER}` }}>
-          <SectionHeading
-            eyebrow={ui.statementEyebrow}
-            title={ui.statementHeadline}
-            align="center"
-            lang={lang}
-          />
-        </div>
-
         <div className="py-14 lg:py-16" style={{ borderBottom: `1px solid ${BORDER}` }}>
           <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,2fr)_minmax(340px,0.85fr)]">
             <div
@@ -1159,10 +1031,10 @@ function BusinessFields() {
         <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 xl:gap-6">
           {/* Panel A */}
           <div className="relative flex flex-col overflow-hidden rounded-[6px] p-7 sm:p-8 xl:min-h-[540px] xl:p-10" style={{ background: NEAR_BLACK }}>
-            <div className="eruty-meta eruty-meta--code mb-4" style={{ color: BLUE, alignSelf: "flex-start" }}>
+            <div className="eruty-meta eruty-meta--code mb-3" style={{ color: BLUE, alignSelf: "flex-start" }}>
               {t.panelA.badge}
             </div>
-            <div className="mb-4" style={{ color: "#FFFFFF", fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
+            <div className="mb-5" style={{ color: "#FFFFFF", fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
               {t.panelA.service}
             </div>
             <h3
@@ -1175,7 +1047,7 @@ function BusinessFields() {
               {t.panelA.headline}
             </h3>
             <p
-              className="eruty-body mb-8"
+              className="eruty-body mb-6"
               style={{
                 color: "rgba(255,255,255,0.82)",
                 maxWidth: 540,
@@ -1184,7 +1056,7 @@ function BusinessFields() {
             >
               {t.panelA.desc}
             </p>
-            <div className="mb-8 flex flex-wrap gap-2.5">
+            <div className="mb-9 flex flex-wrap gap-2.5">
               {t.panelA.features.map((feature) => (
                 <span
                   key={feature}
@@ -1227,10 +1099,10 @@ function BusinessFields() {
 
           {/* Panel B */}
           <div className="relative flex flex-col overflow-hidden rounded-[6px] border p-7 sm:p-8 xl:min-h-[540px] xl:p-10" style={{ background: "#FFFFFF", borderColor: BORDER }}>
-            <div className="eruty-meta eruty-meta--code mb-4" style={{ color: BLUE, alignSelf: "flex-start" }}>
+            <div className="eruty-meta eruty-meta--code mb-3" style={{ color: BLUE, alignSelf: "flex-start" }}>
               {t.panelB.badge}
             </div>
-            <div className="mb-4" style={{ color: NEAR_BLACK, fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
+            <div className="mb-5" style={{ color: NEAR_BLACK, fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
               {t.panelB.service}
             </div>
             <h3
@@ -1243,7 +1115,7 @@ function BusinessFields() {
               {t.panelB.headline}
             </h3>
             <p
-              className="eruty-body mb-8"
+              className="eruty-body mb-6"
               style={{
                 color: BODY_TEXT,
                 maxWidth: 540,
@@ -1252,7 +1124,7 @@ function BusinessFields() {
             >
               {t.panelB.desc}
             </p>
-            <div className="mb-8 flex flex-wrap gap-2.5">
+            <div className="mb-9 flex flex-wrap gap-2.5">
               {t.panelB.features.map((feature) => (
                 <span
                   key={feature}
@@ -1315,7 +1187,6 @@ function TechnologySection() {
         <div className="grid grid-cols-1 gap-10 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.55fr)] xl:gap-14">
           <div className="xl:pr-4">
             <SectionHeading
-              eyebrow={t.eyebrow}
               title={t.headline}
               description={t.desc}
               align="left"
@@ -1399,241 +1270,7 @@ function TechnologySection() {
   );
 }
 
-// ── 5. Global Work ─────────────────────────────────────────────────────────────
-
-function GlobalWork() {
-  const { lang } = useLanguage();
-  const t = T[lang].work;
-  const [active, setActive] = useState(0);
-  const c = t.cases[active];
-  const caseMedia = HOME_CASE_MEDIA[c.index as keyof typeof HOME_CASE_MEDIA];
-  const prefersReducedMotion =
-    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const infoRows = [
-    { label: t.labels.market, value: c.market, icon: Globe2 },
-    { label: t.labels.role, value: c.role, icon: BriefcaseBusiness },
-    { label: t.labels.tech, value: c.tech, icon: Layers3 },
-    { label: t.labels.category, value: c.tags.join(" · "), icon: Tags },
-  ];
-
-  return (
-    <section className="eruty-section" style={{ background: "#FFFFFF" }}>
-      <div className="mx-auto px-6 sm:px-8" style={{ maxWidth: 1280 }}>
-        <SectionHeading
-          eyebrow={t.eyebrow}
-          title={t.headline}
-          align="split"
-          lang={lang}
-          action={<Link
-            to="/resources"
-            className="hidden items-center gap-1.5 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3737F2] sm:flex"
-            style={{ color: MUTED }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = BLUE)}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = MUTED)}
-          >
-            {t.viewAll} <ArrowUpRight size={13} />
-          </Link>}
-        />
-
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,2.08fr)] lg:gap-6">
-          <div
-            className="eruty-horizontal-scroll flex gap-3 overflow-x-auto pb-1 lg:flex-col lg:gap-0 lg:overflow-visible lg:pb-0"
-            style={{ scrollSnapType: "x mandatory" }}
-          >
-            {t.cases.map((cas, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => setActive(i)}
-                aria-pressed={active === i}
-                aria-label={lang === "ko" ? `${cas.market} 사례 선택` : `Select ${cas.market} case`}
-                className="group relative min-w-[252px] shrink-0 cursor-pointer rounded-[8px] border px-5 py-5 text-left transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3737F2] sm:min-w-[284px] lg:min-w-0 lg:rounded-none lg:px-7 lg:py-7"
-                style={{
-                  scrollSnapAlign: "start",
-                  borderColor: active === i ? "rgba(55,55,242,0.24)" : BORDER,
-                  background: active === i ? "rgba(55,55,242,0.045)" : "#FFFFFF",
-                }}
-              >
-                {active === i ? (
-                  <span
-                    aria-hidden="true"
-                    className="absolute left-0 top-5 bottom-5 hidden w-[3px] rounded-r-full lg:block"
-                    style={{ background: BLUE }}
-                  />
-                ) : null}
-
-                <div className="flex items-start justify-between gap-4">
-                  <div className="min-w-0">
-                    <div className="mb-3 flex items-center gap-2">
-                      <span
-                        className="eruty-meta eruty-meta--code"
-                        style={{
-                          color: active === i ? BLUE : MUTED,
-                          fontWeight: 600,
-                        }}
-                      >
-                        {cas.index}
-                      </span>
-                      <span className="eruty-body-small" style={{ color: active === i ? BLUE : MUTED, fontWeight: 500 }}>
-                        / {cas.market}
-                      </span>
-                    </div>
-                    <div
-                      className="eruty-body-small eruty-keep-all"
-                      style={{
-                        color: active === i ? NEAR_BLACK : BODY_TEXT,
-                        fontWeight: active === i ? 600 : 500,
-                        display: "-webkit-box",
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
-                      }}
-                    >
-                      {cas.headline}
-                    </div>
-                  </div>
-
-                  <span
-                    aria-hidden="true"
-                    className="mt-0.5 shrink-0"
-                    style={{ color: active === i ? BLUE : MUTED, opacity: active === i ? 1 : 0.7 }}
-                  >
-                    <ChevronRight size={17} />
-                  </span>
-                </div>
-              </button>
-            ))}
-          </div>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active + lang}
-              initial={prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-              animate={prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
-              exit={prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: "easeOut" }}
-              className="min-w-0 rounded-[8px] border p-6 sm:p-8 xl:p-10"
-              style={{ background: SOFT_BG, borderColor: BORDER }}
-            >
-              <div className="mb-6 flex flex-wrap gap-2">
-                {c.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="eruty-meta px-3 py-1.5"
-                    style={{
-                      background: "#FFFFFF",
-                      border: `1px solid ${BORDER}`,
-                      color: BODY_TEXT,
-                      borderRadius: 4,
-                      fontWeight: 500,
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <h3
-                className="eruty-subsection-title eruty-keep-all mb-8"
-                style={{
-                  color: NEAR_BLACK,
-                  maxWidth: 900,
-                }}
-              >
-                {c.headline}
-              </h3>
-
-              <div className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1.45fr)_minmax(300px,1fr)] xl:items-stretch">
-                <div
-                  className="relative overflow-hidden rounded-[6px] border"
-                  style={{ borderColor: BORDER, background: "#FFFFFF" }}
-                >
-                  <div className="aspect-[16/10]" />
-                  <img
-                    src={caseMedia.image}
-                    alt={lang === "ko" ? caseMedia.imageAltKo : caseMedia.imageAltEn}
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full"
-                    style={{ objectFit: "cover" }}
-                  />
-
-                  {caseMedia.isPlaceholder ? (
-                    <div
-                      className="absolute right-4 top-4 px-2.5 py-1"
-                      style={{
-                        borderRadius: 999,
-                        border: "1px solid rgba(255,255,255,0.18)",
-                        background: "rgba(18,19,22,0.36)",
-                        color: "#FFFFFF",
-                        fontSize: "0.72rem",
-                        fontWeight: 500,
-                        backdropFilter: "blur(8px)",
-                      }}
-                    >
-                      {lang === "ko" ? "대표 이미지" : "Representative Image"}
-                    </div>
-                  ) : null}
-                </div>
-
-                <div className="overflow-hidden rounded-[6px] border bg-white" style={{ borderColor: BORDER }}>
-                  {infoRows.map((row, index) => {
-                    const Icon = row.icon;
-
-                    return (
-                      <div
-                        key={row.label}
-                        className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-start sm:gap-4 sm:px-5"
-                        style={{ borderBottom: index < infoRows.length - 1 ? `1px solid ${BORDER}` : "none" }}
-                      >
-                        <div
-                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
-                          style={{
-                            background: "rgba(55,55,242,0.06)",
-                            border: "1px solid rgba(55,55,242,0.12)",
-                          }}
-                        >
-                          <Icon size={16} color={BLUE} />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="eruty-meta" style={{ color: MUTED, fontWeight: 500 }}>
-                            {row.label}
-                          </div>
-                          <div
-                            className="eruty-body-small eruty-keep-all mt-1.5"
-                            style={{
-                              color: NEAR_BLACK,
-                              fontWeight: 600,
-                            }}
-                          >
-                            {row.value}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        <div className="mt-8 sm:hidden">
-          <Link
-            to="/resources"
-            className="inline-flex items-center gap-1.5 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3737F2]"
-            style={{ color: MUTED }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = BLUE)}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = MUTED)}
-          >
-            {t.viewAll} <ArrowUpRight size={13} />
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ── 7. Final CTA ───────────────────────────────────────────────────────────────
+// ── 5. Final CTA ───────────────────────────────────────────────────────────────
 
 function FinalCTA() {
   const { lang } = useLanguage();
@@ -1655,26 +1292,15 @@ function FinalCTA() {
             <p className="eruty-body mb-10" style={{ color: "rgba(255,255,255,0.5)", whiteSpace: "pre-line" }}>
               {t.desc}
             </p>
-            <div className="flex items-center gap-5">
-              <Link
-                to="/start-a-project"
-                className="px-7 py-3.5 text-sm transition-all duration-200"
-                style={{ background: BLUE, color: "#FFFFFF", fontWeight: 500, borderRadius: 4 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "#2828d4")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = BLUE)}
-              >
-                {t.btn1}
-              </Link>
-              <Link
-                to="/start-a-project"
-                className="flex items-center gap-1.5 text-sm transition-colors"
-                style={{ color: "rgba(255,255,255,0.5)" }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#FFFFFF")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.5)")}
-              >
-                {t.btn2} <ArrowUpRight size={13} />
-              </Link>
-            </div>
+            <Link
+              to="/start-a-project"
+              className="inline-flex px-7 py-3.5 text-sm transition-all duration-200"
+              style={{ background: BLUE, color: "#FFFFFF", fontWeight: 500, borderRadius: 4 }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "#2828d4")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = BLUE)}
+            >
+              {t.button}
+            </Link>
           </div>
         </div>
       </div>
@@ -1686,10 +1312,9 @@ export function HomePage() {
   return (
     <>
       <HeroSection />
-      <StatementSection />
+      <GlobalActivitySection />
       <BusinessFields />
       <TechnologySection />
-      <GlobalWork />
       <FinalCTA />
     </>
   );
