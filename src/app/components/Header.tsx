@@ -22,7 +22,7 @@ const MUTED = "#737780";
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-type MenuKey = "company" | "services" | "technology" | "resources";
+type DropdownMenuKey = "company" | "services";
 
 interface SimpleMenuItem {
   to: string;
@@ -37,6 +37,7 @@ interface ServicePanel {
   summary: Record<Lang, string>;
   items: Array<Record<Lang, string>>;
   inquiryType: "global-expansion" | "automation";
+  image: string;
 }
 
 const COPY = {
@@ -57,14 +58,8 @@ const COPY = {
     menuLabel: "주요 내비게이션",
     companyCaption: "회사 소개",
     servicesCaption: "서비스",
-    technologyCaption: "기술 역량",
-    resourcesCaption: "리소스 허브",
-    viewPage: "페이지 보기",
+    exploreService: "서비스 알아보기",
     serviceCta: "프로젝트 문의",
-    technologyLead:
-      "이루티는 글로벌 사업과 AX 전환에 필요한 데이터, 자동화, 제품 엔지니어링 역량을 통합해 제공합니다.",
-    resourcesLead:
-      "사례 연구, 프로젝트 기회, 인사이트 리포트와 프로그램 소식을 한 곳에서 확인할 수 있습니다.",
   },
   en: {
     home: "Home",
@@ -83,14 +78,8 @@ const COPY = {
     menuLabel: "Main navigation",
     companyCaption: "Company Overview",
     servicesCaption: "Services",
-    technologyCaption: "Technology Capability",
-    resourcesCaption: "Resource Hub",
-    viewPage: "View page",
+    exploreService: "Explore Service",
     serviceCta: "Start an inquiry",
-    technologyLead:
-      "ERUTY combines data, automation, and product engineering to execute global business and AX transformation.",
-    resourcesLead:
-      "Explore case studies, open projects, insights, reports, and program updates in one place.",
   },
 } as const;
 
@@ -99,8 +88,8 @@ const COMPANY_ITEMS: SimpleMenuItem[] = [
     to: "/company/about",
     label: { ko: "이루티 소개", en: "About ERUTY" },
     description: {
-      ko: "콘텐츠와 기술, 글로벌 네트워크를 연결하는 기업 소개",
-      en: "Meet the company connecting content, technology, and global networks.",
+      ko: "글로벌 사업과 AX·기술 역량을 연결하는 이루티의 방향과 실행 구조",
+      en: "Explore ERUTY's direction and execution model connecting global business, AX, and technology.",
     },
   },
   {
@@ -134,95 +123,35 @@ const SERVICE_PANELS: ServicePanel[] = [
     key: "hitpick",
     to: "/services/hitpick",
     inquiryType: "global-expansion",
+    image: "/images/services/hitpick/hero-video-poster.webp",
     label: { ko: "Hitpick", en: "Hitpick" },
     summary: {
-      ko: "글로벌 사업 확장 솔루션",
-      en: "Global business expansion solution",
+      ko: "글로벌 브랜드 사업화 솔루션",
+      en: "Global brand commercialization solution",
     },
     items: [
-      { ko: "글로벌 확장", en: "Global Expansion" },
-      { ko: "콘텐츠·IP", en: "Content & IP" },
-      { ko: "크리에이터 마케팅", en: "Creator Marketing" },
-      { ko: "글로벌 파트너", en: "Global Partner" },
+      { ko: "시장 검증", en: "Market Validation" },
+      { ko: "크리에이터 기반 수요 창출", en: "Creator-Led Demand Creation" },
+      { ko: "글로벌 판매·수출 운영", en: "Global Sales & Export Operations" },
+      { ko: "리오더와 시장 확장", en: "Reorders & Market Expansion" },
     ],
   },
   {
     key: "erumter",
     to: "/services/erumter",
     inquiryType: "automation",
+    image: "/images/services/erumter/workflow-office.webp",
     label: { ko: "이룸터", en: "Erumter" },
     summary: {
-      ko: "기업 AX·자동화 솔루션",
-      en: "Enterprise AX and automation solution",
+      ko: "기업 AX·업무 자동화 솔루션",
+      en: "Enterprise AX and workflow automation solution",
     },
     items: [
-      { ko: "업무 자동화", en: "Workflow Automation" },
-      { ko: "AI 개발", en: "AI Development" },
-      { ko: "AX 교육", en: "AX Education" },
-      { ko: "AX 진단", en: "AX Diagnosis" },
+      { ko: "업무 진단", en: "Workflow Diagnosis" },
+      { ko: "AX 전환 설계", en: "AX Transformation Design" },
+      { ko: "AI 시스템·업무 자동화", en: "AI Systems & Workflow Automation" },
+      { ko: "AX 교육·운영 정착", en: "AX Training & Operational Adoption" },
     ],
-  },
-];
-
-const TECHNOLOGY_ITEMS = [
-  {
-    label: { ko: "AI & 데이터", en: "AI & Data" },
-    description: {
-      ko: "콘텐츠, 시장, 오디언스 신호를 분석하는 인텔리전스 레이어",
-      en: "Intelligence systems for content, market, and audience signals.",
-    },
-  },
-  {
-    label: { ko: "자동화 시스템", en: "Automation Systems" },
-    description: {
-      ko: "반복 업무와 운영 흐름을 AI 에이전트로 전환",
-      en: "Transform repetitive operations with AI agents and workflows.",
-    },
-  },
-  {
-    label: { ko: "블록체인 & 권리", en: "Blockchain & Rights" },
-    description: {
-      ko: "IP, 계약, 정산을 위한 권리 인프라",
-      en: "Rights infrastructure for IP, contracts, and settlements.",
-    },
-  },
-  {
-    label: { ko: "제품 엔지니어링", en: "Product Engineering" },
-    description: {
-      ko: "웹·앱·SaaS와 운영 시스템 구현",
-      en: "Build production-ready web, app, SaaS, and admin systems.",
-    },
-  },
-];
-
-const RESOURCE_ITEMS = [
-  {
-    label: { ko: "사례 연구", en: "Case Studies" },
-    description: {
-      ko: "시장별 실행 사례와 역할 구조",
-      en: "Execution cases and delivery roles across markets.",
-    },
-  },
-  {
-    label: { ko: "프로젝트 & 기회", en: "Projects & Opportunities" },
-    description: {
-      ko: "진행 중인 파트너십과 오픈 딜 정보",
-      en: "Open deals, partnerships, and in-progress opportunities.",
-    },
-  },
-  {
-    label: { ko: "인사이트 & 리포트", en: "Insights & Reports" },
-    description: {
-      ko: "시장 분석과 비즈니스 인텔리전스",
-      en: "Market analysis and business intelligence reports.",
-    },
-  },
-  {
-    label: { ko: "프로그램 & 이벤트", en: "Programs & Events" },
-    description: {
-      ko: "교육, 세미나, 포럼, 전시 프로그램",
-      en: "Programs, seminars, forums, and exhibitions.",
-    },
   },
 ];
 
@@ -244,9 +173,11 @@ export function Header() {
   const panelRef = useRef<HTMLDivElement>(null);
   const mobilePanelRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<number | null>(null);
-  const [activeMenu, setActiveMenu] = useState<MenuKey | null>(null);
+  const pointerMenuRef = useRef<DropdownMenuKey | null>(null);
+  const [activeMenu, setActiveMenu] = useState<DropdownMenuKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileSection, setMobileSection] = useState<MenuKey | null>("company");
+  const [mobileSection, setMobileSection] =
+    useState<DropdownMenuKey | null>("company");
   const [scrolled, setScrolled] = useState(false);
 
   const isCompanyActive = location.pathname.startsWith("/company");
@@ -256,31 +187,12 @@ export function Header() {
   const isHitpickActive = location.pathname.startsWith("/services/hitpick");
   const isErumterActive = location.pathname.startsWith("/services/erumter");
 
-  const topNav = useMemo(
+  const dropdownNav = useMemo(
     () => [
       { key: "company" as const, label: copy.company, active: isCompanyActive },
       { key: "services" as const, label: copy.services, active: isServicesActive },
-      {
-        key: "technology" as const,
-        label: copy.technology,
-        active: isTechnologyActive,
-      },
-      {
-        key: "resources" as const,
-        label: copy.resources,
-        active: isResourcesActive,
-      },
     ],
-    [
-      copy.company,
-      copy.resources,
-      copy.services,
-      copy.technology,
-      isCompanyActive,
-      isResourcesActive,
-      isServicesActive,
-      isTechnologyActive,
-    ],
+    [copy.company, copy.services, isCompanyActive, isServicesActive],
   );
 
   useEffect(() => {
@@ -304,12 +216,13 @@ export function Header() {
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (
-        headerRef.current &&
-        !headerRef.current.contains(event.target as Node) &&
-        mobilePanelRef.current &&
-        !mobilePanelRef.current.contains(event.target as Node)
-      ) {
+      const target = event.target as Node;
+      const clickedInsideHeader =
+        headerRef.current?.contains(target) ?? false;
+      const clickedInsideMobilePanel =
+        mobilePanelRef.current?.contains(target) ?? false;
+
+      if (!clickedInsideHeader && !clickedInsideMobilePanel) {
         setActiveMenu(null);
         setMobileOpen(false);
       }
@@ -399,12 +312,12 @@ export function Header() {
     closeTimerRef.current = window.setTimeout(() => setActiveMenu(null), 130);
   }
 
-  function openMenu(key: MenuKey) {
+  function openMenu(key: DropdownMenuKey) {
     cancelCloseTimer();
     setActiveMenu(key);
   }
 
-  function toggleMenu(key: MenuKey) {
+  function toggleMenu(key: DropdownMenuKey) {
     setActiveMenu((current) => (current === key ? null : key));
   }
 
@@ -433,7 +346,7 @@ export function Header() {
             aria-label={copy.menuLabel}
           >
             <HeaderLink to="/" label={copy.home} exact />
-            {topNav.map((item) => (
+            {dropdownNav.map((item) => (
               <button
                 key={item.key}
                 type="button"
@@ -446,11 +359,23 @@ export function Header() {
                 }}
                 aria-expanded={activeMenu === item.key}
                 aria-controls={`${item.key}-menu`}
-                aria-haspopup="dialog"
                 onMouseEnter={() => openMenu(item.key)}
                 onMouseLeave={scheduleClose}
-                onFocus={() => openMenu(item.key)}
-                onClick={() => toggleMenu(item.key)}
+                onPointerDown={() => {
+                  pointerMenuRef.current = item.key;
+                }}
+                onPointerCancel={() => {
+                  pointerMenuRef.current = null;
+                }}
+                onFocus={() => {
+                  if (pointerMenuRef.current !== item.key) {
+                    openMenu(item.key);
+                  }
+                }}
+                onClick={() => {
+                  pointerMenuRef.current = null;
+                  toggleMenu(item.key);
+                }}
               >
                 {item.label}
                 <ChevronDown
@@ -463,6 +388,8 @@ export function Header() {
                 />
               </button>
             ))}
+            <HeaderLink to="/technology" label={copy.technology} />
+            <HeaderLink to="/resources" label={copy.resources} />
           </nav>
 
           <div className="hidden items-center gap-5 lg:flex">
@@ -564,7 +491,7 @@ export function Header() {
                           : "Explore ERUTY's two service lines for global business and AX transformation."
                       }
                     />
-                    <div className="grid gap-4 xl:grid-cols-2">
+                    <div className="grid gap-4 lg:grid-cols-2">
                       {SERVICE_PANELS.map((panel) => {
                         const isActive =
                           (panel.key === "hitpick" && isHitpickActive) ||
@@ -574,57 +501,75 @@ export function Header() {
                           <Link
                             key={panel.key}
                             to={panel.to}
-                            className="flex h-full flex-col gap-5 p-6 transition-colors"
+                            className="group relative flex h-full overflow-hidden transition-colors"
                             style={{
                               border: `1px solid ${isActive ? BLUE : BORDER}`,
-                              background: isActive
-                                ? "rgba(55,55,242,0.04)"
-                                : "#FFFFFF",
+                              background: "#FFFFFF",
                             }}
                             aria-current={isActive ? "page" : undefined}
                           >
-                            <div className="flex items-start justify-between gap-4">
-                              <div>
-                                <div
-                                  className="mb-2 text-xs uppercase tracking-[0.24em]"
-                                  style={{ color: BLUE, fontFamily: "var(--font-mono)" }}
-                                >
-                                  {panel.label[lang]}
-                                </div>
-                                <h3
-                                  className="mb-2 text-xl"
-                                  style={{
-                                    fontFamily: "var(--font-display)",
-                                    fontWeight: 700,
-                                    color: NEAR_BLACK,
-                                  }}
-                                >
-                                  {panel.summary[lang]}
-                                </h3>
-                              </div>
-                              <ArrowUpRight size={16} style={{ color: BLUE }} />
-                            </div>
-                            <div className="grid gap-2">
-                              {panel.items.map((item) => (
-                                <div
-                                  key={item[lang]}
-                                  className="flex items-start gap-2 text-sm"
-                                  style={{ color: "#333438", lineHeight: 1.65 }}
-                                >
-                                  <span
-                                    className="mt-[7px] h-1.5 w-1.5 rounded-full"
-                                    style={{ background: BLUE }}
-                                  />
-                                  <span>{item[lang]}</span>
-                                </div>
-                              ))}
-                            </div>
+                            <img
+                              src={panel.image}
+                              alt=""
+                              aria-hidden="true"
+                              loading="lazy"
+                              className="absolute inset-0 h-full w-full object-cover opacity-[0.18] transition-transform duration-300 ease-out group-hover:scale-[1.02] group-focus-visible:scale-[1.02] motion-reduce:transform-none motion-reduce:transition-none"
+                            />
                             <div
-                              className="mt-auto flex items-center justify-between pt-2 text-sm"
-                              style={{ color: BLUE, fontWeight: 500 }}
-                            >
-                              <span>{copy.viewPage}</span>
-                              <span>{copy.serviceCta}</span>
+                              className="absolute inset-0"
+                              aria-hidden="true"
+                              style={{
+                                background:
+                                  "linear-gradient(90deg, rgba(255,255,255,0.99) 0%, rgba(255,255,255,0.96) 46%, rgba(255,255,255,0.78) 72%, rgba(255,255,255,0.54) 100%)",
+                              }}
+                            />
+                            <div className="relative z-10 flex h-full w-full flex-col gap-5 p-6">
+                              <div className="flex items-start justify-between gap-4">
+                                <div>
+                                  <div
+                                    className="mb-2 text-xs uppercase tracking-[0.24em]"
+                                    style={{
+                                      color: BLUE,
+                                      fontFamily: "var(--font-mono)",
+                                    }}
+                                  >
+                                    {panel.label[lang]}
+                                  </div>
+                                  <h3
+                                    className="mb-2 text-xl"
+                                    style={{
+                                      fontFamily: "var(--font-display)",
+                                      fontWeight: 700,
+                                      color: NEAR_BLACK,
+                                    }}
+                                  >
+                                    {panel.summary[lang]}
+                                  </h3>
+                                </div>
+                                <ArrowUpRight size={16} style={{ color: BLUE }} />
+                              </div>
+                              <div className="grid gap-2">
+                                {panel.items.map((item) => (
+                                  <div
+                                    key={item[lang]}
+                                    className="flex items-start gap-2 text-sm"
+                                    style={{ color: "#333438", lineHeight: 1.65 }}
+                                  >
+                                    <span
+                                      className="mt-[7px] h-1.5 w-1.5 rounded-full"
+                                      style={{ background: BLUE }}
+                                    />
+                                    <span>{item[lang]}</span>
+                                  </div>
+                                ))}
+                              </div>
+                              <div
+                                className="mt-auto inline-flex items-center gap-2 pt-2 text-sm"
+                                style={{ color: BLUE, fontWeight: 500 }}
+                              >
+                                <span>{copy.exploreService}</span>
+                                <ArrowRight size={14} />
+                              </div>
                             </div>
                           </Link>
                         );
@@ -633,87 +578,6 @@ export function Header() {
                   </div>
                 )}
 
-                {activeMenu === "technology" && (
-                  <div className="grid gap-8 lg:grid-cols-[220px_1fr]">
-                    <HeaderMenuIntro
-                      caption={copy.technologyCaption}
-                      lead={copy.technologyLead}
-                    />
-                    <div className="grid gap-4">
-                      <div className="grid gap-3 md:grid-cols-2">
-                        {TECHNOLOGY_ITEMS.map((item) => (
-                          <div
-                            key={item.label[lang]}
-                            className="border p-5"
-                            style={{ borderColor: BORDER, background: "#FFFFFF" }}
-                          >
-                            <div
-                              className="mb-2 text-sm"
-                              style={{ color: NEAR_BLACK, fontWeight: 600 }}
-                            >
-                              {item.label[lang]}
-                            </div>
-                            <p
-                              className="text-sm"
-                              style={{ color: MUTED, lineHeight: 1.7 }}
-                            >
-                              {item.description[lang]}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                      <Link
-                        to="/technology"
-                        className="inline-flex w-fit items-center gap-2 text-sm"
-                        style={{ color: BLUE, fontWeight: 500 }}
-                      >
-                        {copy.viewPage}
-                        <ArrowRight size={14} />
-                      </Link>
-                    </div>
-                  </div>
-                )}
-
-                {activeMenu === "resources" && (
-                  <div className="grid gap-8 lg:grid-cols-[220px_1fr]">
-                    <HeaderMenuIntro
-                      caption={copy.resourcesCaption}
-                      lead={copy.resourcesLead}
-                    />
-                    <div className="grid gap-4">
-                      <div className="grid gap-3 md:grid-cols-2">
-                        {RESOURCE_ITEMS.map((item) => (
-                          <div
-                            key={item.label[lang]}
-                            className="border p-5"
-                            style={{ borderColor: BORDER, background: "#FFFFFF" }}
-                          >
-                            <div
-                              className="mb-2 text-sm"
-                              style={{ color: NEAR_BLACK, fontWeight: 600 }}
-                            >
-                              {item.label[lang]}
-                            </div>
-                            <p
-                              className="text-sm"
-                              style={{ color: MUTED, lineHeight: 1.7 }}
-                            >
-                              {item.description[lang]}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                      <Link
-                        to="/resources"
-                        className="inline-flex w-fit items-center gap-2 text-sm"
-                        style={{ color: BLUE, fontWeight: 500 }}
-                      >
-                        {copy.viewPage}
-                        <ArrowRight size={14} />
-                      </Link>
-                    </div>
-                  </div>
-                )}
               </div>
             </motion.div>
           ) : null}
@@ -779,7 +643,7 @@ export function Header() {
                 />
               </div>
 
-              {topNav.map((item) => (
+              {dropdownNav.map((item) => (
                 <div
                   key={item.key}
                   className="border-b"
@@ -848,131 +712,99 @@ export function Header() {
                               return (
                                 <div
                                   key={panel.key}
-                                  className="border p-4"
+                                  className="relative overflow-hidden border"
                                   style={{
                                     borderColor: isActive ? BLUE : BORDER,
-                                    background: isActive
-                                      ? "rgba(55,55,242,0.04)"
-                                      : "#FFFFFF",
+                                    background: "#FFFFFF",
                                   }}
                                 >
-                                  <div className="mb-4">
+                                  <img
+                                    src={panel.image}
+                                    alt=""
+                                    aria-hidden="true"
+                                    loading="lazy"
+                                    className="absolute inset-0 h-full w-full object-cover opacity-[0.16]"
+                                  />
+                                  <div
+                                    className="absolute inset-0"
+                                    aria-hidden="true"
+                                    style={{
+                                      background:
+                                        "linear-gradient(90deg, rgba(255,255,255,0.99) 0%, rgba(255,255,255,0.96) 56%, rgba(255,255,255,0.72) 100%)",
+                                    }}
+                                  />
+                                  <div className="relative z-10 p-4">
+                                    <div className="mb-4">
+                                      <Link
+                                        to={panel.to}
+                                        className="inline-flex items-center gap-2 text-sm"
+                                        style={{
+                                          color: isActive ? BLUE : NEAR_BLACK,
+                                          fontWeight: 700,
+                                        }}
+                                        aria-current={isActive ? "page" : undefined}
+                                        onClick={() => setMobileOpen(false)}
+                                      >
+                                        {panel.label[lang]}
+                                        <ArrowUpRight size={14} />
+                                      </Link>
+                                      <p
+                                        className="mt-2 text-sm"
+                                        style={{ color: MUTED, lineHeight: 1.65 }}
+                                      >
+                                        {panel.summary[lang]}
+                                      </p>
+                                    </div>
+                                    <div className="mb-4 grid gap-2">
+                                      {panel.items.map((service) => (
+                                        <div
+                                          key={service[lang]}
+                                          className="flex items-start gap-2 text-sm"
+                                          style={{ color: "#333438" }}
+                                        >
+                                          <span
+                                            className="mt-[7px] h-1.5 w-1.5 rounded-full"
+                                            style={{ background: BLUE }}
+                                          />
+                                          <span>{service[lang]}</span>
+                                        </div>
+                                      ))}
+                                    </div>
                                     <Link
-                                      to={panel.to}
+                                      to={buildStartProjectHref(
+                                        panel.key,
+                                        panel.inquiryType,
+                                      )}
                                       className="inline-flex items-center gap-2 text-sm"
-                                      style={{
-                                        color: isActive ? BLUE : NEAR_BLACK,
-                                        fontWeight: 700,
-                                      }}
-                                      aria-current={isActive ? "page" : undefined}
+                                      style={{ color: BLUE, fontWeight: 500 }}
                                       onClick={() => setMobileOpen(false)}
                                     >
-                                      {panel.label[lang]}
-                                      <ArrowUpRight size={14} />
+                                      {copy.serviceCta}
+                                      <ArrowRight size={14} />
                                     </Link>
-                                    <p
-                                      className="mt-2 text-sm"
-                                      style={{ color: MUTED, lineHeight: 1.65 }}
-                                    >
-                                      {panel.summary[lang]}
-                                    </p>
                                   </div>
-                                  <div className="mb-4 grid gap-2">
-                                    {panel.items.map((service) => (
-                                      <div
-                                        key={service[lang]}
-                                        className="flex items-start gap-2 text-sm"
-                                        style={{ color: "#333438" }}
-                                      >
-                                        <span
-                                          className="mt-[7px] h-1.5 w-1.5 rounded-full"
-                                          style={{ background: BLUE }}
-                                        />
-                                        <span>{service[lang]}</span>
-                                      </div>
-                                    ))}
-                                  </div>
-                                  <Link
-                                    to={buildStartProjectHref(
-                                      panel.key,
-                                      panel.inquiryType,
-                                    )}
-                                    className="inline-flex items-center gap-2 text-sm"
-                                    style={{ color: BLUE, fontWeight: 500 }}
-                                    onClick={() => setMobileOpen(false)}
-                                  >
-                                    {copy.serviceCta}
-                                    <ArrowRight size={14} />
-                                  </Link>
                                 </div>
                               );
                             })}
-
-                          {item.key === "technology" && (
-                            <>
-                              {TECHNOLOGY_ITEMS.map((entry) => (
-                                <div key={entry.label[lang]} className="border p-4" style={{ borderColor: BORDER }}>
-                                  <div
-                                    className="mb-2 text-sm"
-                                    style={{ color: NEAR_BLACK, fontWeight: 600 }}
-                                  >
-                                    {entry.label[lang]}
-                                  </div>
-                                  <p
-                                    className="text-sm"
-                                    style={{ color: MUTED, lineHeight: 1.65 }}
-                                  >
-                                    {entry.description[lang]}
-                                  </p>
-                                </div>
-                              ))}
-                              <Link
-                                to="/technology"
-                                className="inline-flex items-center gap-2 text-sm"
-                                style={{ color: BLUE, fontWeight: 500 }}
-                                onClick={() => setMobileOpen(false)}
-                              >
-                                {copy.viewPage}
-                                <ArrowRight size={14} />
-                              </Link>
-                            </>
-                          )}
-
-                          {item.key === "resources" && (
-                            <>
-                              {RESOURCE_ITEMS.map((entry) => (
-                                <div key={entry.label[lang]} className="border p-4" style={{ borderColor: BORDER }}>
-                                  <div
-                                    className="mb-2 text-sm"
-                                    style={{ color: NEAR_BLACK, fontWeight: 600 }}
-                                  >
-                                    {entry.label[lang]}
-                                  </div>
-                                  <p
-                                    className="text-sm"
-                                    style={{ color: MUTED, lineHeight: 1.65 }}
-                                  >
-                                    {entry.description[lang]}
-                                  </p>
-                                </div>
-                              ))}
-                              <Link
-                                to="/resources"
-                                className="inline-flex items-center gap-2 text-sm"
-                                style={{ color: BLUE, fontWeight: 500 }}
-                                onClick={() => setMobileOpen(false)}
-                              >
-                                {copy.viewPage}
-                                <ArrowRight size={14} />
-                              </Link>
-                            </>
-                          )}
                         </div>
                       </motion.div>
                     ) : null}
                   </AnimatePresence>
                 </div>
               ))}
+
+              <MobileDirectLink
+                to="/technology"
+                label={copy.technology}
+                active={isTechnologyActive}
+                onNavigate={() => setMobileOpen(false)}
+              />
+              <MobileDirectLink
+                to="/resources"
+                label={copy.resources}
+                active={isResourcesActive}
+                onNavigate={() => setMobileOpen(false)}
+              />
 
               <Link
                 to="/start-a-project"
@@ -1018,6 +850,35 @@ function HeaderLink({
           {label}
         </span>
       )}
+    </NavLink>
+  );
+}
+
+function MobileDirectLink({
+  to,
+  label,
+  active,
+  onNavigate,
+}: {
+  to: string;
+  label: string;
+  active: boolean;
+  onNavigate: () => void;
+}) {
+  return (
+    <NavLink
+      to={to}
+      className="flex w-full items-center justify-between border-b py-4"
+      style={{
+        borderColor: BORDER,
+        color: active ? BLUE : NEAR_BLACK,
+        fontWeight: active ? 700 : 600,
+      }}
+      aria-current={active ? "page" : undefined}
+      onClick={onNavigate}
+    >
+      <span>{label}</span>
+      <ArrowRight aria-hidden="true" size={16} />
     </NavLink>
   );
 }
