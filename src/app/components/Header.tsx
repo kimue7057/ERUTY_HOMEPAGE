@@ -42,8 +42,7 @@ interface ServicePanel {
 
 const COPY = {
   ko: {
-    home: "홈",
-    company: "회사",
+    company: "기업 소개",
     services: "서비스",
     technology: "기술",
     resources: "리소스",
@@ -56,13 +55,12 @@ const COPY = {
       en: "EN",
     },
     menuLabel: "주요 내비게이션",
-    companyCaption: "회사 소개",
+    companyCaption: "기업 소개",
     servicesCaption: "서비스",
     exploreService: "서비스 알아보기",
     serviceCta: "프로젝트 문의",
   },
   en: {
-    home: "Home",
     company: "Company",
     services: "Services",
     technology: "Technology",
@@ -86,7 +84,7 @@ const COPY = {
 const COMPANY_ITEMS: SimpleMenuItem[] = [
   {
     to: "/company/about",
-    label: { ko: "이루티 소개", en: "About ERUTY" },
+    label: { ko: "기업 소개", en: "About ERUTY" },
     description: {
       ko: "글로벌 사업과 AX·기술 역량을 연결하는 이루티의 방향과 실행 구조",
       en: "Explore ERUTY's direction and execution model connecting global business, AX, and technology.",
@@ -177,7 +175,7 @@ export function Header() {
   const [activeMenu, setActiveMenu] = useState<DropdownMenuKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSection, setMobileSection] =
-    useState<DropdownMenuKey | null>("company");
+    useState<DropdownMenuKey | null>(null);
   const [scrolled, setScrolled] = useState(false);
 
   const isCompanyActive = location.pathname.startsWith("/company");
@@ -321,6 +319,11 @@ export function Header() {
     setActiveMenu((current) => (current === key ? null : key));
   }
 
+  function toggleMobileMenu() {
+    setMobileSection(null);
+    setMobileOpen((open) => !open);
+  }
+
   return (
     <>
       <header
@@ -331,9 +334,13 @@ export function Header() {
         }}
       >
         <div
-          className="eruty-container flex h-[76px] items-center justify-between"
+          className="eruty-container flex h-[76px] items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr]"
         >
-          <Link to="/" className="flex items-center gap-3" aria-label="ERUTY home">
+          <Link
+            to="/"
+            className="flex items-center gap-3 lg:justify-self-start"
+            aria-label="ERUTY home"
+          >
             <img
               src={erutyLogo}
               alt="ERUTY"
@@ -342,10 +349,9 @@ export function Header() {
           </Link>
 
           <nav
-            className="hidden items-center gap-2 lg:flex"
+            className="hidden items-center gap-2 lg:flex lg:justify-self-center"
             aria-label={copy.menuLabel}
           >
-            <HeaderLink to="/" label={copy.home} exact />
             {dropdownNav.map((item) => (
               <button
                 key={item.key}
@@ -392,9 +398,9 @@ export function Header() {
             <HeaderLink to="/resources" label={copy.resources} />
           </nav>
 
-          <div className="hidden items-center gap-5 lg:flex">
+          <div className="hidden items-center gap-3 lg:flex lg:justify-self-end">
             <div
-              className="flex items-center gap-2 text-xs"
+              className="flex h-10 w-28 items-center justify-center gap-2 text-xs"
               style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
             >
               <button
@@ -423,7 +429,7 @@ export function Header() {
             </div>
             <Link
               to="/start-a-project"
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm"
+              className="inline-flex h-10 w-28 items-center justify-center gap-2 text-sm"
               style={{ background: NEAR_BLACK, color: "#FFFFFF", fontWeight: 500, borderRadius: 6 }}
             >
               {copy.contact}
@@ -434,7 +440,7 @@ export function Header() {
           <button
             type="button"
             className="inline-flex items-center justify-center lg:hidden"
-            onClick={() => setMobileOpen((open) => !open)}
+            onClick={toggleMobileMenu}
             aria-label={mobileOpen ? copy.menuClose : copy.menuOpen}
             aria-expanded={mobileOpen}
           >
@@ -633,16 +639,6 @@ export function Header() {
                 </div>
               </div>
 
-              <div className="mb-2">
-                <HeaderLink
-                  to="/"
-                  label={copy.home}
-                  exact
-                  compact
-                  onNavigate={() => setMobileOpen(false)}
-                />
-              </div>
-
               {dropdownNav.map((item) => (
                 <div
                   key={item.key}
@@ -837,12 +833,19 @@ function HeaderLink({
   onNavigate?: () => void;
 }) {
   return (
-    <NavLink to={to} end={exact} onClick={onNavigate}>
+    <NavLink
+      to={to}
+      end={exact}
+      className="group"
+      onClick={onNavigate}
+    >
       {({ isActive }) => (
         <span
-          className={compact ? "inline-flex py-2 text-sm" : "inline-flex px-4 py-2 text-sm"}
+          className={`${
+            compact ? "inline-flex py-2 text-sm" : "inline-flex px-4 py-2 text-sm"
+          } text-[#333438] transition-colors group-hover:text-[#3737F2] group-focus-visible:text-[#3737F2]`}
           style={{
-            color: isActive ? BLUE : "#333438",
+            color: isActive ? BLUE : undefined,
             fontWeight: isActive ? 700 : 500,
           }}
           aria-current={isActive ? "page" : undefined}

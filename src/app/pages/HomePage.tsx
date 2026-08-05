@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight  } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../context/LanguageContext";
 import heroVideo from "../../assets/video/eruty-hero.mp4";
@@ -18,11 +18,6 @@ const SOFT_BG = "#F5F6F8";
 
 const T = {
   ko: {
-    hero: {
-      headline: "가능성을 연결해,\n글로벌 비즈니스를 만듭니다.",
-      desc: "브랜드의 글로벌 확장과 기업의 AX 전환을 실행합니다.",
-      btn1: "이루티 알아보기",
-    },
     signals: [
       { country: "베트남", flag: "🇻🇳", desc: "콘텐츠 & 기술 파트너십" },
       { country: "싱가포르", flag: "🇸🇬", desc: "기술 & 투자 네트워크" },
@@ -127,11 +122,6 @@ const T = {
     },
   },
   en: {
-    hero: {
-      headline: "Connecting Possibilities,\nBuilding Global Business.",
-      desc: "ERUTY executes global expansion for brands and AX transformation for enterprises.",
-      btn1: "About ERUTY",
-    },
     signals: [
       { country: "Vietnam", flag: "🇻🇳", desc: "Content & Tech Partnership" },
       { country: "Singapore", flag: "🇸🇬", desc: "Technology & Investment Network" },
@@ -415,6 +405,7 @@ function CountryFlag({
 
 const HOME_ACTIVITY_UI = {
   ko: {
+    headline: "가능성을 연결해,\n글로벌 비즈니스를 만듭니다.",
     activityTitle: "글로벌 활동 현황",
     networkBadgeLabel: "GLOBAL NETWORK",
     placeholderLabel: "대표 이미지",
@@ -426,6 +417,7 @@ const HOME_ACTIVITY_UI = {
     creatorNote: "국내외 콘텐츠 · 마케팅 협업 네트워크",
   },
   en: {
+    headline: "Connecting Possibilities,\nBuilding Global Business.",
     activityTitle: "Global Activity",
     networkBadgeLabel: "GLOBAL NETWORK",
     placeholderLabel: "Representative Image",
@@ -509,15 +501,13 @@ const HOME_ACTIVITY_DEFAULT_INDEX = 0;
 // ── 1. 히어로 ──────────────────────────────────────────────────────────────────
 
 function HeroSection() {
-  const { lang } = useLanguage();
-  const t = T[lang].hero;
   const prefersReduced =
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   return (
     <section style={{ background: "#FFFFFF" }}>
       <div className="eruty-container">
-        <div className="mt-7 mb-8 relative overflow-hidden" style={{ borderRadius: 6, background: "#111" }}>
+        <div className="relative mt-7 overflow-hidden" style={{ borderRadius: 6, background: "#111" }}>
           <div style={{ paddingBottom: "43.7%" }} />
           <video
             src={heroVideo}
@@ -534,26 +524,6 @@ function HeroSection() {
           />
         </div>
 
-        <div className="pb-16" style={{ borderBottom: `1px solid ${BORDER}` }}>
-          <h1
-            className="eruty-home-display eruty-preline-desktop eruty-keep-all"
-            style={{ color: NEAR_BLACK, maxWidth: 900, letterSpacing: "-0.02em" }}
-          >
-            {t.headline}
-          </h1>
-          <p className="eruty-page-lead eruty-keep-all mt-6 mb-8" style={{ color: BODY_TEXT, maxWidth: 760 }}>
-            {t.desc}
-          </p>
-          <Link
-            to="/company/about"
-            className="inline-flex px-6 py-3 text-sm transition-all duration-200"
-            style={{ background: NEAR_BLACK, color: "#FFFFFF", fontWeight: 500, borderRadius: 4 }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = BLUE)}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = NEAR_BLACK)}
-          >
-            {t.btn1}
-          </Link>
-        </div>
       </div>
     </section>
   );
@@ -627,10 +597,10 @@ function GlobalActivitySection() {
     restartCycle();
   };
 
-  const moveSlide = (direction: -1 | 1) => {
-    setActiveIndex((current) => (current + direction + totalSlides) % totalSlides);
-    restartCycle();
-  };
+  // const moveSlide = (direction: -1 | 1) => {
+  //   setActiveIndex((current) => (current + direction + totalSlides) % totalSlides);
+  //   restartCycle();
+  // };
 
   const handleBlurCapture = (event: React.FocusEvent<HTMLDivElement>) => {
     if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
@@ -641,7 +611,16 @@ function GlobalActivitySection() {
   return (
     <section style={{ background: "#FFFFFF" }}>
       <div className="mx-auto px-8" style={{ maxWidth: 1280 }}>
-        <div className="py-14 lg:py-16" style={{ borderBottom: `1px solid ${BORDER}` }}>
+        <div className="pb-8 pt-14 lg:pb-10 lg:pt-20">
+          <h1
+            className="eruty-home-display eruty-preline-desktop eruty-keep-all"
+            style={{ color: NEAR_BLACK, maxWidth: 900, letterSpacing: "-0.02em" }}
+          >
+            {ui.headline}
+          </h1>
+        </div>
+
+        <div className="pb-14 lg:pb-16" style={{ borderBottom: `1px solid ${BORDER}` }}>
           <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,2fr)_minmax(340px,0.85fr)]">
             <div
               className="xl:border-r xl:border-border xl:pr-6"
@@ -651,11 +630,11 @@ function GlobalActivitySection() {
               onBlurCapture={handleBlurCapture}
             >
               <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <h3 className="eruty-subsection-title" style={{ color: NEAR_BLACK }}>
+                {/* <h3 className="eruty-subsection-title" style={{ color: NEAR_BLACK }}>
                   {ui.activityTitle}
-                </h3>
+                </h3> */}
 
-                <div className="flex items-center gap-3 self-start sm:self-auto">
+                {/* <div className="flex items-center gap-3 self-start sm:self-auto">
                   <div
                     style={{
                       color: MUTED,
@@ -684,7 +663,7 @@ function GlobalActivitySection() {
                       <ChevronRight size={16} />
                     </button>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <AnimatePresence initial={false} mode="wait">
@@ -696,13 +675,12 @@ function GlobalActivitySection() {
                   transition={{ duration: prefersReducedMotion ? 0 : 0.38, ease: "easeOut" }}
                 >
                   <div
-                    className="relative mb-5 overflow-hidden border border-border"
+                    className="relative mb-8 aspect-[16/10] overflow-hidden border border-border sm:aspect-[16/9] xl:aspect-[16/7] xl:min-h-[340px] xl:max-h-[390px]"
                     style={{
                       borderRadius: 8,
                       boxShadow: "0 10px 22px rgba(24,25,27,0.04)",
                     }}
                   >
-                    <div className="aspect-[16/10] sm:aspect-[16/9] xl:aspect-[16/7] xl:min-h-[340px] xl:max-h-[390px]" />
                     <img
                       src={activeSlide.image}
                       alt={
@@ -721,7 +699,7 @@ function GlobalActivitySection() {
                       }}
                     />
 
-                    {activeSlide.isPlaceholder ? (
+                    {/* {activeSlide.isPlaceholder ? (
                       <div
                         className="absolute right-4 top-4 px-2.5 py-1"
                         style={{
@@ -737,7 +715,7 @@ function GlobalActivitySection() {
                       >
                         {ui.placeholderLabel}
                       </div>
-                    ) : null}
+                    ) : null} */}
 
                     <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7 xl:p-8">
                       <div
@@ -873,22 +851,21 @@ function GlobalActivitySection() {
             </div>
 
             <div>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-1">
+              <div className="grid grid-cols-2 gap-2 sm:gap-4 xl:grid-cols-1">
                 {metrics.map((metric) => (
                   <div
                     key={metric.label}
-                    className="p-8"
+                    className="min-h-[208px] min-w-0 p-4 sm:min-h-[236px] sm:p-6 xl:p-8"
                     style={{
-                      minHeight: 236,
                       borderRadius: 8,
                       border: `1px solid ${BORDER}`,
                       background: "#FFFFFF",
                       boxShadow: "0 8px 18px rgba(24,25,27,0.03)",
                     }}
                   >
-                    <div className="mb-7 flex items-start gap-4">
+                    <div className="mb-3 flex items-start gap-2 sm:mb-6 sm:gap-3 xl:mb-7 xl:gap-4">
                       <div
-                        className="flex h-11 w-11 items-center justify-center rounded-full"
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full sm:h-10 sm:w-10 xl:h-11 xl:w-11"
                         style={{
                           border: "1px solid rgba(55,55,242,0.18)",
                           background: "rgba(55,55,242,0.04)",
@@ -896,29 +873,32 @@ function GlobalActivitySection() {
                       >
                         <span className="h-1.5 w-1.5 rounded-full" style={{ background: BLUE }} />
                       </div>
-                      <div className="mt-5 h-px flex-1" style={{ background: BORDER }} />
+                      <div className="mt-4 h-px flex-1 sm:mt-5" style={{ background: BORDER }} />
                     </div>
 
                     <div
                       className="eruty-metric-value"
                       style={{
                         color: BLUE,
-                        fontSize: "clamp(3.6rem, 4.8vw, 4.5rem)",
+                        fontSize: "clamp(2.75rem, 8vw, 4.5rem)",
+                        lineHeight: 0.95,
                       }}
                     >
                       {metric.value}
                     </div>
                     <div
-                      className="eruty-card-title eruty-keep-all mt-5"
-                      style={{ color: NEAR_BLACK }}
+                      className="eruty-card-title eruty-keep-all mt-4 xl:mt-5"
+                      style={{ color: NEAR_BLACK, lineHeight: 1.28 }}
                     >
                       {metric.label}
                     </div>
                     <p
-                      className="eruty-body-small eruty-keep-all mt-3"
+                      className="eruty-body-small eruty-keep-all mt-2.5 xl:mt-3"
                       style={{
                         maxWidth: 320,
                         color: BODY_TEXT,
+                        fontSize: "clamp(0.76rem, 2.5vw, 0.9rem)",
+                        lineHeight: 1.45,
                       }}
                     >
                       {metric.note}
@@ -941,6 +921,10 @@ function BusinessFields() {
   const t = T[lang].business;
   const [contentStep, setContentStep] = useState(0);
   const [axStep, setAxStep] = useState(0);
+  const [hoveredPanel, setHoveredPanel] = useState<"panelA" | "panelB" | null>(null);
+  const [focusedPanel, setFocusedPanel] = useState<"panelA" | "panelB" | null>(null);
+  const isPanelADark = hoveredPanel === "panelA" || focusedPanel === "panelA";
+  const isPanelBDark = hoveredPanel === "panelB" || focusedPanel === "panelB";
 
   useEffect(() => {
     const t1 = setInterval(() => setContentStep((s) => (s + 1) % t.contentFlow.length), 2400);
@@ -951,7 +935,7 @@ function BusinessFields() {
   const renderDesktopFlow = (steps: string[], activeStep: number, dark: boolean) => (
     <div className="hidden xl:grid gap-2.5" style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}>
       {steps.map((step, i) => {
-        const isActive = activeStep === i;
+        // const isActive = activeStep === i;
 
         return (
           <div key={step} className="relative min-w-0">
@@ -964,18 +948,18 @@ function BusinessFields() {
               </span>
             )}
             <div
-              className="h-full rounded-[6px] border px-3 py-3.5 transition-colors duration-500"
+              className="h-full rounded-[6px] border px-3 py-3.5"
               style={{
-                background: isActive ? BLUE : dark ? "rgba(255,255,255,0.08)" : SOFT_BG,
-                borderColor: isActive ? BLUE : dark ? "rgba(255,255,255,0.12)" : BORDER,
-                color: isActive ? "#FFFFFF" : dark ? "rgba(255,255,255,0.84)" : BODY_TEXT,
+                background: dark ? "rgba(255,255,255,0.08)" : SOFT_BG,
+                borderColor: dark ? "rgba(255,255,255,0.12)" : BORDER,
+                color: dark ? "rgba(255,255,255,0.84)" : BODY_TEXT,
               }}
             >
               <div
                 className="mb-2 text-[11px]"
                 style={{
                   fontFamily: "var(--font-mono)",
-                  color: isActive ? "rgba(255,255,255,0.82)" : dark ? "rgba(255,255,255,0.42)" : MUTED,
+                  color: dark ? "rgba(255,255,255,0.42)" : MUTED,
                 }}
               >
                 {String(i + 1).padStart(2, "0")}
@@ -998,7 +982,7 @@ function BusinessFields() {
         return (
           <div
             key={step}
-            className="flex items-center gap-3 rounded-[6px] border px-3 py-3 transition-colors duration-500"
+            className="flex items-center gap-3 rounded-[6px] border px-3 py-3"
             style={{
               background: isActive ? BLUE : dark ? "rgba(255,255,255,0.06)" : SOFT_BG,
               borderColor: isActive ? BLUE : dark ? "rgba(255,255,255,0.1)" : BORDER,
@@ -1030,23 +1014,37 @@ function BusinessFields() {
 
         <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 xl:gap-6">
           {/* Panel A */}
-          <div className="relative flex flex-col overflow-hidden rounded-[6px] p-7 sm:p-8 xl:min-h-[540px] xl:p-10" style={{ background: NEAR_BLACK }}>
+          <div
+            className="relative flex flex-col overflow-hidden rounded-[6px] border p-7 sm:p-8 xl:min-h-[540px] xl:p-10"
+            style={{
+              background: isPanelADark ? NEAR_BLACK : "#FFFFFF",
+              borderColor: isPanelADark ? NEAR_BLACK : BORDER,
+            }}
+            onMouseEnter={() => setHoveredPanel("panelA")}
+            onMouseLeave={() => setHoveredPanel(null)}
+            onFocusCapture={() => setFocusedPanel("panelA")}
+            onBlurCapture={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                setFocusedPanel(null);
+              }
+            }}
+          >
             <div className="eruty-meta eruty-meta--code mb-3" style={{ color: BLUE, alignSelf: "flex-start" }}>
               {t.panelA.badge}
             </div>
-            <div className="mb-5" style={{ color: "#FFFFFF", fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
+            <div className="mb-5" style={{ color: isPanelADark ? "#FFFFFF" : NEAR_BLACK, fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
               {t.panelA.service}
             </div>
             <h3
-              className="eruty-subsection-title eruty-preline-desktop mb-5"
+              className="eruty-subsection-title eruty-preline-desktop"
               style={{
-                color: "#FFFFFF",
+                color: isPanelADark ? "#FFFFFF" : NEAR_BLACK,
                 maxWidth: 520,
               }}
             >
               {t.panelA.headline}
             </h3>
-            <p
+            {/* <p
               className="eruty-body mb-6"
               style={{
                 color: "rgba(255,255,255,0.82)",
@@ -1055,16 +1053,16 @@ function BusinessFields() {
               }}
             >
               {t.panelA.desc}
-            </p>
-            <div className="mb-9 flex flex-wrap gap-2.5">
+            </p> */}
+            <div className="mt-5 mb-9 flex flex-wrap gap-2.5">
               {t.panelA.features.map((feature) => (
                 <span
                   key={feature}
                   className="px-3.5 py-2"
                   style={{
-                    border: "1px solid rgba(255,255,255,0.14)",
-                    color: "rgba(255,255,255,0.88)",
-                    background: "rgba(255,255,255,0.06)",
+                    border: `1px solid ${isPanelADark ? "rgba(255,255,255,0.14)" : BORDER}`,
+                    color: isPanelADark ? "rgba(255,255,255,0.88)" : BODY_TEXT,
+                    background: isPanelADark ? "rgba(255,255,255,0.06)" : SOFT_BG,
                     borderRadius: 6,
                     fontSize: "0.94rem",
                     fontWeight: 500,
@@ -1078,19 +1076,19 @@ function BusinessFields() {
               ))}
             </div>
             <div className="mt-auto">
-              <div className="eruty-meta mb-4" style={{ color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>
+              <div className="eruty-meta !mb-4" style={{ color: isPanelADark ? "rgba(255,255,255,0.5)" : MUTED, fontWeight: 600 }}>
                 {t.panelA.flowLabel}
               </div>
-              {renderDesktopFlow(t.contentFlow, contentStep, true)}
-              {renderMobileFlow(t.contentFlow, contentStep, true)}
+              {renderDesktopFlow(t.contentFlow, contentStep, isPanelADark)}
+              {renderMobileFlow(t.contentFlow, contentStep, isPanelADark)}
             </div>
-            <div className="mt-6 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+            <div className="mt-6 border-t pt-5" style={{ borderColor: isPanelADark ? "rgba(255,255,255,0.1)" : BORDER }}>
               <Link
                 to={t.panelA.href}
                 className="inline-flex items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3737F2]"
-                style={{ color: "rgba(255,255,255,0.88)", fontSize: "0.98rem", fontWeight: 600 }}
+                style={{ color: isPanelADark ? "rgba(255,255,255,0.88)" : NEAR_BLACK, fontSize: "0.98rem", fontWeight: 600 }}
                 onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = BLUE)}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.88)")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = isPanelADark ? "rgba(255,255,255,0.88)" : NEAR_BLACK)}
               >
                 {t.panelA.cta} <ArrowUpRight size={15} />
               </Link>
@@ -1098,23 +1096,37 @@ function BusinessFields() {
           </div>
 
           {/* Panel B */}
-          <div className="relative flex flex-col overflow-hidden rounded-[6px] border p-7 sm:p-8 xl:min-h-[540px] xl:p-10" style={{ background: "#FFFFFF", borderColor: BORDER }}>
+          <div
+            className="relative flex flex-col overflow-hidden rounded-[6px] border p-7 sm:p-8 xl:min-h-[540px] xl:p-10"
+            style={{
+              background: isPanelBDark ? NEAR_BLACK : "#FFFFFF",
+              borderColor: isPanelBDark ? NEAR_BLACK : BORDER,
+            }}
+            onMouseEnter={() => setHoveredPanel("panelB")}
+            onMouseLeave={() => setHoveredPanel(null)}
+            onFocusCapture={() => setFocusedPanel("panelB")}
+            onBlurCapture={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                setFocusedPanel(null);
+              }
+            }}
+          >
             <div className="eruty-meta eruty-meta--code mb-3" style={{ color: BLUE, alignSelf: "flex-start" }}>
               {t.panelB.badge}
             </div>
-            <div className="mb-5" style={{ color: NEAR_BLACK, fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
+            <div className="mb-5" style={{ color: isPanelBDark ? "#FFFFFF" : NEAR_BLACK, fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
               {t.panelB.service}
             </div>
             <h3
-              className="eruty-subsection-title eruty-preline-desktop mb-5"
+              className="eruty-subsection-title eruty-preline-desktop"
               style={{
-                color: NEAR_BLACK,
+                color: isPanelBDark ? "#FFFFFF" : NEAR_BLACK,
                 maxWidth: 520,
               }}
             >
               {t.panelB.headline}
             </h3>
-            <p
+            {/* <p
               className="eruty-body mb-6"
               style={{
                 color: BODY_TEXT,
@@ -1123,16 +1135,16 @@ function BusinessFields() {
               }}
             >
               {t.panelB.desc}
-            </p>
-            <div className="mb-9 flex flex-wrap gap-2.5">
+            </p> */}
+            <div className="mt-5 mb-9 flex flex-wrap gap-2.5">
               {t.panelB.features.map((feature) => (
                 <span
                   key={feature}
                   className="px-3.5 py-2"
                   style={{
-                    border: `1px solid ${BORDER}`,
-                    color: BODY_TEXT,
-                    background: SOFT_BG,
+                    border: `1px solid ${isPanelBDark ? "rgba(255,255,255,0.14)" : BORDER}`,
+                    color: isPanelBDark ? "rgba(255,255,255,0.88)" : BODY_TEXT,
+                    background: isPanelBDark ? "rgba(255,255,255,0.06)" : SOFT_BG,
                     borderRadius: 6,
                     fontSize: "0.94rem",
                     fontWeight: 500,
@@ -1146,19 +1158,19 @@ function BusinessFields() {
               ))}
             </div>
             <div className="mt-auto">
-              <div className="eruty-meta mb-4" style={{ color: MUTED, fontWeight: 600 }}>
+              <div className="eruty-meta !mb-4" style={{ color: isPanelBDark ? "rgba(255,255,255,0.5)" : MUTED, fontWeight: 600 }}>
                 {t.panelB.flowLabel}
               </div>
-              {renderDesktopFlow(t.axFlow, axStep, false)}
-              {renderMobileFlow(t.axFlow, axStep, false)}
+              {renderDesktopFlow(t.axFlow, axStep, isPanelBDark)}
+              {renderMobileFlow(t.axFlow, axStep, isPanelBDark)}
             </div>
-            <div className="mt-6 pt-5" style={{ borderTop: `1px solid ${BORDER}` }}>
+            <div className="mt-6 border-t pt-5" style={{ borderColor: isPanelBDark ? "rgba(255,255,255,0.1)" : BORDER }}>
               <Link
                 to={t.panelB.href}
                 className="inline-flex items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3737F2]"
-                style={{ color: NEAR_BLACK, fontSize: "0.98rem", fontWeight: 600 }}
+                style={{ color: isPanelBDark ? "rgba(255,255,255,0.88)" : NEAR_BLACK, fontSize: "0.98rem", fontWeight: 600 }}
                 onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = BLUE)}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = NEAR_BLACK)}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = isPanelBDark ? "rgba(255,255,255,0.88)" : NEAR_BLACK)}
               >
                 {t.panelB.cta} <ArrowUpRight size={15} />
               </Link>
@@ -1234,7 +1246,7 @@ function TechnologySection() {
                   {card.number}
                 </div>
                 <h3
-                  className="eruty-card-title eruty-keep-all mt-6"
+                  className="eruty-card-title eruty-keep-all !mt-3"
                   style={{
                     color: "#FFFFFF",
                     maxWidth: 320,
@@ -1243,7 +1255,7 @@ function TechnologySection() {
                   {card.title}
                 </h3>
                 <p
-                  className="eruty-body-small eruty-keep-all mt-4"
+                  className="eruty-body-small eruty-keep-all !mt-1"
                   style={{
                     color: "rgba(255,255,255,0.72)",
                     whiteSpace: "pre-line",
@@ -1253,7 +1265,7 @@ function TechnologySection() {
                   {card.desc}
                 </p>
                 <div
-                  className={`eruty-meta mt-auto pt-7 ${lang === "en" ? "eruty-meta--code" : ""}`}
+                  className={`eruty-meta !mt-auto pt-7 ${lang === "en" ? "eruty-meta--code" : ""}`}
                   style={{
                     borderTop: "1px solid rgba(255,255,255,0.08)",
                     color: "rgba(255,255,255,0.42)",
@@ -1315,7 +1327,7 @@ export function HomePage() {
       <GlobalActivitySection />
       <BusinessFields />
       <TechnologySection />
-      <FinalCTA />
+      {/* <FinalCTA /> */}
     </>
   );
 }

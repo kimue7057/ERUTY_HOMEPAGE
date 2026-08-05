@@ -18,7 +18,7 @@ export interface MegaMenuItem {
 export const mainNavItems = [
   {
     key: "company",
-    label: { ko: "회사", en: "Company" },
+    label: { ko: "기업 소개", en: "Company" },
     hasMegaMenu: true,
   },
   {
@@ -42,7 +42,7 @@ export const mainNavItems = [
 
 // Company mega menu sub-items
 export const companyNavItems: NavItem[] = [
-  { to: "/company/about", label: { ko: "이루티 소개", en: "About ERUTY" } },
+  { to: "/company/about", label: { ko: "기업 소개", en: "About ERUTY" } },
   { to: "/company/team", label: { ko: "팀 & 리더십", en: "Team & Leadership" } },
   { to: "/company/growth", label: { ko: "성장과 신뢰", en: "Growth & Trust" } },
   { to: "/company/careers", label: { ko: "채용", en: "Careers" } },
