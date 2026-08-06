@@ -26,12 +26,12 @@ ERUTY의 회사, 서비스, 기술, 프로젝트, 채용 및 문의 정보를 �
 | `/company/about` | `src/app/pages/company/AboutPage.tsx` | 구현 완료 · 회사 연혁, 인증·특허, 거점 정보 반영 |
 | `/company/team` | `src/app/pages/company/TeamPage.tsx` | 구현 완료 · 리더십 4인과 선택 인터랙션 반영 |
 | `/company/growth` | `src/app/pages/company/GrowthPage.tsx` | 구현 완료 · 11개 프로젝트, 필터, 상세 Drawer 반영 |
-| `/company/careers` | `src/app/pages/company/CareersPage.tsx` | 부분 완료 · 공개 채용 공고 없음, 상시 지원은 mock 제출 |
+| `/company/careers` | `src/app/pages/company/CareersPage.tsx` | 구현 완료 · 공개 채용 공고 없음, 상시 지원은 이메일 API 제출 |
 | `/services/hitpick` | `src/app/pages/services/hitpick/HitpickPage.tsx` | 구현 완료 · 실행 슬라이더, 시장 신호, 블록체인 신뢰 영역 포함 |
 | `/services/erumter` | `src/app/pages/services/erumter/ErumterPage.tsx` | 구현 완료 · AX 과정, 교육, 솔루션, Before/After 포함 |
 | `/technology` | `src/app/pages/TechnologyPage.tsx` | 구현 완료 · 3개 기술 축과 코드 기반 제품형 UI 목업 포함 |
 | `/resources` | `src/app/pages/ResourcesPage.tsx` | 구현 완료 · 실제 뉴스 10건과 연구·발표 9건을 뉴스룸·연구 아카이브로 제공 |
-| `/start-a-project` | `src/app/pages/StartProjectPage.tsx` | 부분 완료 · 2단계 폼과 검증 구현, 제출은 mock |
+| `/start-a-project` | `src/app/pages/StartProjectPage.tsx` | 구현 완료 · 2단계 폼, 파일 첨부, Resend 문의 제출 API 연동 |
 
 `/company/global-network`는 현재 공개 라우트에 없으며 복원 대상이 아닙니다. 그 밖의 경로는 공통 Not Found 화면으로 연결됩니다.
 
@@ -47,8 +47,8 @@ ERUTY의 회사, 서비스, 기술, 프로젝트, 채용 및 문의 정보를 �
 - **완료 — 이룸터:** AX 전환 과정, 교육, 솔루션, Before/After 및 반응형 Process가 구현되어 있습니다.
 - **완료 — 기술:** 글로벌 마켓 인텔리전스, AX 실행·자동화 오케스트레이션, 블록체인 신뢰·권리·정산 레이어와 React 기반 UI 목업이 구현되어 있습니다.
 - **완료 — 리소스:** 뉴스룸 최신 뉴스 3건과 이전 소식 7건, 연구·발표 9건과 유형 필터가 구현되어 있습니다.
-- **API 연동 필요 — 문의:** 단계·필수값·파일 검증과 성공/실패 UI는 구현되어 있으나 실제 서버 대신 mock 응답을 사용합니다.
-- **API 연동 필요 — 채용:** 상시 지원 폼과 검증은 구현되어 있으나 실제 서버 대신 mock 응답을 사용합니다. 현재 공개 채용 공고는 없습니다.
+- **완료 — 문의 제출:** 프로젝트 문의 폼은 `/api/inquiries`에서 재검증되며, 첨부파일과 함께 Resend를 통해 문의 담당 메일로 전달됩니다.
+- **완료 — 채용 제출:** 상시 지원 폼은 `/api/careers`에서 재검증되며, 첨부파일과 함께 Resend를 통해 채용 담당 메일로 전달됩니다. 운영 환경변수 설정이 필요합니다.
 - **완료 — 화면 캡처와 배포:** Vercel의 `main` 자동 배포와 GitHub Actions의 데스크톱·모바일 10개 경로 캡처가 구성되어 있습니다.
 
 ### 최근 반영된 주요 변경
@@ -93,8 +93,8 @@ ERUTY의 회사, 서비스, 기술, 프로젝트, 채용 및 문의 정보를 �
 
 ### 현재 미완료 및 다음 작업
 
-- 문의 제출 API 실제 연동과 운영 환경 키 설정
-- 채용 지원 API 실제 연동, 파일 업로드 저장소 연결, 공개 채용 공고 데이터 확정
+- Vercel 운영 환경에 Resend 발신자·수신자 환경변수 설정
+- 공개 채용 공고 데이터 확정
 - 프로젝트의 실제 현장 이미지·연도·정량 성과를 공개할 수 있는지 확인 후 선택적으로 교체·보강
 - 개인정보처리방침과 이용약관 페이지 및 Footer 링크 연결
 - `index.html`의 `noindex, nofollow` 제거 여부와 검색 노출·SEO 운영 정책 결정
@@ -103,7 +103,7 @@ ERUTY의 회사, 서비스, 기술, 프로젝트, 채용 및 문의 정보를 �
 
 ### 알려진 제한사항
 
-- 문의와 채용 제출은 기본적으로 mock 모드이며 실제 API 전송이 아닙니다.
+- 문의와 채용 제출은 Vercel 서버리스 API와 Resend를 사용하며 첨부파일은 최대 3MB까지 허용합니다.
 - 프로젝트 이미지는 실제 현장 사진이 아니라 프로젝트 이해를 위한 자체 제작 콘셉트 목업입니다.
 - 프로젝트 연도·고객사·정량 성과는 확인되지 않은 값을 만들지 않기 위해 공개 데이터에 포함하지 않았습니다.
 - 뉴스 대표 이미지는 저장소의 로컬 WebP를 사용하고, 원문 열람 링크는 각 외부 기사 URL에 의존합니다.
@@ -146,17 +146,14 @@ scripts/                빌드 준비와 화면 캡처 도구
 
 ## 환경 변수
 
-`.env.example`에는 다음 변수가 정의되어 있습니다.
+`.env.example`에는 서버 전용 변수만 정의되어 있습니다.
 
-- `VITE_APP_ENV`
-- `VITE_ENABLE_MOCK_SUBMISSIONS`
-- `VITE_INQUIRY_API_BASE_URL`
-- `VITE_INQUIRY_API_KEY`
-- `VITE_CAREERS_API_BASE_URL`
-- `VITE_CAREERS_API_KEY`
-- `VITE_UPLOAD_MAX_FILE_MB`
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
+- `INQUIRY_NOTIFICATION_EMAIL`
+- `CAREERS_NOTIFICATION_EMAIL`
 
-현재 `src/services/inquiry.ts`와 `src/services/careers.ts`에는 실제 API 구현이 없습니다. `VITE_ENABLE_MOCK_SUBMISSIONS=false`로 바꾸기 전에 두 서비스의 실제 전송 로직을 먼저 구현해야 합니다.
+`RESEND_FROM_EMAIL`에는 Resend에서 인증한 도메인의 발신 주소를 사용해야 합니다. 문의와 채용 API는 브라우저에 키를 노출하지 않으며, 첨부파일은 Vercel Functions의 요청 제한을 고려해 최대 3MB까지 허용합니다.
 
 ## 다른 컴퓨터에서 작업 이어가기
 

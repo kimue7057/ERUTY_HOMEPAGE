@@ -37,12 +37,12 @@ const T = {
     business: {
       eyebrow: "사업 분야",
       headline: "브랜드는 더 넓은 시장으로,\n기업은 더 나은 업무 방식으로.",
-      contentFlow: ["브랜드 발굴", "시장 검증", "수요 창출", "판매·수출", "성장 확장"],
+      contentFlow: ["브랜드 발굴", "시장 검증", "판매·수출", "성장 확장"],
       axFlow: ["업무 분석", "AI 적용", "자동화 구축", "지속 운영"],
       panelA: {
         badge: "GLOBAL BUSINESS",
         service: "Hitpick",
-        headline: "브랜드를 발굴하고,\n글로벌 시장에서 판매와 수출을 실행합니다.",
+        headline: "브랜드를 발굴하고, 글로벌 시장에서\n판매와 수출을 실행합니다.",
         desc: "데이터 기반 시장 검증부터 크리에이터 마케팅,\n커머스와 수출 운영까지 하나의 흐름으로 연결합니다.",
         features: ["시장 검증", "크리에이터 마케팅", "글로벌 판매·수출"],
         flowLabel: "실행 흐름",
@@ -69,25 +69,25 @@ const T = {
         {
           number: "01",
           title: "AI & 데이터 인텔리전스",
-          desc: "시장·소비·콘텐츠 신호를 분석해\n사업 판단을 지원합니다.",
+          desc: "시장·소비·콘텐츠를 분석해\n사업 판단을 지원합니다.",
           keywords: "MARKET · CONSUMER · CONTENT",
         },
         {
           number: "02",
           title: "AX 자동화",
-          desc: "반복 업무와 운영 흐름을\n실행 가능한 자동화 시스템으로 전환합니다.",
+          desc: "반복 업무와 운영 흐름을\n자동화 시스템으로 전환합니다.",
           keywords: "WORKFLOW · AGENT · AUTOMATION",
         },
         {
           number: "03",
           title: "블록체인 신뢰 레이어",
-          desc: "계약·증빙·정산 과정의\n신뢰 가능한 기록 기반을 구축합니다.",
+          desc: "계약·증빙·정산 과정을\n신뢰 가능한 기록으로 연결합니다.",
           keywords: "CONTRACT · RECORD · SETTLEMENT",
         },
         {
           number: "04",
           title: "제품 엔지니어링",
-          desc: "웹·앱·SaaS와 실제 운영에 필요한\n시스템을 구현합니다.",
+          desc: "웹·앱·SaaS 등 운영에 필요한\n제품과 시스템을 구현합니다.",
           keywords: "WEB · APP · SAAS · OPS",
         },
       ],
@@ -506,8 +506,15 @@ function HeroSection() {
 
   return (
     <section style={{ background: "#FFFFFF" }}>
-      <div className="eruty-container">
-        <div className="relative mt-7 overflow-hidden" style={{ borderRadius: 6, background: "#111" }}>
+      <div className="eruty-container pb-4 lg:pb-5">
+        <div
+          className="relative mt-7 overflow-hidden"
+          style={{
+            borderRadius: 8,
+            background: "#111",
+            boxShadow: "0 18px 44px rgba(24,25,27,0.1)",
+          }}
+        >
           <div style={{ paddingBottom: "43.7%" }} />
           <video
             src={heroVideo}
@@ -609,73 +616,60 @@ function GlobalActivitySection() {
   };
 
   return (
-    <section style={{ background: "#FFFFFF" }}>
+    <section
+      style={{
+        background: "#F6F7FA",
+      }}
+    >
       <div className="mx-auto px-8" style={{ maxWidth: 1280 }}>
-        <div className="pb-8 pt-14 lg:pb-10 lg:pt-20">
-          <h1
-            className="eruty-home-display eruty-preline-desktop eruty-keep-all"
-            style={{ color: NEAR_BLACK, maxWidth: 900, letterSpacing: "-0.02em" }}
-          >
-            {ui.headline}
-          </h1>
-        </div>
-
-        <div className="pb-14 lg:pb-16" style={{ borderBottom: `1px solid ${BORDER}` }}>
-          <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,2fr)_minmax(340px,0.85fr)]">
+        <div className="pb-14 pt-5 lg:pb-16 lg:pt-6" style={{ borderBottom: `1px solid ${BORDER}` }}>
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,2fr)_minmax(300px,0.72fr)] xl:grid-rows-[auto_auto_85px] xl:gap-x-6 xl:gap-y-0">
             <div
-              className="xl:border-r xl:border-border xl:pr-6"
+              className="xl:contents"
               onMouseEnter={() => setIsPointerPaused(true)}
               onMouseLeave={() => setIsPointerPaused(false)}
               onFocusCapture={() => setIsFocusPaused(true)}
               onBlurCapture={handleBlurCapture}
             >
-              <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                {/* <h3 className="eruty-subsection-title" style={{ color: NEAR_BLACK }}>
-                  {ui.activityTitle}
-                </h3> */}
-
-                {/* <div className="flex items-center gap-3 self-start sm:self-auto">
-                  <div
+              <div className="pb-9 lg:pb-12 xl:col-start-1 xl:row-start-1">
+                <div className="mb-3 flex items-center gap-4 lg:mb-4">
+                  <span
                     style={{
-                      color: MUTED,
+                      color: BLUE,
                       fontFamily: "var(--font-mono)",
-                      fontSize: "0.84rem",
-                      letterSpacing: "0.08em",
+                      fontSize: "0.91rem",
+                      fontWeight: 700,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
                     }}
                   >
-                    {String(activeIndex + 1).padStart(2, "0")} / {String(totalSlides).padStart(2, "0")}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => moveSlide(-1)}
-                      aria-label={ui.previousLabel}
-                      className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border bg-white text-foreground transition-colors hover:border-accent hover:text-accent"
-                    >
-                      <ChevronLeft size={16} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => moveSlide(1)}
-                      aria-label={ui.nextLabel}
-                      className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border bg-white text-foreground transition-colors hover:border-accent hover:text-accent"
-                    >
-                      <ChevronRight size={16} />
-                    </button>
-                  </div>
-                </div> */}
+                    {ui.activityTitle}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="h-px flex-1"
+                    style={{ background: "rgba(55,55,242,0.18)" }}
+                  />
+                </div>
+                <h1
+                  className="eruty-home-display eruty-preline-desktop eruty-keep-all"
+                  style={{ color: NEAR_BLACK, maxWidth: 900, letterSpacing: "-0.025em" }}
+                >
+                  {ui.headline}
+                </h1>
               </div>
 
               <AnimatePresence initial={false} mode="wait">
                 <motion.div
                   key={activeSlide.code}
+                  className="xl:col-start-1 xl:row-start-2"
                   initial={prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
                   animate={prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
                   exit={prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                   transition={{ duration: prefersReducedMotion ? 0 : 0.38, ease: "easeOut" }}
                 >
                   <div
-                    className="relative mb-8 aspect-[16/10] overflow-hidden border border-border sm:aspect-[16/9] xl:aspect-[16/7] xl:min-h-[340px] xl:max-h-[390px]"
+                    className="relative aspect-[16/10] overflow-hidden border border-border sm:aspect-[16/9] xl:aspect-[16/7] xl:min-h-[340px] xl:max-h-[390px]"
                     style={{
                       borderRadius: 8,
                       boxShadow: "0 10px 22px rgba(24,25,27,0.04)",
@@ -708,7 +702,7 @@ function GlobalActivitySection() {
                           background: "rgba(12,13,16,0.22)",
                           color: "rgba(255,255,255,0.82)",
                           fontFamily: "var(--font-mono)",
-                          fontSize: "0.7rem",
+                          fontSize: "0.91rem",
                           letterSpacing: "0.05em",
                           backdropFilter: "blur(8px)",
                         }}
@@ -718,7 +712,7 @@ function GlobalActivitySection() {
                     ) : null} */}
 
                     <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7 xl:p-8">
-                      <div
+                      {/* <div
                         className="inline-flex items-center gap-2 px-3 py-1.5"
                         style={{
                           borderRadius: 999,
@@ -727,13 +721,13 @@ function GlobalActivitySection() {
                           backdropFilter: "blur(10px)",
                           color: "rgba(255,255,255,0.82)",
                           fontFamily: "var(--font-mono)",
-                          fontSize: "0.72rem",
+                          fontSize: "0.936rem",
                           letterSpacing: "0.08em",
                         }}
                       >
                         <CountryFlag code={activeSlide.code} className="h-4 w-6" />
                         {activeSlide.code} · {ui.networkBadgeLabel}
-                      </div>
+                      </div> */}
 
                       <div className="mt-5 pr-20">
                         <div
@@ -754,7 +748,7 @@ function GlobalActivitySection() {
                           style={{
                             fontFamily: "var(--font-body)",
                             fontWeight: 600,
-                            fontSize: "clamp(1rem, 1.25vw, 1.18rem)",
+                            fontSize: "clamp(1.3rem, 1.25vw, 1.534rem)",
                             lineHeight: 1.35,
                             color: "rgba(255,255,255,0.88)",
                             wordBreak: "keep-all",
@@ -787,7 +781,7 @@ function GlobalActivitySection() {
 
               <div
                 ref={chipListRef}
-                className="eruty-horizontal-scroll flex gap-3 overflow-x-auto pb-1 xl:grid xl:grid-cols-7 xl:overflow-visible"
+                className="eruty-horizontal-scroll mt-8 flex gap-3 overflow-x-auto pb-1 xl:col-start-1 xl:row-start-3 xl:mt-[5px] xl:grid xl:h-20 xl:grid-cols-7 xl:overflow-visible xl:pb-0"
                 style={{ scrollSnapType: "x mandatory" }}
               >
                 {HOME_ACTIVITY_SLIDES.map((slide, index) => {
@@ -807,7 +801,7 @@ function GlobalActivitySection() {
                           ? `${slide.nameKo} 활동 보기`
                           : `View ${slide.nameEn} activity`
                       }
-                      className="eruty-activity-chip eruty-keep-all min-w-[132px] shrink-0 cursor-pointer text-left transition-all duration-200 xl:min-w-0 xl:shrink"
+                      className="eruty-activity-chip eruty-keep-all min-w-[132px] shrink-0 cursor-pointer text-left transition-all duration-200 xl:min-w-0 xl:shrink xl:whitespace-nowrap"
                       style={{
                         minHeight: 80,
                         padding: "0.85rem 0.9rem",
@@ -823,7 +817,7 @@ function GlobalActivitySection() {
                           style={{
                             color: isActive ? BLUE : MUTED,
                             fontFamily: "var(--font-mono)",
-                            fontSize: "0.8rem",
+                            fontSize: "1.04rem",
                             letterSpacing: "0.08em",
                           }}
                         >
@@ -831,10 +825,10 @@ function GlobalActivitySection() {
                         </span>
                       </span>
                       <span
-                        className="block eruty-keep-all"
+                        className="block whitespace-nowrap"
                         style={{
                           color: isActive ? NEAR_BLACK : BODY_TEXT,
-                          fontSize: "0.84rem",
+                          fontSize: "1.092rem",
                           lineHeight: 1.45,
                           fontFamily: "var(--font-body)",
                           fontWeight: 600,
@@ -850,12 +844,12 @@ function GlobalActivitySection() {
               </div>
             </div>
 
-            <div>
-              <div className="grid grid-cols-2 gap-2 sm:gap-4 xl:grid-cols-1">
+            <div className="xl:col-start-2 xl:row-span-2 xl:row-start-2 xl:h-full">
+              <div className="grid grid-cols-2 gap-2 sm:gap-4 xl:h-full xl:grid-cols-1 xl:grid-rows-2">
                 {metrics.map((metric) => (
                   <div
                     key={metric.label}
-                    className="min-h-[208px] min-w-0 p-4 sm:min-h-[236px] sm:p-6 xl:p-8"
+                    className="min-h-[208px] min-w-0 p-4 sm:min-h-[236px] sm:p-6 xl:min-h-0 xl:p-6"
                     style={{
                       borderRadius: 8,
                       border: `1px solid ${BORDER}`,
@@ -863,9 +857,9 @@ function GlobalActivitySection() {
                       boxShadow: "0 8px 18px rgba(24,25,27,0.03)",
                     }}
                   >
-                    <div className="mb-3 flex items-start gap-2 sm:mb-6 sm:gap-3 xl:mb-7 xl:gap-4">
+                    <div className="mb-3 flex items-start gap-2 sm:mb-6 sm:gap-3 xl:mb-4">
                       <div
-                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full sm:h-10 sm:w-10 xl:h-11 xl:w-11"
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full sm:h-10 sm:w-10"
                         style={{
                           border: "1px solid rgba(55,55,242,0.18)",
                           background: "rgba(55,55,242,0.04)",
@@ -880,24 +874,28 @@ function GlobalActivitySection() {
                       className="eruty-metric-value"
                       style={{
                         color: BLUE,
-                        fontSize: "clamp(2.75rem, 8vw, 4.5rem)",
+                        fontSize: "clamp(2.5rem, 5vw, 3.7rem)",
                         lineHeight: 0.95,
                       }}
                     >
                       {metric.value}
                     </div>
                     <div
-                      className="eruty-card-title eruty-keep-all mt-4 xl:mt-5"
-                      style={{ color: NEAR_BLACK, lineHeight: 1.28 }}
+                      className="eruty-card-title eruty-keep-all mt-4 xl:mt-3"
+                      style={{
+                        color: NEAR_BLACK,
+                        fontSize: "clamp(1.15rem, 1.35vw, 1.45rem)",
+                        lineHeight: 1.25,
+                      }}
                     >
                       {metric.label}
                     </div>
                     <p
-                      className="eruty-body-small eruty-keep-all mt-2.5 xl:mt-3"
+                      className="eruty-body-small eruty-keep-all mt-2.5 xl:mt-2"
                       style={{
                         maxWidth: 320,
                         color: BODY_TEXT,
-                        fontSize: "clamp(0.76rem, 2.5vw, 0.9rem)",
+                        fontSize: "clamp(0.92rem, 1.15vw, 1.04rem)",
                         lineHeight: 1.45,
                       }}
                     >
@@ -953,7 +951,7 @@ function BusinessFields() {
               >
                 {String(i + 1).padStart(2, "0")}
               </div>
-              <div style={{ fontSize: "0.84rem", lineHeight: 1.45, fontWeight: 600, wordBreak: "keep-all", overflowWrap: "normal" }}>
+              <div style={{ fontSize: "1.092rem", lineHeight: 1.45, fontWeight: 600, wordBreak: "keep-all", overflowWrap: "normal" }}>
                 {step}
               </div>
             </div>
@@ -983,7 +981,7 @@ function BusinessFields() {
             >
               {String(i + 1).padStart(2, "0")}
             </span>
-            <span style={{ fontSize: "0.84rem", lineHeight: 1.4, fontWeight: 600, wordBreak: "keep-all", overflowWrap: "normal" }}>
+            <span style={{ fontSize: "1.092rem", lineHeight: 1.4, fontWeight: 600, wordBreak: "keep-all", overflowWrap: "normal" }}>
               {step}
             </span>
           </div>
@@ -1016,7 +1014,7 @@ function BusinessFields() {
             <div className="eruty-meta eruty-meta--code mb-3" style={{ color: BLUE, alignSelf: "flex-start" }}>
               {t.panelA.badge}
             </div>
-            <div className="mb-3 sm:mb-5" style={{ color: isPanelADark ? "#FFFFFF" : NEAR_BLACK, fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
+            <div className="mb-3 sm:mb-5" style={{ color: isPanelADark ? "#FFFFFF" : NEAR_BLACK, fontSize: "clamp(1.4625rem, 1.35vw, 1.7875rem)", fontWeight: 700 }}>
               {t.panelA.service}
             </div>
             <h3
@@ -1048,7 +1046,7 @@ function BusinessFields() {
                     color: isPanelADark ? "rgba(255,255,255,0.88)" : BODY_TEXT,
                     background: isPanelADark ? "rgba(255,255,255,0.06)" : SOFT_BG,
                     borderRadius: 6,
-                    fontSize: "0.94rem",
+                    fontSize: "1.222rem",
                     fontWeight: 500,
                     lineHeight: 1.35,
                     wordBreak: "keep-all",
@@ -1070,7 +1068,7 @@ function BusinessFields() {
               <Link
                 to={t.panelA.href}
                 className="inline-flex items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3737F2]"
-                style={{ color: isPanelADark ? "rgba(255,255,255,0.88)" : NEAR_BLACK, fontSize: "0.98rem", fontWeight: 600 }}
+                style={{ color: isPanelADark ? "rgba(255,255,255,0.88)" : NEAR_BLACK, fontSize: "1.274rem", fontWeight: 600 }}
                 onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = BLUE)}
                 onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = isPanelADark ? "rgba(255,255,255,0.88)" : NEAR_BLACK)}
               >
@@ -1098,7 +1096,7 @@ function BusinessFields() {
             <div className="eruty-meta eruty-meta--code mb-3" style={{ color: BLUE, alignSelf: "flex-start" }}>
               {t.panelB.badge}
             </div>
-            <div className="mb-3 sm:mb-5" style={{ color: isPanelBDark ? "#FFFFFF" : NEAR_BLACK, fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
+            <div className="mb-3 sm:mb-5" style={{ color: isPanelBDark ? "#FFFFFF" : NEAR_BLACK, fontSize: "clamp(1.4625rem, 1.35vw, 1.7875rem)", fontWeight: 700 }}>
               {t.panelB.service}
             </div>
             <h3
@@ -1130,7 +1128,7 @@ function BusinessFields() {
                     color: isPanelBDark ? "rgba(255,255,255,0.88)" : BODY_TEXT,
                     background: isPanelBDark ? "rgba(255,255,255,0.06)" : SOFT_BG,
                     borderRadius: 6,
-                    fontSize: "0.94rem",
+                    fontSize: "1.222rem",
                     fontWeight: 500,
                     lineHeight: 1.35,
                     wordBreak: "keep-all",
@@ -1152,7 +1150,7 @@ function BusinessFields() {
               <Link
                 to={t.panelB.href}
                 className="inline-flex items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3737F2]"
-                style={{ color: isPanelBDark ? "rgba(255,255,255,0.88)" : NEAR_BLACK, fontSize: "0.98rem", fontWeight: 600 }}
+                style={{ color: isPanelBDark ? "rgba(255,255,255,0.88)" : NEAR_BLACK, fontSize: "1.274rem", fontWeight: 600 }}
                 onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = BLUE)}
                 onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = isPanelBDark ? "rgba(255,255,255,0.88)" : NEAR_BLACK)}
               >
@@ -1196,7 +1194,7 @@ function TechnologySection() {
                 style={{
                   color: "rgba(255,255,255,0.88)",
                   borderBottom: "1px solid rgba(255,255,255,0.22)",
-                  fontSize: "1rem",
+                  fontSize: "1.3rem",
                   fontWeight: 600,
                 }}
                 onMouseEnter={(e) => {
@@ -1239,10 +1237,10 @@ function TechnologySection() {
                   {card.title}
                 </h3>
                 <p
-                  className="eruty-body-small eruty-keep-all !mt-1 whitespace-normal sm:whitespace-pre-line"
+                  className="eruty-body-small eruty-keep-all !mt-1 whitespace-pre-line"
                   style={{
                     color: "rgba(255,255,255,0.72)",
-                    maxWidth: 330,
+                    maxWidth: 520,
                   }}
                 >
                   {card.desc}

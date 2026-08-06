@@ -1,9 +1,3 @@
-export interface CareerAttachment {
-  name: string;
-  size: number;
-  type: string;
-}
-
 export interface CareerApplicationPayload {
   name: string;
   email: string;
@@ -12,37 +6,56 @@ export interface CareerApplicationPayload {
   careerLevel: string;
   introduction: string;
   consent: boolean;
-  attachment?: CareerAttachment | null;
+  attachment?: File | null;
 }
 
 export interface CareerApplicationResult {
   success: true;
   referenceId: string;
-  mode: "mock";
-}
-
-const MOCK_DELAY_MS = 1200;
-
-function shouldUseMockSubmission() {
-  return import.meta.env.VITE_ENABLE_MOCK_SUBMISSIONS !== "false";
+  deliveryId: string;
+  mode: "live";
 }
 
 export async function submitCareerApplication(
   payload: CareerApplicationPayload,
 ): Promise<CareerApplicationResult> {
-  if (!shouldUseMockSubmission()) {
-    throw new Error("Careers API is not configured yet.");
+  const formData = new FormData();
+  formData.set("name", payload.name);
+  formData.set("email", payload.email);
+  formData.set("phone", payload.phone);
+  formData.set("jobArea", payload.jobArea);
+  formData.set("careerLevel", payload.careerLevel);
+  formData.set("introduction", payload.introduction);
+  formData.set("consent", String(payload.consent));
+
+  if (payload.attachment) {
+    formData.set("attachment", payload.attachment, payload.attachment.name);
   }
 
-  await new Promise((resolve) => window.setTimeout(resolve, MOCK_DELAY_MS));
+  const response = await fetch("/api/careers", {
+    method: "POST",
+    body: formData,
+  });
+  const responseBody = await response.text();
+  let result: CareerApplicationResult | { success: false; message?: string } | null = null;
 
-  if (payload.email.toLowerCase().includes("fail")) {
-    throw new Error("Mock career submission failed. Try another email to simulate success.");
+  if (responseBody) {
+    try {
+      result = JSON.parse(responseBody) as CareerApplicationResult | { success: false; message?: string };
+    } catch {
+      throw new Error("CAREERS_API_INVALID_RESPONSE");
+    }
   }
 
-  return {
-    success: true,
-    referenceId: `CAR-${Date.now()}`,
-    mode: "mock",
-  };
+  if (!result) {
+    throw new Error("CAREERS_API_EMPTY_RESPONSE");
+  }
+
+  if (!response.ok || !result.success) {
+    throw new Error("message" in result && result.message
+      ? result.message
+      : "Career application submission failed.");
+  }
+
+  return result;
 }

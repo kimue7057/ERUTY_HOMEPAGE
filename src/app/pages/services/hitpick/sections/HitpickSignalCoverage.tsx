@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Building2, CircleDot, Megaphone, Radio, ShoppingBag, Users } from "lucide-react";
+import { Building2, CircleDot, Megaphone, ShoppingBag, Users } from "lucide-react";
 import { useLanguage } from "../../../../context/LanguageContext";
 import {
   MARKET_SIGNALS,
@@ -37,7 +37,7 @@ function MarketPanel({ market }: { market: MarketSignal }) {
           <span>{market.region}</span>
           <h3>{market.name}</h3>
         </div>
-        <div className="hp-monitoring-badge"><Radio size={15} aria-hidden="true" />{t.signalMockupLabel}</div>
+        {/* <div className="hp-monitoring-badge"><Radio size={15} aria-hidden="true" />{t.signalMockupLabel}</div> */}
       </header>
 
       <dl className="hp-signal-overview">

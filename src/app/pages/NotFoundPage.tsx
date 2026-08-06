@@ -44,7 +44,7 @@ export function NotFoundPage() {
           <p
             style={{
               color: "#737780",
-              fontSize: "1rem",
+              fontSize: "1.3rem",
               lineHeight: 1.75,
               maxWidth: 680,
             }}

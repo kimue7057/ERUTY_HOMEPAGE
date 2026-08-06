@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react";
+import { useLayoutEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   BarChart3,
@@ -61,26 +62,30 @@ export function ArchitectureDiagram({ lang }: { lang: Lang }) {
         {stages.map((stage, index) => {
           const Icon = stage.icon;
           return (
-            <div key={stage.title} className="relative flex min-w-0 flex-col rounded-xl border bg-white p-4" style={{ borderColor: BORDER }}>
-              <div className="relative z-10 mb-5 flex items-center justify-between">
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "#EEF0FF", color: BLUE }}>
+            <div
+              key={stage.title}
+              className="relative grid min-w-0 grid-cols-[2.25rem_minmax(0,1fr)] items-start gap-x-3 gap-y-1.5 rounded-xl border bg-white p-3 sm:p-4 lg:flex lg:flex-col"
+              style={{ borderColor: BORDER }}
+            >
+              <div className="relative z-10 col-start-1 row-span-2 flex h-full flex-col items-center justify-center gap-3 lg:mb-5 lg:h-auto lg:w-full lg:flex-row lg:justify-between">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg lg:h-9 lg:w-9" style={{ background: "#EEF0FF", color: BLUE }}>
                   <Icon size={18} aria-hidden="true" />
                 </span>
                 <span className="text-[11px] font-semibold tracking-[0.16em]" style={{ color: "#A1A5AF", fontFamily: "var(--font-mono)" }}>
                   {String(index + 1).padStart(2, "0")}
                 </span>
               </div>
-              <h3 className="mb-3 text-sm font-bold eruty-keep-all" style={{ color: INK }}>{stage.title}</h3>
-              <ul className="space-y-1.5">
+              <h3 className="col-start-2 text-sm font-bold eruty-keep-all lg:col-auto lg:mb-3" style={{ color: INK }}>{stage.title}</h3>
+              <ul className="col-start-2 flex min-w-0 flex-wrap gap-x-2 gap-y-1 lg:col-auto lg:block lg:space-y-1.5">
                 {stage.items.map((item) => (
-                  <li key={item} className="text-xs eruty-keep-all" style={{ color: MUTED }}>{item}</li>
+                  <li key={item} className="whitespace-nowrap text-[1.04rem] lg:text-xs" style={{ color: MUTED }}>{item}</li>
                 ))}
               </ul>
-              {index < stages.length - 1 && (
+              {/* {index < stages.length - 1 && (
                 <span className="absolute -bottom-3 left-1/2 z-10 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full border bg-white text-[#A1A5AF] lg:-right-[19px] lg:bottom-auto lg:left-auto lg:top-9 lg:translate-x-0" style={{ borderColor: BORDER }} aria-hidden="true">
                   <ArrowRight size={12} className="rotate-90 lg:rotate-0" />
                 </span>
-              )}
+              )} */}
             </div>
           );
         })}
@@ -134,20 +139,68 @@ export function HeroTechVisual({ lang }: { lang: Lang }) {
 }
 
 function MockupShell({ title, badge, children, ariaLabel }: { title: string; badge: string; children: React.ReactNode; ariaLabel: string }) {
+  const canvasWidth = 760;
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef = useRef<HTMLDivElement | null>(null);
+  const [layout, setLayout] = useState({ height: 0, left: 0, scale: 1 });
+
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    const canvas = canvasRef.current;
+    if (!container || !canvas) return undefined;
+
+    const updateLayout = () => {
+      const containerWidth = container.clientWidth;
+      const scale = Math.min(1, containerWidth / canvasWidth);
+      const scaledWidth = canvasWidth * scale;
+
+      setLayout({
+        height: Math.ceil(canvas.offsetHeight * scale),
+        left: Math.max(0, (containerWidth - scaledWidth) / 2),
+        scale,
+      });
+    };
+
+    updateLayout();
+    const observer = new ResizeObserver(updateLayout);
+    observer.observe(container);
+    observer.observe(canvas);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="overflow-hidden rounded-2xl border bg-white shadow-[0_18px_60px_rgba(24,25,27,0.08)]" style={{ borderColor: BORDER }} role="img" aria-label={ariaLabel}>
-      <div className="flex items-center justify-between border-b px-4 py-3 md:px-5" style={{ borderColor: BORDER }}>
-        <div className="flex min-w-0 items-center gap-3">
-          <div className="flex gap-1.5" aria-hidden="true">
-            <span className="h-2 w-2 rounded-full bg-[#D9DCE3]" />
-            <span className="h-2 w-2 rounded-full bg-[#D9DCE3]" />
-            <span className="h-2 w-2 rounded-full bg-[#D9DCE3]" />
+    <div
+      ref={containerRef}
+      className="relative w-full overflow-hidden rounded-2xl"
+      style={{ height: layout.height || undefined, aspectRatio: layout.height ? undefined : "760 / 430" }}
+      role="img"
+      aria-label={ariaLabel}
+    >
+      <div
+        ref={canvasRef}
+        className="absolute top-0 overflow-hidden rounded-2xl border bg-white shadow-[0_18px_60px_rgba(24,25,27,0.08)]"
+        style={{
+          borderColor: BORDER,
+          left: layout.left,
+          width: canvasWidth,
+          transform: `scale(${layout.scale})`,
+          transformOrigin: "top left",
+        }}
+      >
+        <div className="flex items-center justify-between border-b px-5 py-3" style={{ borderColor: BORDER }}>
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="flex gap-1.5" aria-hidden="true">
+              <span className="h-2 w-2 rounded-full bg-[#D9DCE3]" />
+              <span className="h-2 w-2 rounded-full bg-[#D9DCE3]" />
+              <span className="h-2 w-2 rounded-full bg-[#D9DCE3]" />
+            </div>
+            <span className="truncate text-xs font-bold text-[#33416B]">{title}</span>
           </div>
-          <span className="truncate text-[11px] font-bold text-[#33416B] md:text-xs">{title}</span>
+          <span className="ml-2 shrink-0 rounded-md bg-[#F1F3F7] px-2 py-1 text-[9px] font-medium text-[#747B8C]">{badge}</span>
         </div>
-        <span className="ml-2 shrink-0 rounded-md bg-[#F1F3F7] px-2 py-1 text-[9px] font-medium text-[#747B8C]">{badge}</span>
+        {children}
       </div>
-      {children}
     </div>
   );
 }
@@ -163,8 +216,8 @@ export function MarketIntelligenceMockup({ lang }: { lang: Lang }) {
 
   return (
     <MockupShell title="Market Intelligence Dashboard" badge={ko ? "전체 시장" : "All markets"} ariaLabel={ko ? "국가 우선순위, 브랜드 적합도, 크리에이터 후보와 다음 액션을 보여주는 시장 인텔리전스 대시보드 목업" : "Market intelligence dashboard mockup showing ranking, fit score, creator match and next actions"}>
-      <div className="grid gap-2 bg-[#F8F9FB] p-3 md:grid-cols-12 md:p-4">
-        <div className="rounded-xl border bg-white p-3 md:col-span-5" style={{ borderColor: "#EBEDF1" }}>
+      <div className="grid grid-cols-12 gap-2 bg-[#F8F9FB] p-4">
+        <div className="col-span-5 rounded-xl border bg-white p-3" style={{ borderColor: "#EBEDF1" }}>
           <div className="mb-3 text-[10px] font-bold text-[#4F5668]">Target Market Ranking</div>
           <div className="space-y-2.5">
             {markets.map(([name, value], index) => (
@@ -176,7 +229,7 @@ export function MarketIntelligenceMockup({ lang }: { lang: Lang }) {
             ))}
           </div>
         </div>
-        <div className="rounded-xl border bg-white p-3 md:col-span-3" style={{ borderColor: "#EBEDF1" }}>
+        <div className="col-span-3 rounded-xl border bg-white p-3" style={{ borderColor: "#EBEDF1" }}>
           <div className="mb-2 text-[10px] font-bold text-[#4F5668]">Brand Fit Score</div>
           <div className="flex items-center gap-3">
             <div className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-full" style={{ background: "conic-gradient(#3737F2 0 82%, #EEF0F4 82% 100%)" }}>
@@ -188,7 +241,7 @@ export function MarketIntelligenceMockup({ lang }: { lang: Lang }) {
             </div>
           </div>
         </div>
-        <div className="rounded-xl border bg-white p-3 md:col-span-4" style={{ borderColor: "#EBEDF1" }}>
+        <div className="col-span-4 rounded-xl border bg-white p-3" style={{ borderColor: "#EBEDF1" }}>
           <div className="mb-2 flex items-center justify-between text-[10px] font-bold text-[#4F5668]"><span>Trend Signals</span><span className="text-[#2DA56C]">+18.4%</span></div>
           <svg viewBox="0 0 220 72" className="h-[72px] w-full" aria-hidden="true">
             <defs><linearGradient id="market-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#527BF6" stopOpacity=".24"/><stop offset="1" stopColor="#527BF6" stopOpacity="0"/></linearGradient></defs>
@@ -196,7 +249,7 @@ export function MarketIntelligenceMockup({ lang }: { lang: Lang }) {
             <path d="M2 62 L28 48 L54 53 L80 35 L106 39 L132 24 L158 31 L184 16 L218 8" fill="none" stroke="#527BF6" strokeWidth="2" />
           </svg>
         </div>
-        <div className="rounded-xl border bg-white p-3 md:col-span-5" style={{ borderColor: "#EBEDF1" }}>
+        <div className="col-span-5 rounded-xl border bg-white p-3" style={{ borderColor: "#EBEDF1" }}>
           <div className="mb-2 text-[10px] font-bold text-[#4F5668]">Creator Match</div>
           <div className="grid grid-cols-3 gap-2">
             {[91, 87, 84].map((score, index) => (
@@ -207,7 +260,7 @@ export function MarketIntelligenceMockup({ lang }: { lang: Lang }) {
             ))}
           </div>
         </div>
-        <div className="rounded-xl border bg-white p-3 md:col-span-7" style={{ borderColor: "#EBEDF1" }}>
+        <div className="col-span-7 rounded-xl border bg-white p-3" style={{ borderColor: "#EBEDF1" }}>
           <div className="mb-2 text-[10px] font-bold text-[#4F5668]">Suggested Next Action</div>
           <div className="space-y-2">
             {(ko ? ["미국 시장 검증 캠페인 설계", "상위 크리에이터 3명 접촉", "반응 데이터 재수집"] : ["Design US validation campaign", "Contact top 3 creators", "Collect response signals"]).map((item, index) => (
@@ -231,8 +284,8 @@ export function WorkflowMockup({ lang }: { lang: Lang }) {
 
   return (
     <MockupShell title="Workflow Orchestration Board" badge={ko ? "운영 중" : "Active"} ariaLabel={ko ? "업무 요청부터 AI 에이전트, 사람 승인, 시스템 실행과 로그까지 이어지는 자동화 보드 목업" : "Workflow automation board mockup from incoming request to AI agent, approval, system action and logs"}>
-      <div className="bg-[#F8F9FB] p-3 md:p-4">
-        <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-[repeat(4,minmax(0,1fr))_0.9fr]">
+      <div className="bg-[#F8F9FB] p-4">
+        <div className="grid grid-cols-[repeat(4,minmax(0,1fr))_0.9fr] gap-2">
           {columns.map((column, columnIndex) => {
             const Icon = column.icon;
             return (
@@ -246,11 +299,11 @@ export function WorkflowMockup({ lang }: { lang: Lang }) {
                     </div>
                   ))}
                 </div>
-                {columnIndex < columns.length - 1 && <span className="absolute -bottom-2.5 left-1/2 z-10 flex h-5 w-5 -translate-x-1/2 items-center justify-center rounded-full border bg-white text-[#7A91D9] sm:hidden" style={{ borderColor: BORDER }}><ArrowRight size={10} className="rotate-90" /></span>}
+                {columnIndex < columns.length - 1 && <span className="absolute -right-3.5 top-1/2 z-10 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full border bg-white text-[#7A91D9]" style={{ borderColor: BORDER }}><ArrowRight size={10} /></span>}
               </div>
             );
           })}
-          <div className="rounded-xl border bg-[#111F3D] p-3 text-white sm:col-span-2 xl:col-span-1">
+          <div className="rounded-xl border bg-[#111F3D] p-3 text-white">
             <div className="mb-3 flex items-center justify-between text-[9px] font-bold"><span>Status / Log</span><span className="h-2 w-2 rounded-full bg-[#54D694]" /></div>
             <div className="mb-3 inline-flex rounded-full bg-[#153E39] px-2 py-1 text-[8px] font-semibold text-[#69E4AC]">Completed</div>
             <div className="space-y-2.5">
@@ -270,13 +323,13 @@ export function TrustLedgerMockup({ lang }: { lang: Lang }) {
   const ko = lang === "ko";
   return (
     <MockupShell title="Trust & Rights Ledger" badge={ko ? "검증 기록" : "Verified record"} ariaLabel={ko ? "계약, 권리자, 이벤트 기록, 수익 배분과 정산 상태를 보여주는 신뢰 원장 목업" : "Trust ledger mockup showing contract, rights holder, event records, revenue split and settlement status"}>
-      <div className="bg-[#F8F9FB] p-3 md:p-4">
-        <div className="mb-2 flex flex-col justify-between gap-3 rounded-xl border bg-white p-3 sm:flex-row sm:items-center" style={{ borderColor: "#EBEDF1" }}>
+      <div className="bg-[#F8F9FB] p-4">
+        <div className="mb-2 flex items-center justify-between gap-3 rounded-xl border bg-white p-3" style={{ borderColor: "#EBEDF1" }}>
           <div><div className="text-[8px] uppercase tracking-wider text-[#9AA0AD]">Contract ID</div><div className="mt-1 text-[11px] font-bold text-[#3F485A]">CT-2026-000627</div></div>
           <div className="flex items-center gap-2"><span className="text-[8px] text-[#9AA0AD]">Status</span><span className="rounded-full bg-[#E5F8ED] px-2.5 py-1 text-[8px] font-semibold text-[#20945B]">Active</span></div>
         </div>
-        <div className="grid gap-2 md:grid-cols-12">
-          <div className="rounded-xl border bg-white p-3 md:col-span-3" style={{ borderColor: "#EBEDF1" }}>
+        <div className="grid grid-cols-12 gap-2">
+          <div className="col-span-3 rounded-xl border bg-white p-3" style={{ borderColor: "#EBEDF1" }}>
             <div className="mb-3 text-[10px] font-bold text-[#40517E]">Rights Holder</div>
             {["ERUTY Co., Ltd.", "Brand A"].map((name, index) => (
               <div key={name} className="mb-2 flex items-center gap-2 rounded-lg border p-2" style={{ borderColor: "#EEF0F3" }}>
@@ -285,7 +338,7 @@ export function TrustLedgerMockup({ lang }: { lang: Lang }) {
               </div>
             ))}
           </div>
-          <div className="rounded-xl border bg-white p-3 md:col-span-4" style={{ borderColor: "#EBEDF1" }}>
+          <div className="col-span-4 rounded-xl border bg-white p-3" style={{ borderColor: "#EBEDF1" }}>
             <div className="mb-3 text-[10px] font-bold text-[#40517E]">Event / Delivery Record</div>
             <div className="space-y-3">
               {(ko ? ["계약 체결", "콘텐츠 전달 완료", "판매 실행", "성과 데이터 제출"] : ["Contract signed", "Content delivered", "Sales activated", "Performance filed"]).map((item, index) => (
@@ -293,12 +346,12 @@ export function TrustLedgerMockup({ lang }: { lang: Lang }) {
               ))}
             </div>
           </div>
-          <div className="rounded-xl border bg-white p-3 md:col-span-2" style={{ borderColor: "#EBEDF1" }}>
+          <div className="col-span-2 rounded-xl border bg-white p-3" style={{ borderColor: "#EBEDF1" }}>
             <div className="mb-3 text-[10px] font-bold text-[#40517E]">Revenue Split</div>
             <div className="mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-full" style={{ background: "conic-gradient(#3737F2 0 40%, #4F7CF2 40% 80%, #4BC58A 80% 100%)" }}><div className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-[11px] font-bold text-[#465064]">100%</div></div>
             <div className="space-y-1 text-[7px] text-[#798091]"><div className="flex justify-between"><span>ERUTY</span><b>40%</b></div><div className="flex justify-between"><span>Creator</span><b>40%</b></div><div className="flex justify-between"><span>Brand</span><b>20%</b></div></div>
           </div>
-          <div className="rounded-xl border bg-white p-3 md:col-span-3" style={{ borderColor: "#EBEDF1" }}>
+          <div className="col-span-3 rounded-xl border bg-white p-3" style={{ borderColor: "#EBEDF1" }}>
             <div className="mb-3 text-[10px] font-bold text-[#40517E]">Settlement Status</div>
             <div className="rounded-lg bg-[#F7F9FB] p-2.5"><div className="text-[8px] text-[#9AA0AD]">{ko ? "정산 검토" : "Settlement review"}</div><div className="mt-1 text-[10px] font-bold text-[#3F485A]">2026-06-30</div></div>
             <div className="mt-2 rounded-lg bg-[#F7F9FB] p-2.5"><div className="text-[8px] text-[#9AA0AD]">Tx Hash</div><div className="mt-1 truncate text-[8px] font-semibold text-[#596172]">0x8a7b...3c8d</div></div>
@@ -316,7 +369,7 @@ export function FlowTriplet({ labels, sections }: { labels: [string, string, str
       {sections.map((items, index) => (
         <div key={labels[index]} className="rounded-xl border bg-white p-4" style={{ borderColor: BORDER }}>
           <div className="mb-3 flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-md text-[10px] font-bold" style={{ background: index === 1 ? BLUE : "#EEF0FF", color: index === 1 ? "white" : BLUE }}>{index + 1}</span>
+            <span className="flex h-6 w-6 items-center justify-center rounded-md text-[10px] font-bold" style={{ background: "#EEF0FF" }}>{index + 1}</span>
             <span className="text-xs font-bold" style={{ color: INK }}>{labels[index]}</span>
           </div>
           <ul className="space-y-1.5">
@@ -330,4 +383,3 @@ export function FlowTriplet({ labels, sections }: { labels: [string, string, str
 
 export const serviceIcons = { Globe2, Workflow, BarChart3, Link2 };
 export const technologyColors = { BLUE, INK, MUTED, BORDER, SURFACE };
-

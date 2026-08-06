@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
-  ArrowRight,
   BadgeCheck,
   BarChart3,
   FileCheck2,
@@ -15,7 +14,6 @@ import {
   UserCheck,
 } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import { Link } from "react-router";
 import { useLanguage } from "../../../../context/LanguageContext";
 
 type TrackId = "logistics" | "rights";
@@ -120,8 +118,8 @@ const RIGHTS_STEPS: TrustStep[] = [
 
 const COPY = {
   ko: {
-    heading: "상품의 이동과\n콘텐츠의 권리를,\n검증 가능한 기록으로 연결합니다.",
-    description: "물류와 권리의 흐름을\n검증 가능한 기록으로 연결합니다.",
+    heading: "상품의 이동과 콘텐츠의 권리를,\n검증 가능한 기록으로 연결합니다.",
+    description: "물류와 권리의 흐름을 검증 가능한 기록으로 연결합니다.",
     button: "자세히 보기",
     keywords: ["물류 검증", "권리 기록", "정산 확장"],
     logisticsDescription: "출고부터 고객 도달과 정산까지 거래 이력을 검증합니다.",
@@ -406,7 +404,13 @@ export function HitpickBlockchainTrust() {
     const previousTimer = programmaticScrollTimersRef.current[activeTrack];
     if (previousTimer) window.clearTimeout(previousTimer);
     programmaticScrollRef.current[activeTrack] = true;
-    const target = activeCard.offsetLeft - (scroller.clientWidth - activeCard.offsetWidth) / 2;
+    const scrollerRect = scroller.getBoundingClientRect();
+    const activeCardRect = activeCard.getBoundingClientRect();
+    const target =
+      scroller.scrollLeft +
+      activeCardRect.left -
+      scrollerRect.left -
+      (scroller.clientWidth - activeCardRect.width) / 2;
     scroller.scrollTo({ left: Math.max(0, target), behavior: reduceMotion ? "auto" : "smooth" });
     programmaticScrollTimersRef.current[activeTrack] = window.setTimeout(() => {
       programmaticScrollRef.current[activeTrack] = false;
@@ -448,36 +452,40 @@ export function HitpickBlockchainTrust() {
     >
       <div className="hp-shell hp-blockchain-grid">
         <header className="hp-blockchain-copy">
-          <motion.span
-className="hp-eyebrow hp-eyebrow-code"
-            initial={reduceMotion ? false : { opacity: 0, y: 14 }}
-            animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.5, ease: REVEAL_EASE }}
-          >
-            BLOCKCHAIN TRUST LAYER
-          </motion.span>
-          <motion.h2
-            id="hp-blockchain-title"
-            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-            animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.55, delay: reduceMotion ? 0 : 0.08, ease: REVEAL_EASE }}
-          >
-            {copy.heading.split("\n").map((line) => <span key={line}>{line}</span>)}
-          </motion.h2>
+          <div className="hp-blockchain-copy-heading">
+            <motion.span
+              className="hp-eyebrow hp-eyebrow-code"
+              initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+              animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
+              transition={{ duration: 0.5, ease: REVEAL_EASE }}
+            >
+              BLOCKCHAIN TRUST LAYER
+            </motion.span>
+            <motion.h2
+              id="hp-blockchain-title"
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
+              transition={{ duration: 0.55, delay: reduceMotion ? 0 : 0.08, ease: REVEAL_EASE }}
+            >
+              {copy.heading.split("\n").map((line) => <span key={line}>{line}</span>)}
+            </motion.h2>
+          </div>
           <motion.div
             className="hp-blockchain-copy-detail"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
             transition={{ duration: 0.52, delay: reduceMotion ? 0 : 0.18, ease: REVEAL_EASE }}
           >
-            <p>{copy.description}</p>
-            <ul className="hp-blockchain-keywords" aria-label={lang === "ko" ? "핵심 기능" : "Core capabilities"}>
-              {copy.keywords.map((keyword) => <li key={keyword}>{keyword}</li>)}
-            </ul>
-            <Link className="hp-blockchain-link" to="/technology">
+            <div className="hp-blockchain-copy-detail-main">
+              <p>{copy.description}</p>
+              <ul className="hp-blockchain-keywords" aria-label={lang === "ko" ? "핵심 기능" : "Core capabilities"}>
+                {copy.keywords.map((keyword) => <li key={keyword}>{keyword}</li>)}
+              </ul>
+            </div>
+            {/* <Link className="hp-blockchain-link" to="/technology">
               {copy.button}
               <ArrowRight size={17} aria-hidden="true" />
-            </Link>
+            </Link> */}
           </motion.div>
         </header>
 

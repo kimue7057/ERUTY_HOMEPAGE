@@ -5,7 +5,7 @@ const NEAR_BLACK = "#18191B";
 
 const T = {
   ko: {
-    tagline: "콘텐츠, 인텔리전스, 시장을 연결하는 글로벌 비즈니스 & 기술 기업",
+    tagline: "콘텐츠, 인텔리전스, 시장을 연결하는\n글로벌 비즈니스 & 기술 기업",
     sections: {
       "회사": [
         { label: "이루티 소개", to: "/company/about" },

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
 import type { LucideIcon } from "lucide-react";
 import {
   ArrowLeft,
@@ -10,7 +9,6 @@ import {
   MapPin,
   ScrollText,
 } from "lucide-react";
-import { buildStartProjectHref } from "../../data/inquiryOptions";
 import { type Lang, useLanguage } from "../../context/LanguageContext";
 import { PageContainer } from "../../components/PageContainer";
 import { PageHeading } from "../../components/PageHeading";
@@ -381,12 +379,12 @@ function HeroSection() {
           <div className="mt-10 lg:absolute lg:right-[-3.75rem] lg:top-2 lg:mt-0 lg:h-[27.75rem] lg:w-[56%] xl:right-[-4.25rem] xl:w-[57%]">
             <div className="relative h-[18.75rem] overflow-hidden rounded-[2rem] sm:h-[23rem] lg:h-full lg:rounded-none">
               <picture>
-                <source
+                {/* <source
                   media="(max-width: 767px)"
                   srcSet="/images/company/about/hero-approved-visual-mobile.webp"
-                />
+                /> */}
                 <img
-                  src="/images/company/about/hero-approved-visual.webp"
+                  src="/images/company/about/hero-approved-visual_2.jpg"
                   alt={copy.heroAlt}
                   className="h-full w-full select-none object-cover object-[79%_56%]"
                   draggable={false}
@@ -405,7 +403,6 @@ function HeroSection() {
 
 function IdentitySection() {
   const { lang } = useLanguage();
-  const copy = COPY[lang];
 
   return (
     <section data-about-identity className="relative z-20 -mt-12 md:-mt-16 lg:-mt-24">
@@ -418,11 +415,7 @@ function IdentitySection() {
             boxShadow: "0 22px 52px rgba(12, 29, 63, 0.08)",
           }}
         >
-          <div className="grid gap-8 px-6 py-7 md:px-8 md:py-8 lg:grid-cols-[minmax(250px,300px)_1fr] lg:items-center lg:gap-10 lg:px-10">
-            <div className="max-w-[18.75rem]">
-              <SectionHeading eyebrow={copy.identityLabel} title={renderMultilineText(copy.identityHeadline)} lang={lang} compact />
-            </div>
-
+          <div className="px-6 py-7 md:px-8 md:py-8 lg:px-10">
             <div
               className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:grid-cols-5 lg:gap-0 lg:divide-x"
               style={{ borderColor: BORDER }}
@@ -433,7 +426,7 @@ function IdentitySection() {
                 return (
                   <div
                     key={item.label.en}
-                    className="flex min-h-[7.5rem] flex-col justify-center px-0 py-3 sm:px-4 sm:py-4 lg:px-[22px] lg:py-5"
+                    className="flex h-44 flex-col  justify-start  px-0 py-3 sm:px-4 sm:py-4 lg:px-[22px] lg:py-5"
                   >
                     <div className="mb-3 flex items-center">
                       <span
@@ -455,7 +448,7 @@ function IdentitySection() {
                       {item.label[lang]}
                     </div>
                     <div
-                      className="eruty-card-title mt-2"
+                      className="eruty-card-title !mt-2"
                       style={{
                         color: BLUE,
                       }}
@@ -800,7 +793,7 @@ function JourneySection() {
         <SectionHeading
           eyebrow={copy.journeyLabel}
           title={copy.journeyHeadline}
-          description={copy.journeyInstruction}
+          description={copy.journeyTail}
           align="center"
           lang={lang}
           action={
@@ -890,70 +883,65 @@ function JourneySection() {
           />
         </div>
 
-        <p
-          className={`mt-[23px] text-center text-[0.95rem] font-medium ${lang === "ko" ? "eruty-keep-all" : ""}`}
-          style={{ color: BLUE }}
-        >
-          {copy.journeyTail}
-        </p>
+     
       </div>
     </section>
   );
 }
 
-function CtaSection() {
-  const { lang } = useLanguage();
-  const copy = COPY[lang];
+// function CtaSection() {
+//   const { lang } = useLanguage();
+//   const copy = COPY[lang];
 
-  return (
-    <section data-about-cta className="pb-0 pt-0" style={{ background: "#FFFFFF" }}>
-      <div className="eruty-container">
-        <div
-          className="relative overflow-hidden rounded-[2rem] px-8 py-12 md:px-10 md:py-14 lg:px-14 lg:py-16"
-          style={{
-            background:
-              "radial-gradient(circle at 82% 26%, rgba(82,130,255,0.22), transparent 24%), linear-gradient(135deg, #07162E 0%, #081A37 52%, #091327 100%)",
-          }}
-        >
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0))]" />
-          <div className="absolute -right-24 bottom-[-42%] h-[26rem] w-[44rem] rounded-[50%] border border-white/10" />
-          <div className="absolute -right-8 bottom-[-36%] h-[22rem] w-[38rem] rounded-[50%] border border-white/10" />
-          <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/18 to-transparent" />
-          <div className="absolute right-[12%] top-[26%] h-2 w-2 rounded-full bg-white/55" />
-          <div className="absolute right-[19%] top-[36%] h-[6px] w-[6px] rounded-full bg-[#96C4FF]/70" />
-          <div className="absolute right-[24%] top-[49%] h-2 w-2 rounded-full bg-white/45" />
-          <div className="absolute right-[30%] top-[40%] h-px w-[11%] rotate-[14deg] bg-white/14" />
-          <div className="absolute right-[22%] top-[49%] h-px w-[10%] -rotate-[20deg] bg-white/12" />
+//   return (
+//     <section data-about-cta className="pb-0 pt-0" style={{ background: "#FFFFFF" }}>
+//       <div className="eruty-container">
+//         <div
+//           className="relative overflow-hidden rounded-[2rem] px-8 py-12 md:px-10 md:py-14 lg:px-14 lg:py-16"
+//           style={{
+//             background:
+//               "radial-gradient(circle at 82% 26%, rgba(82,130,255,0.22), transparent 24%), linear-gradient(135deg, #07162E 0%, #081A37 52%, #091327 100%)",
+//           }}
+//         >
+//           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0))]" />
+//           <div className="absolute -right-24 bottom-[-42%] h-[26rem] w-[44rem] rounded-[50%] border border-white/10" />
+//           <div className="absolute -right-8 bottom-[-36%] h-[22rem] w-[38rem] rounded-[50%] border border-white/10" />
+//           <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/18 to-transparent" />
+//           <div className="absolute right-[12%] top-[26%] h-2 w-2 rounded-full bg-white/55" />
+//           <div className="absolute right-[19%] top-[36%] h-[6px] w-[6px] rounded-full bg-[#96C4FF]/70" />
+//           <div className="absolute right-[24%] top-[49%] h-2 w-2 rounded-full bg-white/45" />
+//           <div className="absolute right-[30%] top-[40%] h-px w-[11%] rotate-[14deg] bg-white/14" />
+//           <div className="absolute right-[22%] top-[49%] h-px w-[10%] -rotate-[20deg] bg-white/12" />
 
-          <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-[38rem]">
-              <h2 className="eruty-section-title" style={{ color: "#FFFFFF" }}>
-                {copy.ctaHeadline}
-              </h2>
-            </div>
+//           <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+//             <div className="max-w-[38rem]">
+//               <h2 className="eruty-section-title" style={{ color: "#FFFFFF" }}>
+//                 {copy.ctaHeadline}
+//               </h2>
+//             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:gap-3">
-              <Link
-                to={buildStartProjectHref("general", "partnership")}
-                className="inline-flex min-h-[52px] items-center justify-center rounded-full px-7 text-[0.9375rem] font-medium transition-colors"
-                style={{ background: BLUE, color: "#FFFFFF" }}
-              >
-                {copy.ctaPrimary}
-              </Link>
-              <Link
-                to={buildStartProjectHref("general", "general-inquiry")}
-                className="inline-flex min-h-[52px] items-center justify-center rounded-full border px-7 text-[0.9375rem] font-medium transition-colors"
-                style={{ borderColor: "rgba(255,255,255,0.28)", color: "#FFFFFF" }}
-              >
-                {copy.ctaSecondary}
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+//             <div className="flex flex-col gap-3 sm:flex-row sm:gap-3">
+//               <Link
+//                 to={buildStartProjectHref("general", "partnership")}
+//                 className="inline-flex min-h-[52px] items-center justify-center rounded-full px-7 text-[0.9375rem] font-medium transition-colors"
+//                 style={{ background: BLUE, color: "#FFFFFF" }}
+//               >
+//                 {copy.ctaPrimary}
+//               </Link>
+//               <Link
+//                 to={buildStartProjectHref("general", "general-inquiry")}
+//                 className="inline-flex min-h-[52px] items-center justify-center rounded-full border px-7 text-[0.9375rem] font-medium transition-colors"
+//                 style={{ borderColor: "rgba(255,255,255,0.28)", color: "#FFFFFF" }}
+//               >
+//                 {copy.ctaSecondary}
+//               </Link>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
 
 export function AboutPage() {
   useEffect(() => {
@@ -975,7 +963,7 @@ export function AboutPage() {
       <IdentitySection />
       <BeginningSection />
       <JourneySection />
-      <CtaSection />
+      {/* <CtaSection /> */}
     </div>
   );
 }

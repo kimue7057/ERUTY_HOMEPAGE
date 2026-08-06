@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { useLanguage } from "../../../../context/LanguageContext";
 import { ERUMTER_COPY, SOLUTIONS } from "../constants";
 import { Reveal } from "../components/Reveal";
@@ -23,10 +24,10 @@ export function TransformationSolutions() {
                 <SceneImage src={solution.image} alt={solution.imageAlt[lang]} />
                 <div className="er-solution-visual" aria-hidden="true">
                   {solution.visual[lang].map((item, visualIndex) => (
-                    <span key={item}>
-                      {item}
+                    <Fragment key={item}>
+                      <span>{item}</span>
                       {visualIndex < solution.visual[lang].length - 1 ? <i>→</i> : null}
-                    </span>
+                    </Fragment>
                   ))}
                 </div>
               </div>

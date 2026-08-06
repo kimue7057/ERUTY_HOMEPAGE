@@ -20,13 +20,13 @@ function isKoreanEyebrow(eyebrow: ReactNode, lang?: "ko" | "en") {
 export function PageHeading({
   eyebrow,
   title,
-  description,
+  // description,
   align = "left",
   inverse = false,
   display = "page",
   lang,
   titleId,
-  actions,
+  // actions,
   className = "",
 }: PageHeadingProps) {
   const alignmentClass = align === "center" ? "eruty-page-heading--center" : "";
@@ -46,12 +46,12 @@ export function PageHeading({
       >
         {title}
       </h1>
-      {description ? (
+      {/* {description ? (
         <p className="eruty-page-heading__description eruty-page-lead eruty-preline-desktop">
           {description}
         </p>
-      ) : null}
-      {actions ? <div className="eruty-page-heading__actions">{actions}</div> : null}
+      ) : null} */}
+      {/* {actions ? <div className="eruty-page-heading__actions">{actions}</div> : null} */}
     </div>
   );
 }

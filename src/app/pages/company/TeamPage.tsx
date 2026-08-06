@@ -1,6 +1,4 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router";
-import { ArrowUpRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { type Lang, useLanguage } from "../../context/LanguageContext";
 import { PageContainer } from "../../components/PageContainer";
@@ -147,22 +145,30 @@ const LEADERS: LeaderProfile[] = [
   {
     id: "lee-kihong",
     name: { ko: "이기홍 박사", en: "이기홍 박사" },
-    title: { ko: "기업부설연구소장 / AI·데이터 연구개발 총괄", en: "Head of Corporate R&D Center / AI & Data R&D Lead" },
+    title: { ko: "기업부설연구소장 / KAIST 경영대학 겸임교수", en: "Head of Corporate R&D Center / Adjunct Professor, KAIST College of Business" },
     summary: {
-      ko: "기업부설연구소와 AI·데이터 연구개발을 총괄합니다.",
-      en: "Leads the corporate R&D center and AI/data research and development.",
+      ko: "AI·데이터 연구개발을 총괄하며 연구 기반 기술 전략을 이끕니다.",
+      en: "Leads AI and data R&D and research-driven technology strategy.",
     },
     intro: {
-      ko: "기업부설연구소를 중심으로 AI·데이터 연구개발 방향을 이끌며, 사업과 제품에 필요한 기술 기반을 설계합니다.",
-      en: "Leads AI and data R&D through the corporate research center, shaping the technical foundation needed for business and product delivery.",
+      ko: "기업부설연구소장 겸 KAIST 경영대학 겸임교수로 활동하며, 금융 분야에 딥러닝·강화학습을 적용하고 AI·데이터 연구개발을 총괄하면서 연구 기반 기술 전략을 이끕니다.",
+      en: "Serves as Head of the Corporate R&D Center and Adjunct Professor at KAIST College of Business, applying deep learning and reinforcement learning to finance while leading AI and data R&D and research-driven technology strategy.",
     },
     focusAreas: {
-      ko: ["AI·데이터 연구개발", "기업부설연구소 운영", "기술 방향 설계"],
-      en: ["AI and data R&D", "Corporate research center leadership", "Technology direction design"],
+      ko: ["금융 분야 딥러닝·강화학습 적용", "AI·데이터 연구개발 총괄", "연구 기반 기술 전략 리드"],
+      en: ["Deep learning and reinforcement learning for finance", "AI and data R&D leadership", "Research-driven technology strategy"],
     },
     keyScope: {
-      ko: ["기업부설연구소장", "AI·데이터 연구개발 총괄", "연구 기반 기술 전략 리드"],
-      en: ["Head of Corporate R&D Center", "AI and data R&D leadership", "Research-driven technology strategy lead"],
+      ko: [
+        "서울대학교 경제학과 졸업 · 카네기멜론대학교 석사 · 피츠버그대학교 Finance Ph.D.",
+        "CFA·FRM 보유 금융·투자·경제 분석 전문가",
+        "한국투자공사·삼성생명·HSBC·새마을금고중앙회 등에서 자산운용 및 포트폴리오 총괄",
+      ],
+      en: [
+        "B.A. in Economics, Seoul National University · Master's, Carnegie Mellon University · Ph.D. in Finance, University of Pittsburgh",
+        "CFA and FRM-certified specialist in finance, investment, and economic analysis",
+        "Led asset management and portfolios at Korea Investment Corporation, Samsung Life Insurance, HSBC, and the Korean Federation of Community Credit Cooperatives",
+      ],
     },
   },
 ];
@@ -221,7 +227,7 @@ const TEXT = {
     leadershipHeadline: "사업과 기술 실행을 이끄는 리더십",
     leadershipDesc:
       "공개된 네 명의 리더십은 사업 전략, 운영, 연구개발, 제품 엔지니어링을 각각 맡으며 하나의 실행 구조로 협업합니다.",
-    leadershipProfileLabel: "Leadership Profile",
+    leadershipProfileLabel: "Leader",
     focusAreasLabel: "담당 영역",
     keyScopeLabel: "주요 경력",
     imageFallbackLabel: "프로필 이미지 준비 중",
@@ -310,7 +316,7 @@ function LeaderCardPortrait({ leaderId, name, lang }: { leaderId: LeaderId; name
         color: BLUE,
         fontFamily: "var(--font-display)",
         fontWeight: 800,
-        fontSize: "1.1rem",
+        fontSize: "1.43rem",
       }}
     >
       {getInitials(name)}
@@ -383,11 +389,13 @@ function HeroSection() {
               description={t.heroDesc}
               lang={lang}
               actions={
-                <div className="flex flex-wrap gap-2.5">
+                <div className="eruty-horizontal-scroll flex w-full max-w-full flex-nowrap gap-1.5 overflow-x-auto pb-1 sm:gap-2">
                   {t.heroHighlights.map((item) => (
                     <span
                       key={item}
-                      className="px-3.5 py-2 text-sm"
+                      className={`shrink-0 whitespace-nowrap px-2 py-1.5 ${
+                        lang === "en" ? "text-[0.884rem]" : "text-xs"
+                      }`}
                       style={{
                         borderRadius: 999,
                         background: "#F7F8FC",
@@ -631,40 +639,40 @@ function HowWeWorkSection() {
   );
 }
 
-function CtaSection() {
-  const { lang } = useLanguage();
-  const t = TEXT[lang];
+// function CtaSection() {
+//   const { lang } = useLanguage();
+//   const t = TEXT[lang];
 
-  return (
-    <section className="eruty-section-compact" style={{ background: NEAR_BLACK }}>
-      <div className="eruty-container">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end">
-          <div className="lg:col-span-7">
-            <h2 className="eruty-section-title eruty-preline-desktop" style={{ color: "#FFFFFF" }}>
-              {t.ctaHeadline}
-            </h2>
-          </div>
-          <div className="lg:col-span-5 flex flex-col sm:flex-row gap-3 lg:justify-end lg:pb-1">
-            <Link
-              to="/company/careers"
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm transition-all"
-              style={{ background: BLUE, color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500 }}
-            >
-              {t.ctaBtn1} <ArrowUpRight size={14} />
-            </Link>
-            <Link
-              to="/company/about"
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm transition-all"
-              style={{ border: "1px solid rgba(255,255,255,0.2)", color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500 }}
-            >
-              {t.ctaBtn2}
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+//   return (
+//     <section className="eruty-section-compact" style={{ background: NEAR_BLACK }}>
+//       <div className="eruty-container">
+//         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end">
+//           <div className="lg:col-span-7">
+//             <h2 className="eruty-section-title eruty-preline-desktop" style={{ color: "#FFFFFF" }}>
+//               {t.ctaHeadline}
+//             </h2>
+//           </div>
+//           <div className="lg:col-span-5 flex flex-col sm:flex-row gap-3 lg:justify-end lg:pb-1">
+//             <Link
+//               to="/company/careers"
+//               className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm transition-all"
+//               style={{ background: BLUE, color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500 }}
+//             >
+//               {t.ctaBtn1} <ArrowUpRight size={14} />
+//             </Link>
+//             <Link
+//               to="/company/about"
+//               className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm transition-all"
+//               style={{ border: "1px solid rgba(255,255,255,0.2)", color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500 }}
+//             >
+//               {t.ctaBtn2}
+//             </Link>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
 
 export function TeamPage() {
   return (
@@ -672,7 +680,7 @@ export function TeamPage() {
       <HeroSection />
       <LeadershipSection />
       <HowWeWorkSection />
-      <CtaSection />
+      {/* <CtaSection /> */}
     </div>
   );
 }

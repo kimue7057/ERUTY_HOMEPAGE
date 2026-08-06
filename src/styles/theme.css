@@ -14,9 +14,9 @@
   --eruty-home-display-size: clamp(2.65rem, 5vw, 4.25rem);
   --eruty-page-title-size: clamp(2.35rem, 4.3vw, 3.75rem);
   --eruty-section-title-size: clamp(1.85rem, 3vw, 2.6rem);
-  --eruty-subsection-title-size: clamp(1.35rem, 2vw, 1.85rem);
-  --eruty-lead-size: clamp(0.98rem, 1.2vw, 1.12rem);
-  --eruty-body-size: 1rem;
+  --eruty-subsection-title-size: clamp(1.5rem, 1.36rem + 0.75vw, 1.85rem);
+  --eruty-lead-size: clamp(1.08rem, 1rem + 0.4vw, 1.456rem);
+  --eruty-body-size: clamp(1.03rem, 0.96rem + 0.45vw, 1.3rem);
   --eruty-title-line-height: 1.1;
   --eruty-copy-line-height: 1.75;
   --eruty-title-letter-spacing: -0.04em;
@@ -24,10 +24,10 @@
   --eruty-section-space-compact: clamp(56px, 5.5vw, 88px);
   --eruty-section-content-gap: clamp(36px, 4vw, 56px);
   --eruty-section-heading-max: 760px;
-  --eruty-card-title-size: clamp(1.08rem, 1.4vw, 1.3rem);
-  --eruty-card-body-size: 0.95rem;
-  --eruty-body-small-size: 0.875rem;
-  --eruty-meta-size: 0.76rem;
+  --eruty-card-title-size: clamp(1.2rem, 1.06rem + 0.65vw, 1.69rem);
+  --eruty-card-body-size: clamp(1.02rem, 0.96rem + 0.28vw, 1.235rem);
+  --eruty-body-small-size: clamp(0.96rem, 0.9rem + 0.25vw, 1.1375rem);
+  --eruty-meta-size: clamp(0.8rem, 0.76rem + 0.18vw, 0.988rem);
 
   --background: #FFFFFF;
   --foreground: #18191B;
@@ -66,6 +66,12 @@
   --sidebar-accent-foreground: #18191B;
   --sidebar-border: #E4E6EA;
   --sidebar-ring: rgba(55, 55, 242, 0.3);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --font-size: 15.3px;
+  }
 }
 
 .dark {
@@ -154,7 +160,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: var(--eruty-body-size);
     line-height: 1.6;
   }
 
@@ -216,12 +222,12 @@
 
 @layer utilities {
   .text-xs {
-    font-size: 0.8125rem;
+    font-size: 1.05625rem;
     line-height: 1.45;
   }
 
   .text-sm {
-    font-size: 0.9375rem;
+    font-size: 1.21875rem;
     line-height: 1.55;
   }
 
@@ -391,14 +397,14 @@
 
   .eruty-eyebrow-en {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.936rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
   .eruty-eyebrow-ko {
     font-family: var(--font-body);
-    font-size: 0.78rem;
+    font-size: 1.014rem;
     letter-spacing: -0.01em;
   }
 

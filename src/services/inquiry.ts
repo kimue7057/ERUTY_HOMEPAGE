@@ -3,12 +3,6 @@ import type {
   InquiryTypeSlug,
 } from "../app/data/inquiryOptions";
 
-export interface InquiryAttachment {
-  name: string;
-  size: number;
-  type: string;
-}
-
 export interface InquirySubmissionPayload {
   service: InquiryService;
   inquiryType: InquiryTypeSlug;
@@ -21,37 +15,59 @@ export interface InquirySubmissionPayload {
   timeline: string;
   budget: string;
   consent: boolean;
-  attachment?: InquiryAttachment | null;
+  attachment?: File | null;
 }
 
 export interface InquirySubmissionResult {
   success: true;
   referenceId: string;
-  mode: "mock";
-}
-
-const MOCK_DELAY_MS = 1100;
-
-function shouldUseMockSubmission() {
-  return import.meta.env.VITE_ENABLE_MOCK_SUBMISSIONS !== "false";
+  deliveryId: string;
+  mode: "live";
 }
 
 export async function submitInquiry(
   payload: InquirySubmissionPayload,
 ): Promise<InquirySubmissionResult> {
-  if (!shouldUseMockSubmission()) {
-    throw new Error("Inquiry API is not configured yet.");
+  const formData = new FormData();
+  formData.set("service", payload.service);
+  formData.set("inquiryType", payload.inquiryType);
+  formData.set("organization", payload.organization);
+  formData.set("contactName", payload.contactName);
+  formData.set("email", payload.email);
+  formData.set("country", payload.country);
+  formData.set("projectSummary", payload.projectSummary);
+  formData.set("targetMarket", payload.targetMarket);
+  formData.set("timeline", payload.timeline);
+  formData.set("budget", payload.budget);
+  formData.set("consent", String(payload.consent));
+
+  if (payload.attachment) {
+    formData.set("attachment", payload.attachment, payload.attachment.name);
   }
 
-  await new Promise((resolve) => window.setTimeout(resolve, MOCK_DELAY_MS));
+  const response = await fetch("/api/inquiries", {
+    method: "POST",
+    body: formData,
+  });
+  const responseBody = await response.text();
+  let result: InquirySubmissionResult | { success: false; message?: string } | null = null;
 
-  if (payload.email.toLowerCase().includes("fail")) {
-    throw new Error("Mock inquiry submission failed. Try another email to simulate success.");
+  if (responseBody) {
+    try {
+      result = JSON.parse(responseBody) as InquirySubmissionResult | { success: false; message?: string };
+    } catch {
+      throw new Error("INQUIRY_API_INVALID_RESPONSE");
+    }
   }
 
-  return {
-    success: true,
-    referenceId: `INQ-${Date.now()}`,
-    mode: "mock",
-  };
+  if (!result) {
+    throw new Error("INQUIRY_API_EMPTY_RESPONSE");
+  }
+  if (!response.ok || !result.success) {
+    throw new Error("message" in result && result.message
+      ? result.message
+      : "Inquiry submission failed.");
+  }
+
+  return result;
 }

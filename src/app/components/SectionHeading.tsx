@@ -20,12 +20,10 @@ function isKoreanEyebrow(eyebrow: ReactNode, lang?: "ko" | "en") {
 export function SectionHeading({
   eyebrow,
   title,
-  description,
   align = "left",
   inverse = false,
   lang,
   titleId,
-  action,
   className = "",
   compact = false,
 }: SectionHeadingProps) {
@@ -45,12 +43,12 @@ export function SectionHeading({
           {title}
         </h2>
       </div>
-      {description || action ? (
+      {/* {description || action ? (
         <div className="eruty-section-heading__details">
           {description ? <div className="eruty-section-heading__description eruty-body">{description}</div> : null}
           {action ? <div className="eruty-section-heading__action">{action}</div> : null}
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 }

@@ -54,7 +54,7 @@ export function HitpickPartnerNetwork() {
             <PartnerRoleRow items={t.partnerCategories} />
             <PartnerRoleRow items={middleRow} reverse />
             <PartnerRoleRow items={t.partnerCategories} />
-            <p>{t.partnerAssetNotice}</p>
+            {/* <p>{t.partnerAssetNotice}</p> */}
           </div>
         )}
 

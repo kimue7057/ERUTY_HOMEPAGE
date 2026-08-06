@@ -171,7 +171,7 @@ export function HitpickExecution() {
               >
                 <figure>
                   <img src={step.visual} alt={step.visualAlt[lang]} loading={index > 1 ? "lazy" : "eager"} />
-                  <figcaption>{lang === "ko" ? "서비스 구조 설명용 목업" : "Illustrative service mockup"}</figcaption>
+                  {/* <figcaption>{lang === "ko" ? "서비스 구조 설명용 목업" : "Illustrative service mockup"}</figcaption> */}
                 </figure>
                 <div className="hp-card-body">
                   <span className="hp-card-number">{step.num}</span>

@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router";
-import { ArrowUpRight, X, Search, Upload, CheckCircle, ChevronRight, AlertCircle } from "lucide-react";
+import { ArrowUpRight, X, Search, Upload, Check, CheckCircle, ChevronRight, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../../context/LanguageContext";
 import { openPositions as _openPositions } from "../../data/openPositions";
@@ -16,8 +15,7 @@ const BODY_TEXT = "#333438";
 const MUTED = "#737780";
 const BORDER = "#E4E6EA";
 const SOFT_BG = "#F5F6F8";
-const CAREER_MAX_UPLOAD_MB = 10;
-const CAREERS_MOCK_ENABLED = import.meta.env.VITE_ENABLE_MOCK_SUBMISSIONS !== "false";
+const CAREER_MAX_UPLOAD_MB = 3;
 
 // ── 번역 ──────────────────────────────────────────────────────────────────────
 
@@ -39,12 +37,21 @@ const T = {
     what02Headline: "AI로 업무와 사업을\n전환합니다",
     what02Desc: "기업과 기관의 AI 전환을 돕는 교육·솔루션 사업입니다. AX 교육 프로그램부터 업무 자동화 소프트웨어까지 실행 가능한 형태로 공급합니다.",
     what02Tags: ["AX 교육", "AI 소프트웨어", "업무 자동화", "공공기관 납품"],
-    whatAreas: [
-      { label: "글로벌 비즈니스", desc: "시장 전략 & 파트너십" },
-      { label: "콘텐츠·파트너십", desc: "IP & 배급" },
+    what01Areas: [
+      { label: "글로벌 사업 전략", desc: "시장 진입 & 파트너십" },
+      { label: "시장 검증", desc: "데이터 & 수요 분석" },
+      { label: "콘텐츠 IP", desc: "투자 & 공동제작" },
+      { label: "글로벌 유통", desc: "배급 & 수출" },
+      { label: "브랜드 커머스", desc: "판매 & 성장" },
+      { label: "크리에이터 협업", desc: "마케팅 & 수요 창출" },
+    ],
+    what02Areas: [
+      { label: "AX 전략·교육", desc: "진단 & 전환 교육" },
       { label: "AI·데이터", desc: "연구 & 인텔리전스" },
-      { label: "소프트웨어", desc: "제품 & 플랫폼" },
-      { label: "블록체인·인프라", desc: "IP 권리 & 시스템" },
+      { label: "AI 소프트웨어", desc: "제품 & 시스템" },
+      { label: "업무 자동화", desc: "워크플로 & 에이전트" },
+      { label: "운영 최적화", desc: "모니터링 & 지속 개선" },
+      { label: "공공·기관 구축", desc: "납품 & 운영" },
     ],
     cultureLabel: "Culture",
     cultureHeadline: "우리가 일하는 방식",
@@ -98,7 +105,7 @@ const T = {
     fieldCareer: "경력 구분",
     fieldIntro: "자기소개",
     fieldFile: "포트폴리오 또는 이력서",
-    fileHint: "파일 첨부 (PDF, DOC, ZIP · 최대 10MB)",
+    fileHint: "파일 첨부 (PDF, DOC, ZIP · 최대 3MB)",
     consentText: "개인정보 수집 및 이용에 동의합니다. 수집된 정보는 채용 목적으로만 사용되며, 검토 후 6개월 이내 파기됩니다.",
     submitBtn: "상시 지원하기",
     submittingBtn: "제출 중...",
@@ -152,12 +159,21 @@ const T = {
     what02Headline: "Transforming Work and\nBusiness with AI",
     what02Desc: "An education and solution business helping companies and institutions with AI transformation. We supply AX training programs and workflow automation software in actionable form.",
     what02Tags: ["AX Training", "AI Software", "Workflow Automation", "Public Sector Delivery"],
-    whatAreas: [
-      { label: "Global Business", desc: "Market Strategy & Partnerships" },
-      { label: "Content · Partnership", desc: "IP & Distribution" },
+    what01Areas: [
+      { label: "Global Strategy", desc: "Market Entry & Partnerships" },
+      { label: "Market Validation", desc: "Data & Demand Analysis" },
+      { label: "Content IP", desc: "Investment & Co-production" },
+      { label: "Global Distribution", desc: "Distribution & Export" },
+      { label: "Brand Commerce", desc: "Sales & Growth" },
+      { label: "Creator Collaboration", desc: "Marketing & Demand" },
+    ],
+    what02Areas: [
+      { label: "AX Strategy · Training", desc: "Diagnosis & Education" },
       { label: "AI · Data", desc: "Research & Intelligence" },
-      { label: "Software", desc: "Product & Platform" },
-      { label: "Blockchain · Infrastructure", desc: "IP Rights & Systems" },
+      { label: "AI Software", desc: "Products & Systems" },
+      { label: "Workflow Automation", desc: "Workflows & Agents" },
+      { label: "Operations Optimization", desc: "Monitoring & Improvement" },
+      { label: "Public Sector Delivery", desc: "Deployment & Operations" },
     ],
     cultureLabel: "Culture",
     cultureHeadline: "How We Work",
@@ -211,7 +227,7 @@ const T = {
     fieldCareer: "Career Level",
     fieldIntro: "Introduction",
     fieldFile: "Portfolio or Resume",
-    fileHint: "Attach file (PDF, DOC, ZIP · max 10MB)",
+    fileHint: "Attach file (PDF, DOC, ZIP · max 3MB)",
     consentText: "I agree to the collection and use of personal information. The information will only be used for recruitment purposes and will be deleted within 6 months after review.",
     submitBtn: "Submit Application",
     submittingBtn: "Submitting...",
@@ -272,29 +288,29 @@ function HeroSection() {
         <PageHeading
           eyebrow={t.heroLabel}
           title={t.heroHeadline}
-          description={t.heroDesc}
+          // description={t.heroDesc}
           align="center"
           lang={lang}
-          actions={
-            <div className="flex flex-wrap gap-3">
-              <button
-                onClick={() => scrollTo("open-positions")}
-                className="inline-flex min-h-12 items-center gap-2 px-7 py-3 text-sm transition-all cursor-pointer"
-                style={{ background: BLUE, color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500, border: "none" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#2828d4"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = BLUE; }}>
-                {t.heroBtn1} <ArrowUpRight size={14} />
-              </button>
-              <button
-                onClick={() => scrollTo("general-application")}
-                className="inline-flex min-h-12 items-center gap-2 px-5 py-3 text-sm transition-all cursor-pointer"
-                style={{ color: BLUE, fontFamily: "var(--font-body)", fontWeight: 500, background: "transparent", border: "none" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.7"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}>
-                {t.heroBtn2} <ChevronRight size={14} />
-              </button>
-            </div>
-          }
+          // actions={
+          //   <div className="flex flex-wrap gap-3">
+          //     <button
+          //       onClick={() => scrollTo("open-positions")}
+          //       className="inline-flex min-h-12 items-center gap-2 px-7 py-3 text-sm transition-all cursor-pointer"
+          //       style={{ background: BLUE, color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500, border: "none" }}
+          //       onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#2828d4"; }}
+          //       onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = BLUE; }}>
+          //       {t.heroBtn1} <ArrowUpRight size={14} />
+          //     </button>
+          //     <button
+          //       onClick={() => scrollTo("general-application")}
+          //       className="inline-flex min-h-12 items-center gap-2 px-5 py-3 text-sm transition-all cursor-pointer"
+          //       style={{ color: BLUE, fontFamily: "var(--font-body)", fontWeight: 500, background: "transparent", border: "none" }}
+          //       onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.7"; }}
+          //       onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}>
+          //       {t.heroBtn2} <ChevronRight size={14} />
+          //     </button>
+          //   </div>
+          // }
         />
 
         <div className="mt-12 flex flex-wrap justify-center gap-2 border-t pt-7" style={{ borderColor: BORDER }}>
@@ -312,6 +328,27 @@ function HeroSection() {
 function WhatWeBuildSection() {
   const { lang } = useLanguage();
   const t = T[lang];
+  const [selectedProject, setSelectedProject] = useState<"01" | "02">("01");
+  const projects = [
+    {
+      id: "01" as const,
+      label: t.what01Label,
+      headline: t.what01Headline,
+      description: t.what01Desc,
+      tags: t.what01Tags,
+      areas: t.what01Areas,
+    },
+    {
+      id: "02" as const,
+      label: t.what02Label,
+      headline: t.what02Headline,
+      description: t.what02Desc,
+      tags: t.what02Tags,
+      areas: t.what02Areas,
+    },
+  ];
+  const selectedAreas = projects.find((project) => project.id === selectedProject)?.areas ?? t.what01Areas;
+
   return (
     <section className="eruty-section" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
       <div className="eruty-container">
@@ -319,42 +356,70 @@ function WhatWeBuildSection() {
 
         {/* 두 사업 분야 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-px mb-px" style={{ background: BORDER }}>
-          <div className="p-10" style={{ background: NEAR_BLACK }}>
-            <div className="eruty-meta mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>{t.what01Label}</div>
-            <h3 className="eruty-card-title mb-5" style={{ color: "#FFFFFF" }}>
-              {t.what01Headline.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </h3>
-            <p className="eruty-body-small" style={{ color: "rgba(255,255,255,0.6)" }}>{t.what01Desc}</p>
-            <div className="flex flex-wrap gap-2 mt-6">
-              {t.what01Tags.map((tag) => (
-                <span key={tag} className="eruty-meta px-2.5 py-1" style={{ border: "1px solid rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.5)" }}>{tag}</span>
-              ))}
-            </div>
-          </div>
-          <div className="p-10" style={{ background: "#FFFFFF" }}>
-            <div className="eruty-meta mb-4" style={{ color: MUTED }}>{t.what02Label}</div>
-            <h3 className="eruty-card-title mb-5" style={{ color: NEAR_BLACK }}>
-              {t.what02Headline.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </h3>
-            <p className="eruty-body-small" style={{ color: MUTED }}>{t.what02Desc}</p>
-            <div className="flex flex-wrap gap-2 mt-6">
-              {t.what02Tags.map((tag) => (
-                <span key={tag} className="eruty-meta px-2.5 py-1" style={{ border: `1px solid ${BORDER}`, color: MUTED }}>{tag}</span>
-              ))}
-            </div>
-          </div>
+          {projects.map((project) => {
+            const isSelected = selectedProject === project.id;
+
+            return (
+              <button
+                key={project.id}
+                type="button"
+                aria-pressed={isSelected}
+                onClick={() => setSelectedProject(project.id)}
+                className="relative cursor-pointer p-10 text-left"
+                style={{ background: isSelected ? NEAR_BLACK : "#FFFFFF" }}
+              >
+                {!isSelected ? (
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    size={18}
+                    className="absolute right-6 top-6 sm:right-8 sm:top-8"
+                    style={{ color: BLUE }}
+                  />
+                ) : null}
+                <div className="eruty-meta mb-4" style={{ color: isSelected ? "rgba(255,255,255,0.4)" : MUTED }}>
+                  {project.label}
+                </div>
+                <h3 className="eruty-card-title mb-5 pr-8" style={{ color: isSelected ? "#FFFFFF" : NEAR_BLACK }}>
+                  {project.headline.split("\n").map((line, index, lines) => (
+                    <span key={`${project.id}-${line}`}>{line}{index < lines.length - 1 && <br />}</span>
+                  ))}
+                </h3>
+                <p className="eruty-body-small" style={{ color: isSelected ? "rgba(255,255,255,0.6)" : MUTED }}>
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="eruty-meta px-2.5 py-1"
+                      style={{
+                        border: `1px solid ${isSelected ? "rgba(255,255,255,0.2)" : BORDER}`,
+                        color: isSelected ? "rgba(255,255,255,0.5)" : MUTED,
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </button>
+            );
+          })}
         </div>
 
         {/* 역량 영역 */}
-        <div className="flex gap-px" style={{ background: BORDER }}>
-          {t.whatAreas.map((area) => (
-            <div key={area.label} className="flex-1 min-w-0 p-5" style={{ background: "#FFFFFF" }}>
-              <div className="eruty-body-small mb-1 truncate" style={{ color: NEAR_BLACK, fontWeight: 600 }}>{area.label}</div>
-              <div className="eruty-meta truncate" style={{ color: MUTED }}>{area.desc}</div>
+        <div className="grid grid-cols-2 gap-px sm:grid-cols-3 lg:grid-cols-6" style={{ background: BORDER }}>
+          {selectedAreas.map((area, index) => (
+            <div
+              key={area.label}
+              className={`flex min-h-[5.5rem] min-w-0 flex-col justify-center p-4 sm:p-5 ${
+                selectedAreas.length % 2 === 1 && index === selectedAreas.length - 1
+                  ? "col-span-2 sm:col-span-1"
+                  : ""
+              }`}
+              style={{ background: "#FFFFFF" }}
+            >
+              <div className="eruty-body-small eruty-keep-all mb-1" style={{ color: NEAR_BLACK, fontWeight: 600 }}>{area.label}</div>
+              <div className="eruty-meta eruty-keep-all" style={{ color: MUTED, lineHeight: 1.45 }}>{area.desc}</div>
             </div>
           ))}
         </div>
@@ -379,24 +444,24 @@ function HowWeWorkSection() {
             <div key={i}
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(null)}
-              className="grid grid-cols-12 items-center transition-all"
+              className="grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-x-3 gap-y-1.5 px-4 py-4 transition-all md:grid-cols-12 md:items-center md:gap-0 md:p-0"
               style={{ background: hovered === i ? SOFT_BG : "#FFFFFF", cursor: "default" }}>
-              <div className="col-span-12 md:col-span-1 p-6">
+              <div className="pt-0.5 md:col-span-1 md:p-6">
                 <span className="eruty-meta eruty-meta--code" style={{ color: BLUE }}>{p.num}</span>
               </div>
-              <div className="col-span-12 md:col-span-4 p-6">
+              <div className="min-w-0 md:col-span-4 md:p-6">
                 <div className="eruty-card-title" style={{ color: NEAR_BLACK }}>{p.title}</div>
               </div>
-              <div className="col-span-12 md:col-span-7 p-6">
+              <div className="col-start-2 min-w-0 md:col-span-7 md:col-start-auto md:p-6">
                 <p className="eruty-body-small" style={{ color: BODY_TEXT, maxWidth: 560 }}>{p.desc}</p>
               </div>
             </div>
           ))}
         </div>
 
-        <p className="eruty-body-small mt-6" style={{ color: MUTED, fontStyle: "italic" }}>
+        {/* <p className="eruty-body-small mt-6" style={{ color: MUTED, fontStyle: "italic" }}>
           {t.cultureNote}
-        </p>
+        </p> */}
       </div>
     </section>
   );
@@ -612,19 +677,25 @@ function ProcessSection() {
       <div className="eruty-container">
         <SectionHeading eyebrow={t.processLabel} title={t.processHeadline} align="split" lang={lang} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-5 gap-px" style={{ background: BORDER }}>
+        <div className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-5" style={{ background: BORDER }}>
           {t.processSteps.map((s, i) => (
-            <div key={i} className="p-7 flex flex-col gap-4" style={{ background: "#FFFFFF" }}>
+            <div
+              key={i}
+              className="grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-x-3 p-4 sm:flex sm:flex-col sm:gap-4 sm:p-7 sm:last:col-span-2 lg:last:col-span-1"
+              style={{ background: "#FFFFFF" }}
+            >
               <div className="eruty-meta eruty-meta--code" style={{ color: BLUE }}>{s.num}</div>
-              <div className="eruty-card-title" style={{ color: NEAR_BLACK }}>{s.title}</div>
-              <p className="eruty-body-small" style={{ color: MUTED }}>{s.desc}</p>
+              <div className="flex min-w-0 flex-col gap-1.5 sm:gap-4">
+                <div className="eruty-card-title" style={{ color: NEAR_BLACK }}>{s.title}</div>
+                <p className="eruty-body-small" style={{ color: MUTED }}>{s.desc}</p>
+              </div>
             </div>
           ))}
         </div>
 
-        <p className="eruty-body-small mt-5" style={{ color: MUTED }}>
+        {/* <p className="eruty-body-small mt-5" style={{ color: MUTED }}>
           {t.processNote}
-        </p>
+        </p> */}
       </div>
     </section>
   );
@@ -667,14 +738,13 @@ function ApplicationSection() {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [submissionError, setSubmissionError] = useState("");
-  const mockLabel = lang === "ko" ? "개발 모드 · Mock Careers Service" : "Development mode · Mock Careers Service";
-  const mockDesc = lang === "ko"
-    ? "현재 채용 지원 제출은 mock 응답으로 동작합니다. 실제 API는 src/services/careers.ts에서 교체할 수 있습니다."
-    : "Submissions currently use a mock response. Replace the API implementation later in src/services/careers.ts.";
   const failureTitle = lang === "ko" ? "지원서 전송에 실패했습니다." : "We couldn't send the application.";
   const fallbackFailureBody = lang === "ko"
-    ? "잠시 후 다시 시도하거나 다른 이메일 주소로 테스트해 주세요."
-    : "Please try again in a moment or use another email for mock testing.";
+    ? "잠시 후 다시 시도해 주세요. 문제가 계속되면 채용 담당자에게 문의해 주세요."
+    : "Please try again shortly. Contact the recruiting team if the problem continues.";
+  const consentWords = t.consentText.trim().split(" ");
+  const consentLastWord = consentWords.pop() ?? "";
+  const consentPrefix = consentWords.join(" ");
 
   function set(field: keyof FormState, value: string | boolean | File | null) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -722,14 +792,12 @@ function ApplicationSection() {
         careerLevel: form.careerLevel,
         introduction: form.intro,
         consent: form.consent,
-        attachment: form.file ? { name: form.file.name, size: form.file.size, type: form.file.type } : null,
+        attachment: form.file,
       });
       setStatus("success");
-    } catch (error) {
+    } catch {
       setStatus("error");
-      setSubmissionError(
-        error instanceof Error ? error.message : fallbackFailureBody,
-      );
+      setSubmissionError(fallbackFailureBody);
     }
   }
 
@@ -741,7 +809,7 @@ function ApplicationSection() {
   }
 
   const inputStyle = (hasError?: string): React.CSSProperties => ({
-    width: "100%", padding: "12px 14px", fontSize: "0.9rem",
+    width: "100%", padding: "12px 14px", fontSize: "1.17rem",
     border: `1px solid ${hasError ? "#EF4444" : BORDER}`,
     background: "#FFFFFF", color: NEAR_BLACK, fontFamily: "var(--font-body)", outline: "none",
   });
@@ -762,16 +830,6 @@ function ApplicationSection() {
     <section id="general-application" className="eruty-section" style={{ background: SOFT_BG, borderBottom: `1px solid ${BORDER}` }}>
       <div className="eruty-container">
         <SectionHeading eyebrow={t.appLabel} title={t.appHeadline} description={t.appDesc} align="left" lang={lang} />
-        {CAREERS_MOCK_ENABLED ? (
-          <div className="mb-6 border px-4 py-3" style={{ borderColor: BORDER, background: "#FFFFFF" }}>
-            <div className={`eruty-meta mb-1 ${lang === "en" ? "eruty-meta--code" : ""}`} style={{ color: BLUE }}>
-              {mockLabel}
-            </div>
-            <p className="eruty-body-small" style={{ color: MUTED }}>
-              {mockDesc}
-            </p>
-          </div>
-        ) : null}
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <div className="lg:col-span-7">
@@ -796,17 +854,6 @@ function ApplicationSection() {
                 </motion.div>
               ) : (
                 <motion.form key="form" onSubmit={handleSubmit} noValidate className="flex flex-col gap-5" style={{ background: "#FFFFFF", border: `1px solid ${BORDER}`, padding: 32 }}>
-                  {status === "error" ? (
-                    <div className="border px-4 py-3" style={{ borderColor: "#FCA5A5", background: "#FEF2F2" }}>
-                      <div className="mb-1 flex items-center gap-2 text-sm" style={{ color: "#991B1B", fontWeight: 600 }}>
-                        <AlertCircle size={14} />
-                        {failureTitle}
-                      </div>
-                      <p className="text-sm" style={{ color: "#B91C1C", lineHeight: 1.6 }}>
-                        {submissionError || fallbackFailureBody}
-                      </p>
-                    </div>
-                  ) : null}
                   {/* 이름 + 이메일 */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
@@ -889,18 +936,39 @@ function ApplicationSection() {
                   {/* 개인정보 동의 */}
                   <div>
                     <label className="flex items-start gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={form.consent}
+                        onChange={(event) => set("consent", event.target.checked)}
+                        className="peer sr-only"
+                      />
                       <div
-                        onClick={() => set("consent", !form.consent)}
-                        className="w-4 h-4 flex-shrink-0 mt-0.5 flex items-center justify-center transition-all"
-                        style={{ border: `1.5px solid ${errors.consent ? "#EF4444" : form.consent ? BLUE : BORDER}`, background: form.consent ? BLUE : "transparent", cursor: "pointer" }}>
-                        {form.consent && <CheckCircle size={10} style={{ color: "#FFFFFF" }} />}
+                        aria-hidden="true"
+                        className="mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center transition-all peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#3737F2]"
+                        style={{ border: `1.5px solid ${errors.consent ? "#EF4444" : form.consent ? BLUE : BORDER}`, background: form.consent ? BLUE : "transparent" }}>
+                        {form.consent ? <Check size={11} strokeWidth={3} style={{ color: "#FFFFFF" }} /> : null}
                       </div>
                       <span className="text-xs" style={{ color: MUTED, lineHeight: 1.6 }}>
-                        {t.consentText} <span style={{ color: "#EF4444" }}>*</span>
+                        {consentPrefix}{" "}
+                        <span className="whitespace-nowrap">
+                          {consentLastWord} <span style={{ color: "#EF4444" }}>*</span>
+                        </span>
                       </span>
                     </label>
                     {errorMsg(errors.consent)}
                   </div>
+
+                  {status === "error" ? (
+                    <div className="border px-4 py-3" role="alert" style={{ borderColor: "#FCA5A5", background: "#FEF2F2" }}>
+                      <div className="mb-1 flex items-center gap-2 text-sm" style={{ color: "#991B1B", fontWeight: 600 }}>
+                        <AlertCircle size={14} />
+                        {failureTitle}
+                      </div>
+                      <p className="text-sm" style={{ color: "#B91C1C", lineHeight: 1.6 }}>
+                        {submissionError || fallbackFailureBody}
+                      </p>
+                    </div>
+                  ) : null}
 
                   {/* 제출 버튼 */}
                   <button
@@ -925,7 +993,7 @@ function ApplicationSection() {
           {/* 사이드 안내 */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             <div className="p-7" style={{ background: "#FFFFFF", border: `1px solid ${BORDER}` }}>
-              <div className="eruty-meta mb-4" style={{ color: MUTED }}>{t.sideInfoLabel}</div>
+              <div className="eruty-meta mb-4" style={{ color: BLUE }}>{t.sideInfoLabel}</div>
               <div className="flex flex-col gap-4">
                 {t.sideInfoItems.map((item) => (
                   <div key={item.q}>
@@ -936,7 +1004,7 @@ function ApplicationSection() {
               </div>
             </div>
             <div className="p-7" style={{ background: "#FFFFFF", border: `1px solid ${BORDER}` }}>
-              <div className="eruty-meta mb-4" style={{ color: MUTED }}>{t.lookingForLabel}</div>
+              <div className="eruty-meta mb-4" style={{ color: BLUE }}>{t.lookingForLabel}</div>
               <div className="flex flex-col gap-2">
                 {t.lookingForItems.map((item) => (
                   <div key={item} className="eruty-body-small flex items-start gap-2" style={{ color: BODY_TEXT }}>
@@ -955,42 +1023,42 @@ function ApplicationSection() {
 
 // ── 최종 CTA ─────────────────────────────────────────────────────────────────
 
-function CtaSection() {
-  const { lang } = useLanguage();
-  const t = T[lang];
-  return (
-    <section className="eruty-section-compact" style={{ background: NEAR_BLACK }}>
-      <div className="eruty-container">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-          <div className="lg:col-span-7">
-            <h2 className="eruty-section-title" style={{ color: "#FFFFFF" }}>
-              {t.ctaHeadline.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </h2>
-          </div>
-          <div className="lg:col-span-5 flex flex-col sm:flex-row gap-3 lg:justify-end lg:pb-1">
-            <button
-              onClick={() => scrollTo("general-application")}
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm transition-all cursor-pointer"
-              style={{ background: BLUE, color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500, border: "none" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#2828d4"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = BLUE; }}>
-              {t.ctaBtn1} <ArrowUpRight size={14} />
-            </button>
-            <Link to="/company/about"
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm transition-all"
-              style={{ border: "1px solid rgba(255,255,255,0.2)", color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500 }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.5)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.2)"; }}>
-              {t.ctaBtn2}
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+// function CtaSection() {
+//   const { lang } = useLanguage();
+//   const t = T[lang];
+//   return (
+//     <section className="eruty-section-compact" style={{ background: NEAR_BLACK }}>
+//       <div className="eruty-container">
+//         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+//           <div className="lg:col-span-7">
+//             <h2 className="eruty-section-title" style={{ color: "#FFFFFF" }}>
+//               {t.ctaHeadline.split("\n").map((line, i, arr) => (
+//                 <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+//               ))}
+//             </h2>
+//           </div>
+//           <div className="lg:col-span-5 flex flex-col sm:flex-row gap-3 lg:justify-end lg:pb-1">
+//             <button
+//               onClick={() => scrollTo("general-application")}
+//               className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm transition-all cursor-pointer"
+//               style={{ background: BLUE, color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500, border: "none" }}
+//               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#2828d4"; }}
+//               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = BLUE; }}>
+//               {t.ctaBtn1} <ArrowUpRight size={14} />
+//             </button>
+//             <Link to="/company/about"
+//               className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm transition-all"
+//               style={{ border: "1px solid rgba(255,255,255,0.2)", color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500 }}
+//               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.5)"; }}
+//               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.2)"; }}>
+//               {t.ctaBtn2}
+//             </Link>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
 
 // ── 페이지 ────────────────────────────────────────────────────────────────────
 
@@ -1003,7 +1071,7 @@ export function CareersPage() {
       <PositionsSection />
       <ProcessSection />
       <ApplicationSection />
-      <CtaSection />
+      {/* <CtaSection /> */}
     </div>
   );
 }

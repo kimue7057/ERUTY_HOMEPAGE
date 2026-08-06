@@ -95,13 +95,13 @@
   display: inline-flex;
   min-height: 52px;
   padding: 14px 22px;
-  align-items: center;
+  align-items: end;
   justify-content: center;
   gap: 12px;
   border-radius: 5px;
   background: #3737f2;
   color: #fff;
-  font-size: 0.95rem;
+  font-size: 1.235rem;
   font-weight: 700;
   text-decoration: none;
   transition: transform 180ms ease, background 180ms ease;
@@ -304,7 +304,7 @@
   align-items: baseline;
   justify-content: center;
   gap: 9px;
-  font-size: 0.7rem;
+  font-size: 0.91rem;
   font-weight: 700;
   letter-spacing: 0.035em;
 }
@@ -326,7 +326,7 @@
   display: block;
   margin-top: 5px;
   overflow: hidden;
-  font-size: 0.7rem;
+  font-size: 0.91rem;
   font-weight: 500;
   line-height: 1.35;
   text-overflow: ellipsis;
@@ -344,16 +344,23 @@
 
 .hp-intro-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(380px, 0.75fr);
+  grid-template-columns: max-content 680px;
   align-items: end;
-  gap: clamp(72px, 10vw, 170px);
+  justify-content: space-between;
+  gap: clamp(56px, 6vw, 96px);
+}
+
+.hp-intro-copy {
+  min-width: 680px;
+  align-self: end;
 }
 
 .hp-intro-copy p {
-  margin: 0 0 32px;
+  margin: 0;
   color: #50555f;
   font-size: var(--eruty-lead-size);
   line-height: var(--eruty-copy-line-height);
+  white-space: pre-line;
   word-break: keep-all;
 }
 
@@ -384,7 +391,7 @@
   grid-column: 1 / -1;
   color: #989da8;
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.858rem;
 }
 
 .hp-process-icon {
@@ -399,7 +406,7 @@
 
 .hp-process strong {
   color: #20232a;
-  font-size: 0.96rem;
+  font-size: 1.248rem;
 }
 
 .hp-process-check {
@@ -520,7 +527,7 @@
   background: rgba(8, 15, 30, 0.6);
   color: rgba(255, 255, 255, 0.82);
   font-family: var(--font-mono);
-  font-size: 0.58rem;
+  font-size: 0.754rem;
   backdrop-filter: blur(8px);
 }
 
@@ -532,7 +539,7 @@
 .hp-card-number {
   color: #3737f2;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 1.014rem;
   font-weight: 760;
 }
 
@@ -569,7 +576,7 @@
   border-radius: 4px;
   background: #f0f2f7;
   color: #424751;
-  font-size: 0.76rem;
+  font-size: 0.988rem;
   font-weight: 650;
 }
 
@@ -586,7 +593,7 @@
   gap: 14px;
   color: #777d88;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.884rem;
 }
 
 .hp-progress > div {
@@ -655,7 +662,7 @@
 .hp-tech-index {
   color: rgba(255, 255, 255, 0.32);
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.858rem;
 }
 
 .hp-tech-icon {
@@ -694,9 +701,9 @@
 .hp-blockchain-grid {
   display: grid;
   max-width: 1540px;
-  grid-template-columns: minmax(430px, 0.78fr) minmax(760px, 1.42fr);
+  grid-template-columns: minmax(470px, 0.9fr) minmax(700px, 1.3fr);
   align-items: center;
-  gap: clamp(44px, 3.6vw, 68px);
+  gap: clamp(20px, 3.2vw, 56px);
 }
 
 .hp-blockchain-copy {
@@ -754,6 +761,23 @@
   word-break: keep-all;
 }
 
+.hp-blockchain-copy-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 20px;
+}
+
+.hp-blockchain-copy-detail-main {
+  min-width: 0;
+}
+
+.hp-blockchain-copy-detail .hp-blockchain-link {
+  width: auto;
+  align-self: end;
+  white-space: nowrap;
+}
+
 .hp-blockchain-keywords {
   display: flex;
   margin: 0 0 32px;
@@ -761,6 +785,10 @@
   flex-wrap: wrap;
   gap: 8px;
   list-style: none;
+}
+
+.hp-blockchain-copy-detail .hp-blockchain-keywords {
+  margin-bottom: 0;
 }
 
 .hp-blockchain-keywords li {
@@ -772,7 +800,7 @@
   border-radius: 999px;
   background: #f7faff;
   color: #476386;
-  font-size: 0.72rem;
+  font-size: 0.936rem;
   font-weight: 680;
   letter-spacing: -0.015em;
 }
@@ -788,7 +816,7 @@
   border-radius: 7px;
   background: rgba(255, 255, 255, 0.84);
   color: #235fcf;
-  font-size: 0.9rem;
+  font-size: 1.17rem;
   font-weight: 720;
   text-decoration: none;
   transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease;
@@ -949,7 +977,7 @@
   
   color: #dce9ff;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 1.04rem;
   font-weight: 760;
   letter-spacing: 0.075em;
 }
@@ -957,7 +985,7 @@
 .hp-trust-track-header p {
   
   color: rgba(217, 230, 249, 0.6);
-  font-size: 0.7rem;
+  font-size: 0.91rem;
   line-height: 1.55;
   text-align: right;
   word-break: keep-all;
@@ -1064,7 +1092,7 @@
   box-shadow: 0 0 0 5px rgba(7, 28, 56, 0.92);
   color: rgba(220, 235, 255, 0.72);
   font-family: var(--font-mono);
-  font-size: 0.59rem;
+  font-size: 0.767rem;
   font-weight: 760;
   transform: translateX(-50%);
   transition: border-color 240ms ease, background 240ms ease, box-shadow 240ms ease, color 240ms ease;
@@ -1103,7 +1131,7 @@
 .hp-trust-card strong {
   min-height: 2.55em;
   color: rgba(255, 255, 255, 0.91);
-  font-size: 0.75rem;
+  font-size: 0.975rem;
   font-weight: 720;
   line-height: 1.28;
   word-break: keep-all;
@@ -1113,7 +1141,7 @@
   display: block;
   margin-top: 5px;
   color: rgba(215, 228, 247, 0.55);
-  font-size: 0.63rem;
+  font-size: 0.819rem;
   line-height: 1.45;
   word-break: keep-all;
 }
@@ -1129,7 +1157,7 @@
   border-radius: 999px;
   background: rgba(10, 35, 67, 0.76);
   color: rgba(202, 220, 244, 0.62);
-  font-size: 0.55rem;
+  font-size: 0.715rem;
   font-weight: 690;
   line-height: 1;
   white-space: nowrap;
@@ -1239,7 +1267,7 @@
 .hp-verification-record strong {
   color: #79bdff;
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.858rem;
   letter-spacing: 0.06em;
   white-space: nowrap;
 }
@@ -1261,7 +1289,7 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.035);
   color: rgba(221, 234, 251, 0.56);
-  font-size: 0.58rem;
+  font-size: 0.754rem;
   font-weight: 650;
   white-space: nowrap;
   transition: border-color 240ms ease, background 240ms ease, color 240ms ease, box-shadow 240ms ease;
@@ -1316,7 +1344,7 @@
   border-radius: 999px;
   background: #fff;
   color: #666b75;
-  font-size: 0.8rem;
+  font-size: 1.04rem;
 }
 
 .hp-region-tabs button.is-active,
@@ -1348,7 +1376,7 @@
   margin: 0 14px 18px;
   color: #8d929c;
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.806rem;
   font-weight: 760;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1379,14 +1407,14 @@
 }
 
 .hp-market-list button span {
-  font-size: 0.96rem;
+  font-size: 1.248rem;
   font-weight: 700;
 }
 
 .hp-market-list button small {
   margin-top: 4px;
   color: #9297a1;
-  font-size: 0.66rem;
+  font-size: 0.858rem;
 }
 
 .hp-signal-panel {
@@ -1411,7 +1439,7 @@
 .hp-signal-panel-header > div:first-child span {
   color: #3737f2;
   font-family: var(--font-mono);
-  font-size: 0.64rem;
+  font-size: 0.832rem;
   font-weight: 760;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1437,7 +1465,7 @@
   border-radius: 999px;
   background: #f4f6ff;
   color: #4c55c8;
-  font-size: 0.67rem;
+  font-size: 0.871rem;
   font-weight: 650;
 }
 
@@ -1462,7 +1490,7 @@
   min-height: 30px;
   color: #8e939d;
   font-family: var(--font-mono);
-  font-size: 0.59rem;
+  font-size: 0.767rem;
   font-weight: 760;
   line-height: 1.4;
 }
@@ -1473,7 +1501,7 @@
   align-items: flex-start;
   gap: 8px;
   color: #333842;
-  font-size: 0.86rem;
+  font-size: 1.118rem;
   font-weight: 660;
   line-height: 1.55;
   word-break: keep-all;
@@ -1516,12 +1544,12 @@
   display: block;
   margin-bottom: 8px;
   color: #8a8f99;
-  font-size: 0.68rem;
+  font-size: 0.884rem;
 }
 
 .hp-signal-categories strong {
   color: #242831;
-  font-size: 0.93rem;
+  font-size: 1.209rem;
   line-height: 1.55;
   word-break: keep-all;
 }
@@ -1623,7 +1651,7 @@
   
   padding: 17px 22px;
   color: #8a909a;
-  font-size: 0.72rem;
+  font-size: 0.936rem;
   text-align: center;
 }
 
@@ -1766,7 +1794,28 @@
   }
 
   .hp-blockchain-copy {
-    max-width: 720px;
+    display: grid;
+    max-width: none;
+    grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+    align-items: end;
+    gap: 32px;
+  }
+
+  .hp-blockchain-copy-heading,
+  .hp-blockchain-copy-detail {
+    min-width: 0;
+  }
+
+  .hp-blockchain-copy-detail {
+    align-self: end;
+  }
+
+  .hp-blockchain-copy-detail p {
+    margin: 0 0 12px;
+  }
+
+  .hp-blockchain-copy-detail .hp-blockchain-keywords {
+    margin-bottom: 0;
   }
 
   .hp-trust-panel {
@@ -1780,30 +1829,74 @@
   }
 
   .hp-intro-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
-    gap: 64px;
+    grid-template-columns: minmax(0, 1fr) minmax(460px, 0.95fr);
+    gap: 48px;
+  }
+
+  .hp-intro-copy {
+    min-width: 460px;
   }
 
   .hp-process {
-    overflow-x: auto;
-    grid-auto-columns: 220px;
-    grid-auto-flow: column;
-    grid-template-columns: none;
-    padding-bottom: 14px;
-    scroll-snap-type: x proximity;
+    overflow-x: visible;
+    grid-auto-columns: auto;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    padding-bottom: 0;
+    scroll-snap-type: none;
   }
 
   .hp-process li {
-    scroll-snap-align: start;
+    padding-inline: 16px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 10px;
+    scroll-snap-align: none;
+  }
+
+  .hp-process-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .hp-process-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .hp-process strong {
+    white-space: nowrap;
   }
 
   .hp-tech-flow {
-    display: flex;
-    overflow-x: auto;
+    display: grid;
+    overflow-x: visible;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .hp-tech-flow article {
-    min-width: 250px;
+    min-width: 0;
+    min-height: 230px;
+    padding: 24px 16px;
+  }
+
+  .hp-tech-icon {
+    width: 44px;
+    height: 44px;
+    margin: 28px 0 20px;
+  }
+
+  .hp-tech-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .hp-tech-flow h3 {
+    font-size: 1.3rem;
+  }
+
+  .hp-tech-flow p {
+    font-size: 1.014rem;
+    line-height: 1.58;
   }
 
   .hp-blockchain-grid {
@@ -1811,7 +1904,29 @@
   }
 
   .hp-blockchain-copy {
-    max-width: 720px;
+    display: grid;
+    max-width: none;
+    grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+    align-items: end;
+    gap: 32px;
+  }
+
+  .hp-blockchain-copy-heading,
+  .hp-blockchain-copy-detail {
+    min-width: 0;
+  }
+
+  .hp-blockchain-copy-detail {
+    display: block;
+    align-self: end;
+  }
+
+  .hp-blockchain-copy-detail p {
+    margin: 0 0 12px;
+  }
+
+  .hp-blockchain-copy-detail .hp-blockchain-keywords {
+    margin-bottom: 0;
   }
 
   .hp-trust-panel {
@@ -1837,6 +1952,67 @@
   .hp-metrics article {
     padding-inline: 30px;
     gap: 18px;
+  }
+}
+
+@media (max-width: 900px) {
+  .hp-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .hp-intro-copy {
+    min-width: 0;
+    align-self: auto;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1299px) {
+  .hp-blockchain-copy-detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 18px;
+  }
+
+  .hp-blockchain-copy-detail-main {
+    min-width: 0;
+  }
+
+  .hp-blockchain-copy-detail .hp-blockchain-link {
+    width: auto;
+    align-self: end;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1299px) {
+  .hp-blockchain-copy {
+    grid-template-rows: auto auto;
+    align-items: start;
+    row-gap: 16px;
+  }
+
+  .hp-blockchain-copy-heading {
+    display: contents;
+  }
+
+  .hp-blockchain-copy-heading .hp-eyebrow {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+  }
+
+  .hp-blockchain-copy h2 {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+  }
+
+  .hp-blockchain-copy-detail {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
   }
 }
 
@@ -1918,7 +2094,7 @@
 
   .hp-hero-copy > p {
     margin-top: 16px;
-    font-size: 0.9rem;
+    font-size: 1.17rem;
     line-height: 1.65;
   }
 
@@ -1937,7 +2113,7 @@
 
   .hp-hero-route-track strong {
     gap: 0;
-    font-size: 0.65rem;
+    font-size: 0.845rem;
   }
 
   .hp-hero-route-track strong b,
@@ -1960,7 +2136,7 @@
     align-items: baseline;
     gap: 7px;
     color: rgba(255, 255, 255, 0.78);
-    font-size: 0.74rem;
+    font-size: 0.962rem;
     line-height: 1.45;
     white-space: nowrap;
   }
@@ -1990,19 +2166,38 @@
   }
 
   .hp-intro-copy p {
-    font-size: 1rem;
+    font-size: 1.3rem;
     line-height: 1.78;
   }
 
   .hp-process {
-    margin-top: 60px;
-    margin-right: -20px;
-    grid-auto-columns: 205px;
-    padding-right: 20px;
+    margin-top: 44px;
+    margin-right: 0;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding-right: 0;
   }
 
   .hp-process li {
-    min-height: 126px;
+    min-height: 0;
+    padding: 14px 16px;
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    gap: 12px;
+  }
+
+  .hp-process-number {
+    grid-column: auto;
+    align-self: center;
+  }
+
+  .hp-process-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .hp-process strong {
+    min-width: 0;
+    font-size: 1.17rem;
   }
 
   .hp-slider-controls {
@@ -2010,7 +2205,7 @@
   }
 
   .hp-execution-heading {
-    margin-bottom: 56px;
+    margin-bottom: 26px;
   }
 
   .hp-slider-toolbar {
@@ -2064,33 +2259,131 @@
   }
 
   .hp-tech-flow {
-    margin-right: -20px;
-    border-radius: 7px 0 0 7px;
+    margin-right: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-radius: 7px;
   }
 
   .hp-tech-flow article {
-    min-width: 240px;
-    min-height: 250px;
+    min-width: 0;
+    min-height: 170px;
+    padding: 18px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+  }
+
+  .hp-tech-flow article:nth-child(even) {
+    border-right: 0;
+  }
+
+  .hp-tech-flow article:last-child {
+    min-height: 144px;
+    grid-column: 1 / -1;
+    border-bottom: 0;
+  }
+
+  .hp-tech-index {
+    display: block;
+    text-align: left;
+  }
+
+  .hp-tech-icon {
+    width: 40px;
+    height: 40px;
+    margin: 20px auto 16px;
+  }
+
+  .hp-tech-icon svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .hp-tech-flow h3 {
+    margin-bottom: 0;
+    font-size: 0.988rem;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+  }
+
+  .hp-tech-flow p {
+    display: none;
   }
 
   .hp-blockchain-copy h2 > span {
+    display: inline;
     white-space: normal;
+  }
+
+  .hp-blockchain-copy h2 > span + span::before {
+    content: " ";
   }
 
   .hp-blockchain-copy h2 > span:last-child {
     font-size: 1em;
   }
 
-  .hp-blockchain-copy p {
-    margin-block: 24px 18px;
+  .hp-blockchain-copy {
+    display: grid;
+    max-width: none;
+    grid-template-columns: minmax(0, 1.35fr) minmax(140px, 0.65fr);
+    align-items: end;
+    gap: 12px;
   }
 
-  .hp-blockchain-keywords {
-    margin-bottom: 28px;
+  .hp-blockchain-copy-heading,
+  .hp-blockchain-copy-detail {
+    min-width: 0;
+  }
+
+  .hp-blockchain-copy-heading .hp-eyebrow {
+    margin-bottom: 12px;
+    font-size: 0.806rem;
+  }
+
+  .hp-blockchain-copy h2 {
+    font-size: clamp(1.404rem, 5vw, 1.755rem);
+    line-height: 1.24;
+    text-wrap: balance;
+  }
+
+  .hp-blockchain-copy-detail {
+    align-self: start;
+  }
+
+  .hp-blockchain-copy-detail-main {
+    min-width: 0;
+  }
+
+  .hp-blockchain-copy p {
+    margin: 0 0 10px;
+    font-size: 1.014rem;
+    line-height: 1.62;
+  }
+
+  .hp-blockchain-copy-detail .hp-blockchain-keywords {
+    margin-bottom: 14px;
+    flex-wrap: nowrap;
+    gap: 3px;
+  }
+
+  .hp-blockchain-keywords li {
+    min-height: 22px;
+    padding: 3px 5px;
+    font-size: 0.676rem;
+    white-space: nowrap;
+  }
+
+  .hp-blockchain-link {
+    width: max-content;
+    min-height: 42px;
+    margin-left: auto;
+    padding: 9px 10px;
+    gap: 8px;
+    font-size: 0.988rem;
+    white-space: nowrap;
   }
 
   .hp-trust-panel {
-    margin-top: 50px;
     padding: 25px 18px 20px;
     border-radius: 16px;
   }
@@ -2108,21 +2401,22 @@
   .hp-trust-track-header p {
     max-width: 330px;
     margin-top: 10px;
-    font-size: 0.68rem;
+    font-size: 0.884rem;
     text-align: left;
   }
 
   .hp-trust-scroll {
-    overflow-x: auto;
-    margin-right: -18px;
-    padding-right: 18px;
-    padding-bottom: 12px;
-    scroll-padding-inline: 18px;
-    scroll-snap-type: x mandatory;
-    overscroll-behavior-inline: contain;
-    scrollbar-color: rgba(102, 161, 235, 0.38) rgba(255, 255, 255, 0.04);
-    scrollbar-width: thin;
-    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    margin-right: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    scroll-snap-type: none;
+    scrollbar-width: none;
+    touch-action: pan-y;
+  }
+
+  .hp-trust-scroll::-webkit-scrollbar {
+    display: none;
   }
 
   .hp-trust-canvas {
@@ -2140,7 +2434,7 @@
   }
 
   .hp-trust-steps li {
-    scroll-snap-align: center;
+    scroll-snap-align: none;
   }
 
   .hp-trust-card {
@@ -2246,12 +2540,34 @@
   }
 
   .hp-signal-categories {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 9px;
   }
 
   .hp-signal-categories article {
-    min-height: 138px;
+    min-height: 132px;
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .hp-signal-category-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .hp-signal-category-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .hp-signal-categories small {
+    margin-bottom: 5px;
+    font-size: 0.806rem;
+  }
+
+  .hp-signal-categories strong {
+    font-size: 1.014rem;
+    line-height: 1.45;
   }
 
   .hp-network-orbit {
@@ -2273,33 +2589,53 @@
   }
 
   .hp-metrics {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .hp-metrics article {
-    min-height: 174px;
-    padding: 28px 24px;
+    min-height: 182px;
+    padding: 18px 14px;
     grid-template-columns: auto 1fr;
-    gap: 16px;
-    border-right: 0;
-    border-bottom: 1px solid #e2e5ea;
-  }
-
-  .hp-metrics article:last-child {
+    gap: 10px;
+    border-right: 1px solid #e2e5ea;
     border-bottom: 0;
   }
 
+  .hp-metrics article:last-child {
+    border-right: 0;
+  }
+
+  .hp-metric-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hp-metric-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
   .hp-metrics article > strong {
-    font-size: 3.4rem;
+    font-size: 2.4rem;
   }
 
   .hp-metrics article > div {
     grid-column: 1 / -1;
   }
 
+  .hp-metrics h3 {
+    margin-bottom: 5px;
+    font-size: 1.092rem;
+  }
+
+  .hp-metrics p {
+    font-size: 0.91rem;
+    line-height: 1.5;
+  }
+
   .hp-final-cta,
   .hp-final-cta-content {
-    min-height: 620px;
+    min-height: 420px;
   }
 
   .hp-final-cta > img {

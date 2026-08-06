@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
-import { ArrowRight, ArrowUpRight, X } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { type Lang, useLanguage } from "../../context/LanguageContext";
 import { PageContainer } from "../../components/PageContainer";
@@ -160,7 +159,7 @@ function CategoryTag({
 }) {
   return (
     <span
-      className="inline-flex items-center rounded-full px-3 py-[7px] text-[0.76rem] font-medium"
+      className="inline-flex items-center rounded-full px-3 py-[7px] text-[0.988rem] font-medium"
       style={{
         background: dark ? "rgba(255,255,255,0.12)" : "rgba(55,55,242,0.08)",
         color: dark ? "#FFFFFF" : NEAR_BLACK,
@@ -468,7 +467,7 @@ function ProjectCard({
         </h3>
 
         <p
-          className={`eruty-body-small mt-3 overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] ${
+          className={`eruty-body-small mt-3 overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:4] lg:[-webkit-line-clamp:3] ${
             lang === "ko" ? "eruty-keep-all" : ""
           }`}
           style={{ color: BODY_TEXT }}
@@ -476,9 +475,9 @@ function ProjectCard({
           {getLocalizedText(project.summary, lang)}
         </p>
 
-        <div className="eruty-meta mt-5" style={{ color: MUTED }}>
+        {/* <div className="eruty-meta mt-5" style={{ color: MUTED }}>
           {getLocalizedText(project.status, lang)}
-        </div>
+        </div> */}
 
         <div className="mt-auto flex items-center justify-between pt-5">
           <span
@@ -858,93 +857,93 @@ function ProjectDetailDrawer({
   );
 }
 
-function CtaPattern() {
-  return (
-    <svg
-      viewBox="0 0 1200 320"
-      className="absolute inset-x-0 bottom-0 h-full w-full opacity-60"
-      fill="none"
-      aria-hidden="true"
-    >
-      {[0, 22, 44, 66].map((offset) => (
-        <path
-          key={offset}
-          d={`M-40 ${248 + offset} C 168 ${176 + offset} 346 ${186 + offset} 540 ${
-            230 + offset
-          } S 896 ${300 + offset} 1240 ${214 + offset}`}
-          stroke="rgba(55,55,242,0.28)"
-          strokeWidth="1.6"
-        />
-      ))}
-    </svg>
-  );
-}
+// function CtaPattern() {
+//   return (
+//     <svg
+//       viewBox="0 0 1200 320"
+//       className="absolute inset-x-0 bottom-0 h-full w-full opacity-60"
+//       fill="none"
+//       aria-hidden="true"
+//     >
+//       {[0, 22, 44, 66].map((offset) => (
+//         <path
+//           key={offset}
+//           d={`M-40 ${248 + offset} C 168 ${176 + offset} 346 ${186 + offset} 540 ${
+//             230 + offset
+//           } S 896 ${300 + offset} 1240 ${214 + offset}`}
+//           stroke="rgba(55,55,242,0.28)"
+//           strokeWidth="1.6"
+//         />
+//       ))}
+//     </svg>
+//   );
+// }
 
-function FinalCtaSection({
-  prefersReducedMotion,
-}: {
-  prefersReducedMotion: boolean;
-}) {
-  const { lang } = useLanguage();
-  const copy = PAGE_COPY[lang];
+// function FinalCtaSection({
+//   prefersReducedMotion,
+// }: {
+//   prefersReducedMotion: boolean;
+// }) {
+//   const { lang } = useLanguage();
+//   const copy = PAGE_COPY[lang];
 
-  return (
-    <motion.section
-      data-growth-cta
-      className="eruty-section-compact overflow-hidden bg-[#060B14]"
-      {...getRevealProps(prefersReducedMotion)}
-    >
-      <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
-        <div
-          className="relative overflow-hidden rounded-[1rem] border px-6 py-12 md:px-10 md:py-14 lg:px-14"
-          style={{
-            borderColor: "rgba(255,255,255,0.08)",
-            background:
-              "radial-gradient(circle at 78% 24%, rgba(55,55,242,0.12), transparent 24%), linear-gradient(180deg, #07111E 0%, #050A13 100%)",
-          }}
-        >
-          <CtaPattern />
-          <div className="relative z-10 max-w-[42rem]">
-            <div
-              className={`eruty-meta mb-4 ${lang === "en" ? "eruty-meta--code" : ""}`}
-              style={{ color: "rgba(255,255,255,0.56)" }}
-            >
-              {copy.ctaEyebrow}
-            </div>
+//   return (
+//     <motion.section
+//       data-growth-cta
+//       className="eruty-section-compact overflow-hidden bg-[#060B14]"
+//       {...getRevealProps(prefersReducedMotion)}
+//     >
+//       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
+//         <div
+//           className="relative overflow-hidden rounded-[1rem] border px-6 py-12 md:px-10 md:py-14 lg:px-14"
+//           style={{
+//             borderColor: "rgba(255,255,255,0.08)",
+//             background:
+//               "radial-gradient(circle at 78% 24%, rgba(55,55,242,0.12), transparent 24%), linear-gradient(180deg, #07111E 0%, #050A13 100%)",
+//           }}
+//         >
+//           <CtaPattern />
+//           <div className="relative z-10 max-w-[42rem]">
+//             <div
+//               className={`eruty-meta mb-4 ${lang === "en" ? "eruty-meta--code" : ""}`}
+//               style={{ color: "rgba(255,255,255,0.56)" }}
+//             >
+//               {copy.ctaEyebrow}
+//             </div>
 
-            <h2
-              className={`eruty-section-title text-white ${
-                lang === "ko" ? "eruty-keep-all" : ""
-              }`}
-            >
-              {copy.ctaHeadline}
-            </h2>
+//             <h2
+//               className={`eruty-section-title text-white ${
+//                 lang === "ko" ? "eruty-keep-all" : ""
+//               }`}
+//             >
+//               {copy.ctaHeadline}
+//             </h2>
 
-            <p
-              className={`eruty-body mt-4 max-w-[33rem] ${
-                lang === "ko" ? "eruty-keep-all" : ""
-              }`}
-              style={{
-                color: "rgba(255,255,255,0.72)",
-              }}
-            >
-              {copy.ctaDescription}
-            </p>
+//             <p
+//               className={`eruty-body mt-4 max-w-[33rem] ${
+//                 lang === "ko" ? "eruty-keep-all" : ""
+//               }`}
+//               style={{
+//                 color: "rgba(255,255,255,0.72)",
+//               }}
+//             >
+//               {copy.ctaDescription}
+//             </p>
 
-            <Link
-              to="/start-a-project"
-              className="mt-8 inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full px-6 text-[0.96rem] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#050A13]"
-              style={{ background: BLUE, color: "#FFFFFF" }}
-            >
-              {copy.ctaButton}
-              <ArrowUpRight size={16} />
-            </Link>
-          </div>
-        </div>
-      </div>
-    </motion.section>
-  );
-}
+//             <Link
+//               to="/start-a-project"
+//               className="mt-8 inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full px-6 text-[0.96rem] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#050A13]"
+//               style={{ background: BLUE, color: "#FFFFFF" }}
+//             >
+//               {copy.ctaButton}
+//               <ArrowUpRight size={16} />
+//             </Link>
+//           </div>
+//         </div>
+//       </div>
+//     </motion.section>
+//   );
+// }
 
 export function GrowthPage() {
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -1004,7 +1003,7 @@ export function GrowthPage() {
         prefersReducedMotion={prefersReducedMotion}
       />
       <ProjectDetailDrawer project={selectedProject} onClose={closeProject} />
-      <FinalCtaSection prefersReducedMotion={prefersReducedMotion} />
+      {/* <FinalCtaSection prefersReducedMotion={prefersReducedMotion} /> */}
     </div>
   );
 }

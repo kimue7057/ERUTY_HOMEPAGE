@@ -20,7 +20,6 @@ import { PageContainer } from "../components/PageContainer";
 import { PageHeading } from "../components/PageHeading";
 import {
   submitInquiry,
-  type InquiryAttachment,
   type InquirySubmissionResult,
 } from "../../services/inquiry";
 
@@ -29,13 +28,12 @@ const NEAR_BLACK = "#18191B";
 const MUTED = "#737780";
 const BORDER = "#E4E6EA";
 const SOFT_BG = "#F5F6F8";
-const MAX_UPLOAD_MB = Number(import.meta.env.VITE_UPLOAD_MAX_FILE_MB ?? 20);
-const MOCK_ENABLED = import.meta.env.VITE_ENABLE_MOCK_SUBMISSIONS !== "false";
+const MAX_UPLOAD_MB = 3;
 
 const T = {
   ko: {
     badge: "프로젝트 시작",
-    heading: "함께 만들어 봅시다.",
+    heading: "문의하기",
     description:
       "프로젝트에 대해 알려주시면 이루티의 적합한 팀과 연결해 드립니다.",
     successHeading: "문의가 접수되었습니다.",
@@ -53,9 +51,6 @@ const T = {
     hqValue: "부산광역시 남구 문현금융로 40, 21층 6호",
     replyLabel: "회신 기간",
     replyValue: "영업일 기준 2일 이내",
-    mockLabel: "개발 모드 · Mock Inquiry Service",
-    mockDesc:
-      "현재 문의 제출은 mock 응답으로 동작합니다. 실제 API는 src/services/inquiry.ts에서 교체할 수 있습니다.",
     step1Label: "단계 01 · 서비스 및 문의 유형",
     step1Heading: "어떤 종류의 프로젝트를 논의하고 싶으신가요?",
     serviceLabel: "서비스 선택",
@@ -88,7 +83,7 @@ const T = {
     submitButton: "프로젝트 문의 제출",
     submittingButton: "제출 중...",
     failureTitle: "문의 전송에 실패했습니다.",
-    failureBody: "잠시 후 다시 시도하거나 다른 이메일 주소로 테스트해 주세요.",
+    failureBody: "잠시 후 다시 시도해 주세요. 문제가 계속되면 이루티로 직접 문의해 주세요.",
     budgets: [
       "$10,000 미만",
       "$10,000 – $50,000",
@@ -132,7 +127,7 @@ const T = {
   },
   en: {
     badge: "Start a Project",
-    heading: "Let's build together.",
+    heading: "Contact Us",
     description:
       "Tell us about your project and we'll connect you with the right team at ERUTY.",
     successHeading: "Your inquiry has been received.",
@@ -156,9 +151,6 @@ const T = {
     hqValue: "21F, Suite 6, 40 Munhyeongeumyung-ro, Nam-gu, Busan, Republic of Korea",
     replyLabel: "Response Time",
     replyValue: "Within 2 business days",
-    mockLabel: "Development mode · Mock Inquiry Service",
-    mockDesc:
-      "Submissions currently use a mock response. Replace the API implementation later in src/services/inquiry.ts.",
     step1Label: "Step 01 · Service & Inquiry Type",
     step1Heading: "What kind of project would you like to discuss?",
     serviceLabel: "Choose a service",
@@ -192,7 +184,7 @@ const T = {
     submitButton: "Submit Project Inquiry",
     submittingButton: "Submitting...",
     failureTitle: "We couldn't send your inquiry.",
-    failureBody: "Please try again in a moment or use another email address for mock testing.",
+    failureBody: "Please try again in a moment. Contact ERUTY directly if the problem continues.",
     budgets: [
       "Under $10,000",
       "$10,000 – $50,000",
@@ -370,18 +362,6 @@ export function StartProjectPage() {
     return "";
   }
 
-  function toAttachment(file: File | null): InquiryAttachment | null {
-    if (!file) {
-      return null;
-    }
-
-    return {
-      name: file.name,
-      size: file.size,
-      type: file.type,
-    };
-  }
-
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const nextErrors = validate();
@@ -406,7 +386,7 @@ export function StartProjectPage() {
         timeline: form.timeline,
         budget: form.budget,
         consent: form.consent,
-        attachment: toAttachment(form.attachment),
+        attachment: form.attachment,
       });
 
       setSubmissionResult(result);
@@ -414,7 +394,9 @@ export function StartProjectPage() {
     } catch (error) {
       setStatus("error");
       setSubmissionError(
-        error instanceof Error ? error.message : t.failureBody,
+        error instanceof Error && !error.message.startsWith("INQUIRY_API_")
+          ? error.message
+          : t.failureBody,
       );
     }
   }
@@ -470,7 +452,7 @@ export function StartProjectPage() {
           </h1>
           <p
             className="mb-6"
-            style={{ color: MUTED, lineHeight: 1.75, fontSize: "1rem" }}
+            style={{ color: MUTED, lineHeight: 1.75, fontSize: "1.3rem" }}
           >
             {t.successBody}
           </p>
@@ -563,26 +545,6 @@ export function StartProjectPage() {
                     );
                   })}
                 </div>
-
-                {MOCK_ENABLED ? (
-                  <div
-                    className="mt-12 border p-6"
-                    style={{ background: SOFT_BG, borderColor: BORDER }}
-                  >
-                    <div
-                      className={`eruty-meta mb-3 ${lang === "en" ? "eruty-meta--code" : ""}`}
-                      style={{ color: BLUE }}
-                    >
-                      {t.mockLabel}
-                    </div>
-                    <p
-                      className="eruty-body-small"
-                      style={{ color: MUTED }}
-                    >
-                      {t.mockDesc}
-                    </p>
-                  </div>
-                ) : null}
 
                 <div
                   className="mt-6 border p-6"
@@ -781,24 +743,6 @@ export function StartProjectPage() {
                     >
                       {t.step2Summary}
                     </p>
-
-                    {status === "error" ? (
-                      <div
-                        className="mb-6 border px-4 py-3"
-                        style={{ borderColor: "#FCA5A5", background: "#FEF2F2" }}
-                      >
-                        <div
-                          className="mb-1 flex items-center gap-2 text-sm"
-                          style={{ color: "#991B1B", fontWeight: 600 }}
-                        >
-                          <AlertCircle size={14} />
-                          {t.failureTitle}
-                        </div>
-                        <p className="text-sm" style={{ color: "#B91C1C", lineHeight: 1.65 }}>
-                          {submissionError || t.failureBody}
-                        </p>
-                      </div>
-                    ) : null}
 
                     <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
                       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -1007,6 +951,25 @@ export function StartProjectPage() {
                         </label>
                         <FieldError message={errors.consent} />
                       </div>
+
+                      {status === "error" ? (
+                        <div
+                          className="border px-4 py-3"
+                          style={{ borderColor: "#FCA5A5", background: "#FEF2F2" }}
+                          role="alert"
+                        >
+                          <div
+                            className="mb-1 flex items-center gap-2 text-sm"
+                            style={{ color: "#991B1B", fontWeight: 600 }}
+                          >
+                            <AlertCircle size={14} />
+                            {t.failureTitle}
+                          </div>
+                          <p className="text-sm" style={{ color: "#B91C1C", lineHeight: 1.65 }}>
+                            {submissionError || t.failureBody}
+                          </p>
+                        </div>
+                      ) : null}
 
                       <div className="flex flex-wrap items-center gap-4 pt-2">
                         <button

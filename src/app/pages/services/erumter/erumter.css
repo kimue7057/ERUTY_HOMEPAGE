@@ -100,7 +100,7 @@ main:has(.erumter-page) + footer > div {
   gap: 12px;
   border: 1px solid transparent;
   padding: 0 24px;
-  font-size: 0.91rem;
+  font-size: 1.183rem;
   font-weight: 650;
   line-height: 1;
   text-decoration: none;
@@ -131,7 +131,7 @@ main:has(.erumter-page) + footer > div {
   color: var(--er-ink);
   cursor: pointer;
   font: inherit;
-  font-size: 0.91rem;
+  font-size: 1.183rem;
   font-weight: 600;
 }
 
@@ -164,7 +164,7 @@ main:has(.erumter-page) + footer > div {
     linear-gradient(135deg, rgba(55, 55, 242, 0.32), transparent 55%),
     linear-gradient(145deg, #0c1421, #27344a);
   color: rgba(255, 255, 255, 0.7);
-  font-size: 0.82rem;
+  font-size: 1.066rem;
 }
 
 /* Hero */
@@ -249,7 +249,7 @@ main:has(.erumter-page) + footer > div {
   border-bottom: 1px solid rgba(255, 255, 255, 0.13);
   padding: 0 22px;
   color: rgba(255, 255, 255, 0.92);
-  font-size: 0.85rem;
+  font-size: 1.105rem;
   font-weight: 650;
 }
 
@@ -262,7 +262,7 @@ main:has(.erumter-page) + footer > div {
   border: 1px solid rgba(116, 151, 255, 0.56);
   color: #a9bdff;
   font-family: var(--font-mono);
-  font-size: 0.64rem;
+  font-size: 0.832rem;
   letter-spacing: 0.08em;
 }
 
@@ -286,7 +286,7 @@ main:has(.erumter-page) + footer > div {
 .er-diagnostic-index {
   color: rgba(255, 255, 255, 0.28);
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.858rem;
 }
 
 .er-diagnostic-row strong,
@@ -296,14 +296,14 @@ main:has(.erumter-page) + footer > div {
 
 .er-diagnostic-row strong {
   color: #fff;
-  font-size: 0.82rem;
+  font-size: 1.066rem;
   font-weight: 600;
 }
 
 .er-diagnostic-row small {
   margin-top: 3px;
   color: rgba(255, 255, 255, 0.43);
-  font-size: 0.7rem;
+  font-size: 0.91rem;
 }
 
 .er-diagnostic-status {
@@ -399,7 +399,7 @@ main:has(.erumter-page) + footer > div {
   border: 1px solid rgba(255, 255, 255, 0.5);
   background: rgba(7, 17, 31, 0.74);
   color: #fff;
-  font-size: 0.77rem;
+  font-size: 1.001rem;
   font-weight: 650;
   transform: translate(-50%, -50%);
   backdrop-filter: blur(8px);
@@ -416,7 +416,7 @@ main:has(.erumter-page) + footer > div {
   background: rgba(255, 255, 255, 0.91);
   box-shadow: 0 10px 30px rgba(14, 29, 49, 0.13);
   color: #28303b;
-  font-size: 0.75rem;
+  font-size: 0.975rem;
   font-weight: 600;
   backdrop-filter: blur(8px);
 }
@@ -570,7 +570,7 @@ main:has(.erumter-page) + footer > div {
   margin-bottom: 18px;
   color: #87a4ff;
   font-family: var(--font-mono);
-  font-size: 0.71rem;
+  font-size: 0.923rem;
   font-weight: 700;
   letter-spacing: 0.15em;
 }
@@ -599,7 +599,7 @@ main:has(.erumter-page) + footer > div {
   display: block;
   margin-bottom: 13px;
   color: rgba(255, 255, 255, 0.34);
-  font-size: 0.69rem;
+  font-size: 0.897rem;
   letter-spacing: 0.08em;
 }
 
@@ -616,7 +616,7 @@ main:has(.erumter-page) + footer > div {
   border: 1px solid rgba(255, 255, 255, 0.17);
   padding: 8px 11px;
   color: rgba(255, 255, 255, 0.68);
-  font-size: 0.72rem;
+  font-size: 0.936rem;
 }
 
 .er-process-sticky {
@@ -682,11 +682,11 @@ main:has(.erumter-page) + footer > div {
 .er-process-overlay-head span {
   color: #8fa9ff;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.936rem;
 }
 
 .er-process-overlay-head strong {
-  font-size: 0.92rem;
+  font-size: 1.196rem;
   font-weight: 650;
 }
 
@@ -703,7 +703,7 @@ main:has(.erumter-page) + footer > div {
   align-items: center;
   gap: 8px;
   color: rgba(255, 255, 255, 0.74);
-  font-size: 0.72rem;
+  font-size: 0.936rem;
 }
 
 .er-process-flow i {
@@ -717,10 +717,6 @@ main:has(.erumter-page) + footer > div {
   margin-left: 8px;
   color: rgba(255, 255, 255, 0.28);
   font-weight: 400;
-}
-
-.er-process-mobile-visual {
-  display: none;
 }
 
 .er-process-mobile {
@@ -772,7 +768,7 @@ main:has(.erumter-page) + footer > div {
   border-right: 1px solid rgba(255, 255, 255, 0.14);
   padding: 19px 16px;
   color: #fff;
-  font-size: 0.74rem;
+  font-size: 0.962rem;
   font-weight: 600;
 }
 
@@ -785,7 +781,7 @@ main:has(.erumter-page) + footer > div {
   margin-bottom: 11px;
   color: #8ca7ff;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.845rem;
   font-style: normal;
 }
 
@@ -863,8 +859,8 @@ main:has(.erumter-page) + footer > div {
   bottom: 22px;
   left: 22px;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
   border: 1px solid rgba(255, 255, 255, 0.24);
   background: rgba(7, 17, 31, 0.76);
@@ -874,11 +870,12 @@ main:has(.erumter-page) + footer > div {
 
 .er-solution-visual span {
   display: inline-flex;
+  min-width: 0;
   align-items: center;
-  gap: 8px;
   color: rgba(255, 255, 255, 0.82);
-  font-size: 0.7rem;
+  font-size: 0.91rem;
   font-weight: 550;
+  white-space: nowrap;
 }
 
 .er-solution-visual i {
@@ -897,7 +894,7 @@ main:has(.erumter-page) + footer > div {
   padding-top: 4px;
   color: var(--er-blue);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.936rem;
   font-weight: 700;
 }
 
@@ -992,7 +989,7 @@ main:has(.erumter-page) + footer > div {
   left: 24px;
   color: #fff;
   font-family: var(--font-mono);
-  font-size: 0.79rem;
+  font-size: 1.027rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1025,7 +1022,7 @@ main:has(.erumter-page) + footer > div {
 .er-before li > span {
   color: #9298a1;
   font-family: var(--font-mono);
-  font-size: 0.64rem;
+  font-size: 0.832rem;
 }
 
 .er-after {
@@ -1086,13 +1083,17 @@ main:has(.erumter-page) + footer > div {
 }
 
 @media (max-width: 1100px) {
+  .er-process-sticky {
+    display: none;
+  }
+
   .er-hero-layout {
     grid-template-columns: minmax(0, 1fr) minmax(330px, 0.72fr);
     gap: 45px;
   }
 
   .er-process-layout {
-    grid-template-columns: minmax(270px, 0.78fr) 64px minmax(0, 1.22fr);
+    grid-template-columns: minmax(0, 1fr) 64px;
   }
 
   .er-process-axis-node::before,
@@ -1101,7 +1102,7 @@ main:has(.erumter-page) + footer > div {
   }
 
   .er-process-flow span {
-    font-size: 0.66rem;
+    font-size: 0.858rem;
   }
 }
 
@@ -1153,7 +1154,7 @@ main:has(.erumter-page) + footer > div {
   .er-hero-copy p {
     max-width: 550px;
     margin-top: 24px;
-    font-size: 0.98rem;
+    font-size: 1.274rem;
     line-height: 1.7;
   }
 
@@ -1189,35 +1190,41 @@ main:has(.erumter-page) + footer > div {
   }
 
   .er-problem-scene {
-    height: 340px;
-    max-height: 340px;
+    width: min(100%, 680px);
+    height: auto;
+    max-height: none;
+    aspect-ratio: 680 / 468;
+    margin-inline: auto;
   }
 
   .er-problem-center {
-    top: 48%;
+    top: 52%;
     left: 61%;
+    padding: clamp(6px, 1.5vw, 10px) clamp(9px, 2vw, 14px);
+    font-size: clamp(0.728rem, 1.7vw, 1.001rem);
   }
 
   .er-problem-nodes {
-    position: absolute;
-    right: 14px;
-    bottom: 14px;
-    left: 14px;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    position: static;
+    display: block;
   }
 
   .er-problem-node {
-    position: static;
-    min-height: 42px;
-    justify-content: flex-start;
-    padding: 0 11px;
-    font-size: 0.7rem;
+    position: absolute;
+    min-height: clamp(28px, 6vw, 42px);
+    padding-inline: clamp(7px, 1.8vw, 14px);
+    gap: clamp(5px, 1.2vw, 9px);
+    font-size: clamp(0.676rem, 1.55vw, 0.975rem);
   }
 
   .er-problem-node::after {
-    display: none;
+    display: block;
+    width: clamp(26px, 7vw, 56px);
+  }
+
+  .er-problem-node i {
+    width: clamp(4px, 1vw, 7px);
+    height: clamp(4px, 1vw, 7px);
   }
 
   .er-process-intro,
@@ -1282,7 +1289,7 @@ main:has(.erumter-page) + footer > div {
     color: rgba(255, 255, 255, 0.64);
     cursor: pointer;
     font-family: var(--font-mono);
-    font-size: 0.66rem;
+    font-size: 0.858rem;
     font-weight: 700;
     transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
   }
@@ -1327,14 +1334,14 @@ main:has(.erumter-page) + footer > div {
   .er-process-mobile-step summary span {
     color: #86a3ff;
     font-family: var(--font-mono);
-    font-size: 0.67rem;
+    font-size: 0.871rem;
     font-weight: 700;
     letter-spacing: 0.1em;
   }
 
   .er-process-mobile-step summary strong {
     color: rgba(255, 255, 255, 0.72);
-    font-size: 1rem;
+    font-size: 1.3rem;
     font-weight: 650;
   }
 
@@ -1357,12 +1364,6 @@ main:has(.erumter-page) + footer > div {
     margin-top: 22px;
   }
 
-  .er-process-mobile-visual {
-    display: block;
-    height: 320px;
-    margin-top: 28px;
-  }
-
   .er-process-overlay {
     right: 16px;
     bottom: 16px;
@@ -1378,7 +1379,7 @@ main:has(.erumter-page) + footer > div {
     flex: 1;
     flex-wrap: wrap;
     align-content: flex-start;
-    font-size: 0.68rem;
+    font-size: 0.884rem;
   }
 
   .er-process-flow b {
@@ -1493,17 +1494,13 @@ main:has(.erumter-page) + footer > div {
   }
 
   .er-problem-scene {
-    height: 320px;
-    max-height: 320px;
+    height: auto;
+    max-height: none;
   }
 
   .er-problem-center {
-    top: 43%;
-    left: 58%;
-  }
-
-  .er-process-mobile-visual {
-    height: 300px;
+    top: 52%;
+    left: 61%;
   }
 
   .er-process-frame img {
@@ -1584,7 +1581,7 @@ main:has(.erumter-page) + footer > div {
 
   .er-compare-panel li {
     min-height: 58px;
-    font-size: 0.79rem;
+    font-size: 1.027rem;
   }
 
   .er-final,

@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Building2, Code2, FlaskConical, Lightbulb, ShieldCheck } from "lucide-react";
+import { ArrowRight , Building2, Code2, FlaskConical,  ShieldCheck } from "lucide-react";
 import { Link } from "react-router";
 import { useLanguage, type Lang } from "../context/LanguageContext";
 import { PageContainer } from "../components/PageContainer";
@@ -182,7 +182,7 @@ export function TechnologyPage() {
 
       <section id="architecture" className="eruty-section-compact" aria-labelledby="architecture-title">
         <div className="eruty-container">
-          <SectionHeading {...copy.architecture} align="split" lang={lang} titleId="architecture-title" action={<div className="eruty-meta eruty-meta--code flex items-center gap-2" style={{ color: MUTED }}><span className="h-2 w-2 rounded-full" style={{ background: BLUE }} />DATA → DECISION → EXECUTION</div>} />
+          <SectionHeading {...copy.architecture} align="split" lang={lang} titleId="architecture-title"  />
           <ArchitectureDiagram lang={lang} />
         </div>
       </section>
@@ -205,13 +205,13 @@ export function TechnologyPage() {
         </div>
       </section>
 
-      <section className="eruty-section-compact relative overflow-hidden bg-[#1237A5]" aria-labelledby="technology-cta-title">
+      {/* <section className="eruty-section-compact relative overflow-hidden bg-[#1237A5]" aria-labelledby="technology-cta-title">
         <div className="absolute inset-0 opacity-60" aria-hidden="true" style={{ background: "radial-gradient(circle at 82% 48%, rgba(78,124,255,.8), transparent 28%), linear-gradient(130deg, transparent 40%, rgba(4,18,54,.35) 40% 100%)" }} />
         <div className="eruty-container relative flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
           <div className="max-w-2xl"><div className="eruty-eyebrow-en mb-4 flex items-center gap-2 text-[#B7C8FF]"><Lightbulb size={14} aria-hidden="true" />NEXT EXECUTION</div><h2 id="technology-cta-title" className="eruty-section-title eruty-preline-desktop text-white">{copy.cta.title}</h2><p className="eruty-body mt-4 text-white/65">{copy.cta.description}</p></div>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row"><Link to="/start-a-project" className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-6 py-3.5 text-sm font-bold" style={{ color: "#1237A5" }}>{copy.cta.button}<ArrowUpRight size={15} aria-hidden="true" /></Link><Link to="/services/hitpick" className="inline-flex items-center justify-center gap-2 rounded-md border border-white/25 px-6 py-3.5 text-sm font-bold text-white">{copy.cta.secondary}<ArrowRight size={15} aria-hidden="true" /></Link></div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

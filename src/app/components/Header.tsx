@@ -37,7 +37,6 @@ interface ServicePanel {
   summary: Record<Lang, string>;
   items: Array<Record<Lang, string>>;
   inquiryType: "global-expansion" | "automation";
-  image: string;
 }
 
 const COPY = {
@@ -121,7 +120,6 @@ const SERVICE_PANELS: ServicePanel[] = [
     key: "hitpick",
     to: "/services/hitpick",
     inquiryType: "global-expansion",
-    image: "/images/services/hitpick/hero-video-poster.webp",
     label: { ko: "Hitpick", en: "Hitpick" },
     summary: {
       ko: "글로벌 브랜드 사업화 솔루션",
@@ -138,7 +136,6 @@ const SERVICE_PANELS: ServicePanel[] = [
     key: "erumter",
     to: "/services/erumter",
     inquiryType: "automation",
-    image: "/images/services/erumter/workflow-office.webp",
     label: { ko: "이룸터", en: "Erumter" },
     summary: {
       ko: "기업 AX·업무 자동화 솔루션",
@@ -359,7 +356,7 @@ export function Header() {
               <button
                 key={item.key}
                 type="button"
-                className="flex items-center gap-1 px-4 py-2 text-sm"
+                className="flex items-center gap-1 px-4 py-2 text-[0.95rem]"
                 style={{
                   color:
                     activeMenu === item.key || item.active ? BLUE : "#333438",
@@ -403,7 +400,7 @@ export function Header() {
 
           <div className="hidden items-center gap-3 lg:flex lg:justify-self-end">
             <div
-              className="flex h-10 w-28 items-center justify-center gap-2 text-xs"
+              className="flex h-10 w-28 items-center justify-center gap-2 text-[0.78rem]"
               style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
             >
               <button
@@ -432,7 +429,7 @@ export function Header() {
             </div>
             <Link
               to="/start-a-project"
-              className="inline-flex h-10 w-28 items-center justify-center gap-2 text-sm"
+              className="inline-flex h-10 w-28 items-center justify-center gap-2 text-[0.92rem]"
               style={{ background: NEAR_BLACK, color: "#FFFFFF", fontWeight: 500, borderRadius: 6 }}
             >
               {copy.contact}
@@ -510,32 +507,17 @@ export function Header() {
                           <Link
                             key={panel.key}
                             to={panel.to}
-                            className="group relative flex h-full overflow-hidden border border-[#E4E6EA] transition-colors hover:border-[#3737F2] focus-visible:border-[#3737F2] focus-visible:outline-none"
+                            className="relative flex h-full overflow-hidden border border-[#E4E6EA] transition-colors hover:border-[#3737F2] focus-visible:border-[#3737F2] focus-visible:outline-none"
                             style={{
                               background: "#FFFFFF",
                             }}
                             aria-current={isActive ? "page" : undefined}
                           >
-                            <img
-                              src={panel.image}
-                              alt=""
-                              aria-hidden="true"
-                              loading="lazy"
-                              className="absolute inset-0 h-full w-full object-cover opacity-[0.18] transition-transform duration-300 ease-out group-hover:scale-[1.02] group-focus-visible:scale-[1.02] motion-reduce:transform-none motion-reduce:transition-none"
-                            />
-                            <div
-                              className="absolute inset-0"
-                              aria-hidden="true"
-                              style={{
-                                background:
-                                  "linear-gradient(90deg, rgba(255,255,255,0.99) 0%, rgba(255,255,255,0.96) 46%, rgba(255,255,255,0.78) 72%, rgba(255,255,255,0.54) 100%)",
-                              }}
-                            />
                             <div className="relative z-10 flex h-full w-full flex-col gap-5 p-6">
                               <div className="flex items-start justify-between gap-4">
                                 <div>
                                   <div
-                                    className="mb-2 text-xs uppercase tracking-[0.24em]"
+                                    className="mb-2 text-[0.76rem] uppercase tracking-[0.24em]"
                                     style={{
                                       color: BLUE,
                                       fontFamily: "var(--font-mono)",
@@ -544,7 +526,7 @@ export function Header() {
                                     {panel.label[lang]}
                                   </div>
                                   <h3
-                                    className="mb-2 text-xl"
+                                    className="mb-2 text-[1.05rem]"
                                     style={{
                                       fontFamily: "var(--font-display)",
                                       fontWeight: 700,
@@ -560,7 +542,7 @@ export function Header() {
                                 {panel.items.map((item) => (
                                   <div
                                     key={item[lang]}
-                                    className="flex items-start gap-2 text-sm"
+                                    className="flex items-start gap-2 text-[0.88rem]"
                                     style={{ color: "#333438", lineHeight: 1.65 }}
                                   >
                                     <span
@@ -571,13 +553,13 @@ export function Header() {
                                   </div>
                                 ))}
                               </div>
-                              <div
+                              {/* <div
                                 className="mt-auto inline-flex items-center gap-2 pt-2 text-sm"
                                 style={{ color: BLUE, fontWeight: 500 }}
                               >
                                 <span>{copy.exploreService}</span>
                                 <ArrowRight size={14} />
-                              </div>
+                              </div> */}
                             </div>
                           </Link>
                         );
@@ -609,12 +591,12 @@ export function Header() {
             >
               <div className="mb-6 flex items-center justify-between">
                 <div
-                  className="text-xs uppercase tracking-[0.24em]"
+                  className="text-[0.76rem] uppercase tracking-[0.24em]"
                   style={{ color: MUTED, fontFamily: "var(--font-mono)" }}
                 >
                   {copy.menuLabel}
                 </div>
-                <div className="flex items-center gap-2 text-xs">
+                <div className="flex items-center gap-2 text-[0.78rem]">
                   <button
                     type="button"
                     onClick={() => setLang("ko")}
@@ -649,7 +631,7 @@ export function Header() {
                 >
                   <button
                     type="button"
-                    className="flex w-full items-center justify-between py-4 text-left"
+                    className="flex w-full items-center justify-between py-4 text-left text-[0.95rem]"
                     onClick={() =>
                       setMobileSection((current) =>
                         current === item.key ? null : item.key,
@@ -710,44 +692,34 @@ export function Header() {
                               return (
                                 <div
                                   key={panel.key}
-                                  className="relative overflow-hidden border"
+                                  className="group relative cursor-pointer overflow-hidden border transition-colors hover:border-[#3737F2]"
                                   style={{
                                     borderColor: isActive ? BLUE : BORDER,
                                     background: "#FFFFFF",
                                   }}
                                 >
-                                  <img
-                                    src={panel.image}
-                                    alt=""
-                                    aria-hidden="true"
-                                    loading="lazy"
-                                    className="absolute inset-0 h-full w-full object-cover opacity-[0.16]"
+                                  <Link
+                                    to={panel.to}
+                                    className="absolute inset-0 z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#3737F2]"
+                                    aria-label={`${panel.label[lang]} - ${panel.summary[lang]}`}
+                                    aria-current={isActive ? "page" : undefined}
+                                    onClick={() => setMobileOpen(false)}
                                   />
-                                  <div
-                                    className="absolute inset-0"
-                                    aria-hidden="true"
-                                    style={{
-                                      background:
-                                        "linear-gradient(90deg, rgba(255,255,255,0.99) 0%, rgba(255,255,255,0.96) 56%, rgba(255,255,255,0.72) 100%)",
-                                    }}
-                                  />
-                                  <div className="relative z-10 p-4">
+
+                                  <div className="pointer-events-none relative z-20 p-4">
                                     <div className="mb-4">
-                                      <Link
-                                        to={panel.to}
-                                        className="inline-flex items-center gap-2 text-sm"
+                                      <div
+                                        className="inline-flex items-center gap-2 text-[0.9rem]"
                                         style={{
                                           color: isActive ? BLUE : NEAR_BLACK,
                                           fontWeight: 700,
                                         }}
-                                        aria-current={isActive ? "page" : undefined}
-                                        onClick={() => setMobileOpen(false)}
                                       >
                                         {panel.label[lang]}
                                         <ArrowUpRight size={14} />
-                                      </Link>
+                                      </div>
                                       <p
-                                        className="mt-2 text-sm"
+                                        className="mt-2 text-[0.86rem]"
                                         style={{ color: MUTED, lineHeight: 1.65 }}
                                       >
                                         {panel.summary[lang]}
@@ -757,7 +729,7 @@ export function Header() {
                                       {panel.items.map((service) => (
                                         <div
                                           key={service[lang]}
-                                          className="flex items-start gap-2 text-sm"
+                                          className="flex items-start gap-2 text-[0.84rem]"
                                           style={{ color: "#333438" }}
                                         >
                                           <span
@@ -773,7 +745,7 @@ export function Header() {
                                         panel.key,
                                         panel.inquiryType,
                                       )}
-                                      className="inline-flex items-center gap-2 text-sm"
+                                      className="pointer-events-auto relative z-30 inline-flex items-center gap-2 text-[0.86rem]"
                                       style={{ color: BLUE, fontWeight: 500 }}
                                       onClick={() => setMobileOpen(false)}
                                     >
@@ -806,7 +778,7 @@ export function Header() {
 
               <Link
                 to="/start-a-project"
-                className="mt-6 inline-flex items-center justify-center gap-2 px-5 py-3 text-sm"
+                className="mt-6 inline-flex items-center justify-center gap-2 px-5 py-3 text-[0.92rem]"
                 style={{ background: NEAR_BLACK, color: "#FFFFFF", fontWeight: 500, borderRadius: 6 }}
                 onClick={() => setMobileOpen(false)}
               >
@@ -844,7 +816,7 @@ function HeaderLink({
       {({ isActive }) => (
         <span
           className={`${
-            compact ? "inline-flex py-2 text-sm" : "inline-flex px-4 py-2 text-sm"
+            compact ? "inline-flex py-2 text-[0.95rem]" : "inline-flex px-4 py-2 text-[0.95rem]"
           } text-[#333438] transition-colors group-hover:text-[#3737F2] group-focus-visible:text-[#3737F2]`}
           style={{
             color: isActive ? BLUE : undefined,
@@ -873,7 +845,7 @@ function MobileDirectLink({
   return (
     <NavLink
       to={to}
-      className="flex w-full items-center justify-between border-b py-4"
+      className="flex w-full items-center justify-between border-b py-4 text-[0.95rem]"
       style={{
         borderColor: BORDER,
         color: active ? BLUE : NEAR_BLACK,
@@ -898,12 +870,12 @@ function HeaderMenuIntro({
   return (
     <div>
       <div
-        className="mb-4 text-xs uppercase tracking-[0.24em]"
+        className="mb-4 text-[0.76rem] uppercase tracking-[0.24em]"
         style={{ color: BLUE, fontFamily: "var(--font-mono)" }}
       >
         {caption}
       </div>
-      <p className="text-sm" style={{ color: MUTED, lineHeight: 1.75 }}>
+      <p className="text-[0.86rem]" style={{ color: MUTED, lineHeight: 1.75 }}>
         {lead}
       </p>
     </div>
@@ -926,12 +898,12 @@ function MenuItemLink({
       style={{ background: "#FFFFFF" }}
     >
       <div
-        className="mb-2 text-sm"
+        className="mb-2 text-[0.9rem]"
         style={{ color: NEAR_BLACK, fontWeight: 600 }}
       >
         {label}
       </div>
-      <p className="text-sm" style={{ color: MUTED, lineHeight: 1.7 }}>
+      <p className="text-[0.84rem]" style={{ color: MUTED, lineHeight: 1.7 }}>
         {description}
       </p>
     </Link>
@@ -963,12 +935,12 @@ function MobileMenuLink({
       onClick={onNavigate}
     >
       <div
-        className="mb-2 text-sm"
+        className="mb-2 text-[0.9rem]"
         style={{ color: active ? BLUE : NEAR_BLACK, fontWeight: 600 }}
       >
         {label}
       </div>
-      <p className="text-sm" style={{ color: MUTED, lineHeight: 1.65 }}>
+      <p className="text-[0.84rem]" style={{ color: MUTED, lineHeight: 1.65 }}>
         {description}
       </p>
     </Link>

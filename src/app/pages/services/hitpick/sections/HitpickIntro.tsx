@@ -1,7 +1,5 @@
-import { ArrowRight, BarChart3, Check, Plane, Search, ShoppingCart, Sparkles } from "lucide-react";
-import { Link } from "react-router";
+import {  BarChart3, Check, Plane, Search, ShoppingCart, Sparkles } from "lucide-react";
 import { useLanguage } from "../../../../context/LanguageContext";
-import { buildStartProjectHref } from "../../../../data/inquiryOptions";
 import { T } from "../constants";
 
 const STEP_ICONS = [Search, Sparkles, ShoppingCart, Plane, BarChart3];
@@ -20,10 +18,10 @@ export function HitpickIntro() {
           </div>
           <div className="hp-intro-copy">
             <p>{t.introDescription}</p>
-            <Link className="hp-button" to={buildStartProjectHref("hitpick", "global-expansion")}>
+            {/* <Link className="hp-button" to={buildStartProjectHref("hitpick", "global-expansion")}>
               {t.introCta}
               <ArrowRight size={18} aria-hidden="true" />
-            </Link>
+            </Link> */}
           </div>
         </div>
 

@@ -131,7 +131,7 @@ function getImagePosition(item: NewsItem) {
 
 function NewsImage({
   item,
-  showCredit = true,
+  // showCredit = true,
 }: {
   item: NewsItem;
   showCredit?: boolean;
@@ -162,14 +162,14 @@ function NewsImage({
           }}
         />
       </div>
-      {showCredit && item.imageCredit ? (
+      {/* {showCredit && item.imageCredit ? (
         <figcaption
-          className="mt-1.5 text-[0.6875rem] leading-4"
+          className="mt-1.5 text-[0.89375rem] leading-4"
           style={{ color: MUTED }}
         >
           {item.imageCredit}
         </figcaption>
-      ) : null}
+      ) : null} */}
     </figure>
   );
 }
@@ -275,15 +275,36 @@ export function ResourcesPage() {
 
   return (
     <div style={{ background: "#FFFFFF" }}>
-      <section style={{ borderBottom: `1px solid ${BORDER}` }}>
-        <PageContainer className="eruty-hero-section">
-          <PageHeading
-            eyebrow={t.badge}
-            title={t.heading}
-            description={t.description}
-            align="center"
-            lang={lang}
+      <section
+        className="relative overflow-hidden"
+        style={{ borderBottom: `1px solid ${BORDER}` }}
+      >
+        <div className="absolute inset-0" aria-hidden="true">
+          <img
+            src="/images/resources/resources-hero-visual.jpg"
+            alt=""
+            className="h-full w-full object-cover object-center"
+            fetchPriority="high"
           />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, #FFFFFF 0%, rgba(255,255,255,0.96) 30%, rgba(255,255,255,0.58) 53%, rgba(255,255,255,0.08) 72%)",
+            }}
+          />
+        </div>
+
+        <PageContainer className="eruty-hero-section relative">
+          <div className="relative z-10 max-w-[58%] sm:max-w-[54%] lg:max-w-[50%]">
+            <PageHeading
+              eyebrow={t.badge}
+              title={t.heading}
+              description={t.description}
+              align="left"
+              lang={lang}
+            />
+          </div>
         </PageContainer>
       </section>
 
@@ -331,7 +352,7 @@ export function ResourcesPage() {
                           {item.title}
                         </h4>
                         <p
-                          className="eruty-body-small mt-3 overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3]"
+                          className="eruty-body-small mt-3 overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:4]"
                           style={{ color: BODY_TEXT }}
                         >
                           {item.summary}

@@ -7,15 +7,15 @@ import { SceneImage } from "../components/SceneImage";
 
 type ProcessStep = (typeof PROCESS_STEPS)[number];
 
-function ProcessVisual({ step, lang, mobile = false }: { step: ProcessStep; lang: "ko" | "en"; mobile?: boolean }) {
+function ProcessVisual({ step, lang }: { step: ProcessStep; lang: "ko" | "en" }) {
   const reduceMotion = useReducedMotion();
 
   return (
-    <div className={mobile ? "er-process-mobile-visual" : "er-process-visual"}>
+    <div className="er-process-visual">
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           className={`er-process-frame er-process-frame-${step.number}`}
-          key={`${mobile ? "mobile" : "desktop"}-${step.number}`}
+          key={step.number}
           initial={reduceMotion ? false : { opacity: 0, scale: 0.985 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={reduceMotion ? undefined : { opacity: 0, scale: 1.01 }}
@@ -145,12 +145,14 @@ export const AXProcess = forwardRef<HTMLElement>(function AXProcess(_, forwarded
                 className="er-process-mobile-step"
                 id={`er-process-mobile-step-${index}`}
                 open={activeStep === index}
-                onToggle={(event) => {
-                  if (event.currentTarget.open) setActiveStep(index);
-                }}
                 key={step.number}
               >
-                <summary>
+                <summary
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setActiveStep(index);
+                  }}
+                >
                   <span>STEP {step.number}</span>
                   <strong>{step.title}</strong>
                 </summary>
@@ -166,8 +168,6 @@ export const AXProcess = forwardRef<HTMLElement>(function AXProcess(_, forwarded
               </details>
             ))}
           </div>
-
-          <ProcessVisual step={PROCESS_STEPS[activeStep]} lang={lang} mobile />
         </div>
       </div>
     </section>
