@@ -262,7 +262,7 @@
   .eruty-home-display,
   .eruty-page-title,
   .eruty-section-title {
-    margin: 0;
+    
     font-family: var(--font-display);
     font-weight: 800;
     letter-spacing: var(--eruty-title-letter-spacing);
@@ -300,7 +300,7 @@
 
   .eruty-subsection-title,
   .eruty-card-title {
-    margin: 0;
+    
     font-family: var(--font-display);
     font-weight: 700;
     word-break: keep-all;
@@ -322,7 +322,7 @@
 
   .eruty-body,
   .eruty-body-small {
-    margin: 0;
+    
     font-family: var(--font-body);
     word-break: keep-all;
     overflow-wrap: break-word;
@@ -340,7 +340,7 @@
   }
 
   .eruty-meta {
-    margin: 0;
+    
     font-family: var(--font-body);
     font-size: var(--eruty-meta-size);
     line-height: 1.5;
@@ -355,7 +355,7 @@
   }
 
   .eruty-metric-value {
-    margin: 0;
+    
     font-family: var(--font-display);
     font-weight: 800;
     line-height: 1;
@@ -364,7 +364,7 @@
   }
 
   .eruty-metric-label {
-    margin: 0;
+    
     font-family: var(--font-body);
     font-size: var(--eruty-body-small-size);
     font-weight: 600;
@@ -374,7 +374,7 @@
   }
 
   .eruty-page-lead {
-    margin: 0;
+    
     font-family: var(--font-body);
     font-size: var(--eruty-lead-size);
     line-height: var(--eruty-copy-line-height);

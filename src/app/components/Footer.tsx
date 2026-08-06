@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import { useLanguage } from "../context/LanguageContext";
 import erutyLogo from "../../assets/brand/eruty-logo.png";
 
@@ -98,23 +97,23 @@ const T = {
 };
 
 export function Footer() {
-  const { lang, setLang } = useLanguage();
+  const { lang } = useLanguage();
   const t = T[lang];
 
   return (
     <footer style={{ background: NEAR_BLACK }}>
       <div className="eruty-container pb-8 pt-16">
         {/* 상단 */}
-        <div className="grid grid-cols-12 gap-8 pb-14" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+        <div className="flex flex-col justify-between gap-8 pb-14 lg:flex-row" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
           {/* 브랜드 */}
-          <div className="col-span-12 lg:col-span-3">
+          <div >
             <div className="mb-5">
               <img src={erutyLogo} alt="eruty" style={{ height: 24, width: "auto", filter: "invert(1) brightness(2)" }} />
             </div>
-            <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.4)", lineHeight: 1.75, maxWidth: 220 }}>
+            <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.4)", lineHeight: 1.75,  }}>
               {t.tagline}
             </p>
-            <div className="flex items-center gap-3 text-xs" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-mono)" }}>
+            {/* <div className="flex items-center gap-3 text-xs" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-mono)" }}>
               <button
                 className="transition-colors"
                 style={{ color: lang === "ko" ? "#FFFFFF" : "rgba(255,255,255,0.3)", fontWeight: lang === "ko" ? 600 : 400, background: "transparent" }}
@@ -130,11 +129,11 @@ export function Footer() {
               >
                 English
               </button>
-            </div>
+            </div> */}
           </div>
 
           {/* 링크 */}
-          <div className="col-span-12 lg:col-span-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+          {/* <div className="col-span-12 lg:col-span-6 grid grid-cols-2 md:grid-cols-4 gap-8">
             {Object.entries(t.sections).map(([category, items]) => (
               <div key={category}>
                 <div className="text-xs mb-4 tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-mono)" }}>
@@ -157,13 +156,13 @@ export function Footer() {
                 </ul>
               </div>
             ))}
-          </div>
+          </div> */}
 
           {/* 연락처 */}
-          <div className="col-span-12 lg:col-span-3">
-            <div className="text-xs mb-4 tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-mono)" }}>
+          <div className="lg:max-w-[420px]">
+            {/* <div className="text-xs mb-4 tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-mono)" }}>
               {t.contact}
-            </div>
+            </div> */}
             <div className="flex flex-col gap-3 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
               <div>
                 <div className="text-xs mb-0.5" style={{ color: "rgba(255,255,255,0.2)", fontFamily: "var(--font-mono)" }}>{t.email}</div>
@@ -187,11 +186,11 @@ export function Footer() {
             {t.copyright}
           </div>
           {/* Policy pages not yet published — shown as disabled until live URLs are available */}
-          <div className="flex items-center gap-5 text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>
+          {/* <div className="flex items-center gap-5 text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>
             <span style={{ cursor: "default" }}>{t.privacy}</span>
             <span style={{ cursor: "default" }}>{t.terms}</span>
             <span style={{ cursor: "default" }}>{t.cookies}</span>
-          </div>
+          </div> */}
           <div className="text-xs" style={{ color: "rgba(255,255,255,0.15)", fontFamily: "var(--font-mono)" }}>
             {t.bottomTag}
           </div>

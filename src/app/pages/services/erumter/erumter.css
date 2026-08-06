@@ -29,7 +29,7 @@ main:has(.erumter-page) + footer > div {
 .erumter-page h2,
 .erumter-page h3,
 .erumter-page p {
-  margin: 0;
+  
 }
 
 .erumter-page h1,
@@ -607,7 +607,7 @@ main:has(.erumter-page) + footer > div {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 0;
+  
   padding: 0;
   list-style: none;
 }
@@ -1001,7 +1001,7 @@ main:has(.erumter-page) + footer > div {
 .er-compare-panel ol {
   display: grid;
   gap: 0;
-  margin: 0;
+  
   padding: 18px 30px 28px;
   list-style: none;
 }

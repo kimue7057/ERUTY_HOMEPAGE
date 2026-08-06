@@ -172,6 +172,7 @@ export function Header() {
   const mobilePanelRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<number | null>(null);
   const pointerMenuRef = useRef<DropdownMenuKey | null>(null);
+  const panelFocusRequestedRef = useRef(false);
   const [activeMenu, setActiveMenu] = useState<DropdownMenuKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSection, setMobileSection] =
@@ -243,10 +244,11 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    if (!activeMenu) {
+    if (!activeMenu || !panelFocusRequestedRef.current) {
       return undefined;
     }
 
+    panelFocusRequestedRef.current = false;
     const frame = window.requestAnimationFrame(() => {
       getFocusableElements(panelRef.current)[0]?.focus();
     });
@@ -310,8 +312,9 @@ export function Header() {
     closeTimerRef.current = window.setTimeout(() => setActiveMenu(null), 130);
   }
 
-  function openMenu(key: DropdownMenuKey) {
+  function openMenu(key: DropdownMenuKey, focusFirstItem = false) {
     cancelCloseTimer();
+    panelFocusRequestedRef.current = focusFirstItem;
     setActiveMenu(key);
   }
 
@@ -375,7 +378,7 @@ export function Header() {
                 }}
                 onFocus={() => {
                   if (pointerMenuRef.current !== item.key) {
-                    openMenu(item.key);
+                    openMenu(item.key, true);
                   }
                 }}
                 onClick={() => {
@@ -507,9 +510,8 @@ export function Header() {
                           <Link
                             key={panel.key}
                             to={panel.to}
-                            className="group relative flex h-full overflow-hidden transition-colors"
+                            className="group relative flex h-full overflow-hidden border border-[#E4E6EA] transition-colors hover:border-[#3737F2] focus-visible:border-[#3737F2] focus-visible:outline-none"
                             style={{
-                              border: `1px solid ${isActive ? BLUE : BORDER}`,
                               background: "#FFFFFF",
                             }}
                             aria-current={isActive ? "page" : undefined}
@@ -920,8 +922,8 @@ function MenuItemLink({
   return (
     <Link
       to={to}
-      className="border p-5 transition-colors"
-      style={{ borderColor: BORDER, background: "#FFFFFF" }}
+      className="border border-[#E4E6EA] p-5 transition-colors hover:border-[#3737F2] focus-visible:border-[#3737F2] focus-visible:outline-none"
+      style={{ background: "#FFFFFF" }}
     >
       <div
         className="mb-2 text-sm"

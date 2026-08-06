@@ -919,25 +919,14 @@ function GlobalActivitySection() {
 function BusinessFields() {
   const { lang } = useLanguage();
   const t = T[lang].business;
-  const [contentStep, setContentStep] = useState(0);
-  const [axStep, setAxStep] = useState(0);
   const [hoveredPanel, setHoveredPanel] = useState<"panelA" | "panelB" | null>(null);
   const [focusedPanel, setFocusedPanel] = useState<"panelA" | "panelB" | null>(null);
   const isPanelADark = hoveredPanel === "panelA" || focusedPanel === "panelA";
   const isPanelBDark = hoveredPanel === "panelB" || focusedPanel === "panelB";
 
-  useEffect(() => {
-    const t1 = setInterval(() => setContentStep((s) => (s + 1) % t.contentFlow.length), 2400);
-    const t2 = setInterval(() => setAxStep((s) => (s + 1) % t.axFlow.length), 2600);
-    return () => { clearInterval(t1); clearInterval(t2); };
-  }, [t.contentFlow.length, t.axFlow.length]);
-
-  const renderDesktopFlow = (steps: string[], activeStep: number, dark: boolean) => (
+  const renderDesktopFlow = (steps: string[], dark: boolean) => (
     <div className="hidden xl:grid gap-2.5" style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}>
-      {steps.map((step, i) => {
-        // const isActive = activeStep === i;
-
-        return (
+      {steps.map((step, i) => (
           <div key={step} className="relative min-w-0">
             {i < steps.length - 1 && (
               <span
@@ -969,41 +958,36 @@ function BusinessFields() {
               </div>
             </div>
           </div>
-        );
-      })}
+      ))}
     </div>
   );
 
-  const renderMobileFlow = (steps: string[], activeStep: number, dark: boolean) => (
-    <div className="xl:hidden space-y-2.5">
-      {steps.map((step, i) => {
-        const isActive = activeStep === i;
-
-        return (
+  const renderMobileFlow = (steps: string[], dark: boolean) => (
+    <div className="grid grid-cols-2 gap-2 xl:hidden">
+      {steps.map((step, i) => (
           <div
             key={step}
-            className="flex items-center gap-3 rounded-[6px] border px-3 py-3"
+            className="flex min-w-0 items-center gap-2 rounded-[6px] border px-2.5 py-2.5"
             style={{
-              background: isActive ? BLUE : dark ? "rgba(255,255,255,0.06)" : SOFT_BG,
-              borderColor: isActive ? BLUE : dark ? "rgba(255,255,255,0.1)" : BORDER,
-              color: isActive ? "#FFFFFF" : dark ? "rgba(255,255,255,0.86)" : BODY_TEXT,
+              background: dark ? "rgba(255,255,255,0.06)" : SOFT_BG,
+              borderColor: dark ? "rgba(255,255,255,0.1)" : BORDER,
+              color: dark ? "rgba(255,255,255,0.86)" : BODY_TEXT,
             }}
           >
             <span
               className="shrink-0 text-[11px]"
               style={{
                 fontFamily: "var(--font-mono)",
-                color: isActive ? "rgba(255,255,255,0.82)" : dark ? "rgba(255,255,255,0.42)" : MUTED,
+                color: dark ? "rgba(255,255,255,0.42)" : MUTED,
               }}
             >
               {String(i + 1).padStart(2, "0")}
             </span>
-            <span style={{ fontSize: "0.95rem", lineHeight: 1.5, fontWeight: 600, wordBreak: "keep-all", overflowWrap: "normal" }}>
+            <span style={{ fontSize: "0.84rem", lineHeight: 1.4, fontWeight: 600, wordBreak: "keep-all", overflowWrap: "normal" }}>
               {step}
             </span>
           </div>
-        );
-      })}
+      ))}
     </div>
   );
 
@@ -1015,7 +999,7 @@ function BusinessFields() {
         <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 xl:gap-6">
           {/* Panel A */}
           <div
-            className="relative flex flex-col overflow-hidden rounded-[6px] border p-7 sm:p-8 xl:min-h-[540px] xl:p-10"
+            className="relative flex flex-col overflow-hidden rounded-[6px] border p-5 sm:p-8 xl:min-h-[540px] xl:p-10"
             style={{
               background: isPanelADark ? NEAR_BLACK : "#FFFFFF",
               borderColor: isPanelADark ? NEAR_BLACK : BORDER,
@@ -1032,7 +1016,7 @@ function BusinessFields() {
             <div className="eruty-meta eruty-meta--code mb-3" style={{ color: BLUE, alignSelf: "flex-start" }}>
               {t.panelA.badge}
             </div>
-            <div className="mb-5" style={{ color: isPanelADark ? "#FFFFFF" : NEAR_BLACK, fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
+            <div className="mb-3 sm:mb-5" style={{ color: isPanelADark ? "#FFFFFF" : NEAR_BLACK, fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
               {t.panelA.service}
             </div>
             <h3
@@ -1054,7 +1038,7 @@ function BusinessFields() {
             >
               {t.panelA.desc}
             </p> */}
-            <div className="mt-5 mb-9 flex flex-wrap gap-2.5">
+            <div className="mb-6 mt-4 flex flex-wrap gap-2 sm:mb-9 sm:mt-5 sm:gap-2.5">
               {t.panelA.features.map((feature) => (
                 <span
                   key={feature}
@@ -1079,10 +1063,10 @@ function BusinessFields() {
               <div className="eruty-meta !mb-4" style={{ color: isPanelADark ? "rgba(255,255,255,0.5)" : MUTED, fontWeight: 600 }}>
                 {t.panelA.flowLabel}
               </div>
-              {renderDesktopFlow(t.contentFlow, contentStep, isPanelADark)}
-              {renderMobileFlow(t.contentFlow, contentStep, isPanelADark)}
+              {renderDesktopFlow(t.contentFlow, isPanelADark)}
+              {renderMobileFlow(t.contentFlow, isPanelADark)}
             </div>
-            <div className="mt-6 border-t pt-5" style={{ borderColor: isPanelADark ? "rgba(255,255,255,0.1)" : BORDER }}>
+            <div className="mt-4 border-t pt-4 sm:mt-6 sm:pt-5" style={{ borderColor: isPanelADark ? "rgba(255,255,255,0.1)" : BORDER }}>
               <Link
                 to={t.panelA.href}
                 className="inline-flex items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3737F2]"
@@ -1097,7 +1081,7 @@ function BusinessFields() {
 
           {/* Panel B */}
           <div
-            className="relative flex flex-col overflow-hidden rounded-[6px] border p-7 sm:p-8 xl:min-h-[540px] xl:p-10"
+            className="relative flex flex-col overflow-hidden rounded-[6px] border p-5 sm:p-8 xl:min-h-[540px] xl:p-10"
             style={{
               background: isPanelBDark ? NEAR_BLACK : "#FFFFFF",
               borderColor: isPanelBDark ? NEAR_BLACK : BORDER,
@@ -1114,7 +1098,7 @@ function BusinessFields() {
             <div className="eruty-meta eruty-meta--code mb-3" style={{ color: BLUE, alignSelf: "flex-start" }}>
               {t.panelB.badge}
             </div>
-            <div className="mb-5" style={{ color: isPanelBDark ? "#FFFFFF" : NEAR_BLACK, fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
+            <div className="mb-3 sm:mb-5" style={{ color: isPanelBDark ? "#FFFFFF" : NEAR_BLACK, fontSize: "clamp(1.125rem, 1.35vw, 1.375rem)", fontWeight: 700 }}>
               {t.panelB.service}
             </div>
             <h3
@@ -1136,7 +1120,7 @@ function BusinessFields() {
             >
               {t.panelB.desc}
             </p> */}
-            <div className="mt-5 mb-9 flex flex-wrap gap-2.5">
+            <div className="mb-6 mt-4 flex flex-wrap gap-2 sm:mb-9 sm:mt-5 sm:gap-2.5">
               {t.panelB.features.map((feature) => (
                 <span
                   key={feature}
@@ -1161,10 +1145,10 @@ function BusinessFields() {
               <div className="eruty-meta !mb-4" style={{ color: isPanelBDark ? "rgba(255,255,255,0.5)" : MUTED, fontWeight: 600 }}>
                 {t.panelB.flowLabel}
               </div>
-              {renderDesktopFlow(t.axFlow, axStep, isPanelBDark)}
-              {renderMobileFlow(t.axFlow, axStep, isPanelBDark)}
+              {renderDesktopFlow(t.axFlow, isPanelBDark)}
+              {renderMobileFlow(t.axFlow, isPanelBDark)}
             </div>
-            <div className="mt-6 border-t pt-5" style={{ borderColor: isPanelBDark ? "rgba(255,255,255,0.1)" : BORDER }}>
+            <div className="mt-4 border-t pt-4 sm:mt-6 sm:pt-5" style={{ borderColor: isPanelBDark ? "rgba(255,255,255,0.1)" : BORDER }}>
               <Link
                 to={t.panelB.href}
                 className="inline-flex items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3737F2]"
@@ -1229,11 +1213,11 @@ function TechnologySection() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-2 sm:gap-4">
             {t.cards.map((card) => (
               <div
                 key={card.number}
-                className="flex h-full min-h-[248px] flex-col rounded-[6px] border px-6 py-6 sm:px-7 sm:py-7 lg:min-h-[264px]"
+                className="flex h-full min-h-[220px] min-w-0 flex-col rounded-[6px] border px-4 py-4 sm:min-h-[248px] sm:px-7 sm:py-7 lg:min-h-[264px]"
                 style={{
                   background: "rgba(255,255,255,0.03)",
                   borderColor: "rgba(255,255,255,0.1)",
@@ -1255,17 +1239,16 @@ function TechnologySection() {
                   {card.title}
                 </h3>
                 <p
-                  className="eruty-body-small eruty-keep-all !mt-1"
+                  className="eruty-body-small eruty-keep-all !mt-1 whitespace-normal sm:whitespace-pre-line"
                   style={{
                     color: "rgba(255,255,255,0.72)",
-                    whiteSpace: "pre-line",
                     maxWidth: 330,
                   }}
                 >
                   {card.desc}
                 </p>
                 <div
-                  className={`eruty-meta !mt-auto pt-7 ${lang === "en" ? "eruty-meta--code" : ""}`}
+                  className={`eruty-meta !mt-3 min-h-[72px] pt-4 sm:min-h-[84px] sm:pt-7 ${lang === "en" ? "eruty-meta--code" : ""}`}
                   style={{
                     borderTop: "1px solid rgba(255,255,255,0.08)",
                     color: "rgba(255,255,255,0.42)",
@@ -1284,41 +1267,41 @@ function TechnologySection() {
 
 // ── 5. Final CTA ───────────────────────────────────────────────────────────────
 
-function FinalCTA() {
-  const { lang } = useLanguage();
-  const t = T[lang].cta;
+// function FinalCTA() {
+//   const { lang } = useLanguage();
+//   const t = T[lang].cta;
 
-  return (
-    <section className="eruty-section-compact" style={{ background: NEAR_BLACK }}>
-      <div className="mx-auto px-8" style={{ maxWidth: 1280 }}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2
-              className="eruty-section-title"
-              style={{ color: "#FFFFFF", whiteSpace: "pre-line" }}
-            >
-              {t.headline}
-            </h2>
-          </div>
-          <div>
-            <p className="eruty-body mb-10" style={{ color: "rgba(255,255,255,0.5)", whiteSpace: "pre-line" }}>
-              {t.desc}
-            </p>
-            <Link
-              to="/start-a-project"
-              className="inline-flex px-7 py-3.5 text-sm transition-all duration-200"
-              style={{ background: BLUE, color: "#FFFFFF", fontWeight: 500, borderRadius: 4 }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "#2828d4")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = BLUE)}
-            >
-              {t.button}
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+//   return (
+//     <section className="eruty-section-compact" style={{ background: NEAR_BLACK }}>
+//       <div className="mx-auto px-8" style={{ maxWidth: 1280 }}>
+//         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+//           <div>
+//             <h2
+//               className="eruty-section-title"
+//               style={{ color: "#FFFFFF", whiteSpace: "pre-line" }}
+//             >
+//               {t.headline}
+//             </h2>
+//           </div>
+//           <div>
+//             <p className="eruty-body mb-10" style={{ color: "rgba(255,255,255,0.5)", whiteSpace: "pre-line" }}>
+//               {t.desc}
+//             </p>
+//             <Link
+//               to="/start-a-project"
+//               className="inline-flex px-7 py-3.5 text-sm transition-all duration-200"
+//               style={{ background: BLUE, color: "#FFFFFF", fontWeight: 500, borderRadius: 4 }}
+//               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "#2828d4")}
+//               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = BLUE)}
+//             >
+//               {t.button}
+//             </Link>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
 
 export function HomePage() {
   return (

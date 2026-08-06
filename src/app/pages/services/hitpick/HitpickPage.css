@@ -52,7 +52,7 @@
 }
 
 .hp-display {
-  margin: 0;
+  
   color: #15171c;
   font-family: var(--font-display);
   font-size: var(--eruty-section-title-size);
@@ -185,7 +185,7 @@
 }
 
 .hp-hero-copy h1 {
-  margin: 0;
+  
   color: #fff;
   font-family: var(--font-display);
   font-size: var(--eruty-page-title-size);
@@ -499,7 +499,7 @@
 .hp-execution-card figure {
   position: relative;
   height: 340px;
-  margin: 0;
+  
   overflow: hidden;
   background: #e9edf3;
 }
@@ -548,7 +548,7 @@
 
 .hp-card-body > p {
   min-height: 82px;
-  margin: 0;
+  
   color: #656a74;
   font-size: var(--eruty-card-body-size);
   line-height: 1.72;
@@ -616,7 +616,7 @@
 }
 
 .hp-tech-heading h2 {
-  margin: 0;
+  
   color: #fff;
   font-family: var(--font-display);
   font-size: var(--eruty-section-title-size);
@@ -678,7 +678,7 @@
 }
 
 .hp-tech-flow p {
-  margin: 0;
+  
   color: rgba(255, 255, 255, 0.48);
   font-size: var(--eruty-body-small-size);
   line-height: 1.68;
@@ -726,7 +726,7 @@
 
 .hp-blockchain-copy h2 {
   max-width: 560px;
-  margin: 0;
+  
   color: #101d35;
   font-family: var(--font-display);
   font-size: var(--eruty-section-title-size);
@@ -946,7 +946,7 @@
 }
 
 .hp-trust-track h3 {
-  margin: 0;
+  
   color: #dce9ff;
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -955,7 +955,7 @@
 }
 
 .hp-trust-track-header p {
-  margin: 0;
+  
   color: rgba(217, 230, 249, 0.6);
   font-size: 0.7rem;
   line-height: 1.55;
@@ -1003,7 +1003,7 @@
 
 .hp-trust-steps {
   display: grid;
-  margin: 0;
+  
   padding: 0;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
@@ -1443,7 +1443,7 @@
 
 .hp-signal-overview {
   display: grid;
-  margin: 0;
+  
   grid-template-columns: repeat(5, minmax(0, 1fr));
   border-bottom: 1px solid #e2e5eb;
 }
@@ -1620,7 +1620,7 @@
 }
 
 .hp-network-board > p {
-  margin: 0;
+  
   padding: 17px 22px;
   color: #8a909a;
   font-size: 0.72rem;
@@ -1700,7 +1700,7 @@
 }
 
 .hp-metrics p {
-  margin: 0;
+  
   color: #7a808a;
   font-size: var(--eruty-body-small-size);
   line-height: 1.68;
