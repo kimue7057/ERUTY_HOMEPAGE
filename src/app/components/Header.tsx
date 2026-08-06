@@ -405,6 +405,7 @@ export function Header() {
             >
               <button
                 type="button"
+                className="cursor-pointer"
                 onClick={() => setLang("ko")}
                 style={{
                   background: "transparent",
@@ -417,6 +418,7 @@ export function Header() {
               <span style={{ color: "#C7CAD1" }}>/</span>
               <button
                 type="button"
+                className="cursor-pointer"
                 onClick={() => setLang("en")}
                 style={{
                   background: "transparent",
@@ -599,6 +601,7 @@ export function Header() {
                 <div className="flex items-center gap-2 text-[0.78rem]">
                   <button
                     type="button"
+                    className="cursor-pointer"
                     onClick={() => setLang("ko")}
                     style={{
                       background: "transparent",
@@ -611,6 +614,7 @@ export function Header() {
                   <span style={{ color: "#C7CAD1" }}>/</span>
                   <button
                     type="button"
+                    className="cursor-pointer"
                     onClick={() => setLang("en")}
                     style={{
                       background: "transparent",
